@@ -4,7 +4,10 @@ import routes from "../../shared/routes";
 import SignUpRoute from "./screens/SignUp/route";
 import SignInRoute from "./screens/SignIn/route";
 
+import UserIndexRoute from "./screens/User/route";
+
 export default {
   SIGN_UP: SignUpRoute,
   SIGN_IN: SignInRoute,
+  USER: UserIndexRoute,
 };
