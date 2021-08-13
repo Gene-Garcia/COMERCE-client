@@ -6,6 +6,7 @@ import {
   withRouter,
   Redirect,
 } from "react-router-dom";
+import PrivateRoute from "../../../shared/Route/PrivateRoute";
 
 // Route
 import route from "../route";
@@ -27,7 +28,11 @@ const AppContent = withRouter(({ location: { pathname } }) => {
       <Switch>
         <Route {...route.SIGN_UP} />
         <Route {...route.SIGN_IN} />
-        <Route {...route.USER} />
+        <PrivateRoute
+          path={route.USER.path}
+          component={route.USER.component}
+          exact={route.USER.exact}
+        />
         <Route>
           <h1>404</h1>
         </Route>

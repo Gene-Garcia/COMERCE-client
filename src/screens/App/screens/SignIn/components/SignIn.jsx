@@ -4,7 +4,7 @@ import axios from "../../../../../shared/caller";
 
 import "./SignIn.css";
 
-function SignIn() {
+function SignIn({ history }) {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -28,7 +28,11 @@ function SignIn() {
     await axios
       .post("/signin", values)
       .then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          // set local storage
+          localStorage.setItem("auth", res.data.token);
+          history.push("/user");
+        }
       })
       .catch((err) => {
         if (err.response) console.log(err.response.data);

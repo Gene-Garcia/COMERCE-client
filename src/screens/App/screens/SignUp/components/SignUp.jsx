@@ -4,7 +4,7 @@ import axios from "../../../../../shared/caller";
 
 import "./SignUp.css";
 
-function SignUp() {
+function SignUp({ history }) {
   const [values, setValues] = useState({
     email: "",
     username: "",
@@ -29,7 +29,10 @@ function SignUp() {
     await axios
       .post("/signup", values)
       .then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          //clear
+          history.push("/sign-in");
+        }
       })
       .catch((err) => {
         if (err.response) console.log(err.response.data);
