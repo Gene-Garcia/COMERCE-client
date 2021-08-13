@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../../../../../shared/caller";
 
 import "./SignIn.css";
 
 function SignIn() {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  function onInputChange(e) {
+    const {
+      target: { name, value },
+    } = e;
+
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+
+    SignInApi();
+  }
+
+  async function SignInApi() {
+    await axios
+      .post("/signin", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+        // else: was not able to connect to node
+      });
+  }
+
   return (
     <div id="signIn" className="page-content">
       <div className="only-content">
@@ -12,15 +44,31 @@ function SignIn() {
         </div>
 
         <div>
-          <input type="email" className="input" placeholder="Email" />
+          <input
+            type="email"
+            className="input"
+            placeholder="Email"
+            name="email"
+            value={values.email}
+            onChange={onInputChange}
+          />
         </div>
 
         <div>
-          <input type="password" className="input" placeholder="Password" />
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            name="password"
+            value={values.password}
+            onChange={onInputChange}
+          />
         </div>
 
         <div>
-          <input type="submit" className="submit-form" value="Login" />
+          <button type="submit" className="submit-form" onClick={submitForm}>
+            Login
+          </button>
           <Link to="/sign-up" className="sign-up-link">
             Don't have an account yet
           </Link>

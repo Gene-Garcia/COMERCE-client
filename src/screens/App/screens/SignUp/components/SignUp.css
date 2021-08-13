@@ -48,7 +48,7 @@ h2 {
   background-color: rgb(122, 21, 216);
 }
 
-.submit-form:focus {
+.submit-form:active {
   background-color: rgb(191, 123, 255);
   color: rgb(65, 4, 122);
 }
