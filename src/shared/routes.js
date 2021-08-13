@@ -9,6 +9,20 @@ const routes = {
     name: "Sign In",
   },
 
+  PASSWORD: {
+    subroutes: {
+      FORGOT_PASSWORD: {
+        path: "/password/forgot",
+        name: "Forgot Password",
+      },
+
+      RESET_PASSWORD: {
+        path: "/password/reset",
+        name: "Reset Password",
+      },
+    },
+  },
+
   USER: {
     path: "/user",
     name: "Index User",
@@ -23,13 +37,8 @@ const routes = {
         name: "Sign Out",
       },
 
-      FORGOT_PASSWORD: {
-        path: "/user/password/forgot",
-        name: "Forgot Password",
-      },
-
       CHANGE_PASSWORD: {
-        path: "/user/password/change",
+        path: "/user/change-password",
         name: "Change Password",
       },
     },

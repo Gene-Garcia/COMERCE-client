@@ -20,14 +20,23 @@ function Footer() {
 }
 
 const AppContent = withRouter(({ location: { pathname } }) => {
-  console.log(pathname);
+  const navles = [
+    "/sign-in",
+    "/sign-up",
+    "/password/forgot",
+    "/password/reset",
+  ];
+
   return (
     <>
-      <>{pathname !== "/sign-in" && pathname !== "/sign-up" && <Navbar />}</>
+      <>{!navles.includes(pathname) || (pathname.cont && <Navbar />)}</>
 
       <Switch>
         <Route {...route.SIGN_UP} />
         <Route {...route.SIGN_IN} />
+        <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
+        <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
+
         <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
@@ -38,7 +47,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         </Route>
       </Switch>
 
-      <>{pathname !== "/sign-in" && pathname !== "/sign-up" && <Footer />}</>
+      <>{!navles.includes(pathname) && <Footer />}</>
     </>
   );
 });
