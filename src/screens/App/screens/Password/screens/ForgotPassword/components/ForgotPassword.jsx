@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+import "./ForgotPassword.css";
 
 function ForgotPassword() {
-  return <h1>ForgotPassword</h1>;
+  const [values, setValues] = useState({ email: "" });
+
+  function onInputChange({ target: { name, value } }) {
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+  }
+
+  return (
+    <div id="forgotPassword" className="page-content">
+      <div className="only-content">
+        <div>
+          <h2>Forgot Password</h2>
+        </div>
+
+        <div>
+          <input
+            type="email"
+            className="input"
+            placeholder="Email"
+            name="email"
+            value={values.email}
+            onChange={onInputChange}
+          />
+        </div>
+
+        <div>
+          <button type="submit" className="submit-form" onClick={submitForm}>
+            Email Reset Token
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ForgotPassword;
