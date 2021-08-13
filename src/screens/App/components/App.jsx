@@ -29,7 +29,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 
   return (
     <>
-      <>{!navles.includes(pathname) || (pathname.cont && <Navbar />)}</>
+      <>{!navles.includes(pathname) && <Navbar />}</>
 
       <Switch>
         <Route {...route.SIGN_UP} />
@@ -41,6 +41,11 @@ const AppContent = withRouter(({ location: { pathname } }) => {
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
+        />
+        <PrivateRoute
+          path={route.USER.subroutes.CHANGE_PASSWORD.path}
+          component={route.USER.subroutes.CHANGE_PASSWORD.component}
+          exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         />
         <Route>
           <h1>404</h1>
