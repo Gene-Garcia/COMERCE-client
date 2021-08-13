@@ -7,5 +7,6 @@ export default axios.create({
 
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH",
   },
 });

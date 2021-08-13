@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../../../../../../../shared/caller";
 
 import "./ForgotPassword.css";
 
@@ -12,6 +13,19 @@ function ForgotPassword() {
 
   function submitForm(e) {
     e.preventDefault();
+
+    ForgotPasswordAPI();
+  }
+
+  async function ForgotPasswordAPI() {
+    await axios
+      .post("/user/password/forgot", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        if (err.response != undefined) console.log(err.response.data);
+      });
   }
 
   return (
