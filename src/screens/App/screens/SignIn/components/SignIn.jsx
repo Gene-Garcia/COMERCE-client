@@ -1,29 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
+import { useForm } from "../../../../../shared/Form/useForm";
 
 import "./SignIn.css";
 
 function SignIn({ history }) {
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
-
-  function onInputChange(e) {
-    const {
-      target: { name, value },
-    } = e;
-
-    setValues((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function submitForm(e) {
-    e.preventDefault();
-
-    SignInApi();
-  }
-
   async function SignInApi() {
     await axios
       .post("/signin", values)
@@ -35,10 +17,40 @@ function SignIn({ history }) {
         }
       })
       .catch((err) => {
-        if (err.response) console.log(err.response.data);
+        if (err.response) setReqErr(err.response.data);
+        else setReqErr("Something went wrong. Try again.");
         // else: was not able to connect to node
       });
   }
+
+  function validate(formData, setErrors) {
+    let tempErrs = { ...errors };
+
+    if ("email" in formData)
+      tempErrs.email =
+        formData.email === "" || formData.email === null
+          ? "Email is required"
+          : "";
+
+    if ("password" in formData)
+      tempErrs.password =
+        formData.password === "" || formData.password === null
+          ? "Password is required"
+          : "";
+
+    setErrors(tempErrs);
+  }
+
+  const initialState = { email: "", password: "" };
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    initialState,
+    initialState,
+    validate,
+    SignInApi
+  );
+
+  // state variable for API message
+  const [reqErr, setReqErr] = useState("");
 
   return (
     <div id="signIn" className="page-content">
@@ -48,14 +60,19 @@ function SignIn({ history }) {
         </div>
 
         <div>
+          <p>{reqErr}</p>
+        </div>
+
+        <div>
           <input
             type="email"
             className="input"
             placeholder="Email"
             name="email"
             value={values.email}
-            onChange={onInputChange}
+            onChange={handleInput}
           />
+          <label>{errors.email}</label>
         </div>
 
         <div>
@@ -65,12 +82,17 @@ function SignIn({ history }) {
             placeholder="Password"
             name="password"
             value={values.password}
-            onChange={onInputChange}
+            onChange={handleInput}
           />
+          <label>{errors.password}</label>
         </div>
 
         <div>
-          <button type="submit" className="submit-form" onClick={submitForm}>
+          <button
+            type="submit"
+            className="submit-form"
+            onClick={handleFormSubmit}
+          >
             Login
           </button>
           <Link to="/sign-up" className="sign-up-link">
