@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
 import { useForm } from "../../../../../shared/Form/useForm";
@@ -11,13 +11,15 @@ function SignIn({ history }) {
       .post("/signin", values)
       .then((res) => {
         if (res.status === 200) {
+          resetForms();
+
           // set local storage
           localStorage.setItem("auth", res.data.token);
           history.push("/user");
         }
       })
       .catch((err) => {
-        if (err.response) setReqErr(err.response.data);
+        if (err.response) setReqErr(err.response.data.error);
         else setReqErr("Something went wrong. Try again.");
         // else: was not able to connect to node
       });
@@ -42,7 +44,7 @@ function SignIn({ history }) {
   }
 
   const initialState = { email: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
+  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
     initialState,
     initialState,
     validate,

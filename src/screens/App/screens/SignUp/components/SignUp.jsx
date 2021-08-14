@@ -11,6 +11,8 @@ function SignUp({ history }) {
       .post("/signup", values)
       .then((res) => {
         if (res.status === 200) {
+          resetForms();
+
           //clear
           history.push("/sign-in");
         }
@@ -46,7 +48,7 @@ function SignUp({ history }) {
   }
 
   const initialState = { email: "", username: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
+  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
     initialState,
     initialState,
     validate,
