@@ -8,7 +8,7 @@ import "./SignIn.css";
 function SignIn({ history }) {
   async function SignInApi() {
     await axios
-      .post("/signin", values)
+      .post("/signin", values, { withCredentials: "true" })
       .then((res) => {
         if (res.status === 200) {
           resetForms();
