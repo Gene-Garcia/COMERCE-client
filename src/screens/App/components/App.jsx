@@ -6,7 +6,6 @@ import {
   withRouter,
   Redirect,
 } from "react-router-dom";
-import PrivateRoute from "../../../shared/Route/PrivateRoute";
 
 // Route
 import route from "../route";
