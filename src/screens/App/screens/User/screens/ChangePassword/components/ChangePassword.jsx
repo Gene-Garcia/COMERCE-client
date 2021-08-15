@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../shared/Form/useForm";
+import Loading from "../../../../../../../shared/Loading/Loading";
 
 import "./ChangePassword.css";
 
 function ChangePassword({ history }) {
+  const [loading, setLoading] = useState(true);
+
   // Validates if the user is logged in and has access to this site
   // Logic of validation highly depends on the backend
   useEffect(() => {
@@ -13,6 +16,7 @@ function ChangePassword({ history }) {
         .get("/user/validate")
         .then((res) => {
           console.log(res);
+          setLoading(false);
         })
         .catch((err) => {
           if (err.response === undefined || err.response.status === 401)
@@ -81,64 +85,68 @@ function ChangePassword({ history }) {
   // req message
   const [reqErr, setReqErr] = useState("");
 
-  return (
-    <div id="changePassword" className="page-content">
-      <div className="only-content">
-        <div>
-          <h2>Change Password</h2>
-        </div>
+  function Component() {
+    return (
+      <div id="changePassword" className="page-content">
+        <div className="only-content">
+          <div>
+            <h2>Change Password</h2>
+          </div>
 
-        <div>
-          <p>{reqErr}</p>
-        </div>
+          <div>
+            <p>{reqErr}</p>
+          </div>
 
-        <div>
-          <input
-            type="email"
-            className="input"
-            placeholder="Email"
-            name="email"
-            value={values.email}
-            onChange={handleInput}
-          />
-          <label>{errors.email}</label>
-        </div>
+          <div>
+            <input
+              type="email"
+              className="input"
+              placeholder="Email"
+              name="email"
+              value={values.email}
+              onChange={handleInput}
+            />
+            <label>{errors.email}</label>
+          </div>
 
-        <div>
-          <input
-            type="password"
-            className="input"
-            placeholder="Old Password"
-            name="oldPassword"
-            value={values.oldPassword}
-            onChange={handleInput}
-          />
-          <label>{errors.oldPassword}</label>
-        </div>
+          <div>
+            <input
+              type="password"
+              className="input"
+              placeholder="Old Password"
+              name="oldPassword"
+              value={values.oldPassword}
+              onChange={handleInput}
+            />
+            <label>{errors.oldPassword}</label>
+          </div>
 
-        <div>
-          <input
-            type="password"
-            className="input"
-            placeholder="New Password"
-            name="newPassword"
-            value={values.newPassword}
-            onChange={handleInput}
-          />
-          <label>{errors.newPassword}</label>
-        </div>
+          <div>
+            <input
+              type="password"
+              className="input"
+              placeholder="New Password"
+              name="newPassword"
+              value={values.newPassword}
+              onChange={handleInput}
+            />
+            <label>{errors.newPassword}</label>
+          </div>
 
-        <div>
-          <button
-            type="submit"
-            className="submit-form"
-            onClick={handleFormSubmit}
-          >
-            Change My Password
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="submit-form"
+              onClick={handleFormSubmit}
+            >
+              Change My Password
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{loading ? <Loading /> : <Component />}</>;
 }
 export default ChangePassword;

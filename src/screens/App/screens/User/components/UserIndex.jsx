@@ -1,16 +1,18 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
+import Loading from "../../../../../shared/Loading/Loading";
 
 function UserIndex({ history }) {
-  // Validates if the user is logged in and has access to this site
-  // Logic of validation highly depends on the backend
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function fetchData() {
       await axios
         .get("/user")
         .then((res) => {
           console.log(res);
+          setLoading(false);
         })
         .catch((err) => {
           if (err.response === undefined || err.response.status === 401)
@@ -22,16 +24,20 @@ function UserIndex({ history }) {
     fetchData();
   }, []);
 
-  return (
-    <>
-      <h1>User Index</h1>
+  function Component() {
+    return (
+      <>
+        <h1>User Index</h1>
 
-      <p>Welcome</p>
-      <br />
+        <p>Welcome</p>
+        <br />
 
-      <Link to="/user/change-password">Change Password</Link>
-    </>
-  );
+        <Link to="/user/change-password">Change Password</Link>
+      </>
+    );
+  }
+
+  return <>{loading ? <Loading /> : <Component />}</>;
 }
 
 export default UserIndex;
