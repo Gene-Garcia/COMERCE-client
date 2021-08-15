@@ -1,0 +1,10 @@
+#loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#loading .content {
+  height: fit-content;
+}
