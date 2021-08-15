@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../shared/Form/useForm";
 
 import "./ChangePassword.css";
 
 function ChangePassword({ history }) {
+  // Validates if the user is logged in and has access to this site
+  // Logic of validation highly depends on the backend
+  useEffect(() => {
+    async function fetchData() {
+      await axios
+        .get("/user/validate")
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          if (err.response === undefined || err.response.status === 401)
+            history.push("/sign-in");
+          else console.log(err.response.data.error);
+        });
+    }
+
+    fetchData();
+  }, []);
+
   async function ChangePasswordAPI() {
     await axios
       .post("/user/password/change", values, {

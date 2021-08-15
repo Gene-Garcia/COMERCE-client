@@ -37,7 +37,10 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
-        <PrivateRoute
+        <Route {...route.USER} />
+        <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+
+        {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
@@ -46,7 +49,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
           path={route.USER.subroutes.CHANGE_PASSWORD.path}
           component={route.USER.subroutes.CHANGE_PASSWORD.component}
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
-        />
+        /> */}
         <Route>
           <h1>404</h1>
         </Route>

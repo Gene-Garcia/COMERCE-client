@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
 import { useForm } from "../../../../../shared/Form/useForm";
@@ -8,13 +8,11 @@ import "./SignIn.css";
 function SignIn({ history }) {
   async function SignInApi() {
     await axios
-      .post("/signin", values, { withCredentials: "true" })
+      .post("/signin", values)
       .then((res) => {
         if (res.status === 200) {
           resetForms();
 
-          // set local storage
-          localStorage.setItem("auth", res.data.token);
           history.push("/user");
         }
       })
