@@ -6,19 +6,8 @@ import {
   withRouter,
   Redirect,
 } from "react-router-dom";
-
-// Route
 import route from "../route";
-
-function Navbar() {
-  return (
-    <div className="bg-my-contrast shadow-lg w-full p-5">
-      <p className="text-my-accent transition duration-200 hover:bg-my-dim hover:text-my-contrast">
-        App Bar
-      </p>
-    </div>
-  );
-}
+import Navbar from "./Navbar";
 
 function Footer() {
   return <h3>This is a Footer</h3>;
