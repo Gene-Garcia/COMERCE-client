@@ -19,6 +19,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
     "/sign-up",
     "/password/forgot",
     "/password/reset",
+    "/",
   ];
 
   return (

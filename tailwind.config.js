@@ -15,8 +15,12 @@ module.exports = {
   },
   variants: {
     extend: {
+      borderWidth: ["hover"],
+      borderOpacity: ["hover"],
       display: ["group-hover"],
       textColor: ["active"],
+      transitionDuration: ["hover"],
+      transitionProperty: ["hover"],
     },
   },
   plugins: [],
