@@ -26,6 +26,11 @@ const AppContent = withRouter(({ location: { pathname } }) => {
       <>{!navles.includes(pathname) && <Navbar />}</>
 
       <Switch>
+        <Route {...route.HOME} />
+
+        <Route {...route.CATALOGUE} />
+        <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
+
         <Route {...route.SIGN_UP} />
         <Route {...route.SIGN_IN} />
         <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />

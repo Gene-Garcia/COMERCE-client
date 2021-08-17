@@ -5,7 +5,7 @@ function Search() {
     <div className="inline-flex rounded-md border border-grey-300 focus-within:border focus-within:border-my-accent">
       <div className="">
         <input
-          class="w-full rounded-md py-1.5 px-3 text-gray-700 leading-tight bg-my-contrast focus:outline-none h-full"
+          className="w-full rounded-md py-1.5 px-3 text-gray-700 leading-tight bg-my-contrast focus:outline-none h-full"
           type="text"
           placeholder=""
         />
