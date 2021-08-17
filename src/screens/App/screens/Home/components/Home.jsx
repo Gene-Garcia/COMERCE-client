@@ -3,9 +3,9 @@ import iconLogo from "../../../../../shared/images/comerce-logo-white.webp";
 
 function Home() {
   return (
-    <div className="flex w-full bg-gradient-to-t from-my-accent to-my-accent-mono  px-16">
+    <div className="flex w-full flex-wrap bg-gradient-to-t from-my-accent to-my-accent-mono px-6  sm:px-16">
       {/* logo */}
-      <div className="flex items-center py-16">
+      <div className="flex items-center py-16 mx-auto lg:mx-0">
         <div>
           <img src={iconLogo} width="180" />
         </div>
@@ -16,19 +16,19 @@ function Home() {
 
       {/* links actions */}
       <div className="ml-auto py-9">
-        <div className="flex justify-end space-x-16">
+        <div className="flex justify-end j flex-wrap sm:flex-nowrap space-x-6 lg:space-x-16 gap-y-8">
           {/* catalogue link */}
-          <div>
+          <div className="flex-shrink place-self-center">
             <a
               href="#"
-              className="font-sans text-lg mb-0 font-semibold text-my-contrast transition duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast"
+              className="font-sans text-lg mb-0 font-semibold text-my-contrast transition ml-8 sm:ml-0 duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast"
             >
               Product Catalogue
             </a>
           </div>
 
           {/* search */}
-          <div className="inline-flex rounded-md border border-grey-500 border-opacity-50">
+          <div className="inline-flex flex-shrink h-10 order-first sm:order-none place-self-center rounded-md border border-grey-500 border-opacity-50">
             <div className="">
               <input
                 className="w-full rounded-md py-1.5 px-3 font-medium text-my-contrast leading-tight bg-my-accent focus:outline-none h-full"
@@ -57,17 +57,17 @@ function Home() {
           </div>
 
           {/* account */}
-          <div className="space-x-3">
-            <button className="transition font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-full border border-transparent hover:border hover:border-opacity-50 hover:border-my-contrast">
+          <div className="space-x-3 flex flex-shrink-0">
+            <button className="transition place-self-center font-sans h-10 font-medium text-base text-my-contrast px-3.5 py-1 rounded-full border border-transparent hover:border hover:border-opacity-50 hover:border-my-contrast">
               Login
             </button>
-            <button className="transition font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-full border border-my-contrast hover:bg-gray-50 hover:text-my-accent">
+            <button className="transition place-self-center font-sans h-10 font-medium text-base text-my-contrast px-4 py-1 rounded-full border border-my-contrast hover:bg-gray-50 hover:text-my-accent">
               Sign Up
             </button>
           </div>
 
           {/* cart */}
-          <div className="flex items-center group">
+          <div className="flex items-center group flex-0 sm:flex-1">
             <div className="text-my-contrast group-hover:text-my-dim font-semibold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
