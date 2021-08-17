@@ -1,4 +1,20 @@
 const routes = {
+  HOME: {
+    path: "/",
+    name: "Home",
+  },
+
+  CATALOGUE: {
+    path: "/catalogue",
+    name: "Catalogue",
+    subroutes: {
+      PRODUCT_SHOWCASE: {
+        path: "/catalogue/item/:product",
+        name: "Product Showcase",
+      },
+    },
+  },
+
   SIGN_UP: {
     path: "/sign-up",
     name: "Sign Up",
