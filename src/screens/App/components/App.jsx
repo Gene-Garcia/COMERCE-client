@@ -11,7 +11,13 @@ import {
 import route from "../route";
 
 function Navbar() {
-  return <h3>This is a navbar</h3>;
+  return (
+    <div className="bg-my-contrast shadow-lg w-full p-5">
+      <p className="text-my-accent transition duration-200 hover:bg-my-dim hover:text-my-contrast">
+        App Bar
+      </p>
+    </div>
+  );
 }
 
 function Footer() {
