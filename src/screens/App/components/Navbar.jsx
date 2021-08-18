@@ -10,7 +10,7 @@ function Navbar() {
       {/* logo */}
       <div className="flex flex-col sm:flex-row items-center flex-grow ">
         <div className="place-self-center">
-          <img src={iconLogo} width="50" />
+          <img src={iconLogo} alt="comerce-logo" width="50" />
         </div>
 
         <div className="ml-0 sm:ml-3 ">

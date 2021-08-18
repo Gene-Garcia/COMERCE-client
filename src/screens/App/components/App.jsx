@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   withRouter,
-  Redirect,
 } from "react-router-dom";
 import route from "../route";
 import Navbar from "./Navbar";

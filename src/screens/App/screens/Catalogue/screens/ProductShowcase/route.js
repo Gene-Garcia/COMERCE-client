@@ -1,8 +1,10 @@
 import routes from "../../../../../../shared/routes";
 import Showcase from "./index";
 
-export default {
+const route = {
   path: routes.CATALOGUE.subroutes.PRODUCT_SHOWCASE.path,
   component: Showcase,
   exact: true,
 };
+
+export default route;

@@ -3,7 +3,7 @@ import Catalogue from "./index";
 
 import ShowcaseRoute from "./screens/ProductShowcase/route";
 
-export default {
+const route = {
   path: routes.CATALOGUE.path,
   component: Catalogue,
   exact: true,
@@ -11,3 +11,5 @@ export default {
     PRODUCT_SHOWCASE: ShowcaseRoute,
   },
 };
+
+export default route;

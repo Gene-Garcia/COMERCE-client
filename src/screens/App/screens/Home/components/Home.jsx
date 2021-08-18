@@ -7,7 +7,7 @@ function Home() {
       {/* logo */}
       <div className="flex items-center py-16 mx-auto lg:mx-0">
         <div>
-          <img src={iconLogo} width="180" />
+          <img src={iconLogo} alt="comerce-logo" width="180" />
         </div>
         <div className="font-mono font-bold text-4xl tracking-widest text-my-contrast ml-8">
           COMERCE
@@ -19,10 +19,7 @@ function Home() {
         <div className="flex justify-end j flex-wrap sm:flex-nowrap space-x-6 lg:space-x-16 gap-y-8">
           {/* catalogue link */}
           <div className="flex-shrink place-self-center">
-            <a
-              href="#"
-              className="font-sans text-lg mb-0 font-semibold text-my-contrast transition ml-8 sm:ml-0 duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast"
-            >
+            <a className="font-sans text-lg mb-0 font-semibold text-my-contrast transition ml-8 sm:ml-0 duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast">
               Product Catalogue
             </a>
           </div>

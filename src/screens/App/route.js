@@ -1,5 +1,3 @@
-import routes from "../../shared/routes";
-
 // components' route
 import HomeRoute from "./screens/Home/route";
 import CatalogueRoute from "./screens/Catalogue/route";
@@ -10,7 +8,7 @@ import PasswordRoute from "./screens/Password/route";
 
 import UserIndexRoute from "./screens/User/route";
 
-export default {
+const route = {
   HOME: HomeRoute,
   CATALOGUE: CatalogueRoute,
   CatalogueRoute,
@@ -19,3 +17,5 @@ export default {
   USER: UserIndexRoute,
   PASSWORD: PasswordRoute,
 };
+
+export default route;

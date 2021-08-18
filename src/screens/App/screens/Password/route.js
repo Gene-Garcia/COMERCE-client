@@ -2,7 +2,7 @@
 import ForgotPasswordRoute from "./screens/ForgotPassword/route";
 import ResetPasswordRoute from "./screens/ResetPassword/route";
 
-export default {
+const route = {
   path: undefined,
   component: undefined,
   subroutes: {
@@ -10,3 +10,5 @@ export default {
     RESET_PASSWORD: ResetPasswordRoute,
   },
 };
+
+export default route;
