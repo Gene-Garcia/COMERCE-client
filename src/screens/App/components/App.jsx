@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import route from "../route";
 import Navbar from "./Navbar";
+import axios from "../../../shared/caller";
 
 function Footer() {
   return <h3>This is a Footer</h3>;
@@ -61,6 +62,25 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 });
 
 function App() {
+  // itiate X-CSRF-TOKEN
+  useEffect(() => {
+    async function fetchCookieProtection() {
+      await axios
+        .get("/cs")
+        .then((res) => {
+          console.log(res.data.csrfToken);
+          axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
+        })
+        .catch((err) =>
+          console.log(
+            "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
+          )
+        );
+    }
+
+    fetchCookieProtection();
+  }, []);
+
   return (
     <Router>
       <AppContent />

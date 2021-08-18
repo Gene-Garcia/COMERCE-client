@@ -2,7 +2,8 @@
 // other library for api calls
 
 import axios from "axios";
-export default axios.create({
+
+axios.create({
   baseURL: "http://localhost:3001",
   withCredentials: "true",
   headers: {
@@ -11,3 +12,5 @@ export default axios.create({
     "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH",
   },
 });
+
+export default axios;

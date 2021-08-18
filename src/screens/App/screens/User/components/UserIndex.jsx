@@ -15,6 +15,7 @@ function UserIndex({ history }) {
           setLoading(false);
         })
         .catch((err) => {
+          console.log(err.response);
           if (err.response === undefined || err.response.status === 401)
             history.push("/sign-in");
           else console.log(err.response.data.error);
