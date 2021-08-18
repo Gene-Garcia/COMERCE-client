@@ -6,40 +6,48 @@ import Cart from "./Cart.Nav";
 
 function Navbar() {
   return (
-    <div className="w-full bg-my-contrast flex items-center justify-start px-5 py-5 shadow-lg ">
+    <div className="w-full bg-my-contrast flex items-center p-2 sm:p-5 shadow-lg ">
       {/* logo */}
-      <div className="flex justify-start items-center">
-        <div className="">
+      <div className="flex flex-col sm:flex-row items-center flex-grow ">
+        <div className="place-self-center">
           <img src={iconLogo} width="50" />
         </div>
 
-        <div className="ml-3">
-          <p className="font-mono text-2xl font-bold tracking-widest text-my-dim">
+        <div className="ml-0 sm:ml-3 ">
+          <p className="font-mono text-2xl font-bold tracking-widest text-my-dim text-opacity-80">
             COMERCE
           </p>
         </div>
       </div>
 
       {/* links */}
-      <div className="ml-auto flex space-x-6 text-my-dim">
-        {/* search */}
-        <Search />
+      <div className="justify-self-end text-my-dim flex-grow-0 place-self-end md:mt-2.5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-4 md:gap-y-0 self-center">
+          {/* search */}
+          <div className="place-self-end col-span-2 sm:col-span-4 md:col-span-3 w-full">
+            <Search />
+          </div>
 
-        {/* account dropdown */}
-        <Dropdown />
+          {/* account */}
+          <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-3 md:col-span-2 pb-1 sm:pb-0">
+            {/* account dropdown */}
+            {/* <Dropdown /> */}
 
-        {/* account */}
-        <div className="space-x-3">
-          <button className="transition bg-my-contrast font-sans font-medium text-base text-my-accent  px-3.5 py-1 rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast">
-            Login
-          </button>
-          <button className="transition bg-my-accent font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-md border border-my-accent hover:border-my-accent-mono hover:bg-my-accent-mono">
-            Sign Up
-          </button>
+            <div className="space-x-4">
+              <button className="transition bg-my-contrast font-sans font-medium text-base text-my-accent  px-3.5 py-1 rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast">
+                Login
+              </button>
+              <button className="transition bg-my-accent font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-md border border-my-accent hover:border-my-accent-mono hover:bg-my-accent-mono">
+                Sign Up
+              </button>
+            </div>
+          </div>
+
+          {/* cart */}
+          <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-1 md:col-span-1">
+            <Cart />
+          </div>
         </div>
-
-        {/* cart */}
-        <Cart />
       </div>
     </div>
   );

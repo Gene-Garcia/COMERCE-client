@@ -2,7 +2,7 @@ import React from "react";
 
 function Cart() {
   return (
-    <div className="flex items-center group">
+    <div className="inline-flex place-self-center self-center items-center group">
       <div className="group-hover:text-my-accent font-semibold">
         <svg
           xmlns="http://www.w3.org/2000/svg"

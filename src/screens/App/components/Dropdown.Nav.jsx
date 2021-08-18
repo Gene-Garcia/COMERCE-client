@@ -13,7 +13,7 @@ function Dropdown() {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
         </svg>
       </button>
-      <ul className="dropdown-menu shadow-xl bg-my-contrast rounded border border-gray-200 absolute hidden  text-gray-500 group-hover:block">
+      <ul className="dropdown-menu shadow-xl bg-my-contrast rounded border border-gray-200 absolute right-0  hidden text-gray-500 group-hover:block">
         <li className="px-4 pt-2">
           <p className="text-sm font-semibold w-full">Signed in as</p>
           <p className="text-base font-semibold text-gray-600">
