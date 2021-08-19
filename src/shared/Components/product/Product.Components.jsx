@@ -52,7 +52,7 @@ function ProductRating() {
         </div>
       </div>
 
-      <div className="float-right">
+      <div className="">
         <p className="text-gray-500 text-xs font-medium">401 ratings</p>
       </div>
     </div>
@@ -78,7 +78,7 @@ function ProductPurchase() {
         <span className="font-medium text-my-dim text-sm">Add to Cart</span>
       </button>
       <button className="font-medium text-my-contrast text-sm bg-my-accent py-1 px-3 rounded-md hover:bg-my-accent-mono">
-        BUY NOW
+        Buy Now
       </button>
     </div>
   );

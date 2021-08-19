@@ -1,4 +1,5 @@
 import React from "react";
+import ProductHalf from "../../../../../shared/Components/product/Product.Half";
 import ProductLong from "../../../../../shared/Components/product/Product.Long";
 import HomeNav from "./Home.Nav";
 
@@ -7,8 +8,10 @@ function Home() {
     <>
       <HomeNav />
 
-      <div className="flex justify-center">
+      <div className="flex flex-col items-center justify-center">
         <ProductLong />
+        <br />
+        <ProductHalf />
       </div>
     </>
   );
