@@ -1,8 +1,8 @@
 import React from "react";
 import iconLogo from "../../../shared/images/comerce-logo-blue.webp";
-import Search from "./Search.Nav";
-import Dropdown from "./Dropdown.Nav";
-import Cart from "./Cart.Nav";
+import Search from "../../../shared/Components/Navigation/Search.Nav";
+import Dropdown from "../../../shared/Components/Navigation/Dropdown.Nav";
+import Cart from "../../../shared/Components/Navigation/Cart.Nav";
 
 function Navbar() {
   return (
@@ -30,17 +30,7 @@ function Navbar() {
 
           {/* account */}
           <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-3 md:col-span-2 pb-1 sm:pb-0">
-            {/* account dropdown */}
-            {/* <Dropdown /> */}
-
-            <div className="space-x-4">
-              <button className="transition bg-my-contrast font-sans font-medium text-base text-my-accent  px-3.5 py-1 rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast">
-                Login
-              </button>
-              <button className="transition bg-my-accent font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-md border border-my-accent hover:border-my-accent-mono hover:bg-my-accent-mono">
-                Sign Up
-              </button>
-            </div>
+            <Dropdown />
           </div>
 
           {/* cart */}

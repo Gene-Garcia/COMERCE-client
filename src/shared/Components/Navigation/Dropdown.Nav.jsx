@@ -1,6 +1,34 @@
 import React from "react";
 
-function Dropdown() {
+function AuthForContrast() {
+  // global nav
+  return (
+    <div className="space-x-3">
+      <button className="transition bg-my-contrast font-sans font-medium text-base text-my-accent  px-3.5 py-1 rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast">
+        Login
+      </button>
+      <button className="transition bg-my-accent font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-md border border-my-accent hover:border-my-accent-mono hover:bg-my-accent-mono">
+        Sign Up
+      </button>
+    </div>
+  );
+}
+
+function AuthForAccent() {
+  // home
+  return (
+    <div className="space-x-3">
+      <button className="transition font-sans h-10 font-medium text-base text-my-contrast px-3.5 py-1 rounded-full border border-transparent hover:border hover:border-opacity-50 hover:border-my-contrast">
+        Login
+      </button>
+      <button className="transition font-sans h-10 font-medium text-base text-my-contrast px-4 py-1 rounded-full border border-my-contrast hover:bg-gray-50 hover:text-my-accent">
+        Sign Up
+      </button>
+    </div>
+  );
+}
+
+function AuthenticatedForContrast() {
   return (
     <div className="self-center group ropdown inline-block relative px-3">
       <button className="text-my-accent font-semibold inline-flex items-center">
@@ -122,6 +150,12 @@ function Dropdown() {
       </ul>
     </div>
   );
+}
+
+function AuthenticatedForAccent() {}
+
+function Dropdown() {
+  return <AuthForAccent />;
 }
 
 export default Dropdown;
