@@ -1,37 +1,43 @@
 import React from "react";
 
-function AuthForContrast() {
-  // global nav
+function UnAuthenticated({ bgType }) {
+  const base = "transition font-sans h-9 font-semibold text-base px-4 ";
+  const themes = {
+    accent: {
+      login:
+        "text-my-contrast rounded-full border border-transparent hover:border hover:border-my-contrast",
+      signUp:
+        "text-my-contrast rounded-full border border-my-contrast hover:bg-my-contrast hover:text-my-accent",
+    },
+    contrast: {
+      login:
+        "text-my-accent rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast",
+      signUp:
+        "text-my-contrast bg-my-accent rounded-md border border-my-accent hover:bg-my-accent-mono",
+    },
+  };
+
   return (
     <div className="space-x-3">
-      <button className="transition bg-my-contrast font-sans font-medium text-base text-my-accent  px-3.5 py-1 rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast">
-        Login
-      </button>
-      <button className="transition bg-my-accent font-sans font-medium text-base text-my-contrast px-3.5 py-1 rounded-md border border-my-accent hover:border-my-accent-mono hover:bg-my-accent-mono">
-        Sign Up
-      </button>
+      <button className={`${base} ${themes[bgType].login}`}>Login</button>
+      <button className={`${base} ${themes[bgType].signUp}`}>Sign Up</button>
     </div>
   );
 }
 
-function AuthForAccent() {
-  // home
-  return (
-    <div className="space-x-3">
-      <button className="transition font-sans h-10 font-medium text-base text-my-contrast px-3.5 py-1 rounded-full border border-transparent hover:border hover:border-opacity-50 hover:border-my-contrast">
-        Login
-      </button>
-      <button className="transition font-sans h-10 font-medium text-base text-my-contrast px-4 py-1 rounded-full border border-my-contrast hover:bg-gray-50 hover:text-my-accent">
-        Sign Up
-      </button>
-    </div>
-  );
-}
+function Authenticated({ bgType }) {
+  const color = "text-my-contrast";
 
-function AuthenticatedForContrast() {
+  const themes = {
+    accent: "text-my-contrast",
+    contrast: "text-my-accent",
+  };
+
   return (
     <div className="self-center group ropdown inline-block relative px-3">
-      <button className="text-my-accent font-semibold inline-flex items-center">
+      <button
+        className={`${themes[bgType]} font-semibold inline-flex items-center`}
+      >
         <span className="mr-1">JohnDoe</span>
         <svg
           className="fill-current h-4 w-4 font-bold"
@@ -41,7 +47,7 @@ function AuthenticatedForContrast() {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
         </svg>
       </button>
-      <ul className="dropdown-menu shadow-xl bg-my-contrast rounded border border-gray-200 absolute right-0  hidden text-gray-500 group-hover:block">
+      <ul className="dropdown-menu shadow-xl bg-my-contrast rounded border border-gray-200 absolute right-0 mt-3  hidden text-gray-500 group-hover:block">
         <li className="px-4 pt-2">
           <p className="text-sm font-semibold w-full">Signed in as</p>
           <p className="text-base font-semibold text-gray-600">
@@ -152,10 +158,8 @@ function AuthenticatedForContrast() {
   );
 }
 
-function AuthenticatedForAccent() {}
-
-function Dropdown() {
-  return <AuthForAccent />;
+function Dropdown({ bgType }) {
+  return <Authenticated bgType={bgType} />;
 }
 
 export default Dropdown;

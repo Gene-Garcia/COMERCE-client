@@ -2,7 +2,7 @@ import React from "react";
 
 function Search() {
   return (
-    <div className="inline-flex rounded-md place-self-center border border-grey-300 focus-within:border focus-within:border-my-accent w-full">
+    <div className="inline-flex rounded-md bg-my-contrast place-self-center border border-grey-300 focus-within:border focus-within:border-my-accent w-full">
       <div className=" w-full">
         <input
           className="w-full rounded-md py-1.5 px-3 text-gray-700 leading-tight bg-my-contrast focus:outline-none h-full"

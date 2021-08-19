@@ -6,9 +6,9 @@ import iconLogo from "../../../../../shared/images/comerce-logo-white.webp";
 
 function Home() {
   return (
-    <div className="flex justify-center lg:justify-between flex-wrap w-full bg-gradient-to-t from-my-accent to-my-accent-mono px-16">
+    <div className="flex justify-between flex-wrap w-full bg-gradient-to-t from-my-accent to-my-accent-mono px-16">
       {/* logo */}
-      <div className=" py-16 ">
+      <div className="mx-auto md:mx-0 py-16 ">
         <div className="inline-flex space-x-8">
           <div>
             <img src={iconLogo} alt="comerce-logo" width="180" />
@@ -36,12 +36,12 @@ function Home() {
 
           {/* account */}
           <div className="flex-shrink-0">
-            <Dropdown />
+            <Dropdown bgType="accent" />
           </div>
 
           {/* cart */}
           <div className="">
-            <Cart />
+            <Cart bgType="accent" />
           </div>
         </div>
       </div>

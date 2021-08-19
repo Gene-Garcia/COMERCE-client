@@ -30,12 +30,12 @@ function Navbar() {
 
           {/* account */}
           <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-3 md:col-span-2 pb-1 sm:pb-0">
-            <Dropdown />
+            <Dropdown bgType="contrast" />
           </div>
 
           {/* cart */}
           <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-1 md:col-span-1">
-            <Cart />
+            <Cart bgType="contrast" />
           </div>
         </div>
       </div>

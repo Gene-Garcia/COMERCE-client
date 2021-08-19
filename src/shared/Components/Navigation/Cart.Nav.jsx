@@ -1,9 +1,20 @@
 import React from "react";
 
-function Cart() {
+function Cart({ bgType }) {
+  const themes = {
+    accent: {
+      svg: "text-my-contrast group-hover:text-my-dim",
+      text: "text-my-contrast",
+    },
+    contrast: {
+      svg: "text-my-dim group-hover:text-my-accent",
+      text: "text-my-dim",
+    },
+  };
+
   return (
     <div className="inline-flex place-self-center self-center items-center group">
-      <div className="group-hover:text-my-accent font-semibold">
+      <div className={`${themes[bgType].svg} font-semibold`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -19,7 +30,9 @@ function Cart() {
           />
         </svg>
       </div>
-      <div className="ml-1.5 text-lg font-semibold">5</div>
+      <div className={`ml-1.5 text-lg ${themes[bgType].text} font-semibold`}>
+        5
+      </div>
     </div>
   );
 }
