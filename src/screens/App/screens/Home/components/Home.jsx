@@ -1,4 +1,5 @@
 import React from "react";
+import ProductFocused from "../../../../../shared/Components/product/Product.Focused";
 import ProductHalf from "../../../../../shared/Components/product/Product.Half";
 import ProductLong from "../../../../../shared/Components/product/Product.Long";
 import ProductSmall from "../../../../../shared/Components/product/Product.Small";
@@ -15,6 +16,8 @@ function Home() {
         <ProductHalf />
         <br />
         <ProductSmall />
+        <br />
+        <ProductFocused />
       </div>
     </>
   );
