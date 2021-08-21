@@ -9,7 +9,7 @@ import {
 
 function ProductSmall() {
   return (
-    <div className="flex flex-col w-1/6 rounded-md shadow-md">
+    <div className="flex flex-col min-w-1/5 rounded-md shadow-md">
       {/* image */}
       <div className="">
         <img
