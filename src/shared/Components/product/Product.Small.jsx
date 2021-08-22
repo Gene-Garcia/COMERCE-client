@@ -9,9 +9,9 @@ import {
 
 function ProductSmall() {
   return (
-    <div className="flex flex-col min-w-1/5 rounded-md shadow-md">
+    <div className="flex flex-col w-full max-w-xs rounded-md shadow-md">
       {/* image */}
-      <div className="">
+      <div className="w-full">
         <img
           src="https://cdn.opstatics.com/store/20170907/assets/images/events/2021/03/watches/en/us/1920/kv/kv-1.png"
           alt="smart-watch"
@@ -21,7 +21,7 @@ function ProductSmall() {
 
       {/* details and desc */}
       <div className="p-4 flex flex-col justify-evenly gap-y-7">
-        <div className="flex justify-between">
+        <div className="flex flex-wrap justify-between">
           <ProductName name="smartwatch" />
           <ProductPrice price="13,999.99" />
         </div>

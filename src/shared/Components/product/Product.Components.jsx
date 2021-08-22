@@ -65,7 +65,7 @@ function ProductDescription({ desc }) {
 
 function ProductPurchase() {
   return (
-    <div className="flex gap-x-5">
+    <div className="flex flex-wrap gap-y-3 gap-x-5">
       <button className="group transition inline-flex items-center gap-x-2 font-sans py-1 px-2 rounded-md border border-transparent hover:border hover:border-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"

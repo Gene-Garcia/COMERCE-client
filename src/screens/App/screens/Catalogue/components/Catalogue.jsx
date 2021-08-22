@@ -18,8 +18,8 @@ function Catalogue() {
         </span>
       </div>
 
-      <div className="flex gap-y-12 my-12 mx-28">
-        <div className="w-52 flex flex-col gap-y-10">
+      <div className="flex flex-wrap sm:flex-nowrap my-12 mx-3 lg:mx-10 xl:mx-16 2xl:mx-28 gap-y-5 sm:gap-y-0">
+        <div className="w-full sm:w-52 flex flex-wrap flex-row sm:flex-col gap-y-10 justify-center sm:justify-start">
           <div className="flex flex-col gap-y-1">
             <span className="text-sm font-semibold text-gray-400">
               Product View
@@ -58,9 +58,7 @@ function Catalogue() {
         </div>
 
         <div className="flex-grow">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-14">
-            <ProductSmall />
-            <ProductSmall />
+          <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
             <ProductSmall />
             <ProductSmall />
             <ProductSmall />
