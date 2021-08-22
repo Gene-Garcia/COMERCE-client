@@ -20,7 +20,7 @@ function UnAuthenticated({ bgType }) {
 
   return (
     <div className="space-x-3">
-      <Link to="/sign-in" className={`${base} ${themes[bgType].login}`}>
+      <Link to="/login" className={`${base} ${themes[bgType].login}`}>
         Login
       </Link>
       <Link to="/sign-up" className={`${base} ${themes[bgType].signUp}`}>

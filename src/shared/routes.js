@@ -20,9 +20,9 @@ const routes = {
     name: "Sign Up",
   },
 
-  SIGN_IN: {
-    path: "/sign-in",
-    name: "Sign In",
+  LOGIN: {
+    path: "/login",
+    name: "Login",
   },
 
   PASSWORD: {

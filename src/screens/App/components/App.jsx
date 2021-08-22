@@ -15,7 +15,7 @@ function Footer() {
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = [
-    "/sign-in",
+    "/login",
     "/sign-up",
     "/password/forgot",
     "/password/reset",
@@ -33,7 +33,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
         <Route {...route.SIGN_UP} />
-        <Route {...route.SIGN_IN} />
+        <Route {...route.LOGIN} />
         <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 

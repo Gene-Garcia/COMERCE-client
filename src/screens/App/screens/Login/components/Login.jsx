@@ -5,8 +5,8 @@ import { useForm } from "../../../../../shared/Form/useForm";
 
 import "./SignIn.css";
 
-function SignIn({ history }) {
-  async function SignInApi() {
+function Login({ history }) {
+  async function LoginApi() {
     await axios
       .post("/signin", values)
       .then((res) => {
@@ -46,7 +46,7 @@ function SignIn({ history }) {
     initialState,
     initialState,
     validate,
-    SignInApi
+    LoginApi
   );
 
   // state variable for API message
@@ -56,7 +56,7 @@ function SignIn({ history }) {
     <div id="signIn" className="page-content">
       <div className="only-content">
         <div>
-          <h2>Sign In</h2>
+          <h2>Login</h2>
         </div>
 
         <div>
@@ -104,4 +104,4 @@ function SignIn({ history }) {
   );
 }
 
-export default SignIn;
+export default Login;
