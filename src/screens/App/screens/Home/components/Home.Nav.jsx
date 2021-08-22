@@ -3,6 +3,7 @@ import Cart from "../../../../../shared/Components/Navigation/Cart.Nav";
 import Dropdown from "../../../../../shared/Components/Navigation/Dropdown.Nav";
 import Search from "../../../../../shared/Components/Navigation/Search.Nav";
 import iconLogo from "../../../../../shared/images/comerce-logo-white.webp";
+import { Link } from "react-router-dom";
 
 function HomeNav() {
   return (
@@ -21,12 +22,15 @@ function HomeNav() {
 
       {/* links actions */}
       <div className="py-9 ">
-        <div className="flex justify-end space-x-6">
+        <div className="flex justify-end items-center space-x-6">
           {/* catalogue link */}
           <div className="flex-shrink place-self-center">
-            <a className="font-sans text-lg mb-0 font-semibold text-my-contrast transition ml-8 sm:ml-0 duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast">
+            <Link
+              to="/catalogue"
+              className="font-sans text-lg mb-0 font-semibold text-my-contrast transition ml-8 sm:ml-0 duration-300 border-opacity-50 hover:border-opacity-50 hover:border-b hover:border-my-contrast"
+            >
               Product Catalogue
-            </a>
+            </Link>
           </div>
 
           {/* search */}

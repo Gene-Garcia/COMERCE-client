@@ -3,12 +3,16 @@ import iconLogo from "../../../shared/images/comerce-logo-blue.webp";
 import Search from "../../../shared/Components/Navigation/Search.Nav";
 import Dropdown from "../../../shared/Components/Navigation/Dropdown.Nav";
 import Cart from "../../../shared/Components/Navigation/Cart.Nav";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <div className="w-full bg-my-contrast flex items-center p-2 sm:p-5 shadow-lg ">
       {/* logo */}
-      <div className="flex flex-col sm:flex-row items-center flex-grow ">
+      <Link
+        to="/"
+        className="flex flex-col sm:flex-row items-center flex-grow "
+      >
         <div className="place-self-center">
           <img src={iconLogo} alt="comerce-logo" width="50" />
         </div>
@@ -18,7 +22,7 @@ function Navbar() {
             COMERCE
           </p>
         </div>
-      </div>
+      </Link>
 
       {/* links */}
       <div className="justify-self-end text-my-dim flex-grow-0 place-self-end md:mt-2.5">

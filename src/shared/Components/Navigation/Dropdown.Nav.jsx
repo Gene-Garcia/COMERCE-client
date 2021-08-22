@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function UnAuthenticated({ bgType }) {
-  const base = "transition font-sans h-9 font-semibold text-base px-4 ";
+  const base = "transition font-sans h-9 font-semibold text-base px-4 py-1.5";
   const themes = {
     accent: {
       login:
@@ -19,8 +20,12 @@ function UnAuthenticated({ bgType }) {
 
   return (
     <div className="space-x-3">
-      <button className={`${base} ${themes[bgType].login}`}>Login</button>
-      <button className={`${base} ${themes[bgType].signUp}`}>Sign Up</button>
+      <Link to="/sign-in" className={`${base} ${themes[bgType].login}`}>
+        Login
+      </Link>
+      <Link to="/sign-up" className={`${base} ${themes[bgType].signUp}`}>
+        Sign Up
+      </Link>
     </div>
   );
 }
@@ -161,7 +166,7 @@ function Authenticated({ bgType }) {
 }
 
 function Dropdown({ bgType }) {
-  return <Authenticated bgType={bgType} />;
+  return <UnAuthenticated bgType={bgType} />;
 }
 
 export default Dropdown;
