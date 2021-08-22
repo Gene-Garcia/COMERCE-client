@@ -65,7 +65,7 @@ function App() {
   useEffect(() => {
     async function fetchCookieProtection() {
       await axios
-        .get("/cs")
+        .get("/api/cs")
         .then((res) => {
           console.log(res.data.csrfToken);
           axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
