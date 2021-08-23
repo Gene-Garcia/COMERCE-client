@@ -1,18 +1,23 @@
 import React from "react";
 
-function Alert({ reqErr, setReqErr }) {
+function Alert({ state, modifier, severity }) {
+  let color;
+  if (severity === "error") color = "bg-red-100 border-red-500";
+  else if (severity === "success") color = "bg-green-100 border-green-500";
+
   return (
     <div
       className={
-        (reqErr ? "absolute" : "hidden") +
-        " transition duration-300 py-6 w-80 bg-red-100 rounded-md shadow-md border-l-4 border-red-500 px-4 flex justify-between items-center  left-8 bottom-8"
+        (state ? "absolute" : "hidden") +
+        " transition duration-300 py-6 w-80 rounded-md shadow-md border-l-4 px-4 flex justify-between items-center left-8 bottom-8 " +
+        color
       }
     >
-      <div className="text-red-800 font-semibold">{reqErr}</div>
+      <div className="text-gray-800 font-semibold">{state}</div>
 
       <button
         onClick={() => {
-          setReqErr("");
+          modifier("");
         }}
       >
         <svg

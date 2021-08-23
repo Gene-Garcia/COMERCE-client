@@ -84,7 +84,7 @@ function Login({ history }) {
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
-          <Alert reqErr={reqErr} setReqErr={setReqErr} />
+          <Alert state={reqErr} modifier={setReqErr} severity="error" />
 
           <InputField
             name="email"
