@@ -15,7 +15,7 @@ function InputField({ type, name, label, error, value, onChange, svgD }) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-my-accent"
+          className={"h-6 w-6 text-my-accent " + (!svgD ? "hidden" : "")}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
