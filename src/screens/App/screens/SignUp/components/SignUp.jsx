@@ -7,20 +7,21 @@ import { useForm } from "../../../../../shared/Form/useForm";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
-    await axios
-      .post("/api/signup", values)
-      .then((res) => {
-        if (res.status === 200) {
-          resetForms();
+    if (formIsValid())
+      await axios
+        .post("/api/signup", values)
+        .then((res) => {
+          if (res.status === 200) {
+            resetForms();
 
-          //clear
-          // history.push("/sign-in");
-        }
-      })
-      .catch((err) => {
-        if (err.response) setReqErr(err.response.data.error);
-        else setReqErr("Something went wrong. Try again.");
-      });
+            //clear
+            history.push("/login");
+          }
+        })
+        .catch((err) => {
+          if (err.response) setReqErr(err.response.data.error);
+          else setReqErr("Something went wrong. Try again.");
+        });
   }
 
   function validate(formData, setErrors) {
@@ -52,12 +53,14 @@ function SignUp({ history }) {
   }
 
   const initialState = { email: "", confirmEmail: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
-    initialState,
-    initialState,
-    validate,
-    SignUpAPI
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    formIsValid,
+    resetForms,
+  } = useForm(initialState, initialState, validate, SignUpAPI);
 
   // Request error message
   const [reqErr, setReqErr] = useState("");
