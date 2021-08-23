@@ -14,13 +14,7 @@ function Footer() {
 }
 
 const AppContent = withRouter(({ location: { pathname } }) => {
-  const navles = [
-    "/login",
-    "/sign-up",
-    "/password/forgot",
-    "/password/reset",
-    "/",
-  ];
+  const navles = ["/login", "/sign-up", "/"];
 
   return (
     <>
@@ -51,6 +45,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
           component={route.USER.subroutes.CHANGE_PASSWORD.component}
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         /> */}
+
         <Route>
           <h1>404</h1>
         </Route>
@@ -68,7 +63,6 @@ function App() {
       await axios
         .get("/api/cs")
         .then((res) => {
-          console.log(res.data.csrfToken);
           axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
         })
         .catch((err) =>
