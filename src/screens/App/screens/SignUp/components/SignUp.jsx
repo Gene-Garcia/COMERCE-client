@@ -39,7 +39,7 @@ function SignUp({ history }) {
           ? "Confirm email is required"
           : "";
 
-    if (values.email !== formData.confirmEmail)
+    if (values.email !== values.confirmEmail)
       tempErrs.confirmEmail = "Email does not match";
 
     if ("password" in formData)
