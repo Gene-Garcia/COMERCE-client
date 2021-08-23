@@ -9,10 +9,6 @@ import route from "../route";
 import Navbar from "./Navbar";
 import axios from "../../../shared/caller";
 
-function Footer() {
-  return <h3>This is a Footer</h3>;
-}
-
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
 
@@ -51,7 +47,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         </Route>
       </Switch>
 
-      <>{!navles.includes(pathname) && <Footer />}</>
+      {/* <>{!navles.includes(pathname) && <Footer />}</> */}
     </>
   );
 });

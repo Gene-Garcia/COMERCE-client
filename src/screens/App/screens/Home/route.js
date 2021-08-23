@@ -1,4 +1,4 @@
-import routes from "../../../../shared/routes";
+import routes from "../../../../shared/Route/routes";
 import Home from "./index";
 
 const route = {

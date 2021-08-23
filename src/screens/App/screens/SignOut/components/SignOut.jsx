@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
@@ -7,13 +8,11 @@ function SignOut({ history }) {
       await axios
         .get("/api/signout")
         .then((res) => {
-          localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
-          localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
+          clearUserPersistData();
           history.push("/login");
         })
         .catch((err) => {
-          localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
-          localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
+          clearUserPersistData();
 
           if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import validateUser from "../../../../../shared/Auth/Validation";
-import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
 
 function UserIndex({ history }) {

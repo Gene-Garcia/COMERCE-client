@@ -1,4 +1,4 @@
-import routes from "../../../../shared/routes";
+import routes from "../../../../shared/Route/routes";
 import SignUp from "./index";
 
 const route = {

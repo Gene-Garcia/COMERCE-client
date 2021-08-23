@@ -1,9 +1,9 @@
 import React from "react";
 import iconLogo from "../../../shared/images/comerce-logo-blue.webp";
-import Search from "../../../shared/Components/Navigation/Search.Nav";
-import Dropdown from "../../../shared/Components/Navigation/Dropdown.Nav";
-import Cart from "../../../shared/Components/Navigation/Cart.Nav";
+import Search from "../../../shared/Components/navigation/Search.Nav";
+import Cart from "../../../shared/Components/navigation/Cart.Nav";
 import { Link } from "react-router-dom";
+import Account from "../../../shared/Components/navigation/Account.Nav";
 
 function Navbar() {
   return (
@@ -34,7 +34,7 @@ function Navbar() {
 
           {/* account */}
           <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-3 md:col-span-2 pb-1 sm:pb-0">
-            <Dropdown bgType="contrast" />
+            <Account bgType="contrast" />
           </div>
 
           {/* cart */}

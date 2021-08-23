@@ -1,9 +1,9 @@
 import React from "react";
-import Cart from "../../../../../shared/Components/Navigation/Cart.Nav";
-import Dropdown from "../../../../../shared/Components/Navigation/Dropdown.Nav";
-import Search from "../../../../../shared/Components/Navigation/Search.Nav";
+import Cart from "../../../../../shared/Components/navigation/Cart.Nav";
+import Search from "../../../../../shared/Components/navigation/Search.Nav";
 import iconLogo from "../../../../../shared/images/comerce-logo-white.webp";
 import { Link } from "react-router-dom";
+import Account from "../../../../../shared/Components/navigation/Account.Nav";
 
 function HomeNav() {
   return (
@@ -40,7 +40,7 @@ function HomeNav() {
 
           {/* account */}
           <div className="flex-shrink-0">
-            <Dropdown bgType="accent" />
+            <Account bgType="accent" />
           </div>
 
           {/* cart */}

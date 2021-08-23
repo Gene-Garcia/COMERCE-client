@@ -168,10 +168,10 @@ function Authenticated({ bgType }) {
   );
 }
 
-function Dropdown({ bgType }) {
+function Account({ bgType }) {
   if (localStorage.getItem(process.env.REACT_APP_LS_EMAIL_KEY))
     return <Authenticated bgType={bgType} />;
   else return <UnAuthenticated bgType={bgType} />;
 }
 
-export default Dropdown;
+export default Account;
