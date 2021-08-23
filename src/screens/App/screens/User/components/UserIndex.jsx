@@ -9,13 +9,19 @@ function UserIndex({ history }) {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("/user")
+        .get("/api/user/validate")
         .then((res) => {
-          console.log(res);
-          setLoading(false);
+          if (res.status === 200) {
+            setLoading(false);
+          } else {
+            localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
+            localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
+          }
         })
         .catch((err) => {
-          console.log(err.response);
+          localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
+          localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
+
           if (err.response === undefined || err.response.status === 401)
             history.push("/sign-in");
           else console.log(err.response.data.error);

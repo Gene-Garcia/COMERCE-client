@@ -43,7 +43,9 @@ function Authenticated({ bgType }) {
       <button
         className={`${themes[bgType]} font-semibold inline-flex items-center`}
       >
-        <span className="mr-1">JohnDoe</span>
+        <span className="mr-1">
+          {localStorage.getItem(process.env.REACT_APP_LS_USERNAME_KEY)}
+        </span>
         <svg
           className="fill-current h-4 w-4 font-bold"
           xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +59,7 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2">
             <p className="text-sm font-semibold w-full">Signed in as</p>
             <p className="text-base font-semibold text-gray-600">
-              johndoe@yahoo.com
+              {localStorage.getItem(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
           </li>
 
@@ -166,7 +168,9 @@ function Authenticated({ bgType }) {
 }
 
 function Dropdown({ bgType }) {
-  return <UnAuthenticated bgType={bgType} />;
+  if (localStorage.getItem(process.env.REACT_APP_LS_EMAIL_KEY))
+    return <Authenticated bgType={bgType} />;
+  else return <UnAuthenticated bgType={bgType} />;
 }
 
 export default Dropdown;

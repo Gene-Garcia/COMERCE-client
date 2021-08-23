@@ -16,6 +16,17 @@ function Login({ history }) {
         if (res.status === 200) {
           resetForms();
 
+          // set localstorage
+          console.log(process.env.REACT_APP_LS_EMAIL_KEY);
+          localStorage.setItem(
+            process.env.REACT_APP_LS_EMAIL_KEY,
+            res.data.user.email
+          );
+          localStorage.setItem(
+            process.env.REACT_APP_LS_USERNAME_KEY,
+            res.data.user.email
+          );
+
           history.push("/user");
         } else setReqErr("");
       })
