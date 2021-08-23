@@ -81,7 +81,9 @@ function SignUp({ history }) {
       {/* form */}
       <div className="h-full bg-white flex-grow flex flex-col justify-evenly items-center px-44">
         <div className="flex flex-col items-center gap-y-1">
-          <h1 className="font-bold text-3xl font-sans ">Create an account</h1>
+          <h1 className="font-bold text-3xl font-sans text-gray-700 ">
+            Create an account
+          </h1>
           <p className="font-medium text-xl text-gray-400">CoMerce Account</p>
         </div>
 
@@ -156,7 +158,31 @@ function SignUp({ history }) {
       </div>
 
       {/* hero */}
-      <div className="w-2/5 h-full bg-gradient-to-t from-my-accent to-my-accent-mono"></div>
+      <div className="w-2/5 h-full flex justify-start items-center py-20 gap-y-40 flex-col bg-gradient-to-t from-my-accent to-my-accent-mono">
+        <div className="flex flex-col justify-center items-center gap-y-6">
+          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+            Already have an account?
+          </h2>
+          <Link
+            to="/login"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+          >
+            Login
+          </Link>
+        </div>
+
+        <div className="flex flex-col justify-center items-center gap-y-6">
+          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+            Start filling up your cart
+          </h2>
+          <Link
+            to="/catalogue"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+          >
+            Browse
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
