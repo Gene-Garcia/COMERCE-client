@@ -1,6 +1,8 @@
 import axios from "../caller";
 import { clearUserPersistData } from "./Login";
 
+// Validates if the user is logged in and has access to this site
+// Logic of validation highly depends on the backend
 async function validateUser(cb) {
   let status = "";
 
