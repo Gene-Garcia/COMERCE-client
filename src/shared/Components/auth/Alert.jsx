@@ -5,7 +5,7 @@ function Alert({ reqErr, setReqErr }) {
     <div
       className={
         (reqErr ? "absolute" : "hidden") +
-        " transition duration-300 h-16 w-80 bg-red-100 rounded-md shadow-md border-l-4 border-red-500 px-4 flex justify-between items-center  left-8 bottom-8"
+        " transition duration-300 py-6 w-80 bg-red-100 rounded-md shadow-md border-l-4 border-red-500 px-4 flex justify-between items-center  left-8 bottom-8"
       }
     >
       <div className="text-red-800 font-semibold">{reqErr}</div>
