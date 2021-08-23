@@ -27,6 +27,12 @@ function SignUp({ history }) {
   function validate(formData, setErrors) {
     let tempErrs = { ...errors };
 
+    if ("username" in formData)
+      tempErrs.username =
+        formData.username === "" || formData.username === null
+          ? "Username is required"
+          : "";
+
     if ("email" in formData)
       tempErrs.email =
         formData.email === "" || formData.email === null
@@ -52,7 +58,12 @@ function SignUp({ history }) {
     setErrors(tempErrs);
   }
 
-  const initialState = { email: "", confirmEmail: "", password: "" };
+  const initialState = {
+    username: "",
+    email: "",
+    confirmEmail: "",
+    password: "",
+  };
   const {
     values,
     errors,
@@ -113,6 +124,16 @@ function SignUp({ history }) {
             value={values.confirmEmail}
             onChange={handleInput}
             svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+          />
+
+          <InputField
+            name="username"
+            type="text"
+            label="USERNAME"
+            error={errors.username}
+            value={values.username}
+            onChange={handleInput}
+            svgD="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
           />
 
           <InputField

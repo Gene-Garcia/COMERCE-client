@@ -15,7 +15,7 @@ function Login({ history }) {
       .then((res) => {
         if (res.status === 200) {
           resetForms();
-
+          console.log(res.data.user);
           // set localstorage
           console.log(process.env.REACT_APP_LS_EMAIL_KEY);
           localStorage.setItem(
@@ -24,7 +24,7 @@ function Login({ history }) {
           );
           localStorage.setItem(
             process.env.REACT_APP_LS_USERNAME_KEY,
-            res.data.user.email
+            res.data.user.username
           );
 
           history.push("/user");
