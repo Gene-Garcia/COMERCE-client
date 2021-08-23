@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
-import Alert from "../../../../../shared/Components/auth/Alert";
-import InputField from "../../../../../shared/Components/auth/InputField.Auth";
+import Alert from "../../../../../shared/Auth/Alert";
+import InputField from "../../../../../shared/Auth/InputField.Auth";
 import { useForm } from "../../../../../shared/Form/useForm";
 
 function SignUp({ history }) {

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
 import { useForm } from "../../../../../shared/Form/useForm";
-import InputField from "../../../../../shared/Components/auth/InputField.Auth";
-import Alert from "../../../../../shared/Components/auth/Alert";
+import InputField from "../../../../../shared/Auth/InputField.Auth";
+import Alert from "../../../../../shared/Auth/Alert";
+import { setUserPersistData } from "../../../../../shared/Auth/Login";
 
 function Login({ history }) {
   // state variable for API message
@@ -14,27 +15,13 @@ function Login({ history }) {
       .post("/api/signin", values)
       .then((res) => {
         if (res.status === 200) {
-          resetForms();
-          console.log(res.data.user);
-          // set localstorage
-          console.log(process.env.REACT_APP_LS_EMAIL_KEY);
-          localStorage.setItem(
-            process.env.REACT_APP_LS_EMAIL_KEY,
-            res.data.user.email
-          );
-          localStorage.setItem(
-            process.env.REACT_APP_LS_USERNAME_KEY,
-            res.data.user.username
-          );
-
+          setUserPersistData(res.data.user.email, res.data.user.username);
           history.push("/user");
-        } else setReqErr("");
+        }
       })
       .catch((err) => {
-        let messageError;
-        if (err.response) messageError = err.response.data.error;
-        else messageError = "Something went wrong. Try again.";
-        setReqErr((prev) => messageError);
+        if (err.response) setReqErr(err.response.data.error);
+        else setReqErr("Something went wrong. Try again.");
       });
   }
 
