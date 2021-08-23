@@ -1,4 +1,5 @@
 import React from "react";
+import Title from "../../../../../shared/Components/pages/Title.Page";
 import ProductSmall from "../../../../../shared/Components/product/Product.Small";
 
 function Button({ name }) {
@@ -12,11 +13,7 @@ function Button({ name }) {
 function Catalogue() {
   return (
     <>
-      <div className="h-20 shadow-md bg-gradient-to-t from-my-accent to-my-accent-mono flex items-center justify-center">
-        <span className="font-sans font-semibold text-my-contrast text-xl">
-          Product Catalogue
-        </span>
-      </div>
+      <Title title="Product Catalogue" />
 
       <div className="flex flex-wrap sm:flex-nowrap my-12 mx-3 lg:mx-10 xl:mx-16 2xl:mx-28 gap-y-5 sm:gap-y-0">
         <div className="w-full sm:w-52 flex flex-wrap flex-row sm:flex-col gap-y-10 justify-center sm:justify-start">

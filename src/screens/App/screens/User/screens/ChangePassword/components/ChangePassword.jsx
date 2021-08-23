@@ -1,63 +1,48 @@
 import React, { useState, useEffect } from "react";
+import Alert from "../../../../../../../shared/Auth/Alert";
+import InputField from "../../../../../../../shared/Auth/InputField.Auth";
+import validateUser from "../../../../../../../shared/Auth/Validation";
 import axios from "../../../../../../../shared/caller";
+import Title from "../../../../../../../shared/Components/pages/Title.Page";
 import { useForm } from "../../../../../../../shared/Form/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
-
-import "./ChangePassword.css";
 
 function ChangePassword({ history }) {
   const [loading, setLoading] = useState(true);
 
-  // Validates if the user is logged in and has access to this site
-  // Logic of validation highly depends on the backend
   useEffect(() => {
-    async function fetchData() {
-      await axios
-        .get("/user/validate")
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err.response === undefined || err.response.status === 401)
-            history.push("/sign-in");
-          else console.log(err.response.data.error);
-        });
-    }
-
-    fetchData();
+    validateUser((status) => {
+      if (status === "SUCCESS") setLoading(false);
+      else if (status === "FAILED") history.push("/login");
+      else if (status === "UNAUTHORIZED") history.push("/unauthorized");
+      else if (status === "FORBIDDEN") history.push("/forbidden");
+    });
   }, []);
 
   async function ChangePasswordAPI() {
     await axios
-      .post("/user/password/change", values, {
-        headers: { Authorization: "Bearer " + localStorage.getItem("auth") },
-      })
+      .post("/api/user/password/change", values)
       .then((res) => {
-        console.log(res);
         resetForms();
 
-        if (res.status === 200) setReqErr("Successfully changed password");
-        else setReqErr(res.data.message);
+        if (res.status === 200) {
+          setReqErr("Successfully changed password");
+          setSeverity("success");
+        } else setReqErr(res.data.message);
       })
       .catch((err) => {
-        console.log(err.response);
+        setSeverity("error");
 
         if (err.response === undefined)
           setReqErr("Something went wrong. Try again.");
         else if (err.response.status === 401) history.push("/sign-in");
+        else if (err.response.status === 403) history.push("/forbidden");
         else setReqErr(err.response.data.error);
       });
   }
 
   function validate(formData, setErrors) {
     const tempErrs = { ...errors };
-
-    if ("email" in formData)
-      tempErrs.email =
-        formData.email === "" || formData.email === null
-          ? "Email is required"
-          : "";
 
     if ("oldPassword" in formData)
       tempErrs.oldPassword =
@@ -74,7 +59,7 @@ function ChangePassword({ history }) {
     setErrors(tempErrs);
   }
 
-  const initialState = { email: "", oldPassword: "", newPassword: "" };
+  const initialState = { oldPassword: "", newPassword: "" };
   const { values, errors, handleInput, resetForms, handleFormSubmit } = useForm(
     initialState,
     initialState,
@@ -84,69 +69,53 @@ function ChangePassword({ history }) {
 
   // req message
   const [reqErr, setReqErr] = useState("");
+  const [severity, setSeverity] = useState("error");
 
-  function Component() {
-    return (
-      <div id="changePassword" className="page-content">
-        <div className="only-content">
-          <div>
-            <h2>Change Password</h2>
-          </div>
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="">
+          <Title title="My Account" />
 
-          <div>
-            <p>{reqErr}</p>
-          </div>
+          <div className="w-4/5 mx-auto mt-10">
+            <Alert state={reqErr} modifier={setReqErr} severity={severity} />
 
-          <div>
-            <input
-              type="email"
-              className="input"
-              placeholder="Email"
-              name="email"
-              value={values.email}
-              onChange={handleInput}
-            />
-            <label>{errors.email}</label>
-          </div>
+            <h1 className="text-gray-800 text-2xl font-semibold">
+              Change Password
+            </h1>
 
-          <div>
-            <input
-              type="password"
-              className="input"
-              placeholder="Old Password"
-              name="oldPassword"
-              value={values.oldPassword}
-              onChange={handleInput}
-            />
-            <label>{errors.oldPassword}</label>
-          </div>
+            <div className="mt-8 w-3/5 space-y-8">
+              <InputField
+                label="Old Password"
+                type="password"
+                name="oldPassword"
+                value={values.oldPassword}
+                error={errors.oldPassword}
+                onChange={handleInput}
+              />
 
-          <div>
-            <input
-              type="password"
-              className="input"
-              placeholder="New Password"
-              name="newPassword"
-              value={values.newPassword}
-              onChange={handleInput}
-            />
-            <label>{errors.newPassword}</label>
-          </div>
+              <InputField
+                label="New Password"
+                type="password"
+                name="newPassword"
+                value={values.newPassword}
+                error={errors.newPassword}
+                onChange={handleInput}
+              />
 
-          <div>
-            <button
-              type="submit"
-              className="submit-form"
-              onClick={handleFormSubmit}
-            >
-              Change My Password
-            </button>
+              <button
+                onClick={handleFormSubmit}
+                className="transition bg-my-accent text-my-contrast font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              >
+                Save New Password
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  return <>{loading ? <Loading /> : <Component />}</>;
+      )}
+    </>
+  );
 }
 export default ChangePassword;
