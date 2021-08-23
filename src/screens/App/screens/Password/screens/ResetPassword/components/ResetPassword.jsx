@@ -2,26 +2,32 @@ import React, { useState } from "react";
 import axios from "../../../../../../../shared/caller";
 import useQuery from "../../../../../../../shared/Route/useQuery";
 import { useForm } from "../../../../../../../shared/Form/useForm";
+import Title from "../../../../../../../shared/Components/pages/Title.Page";
+import Alert from "../../../../../../../shared/Auth/Alert";
+import InputField from "../../../../../../../shared/Auth/InputField.Auth";
+import { Link } from "react-router-dom";
 
-import "./ResetPassword.css";
-
-function ResetPassword() {
+function ResetPassword({ history }) {
   const query = useQuery();
   const token = query.get("token");
 
   async function ResetPasswordAPI() {
     await axios
-      .put("/user/password/reset", {
+      .put("/api/user/password/reset", {
         ...values,
         resetPasswordToken: token,
       })
       .then((res) => {
         resetForms();
 
-        if (res.status === 200) setReqErr("Password changed succesfully");
-        else setReqErr(res.data.message);
+        setSeverity("success");
+        setReqErr(res.data.message);
+
+        history.push("/login");
       })
       .catch((err) => {
+        setSeverity("error");
+
         if (err.response === undefined)
           setReqErr("Something went wrong. Try again.");
         else setReqErr(err.response.data.error);
@@ -55,51 +61,74 @@ function ResetPassword() {
   );
 
   const [reqErr, setReqErr] = useState("");
+  const [severity, setSeverity] = useState("error");
 
   return (
-    <div id="forgotPassword" className="page-content">
-      <div className="only-content">
-        <div>
-          <h2>Change Password</h2>
+    <div className="">
+      <Title title="Forgot Password" />
+
+      {/* replace this with session stored */}
+      <div className="w-3/5 mt-12 mx-auto space-y-16">
+        <div className="space-y-6">
+          <h1 className="text-xl font-semibold text-gray-800">
+            What to do here?
+          </h1>
+
+          <p className="">
+            Enter the email that you've used to receive our email, and your new
+            password.
+          </p>
+
+          <p className="">
+            Avoid tampering the link as it holds the password reset token. This
+            token will expire within 15 minutes
+          </p>
+
+          <p>
+            Thank you,
+            <br />
+            <span className="font-semibold text-my-accent text-md">
+              COMERCE Team
+            </span>
+          </p>
         </div>
 
-        <div>
-          <p>{reqErr}</p>
-        </div>
+        <div className="w-3/5 space-y-6">
+          <Alert state={reqErr} modifier={setReqErr} severity={severity} />
 
-        {/* replace this with session stored */}
-        <div>
-          <input
+          <InputField
+            label="EMAIL"
+            error={errors.email}
             type="email"
-            className="input"
-            placeholder="Email"
             name="email"
             value={values.email}
             onChange={handleInput}
           />
-          <label>{errors.email}</label>
-        </div>
 
-        <div>
-          <input
+          <InputField
+            label="NEW PASSWORD"
+            error={errors.password}
             type="password"
-            className="input"
-            placeholder="New Password"
             name="password"
             value={values.password}
             onChange={handleInput}
           />
-          <label>{errors.password}</label>
-        </div>
 
-        <div>
-          <button
-            type="submit"
-            className="submit-form"
-            onClick={handleFormSubmit}
-          >
-            Submit New Password
-          </button>
+          <div className="flex flex-row gap-x-6">
+            <button
+              className="transition bg-my-accent text-my-contrast font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              onClick={handleFormSubmit}
+            >
+              Submit New Password
+            </button>
+
+            <Link
+              className="transition bg-transparent text-my-black font-semibold rounded-md px-4 py-1.5 border border-my-black hover:text-my-accent hover:border-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              to="/password/forgot"
+            >
+              Resend Token
+            </Link>
+          </div>
         </div>
       </div>
     </div>
