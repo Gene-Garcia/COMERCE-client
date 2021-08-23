@@ -22,7 +22,7 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
 
     // every input will trigger validation, AGGRESSIVE
     // [name] with brackets makes JS understand to use the value inside name, and not 'name' itself
-    validate({ [name]: value }, setErrors);
+    // validate({ [name]: value }, setErrors);
   };
 
   // A function that performs checking through all values and errors to determine if the form is valid for submit
