@@ -4,6 +4,7 @@ import CatalogueRoute from "./screens/Catalogue/route";
 
 import SignUpRoute from "./screens/SignUp/route";
 import LoginRoute from "./screens/Login/route";
+import SignOutRoute from "./screens/SignOut/route";
 import PasswordRoute from "./screens/Password/route";
 
 import UserIndexRoute from "./screens/User/route";
@@ -16,6 +17,7 @@ const route = {
   LOGIN: LoginRoute,
   USER: UserIndexRoute,
   PASSWORD: PasswordRoute,
+  SIGN_OUT: SignOutRoute,
 };
 
 export default route;

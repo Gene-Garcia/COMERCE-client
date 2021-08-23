@@ -140,7 +140,8 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 pb-2 hover:text-gray-800 transition">
-            <a
+            <Link
+              to="/sign-out"
               className="flex items-center font-semi-bold py-1 font-semibold"
               href="#"
             >
@@ -158,8 +159,8 @@ function Authenticated({ bgType }) {
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 />
               </svg>
-              Orders
-            </a>
+              Sign Out
+            </Link>
           </li>
         </div>
       </ul>

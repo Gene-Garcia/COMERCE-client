@@ -34,6 +34,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 
         <Route {...route.SIGN_UP} />
         <Route {...route.LOGIN} />
+        <Route {...route.SIGN_OUT} />
         <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 

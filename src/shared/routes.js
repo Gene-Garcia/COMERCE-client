@@ -25,6 +25,11 @@ const routes = {
     name: "Login",
   },
 
+  SIGN_OUT: {
+    path: "/sign-out",
+    name: "Sign Out",
+  },
+
   PASSWORD: {
     subroutes: {
       FORGOT_PASSWORD: {

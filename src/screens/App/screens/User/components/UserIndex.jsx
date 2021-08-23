@@ -22,8 +22,9 @@ function UserIndex({ history }) {
           localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
           localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
 
-          if (err.response === undefined || err.response.status === 401)
-            history.push("/sign-in");
+          if (err.response === undefined) history.push("/login");
+          if (err.response.status === 401) history.push("/unauthorized");
+          else if (err.response.status === 403) history.push("/forbidden");
           else console.log(err.response.data.error);
         });
     }
