@@ -7,21 +7,20 @@ import { useForm } from "../../../../../shared/Form/useForm";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
-    if (formIsValid())
-      await axios
-        .post("/api/signup", values)
-        .then((res) => {
-          if (res.status === 200) {
-            resetForms();
+    await axios
+      .post("/api/signup", values)
+      .then((res) => {
+        if (res.status === 200) {
+          resetForms();
 
-            //clear
-            history.push("/login");
-          }
-        })
-        .catch((err) => {
-          if (err.response) setReqErr(err.response.data.error);
-          else setReqErr("Something went wrong. Try again.");
-        });
+          //clear
+          history.push("/login");
+        }
+      })
+      .catch((err) => {
+        if (err.response) setReqErr(err.response.data.error);
+        else setReqErr("Something went wrong. Try again.");
+      });
   }
 
   function validate(formData, setErrors) {
@@ -46,7 +45,8 @@ function SignUp({ history }) {
           ? "Confirm email is required"
           : "";
 
-    if (values.email !== values.confirmEmail)
+    if ("confirmEmail" in formData && values.email !== formData.confirmEmail)
+      // omg this was the fix FUCK
       tempErrs.confirmEmail = "Email does not match";
 
     if ("password" in formData)
@@ -64,14 +64,12 @@ function SignUp({ history }) {
     confirmEmail: "",
     password: "",
   };
-  const {
-    values,
-    errors,
-    handleInput,
-    handleFormSubmit,
-    formIsValid,
-    resetForms,
-  } = useForm(initialState, initialState, validate, SignUpAPI);
+  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
+    initialState,
+    initialState,
+    validate,
+    SignUpAPI
+  );
 
   // Request error message
   const [reqErr, setReqErr] = useState("");

@@ -22,11 +22,11 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
 
     // every input will trigger validation, AGGRESSIVE
     // [name] with brackets makes JS understand to use the value inside name, and not 'name' itself
-    // validate({ [name]: value }, setErrors);
+    validate({ [name]: value }, setErrors);
   };
 
   // A function that performs checking through all values and errors to determine if the form is valid for submit
-  const formIsValid = () => {
+  const formIsValid = (cb) => {
     let isValid = true;
 
     for (const [, v] of Object.entries(values)) {
@@ -44,8 +44,7 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
       }
     }
 
-    // console.log("isValid: " + isValid);
-    return isValid;
+    if (cb) cb(isValid);
   };
 
   function resetForms() {
@@ -59,14 +58,14 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
 
     e.preventDefault();
 
-    const isValid = formIsValid();
-
-    if (isValid) {
-      // await postFormParams
-      await submitFunction(); // always make sure that this is async
-      // resetForms(); this will raise an error in console, saying that cannot update UNMOUNTED react components.
-      //If the form submit was success, it can already be redirected to other pages even before deleting/updating form data
-    }
+    formIsValid(async (isValid) => {
+      if (isValid) {
+        // await postFormParams
+        await submitFunction(); // always make sure that this is async
+        // resetForms(); this will raise an error in console, saying that cannot update UNMOUNTED react components.
+        //If the form submit was success, it can already be redirected to other pages even before deleting/updating form data
+      }
+    });
   };
 
   // return
