@@ -7,13 +7,21 @@ import {
   ProductRating,
 } from "./Product.Components";
 
-function ProductSmall() {
+function ProductSmall({ data }) {
+  const {
+    _id: productId,
+    item: productName,
+    imageAddress,
+    retailPrice,
+    description,
+  } = data;
+
   return (
-    <div className="flex flex-col w-full max-w-xs rounded-md shadow-md">
+    <div className="flex flex-col w-full max-w-xs h-full rounded-md shadow-md">
       {/* image */}
       <div className="w-full">
         <img
-          src="https://cdn.opstatics.com/store/20170907/assets/images/events/2021/03/watches/en/us/1920/kv/kv-1.png"
+          src={imageAddress}
           alt="smart-watch"
           className="w-full h-56 object-cover"
         />
@@ -22,8 +30,8 @@ function ProductSmall() {
       {/* details and desc */}
       <div className="p-4 flex flex-col justify-evenly gap-y-7">
         <div className="flex flex-wrap justify-between">
-          <ProductName name="smartwatch" />
-          <ProductPrice price="13,999.99" />
+          <ProductName name={productName} />
+          <ProductPrice price={`${retailPrice}`} />
         </div>
 
         <div>
@@ -31,7 +39,7 @@ function ProductSmall() {
         </div>
 
         <div>
-          <ProductDescription desc="Lorem ipsum dolor er ase" />
+          <ProductDescription desc={description} />
         </div>
 
         <div>

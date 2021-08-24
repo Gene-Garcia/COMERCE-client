@@ -60,7 +60,10 @@ function ProductRating() {
 }
 
 function ProductDescription({ desc }) {
-  return <p className="font-medium text-gray-700 text-md">long {desc}</p>;
+  console.log(desc.length);
+  const truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+
+  return <p className="font-medium text-gray-700 text-md ">long {truncated}</p>;
 }
 
 function ProductPurchase() {

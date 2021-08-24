@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../../../../shared/Components/pages/Title.Page";
 import ProductSmall from "../../../../../shared/Components/product/Product.Small";
+import axios from "../../../../../shared/caller";
 
 function Button({ name }) {
   return (
@@ -11,6 +12,26 @@ function Button({ name }) {
 }
 
 function Catalogue() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    async function fetchItems() {
+      await axios
+        .get("/api/product/available")
+        .then((res) => {
+          if (res.status === 200) {
+            // const { available: data } = res.data;
+            setItems(res.data.available);
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+
+    fetchItems();
+  }, []);
+
   return (
     <>
       <Title title="Product Catalogue" />
@@ -56,15 +77,9 @@ function Catalogue() {
 
         <div className="flex-grow">
           <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
-            <ProductSmall />
+            {items.map((item) => (
+              <ProductSmall data={item} key={item._id} />
+            ))}
           </div>
         </div>
       </div>
