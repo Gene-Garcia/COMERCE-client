@@ -13,6 +13,8 @@ function SignUp({ history }) {
         if (res.status === 200) {
           resetForms();
 
+          setSeverity("success");
+          setMessage("Account created successfully!");
           //clear
           history.push("/login");
         }
