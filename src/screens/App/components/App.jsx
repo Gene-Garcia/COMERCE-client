@@ -8,6 +8,8 @@ import {
 import route from "../route";
 import Navbar from "./Navbar";
 import axios from "../../../shared/caller";
+import { AlertProvider } from "../../../context/AlertContext";
+import Alert from "../../../shared/Components/pages/Alert";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -73,7 +75,11 @@ function App() {
 
   return (
     <Router>
-      <AppContent />
+      <AlertProvider>
+        {/* Global message notification */}
+        <Alert />
+        <AppContent />
+      </AlertProvider>
     </Router>
   );
 }
