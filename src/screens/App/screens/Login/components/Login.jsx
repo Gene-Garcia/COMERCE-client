@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
 import { useForm } from "../../../../../shared/Form/useForm";
 import InputField from "../../../../../shared/Auth/InputField.Auth";
-import Alert from "../../../../../shared/Auth/Alert";
 import { setUserPersistData } from "../../../../../shared/Auth/Login";
+import useAlert from "../../../../../hooks/useAlert";
 
 function Login({ history }) {
   // state variable for API message
-  const [reqErr, setReqErr] = useState("");
+  const { setMessage, setSeverity } = useAlert(0);
 
   async function LoginApi() {
     await axios
@@ -16,12 +16,15 @@ function Login({ history }) {
       .then((res) => {
         if (res.status === 200) {
           setUserPersistData(res.data.user.email, res.data.user.username);
+          setSeverity("success");
+          setMessage("Logged in Successfully!");
           history.push("/user");
         }
       })
       .catch((err) => {
-        if (err.response) setReqErr(err.response.data.error);
-        else setReqErr("Something went wrong. Try again.");
+        setSeverity("error");
+        if (err.response) setMessage(err.response.data.error);
+        else setMessage("Something went wrong. Try again.");
       });
   }
 
@@ -108,8 +111,6 @@ function Login({ history }) {
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
-          <Alert state={reqErr} modifier={setReqErr} severity="error" />
-
           <InputField
             name="email"
             type="text"

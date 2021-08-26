@@ -3,9 +3,9 @@ import axios from "../../../../../../../shared/caller";
 import useQuery from "../../../../../../../shared/Route/useQuery";
 import { useForm } from "../../../../../../../shared/Form/useForm";
 import Title from "../../../../../../../shared/Components/pages/Title.Page";
-import Alert from "../../../../../../../shared/Auth/Alert";
 import InputField from "../../../../../../../shared/Auth/InputField.Auth";
 import { Link } from "react-router-dom";
+import useAlert from "../../../../../../../hooks/useAlert";
 
 function ResetPassword({ history }) {
   const query = useQuery();
@@ -21,7 +21,7 @@ function ResetPassword({ history }) {
         resetForms();
 
         setSeverity("success");
-        setReqErr(res.data.message);
+        setMessage(res.data.message);
 
         history.push("/login");
       })
@@ -29,8 +29,8 @@ function ResetPassword({ history }) {
         setSeverity("error");
 
         if (err.response === undefined)
-          setReqErr("Something went wrong. Try again.");
-        else setReqErr(err.response.data.error);
+          setMessage("Something went wrong. Try again.");
+        else setMessage(err.response.data.error);
       });
   }
 
@@ -60,8 +60,7 @@ function ResetPassword({ history }) {
     ResetPasswordAPI
   );
 
-  const [reqErr, setReqErr] = useState("");
-  const [severity, setSeverity] = useState("error");
+  const { setMessage, setSeverity } = useAlert();
 
   return (
     <div className="">
@@ -94,8 +93,6 @@ function ResetPassword({ history }) {
         </div>
 
         <div className="w-3/5 space-y-6">
-          <Alert state={reqErr} modifier={setReqErr} severity={severity} />
-
           <InputField
             label="EMAIL"
             error={errors.email}

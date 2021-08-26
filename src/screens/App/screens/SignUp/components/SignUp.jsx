@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
-import Alert from "../../../../../shared/Auth/Alert";
 import InputField from "../../../../../shared/Auth/InputField.Auth";
 import { useForm } from "../../../../../shared/Form/useForm";
+import useAlert from "../../../../../hooks/useAlert";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
@@ -18,8 +18,10 @@ function SignUp({ history }) {
         }
       })
       .catch((err) => {
-        if (err.response) setReqErr(err.response.data.error);
-        else setReqErr("Something went wrong. Try again.");
+        setSeverity("error");
+
+        if (err.response) setMessage(err.response.data.error);
+        else setMessage("Something went wrong. Try again.");
       });
   }
 
@@ -72,7 +74,7 @@ function SignUp({ history }) {
   );
 
   // Request error message
-  const [reqErr, setReqErr] = useState("");
+  const { setSeverity, setMessage } = useAlert();
 
   return (
     <div className="flex h-full">
@@ -104,8 +106,6 @@ function SignUp({ history }) {
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
-          <Alert state={reqErr} modifier={setReqErr} severity="error" />
-
           <InputField
             name="email"
             type="email"

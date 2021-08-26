@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alert from "../../../../../../../shared/Auth/Alert";
+import useAlert from "../../../../../../../hooks/useAlert";
 import InputField from "../../../../../../../shared/Auth/InputField.Auth";
 import validateUser from "../../../../../../../shared/Auth/Validation";
 import axios from "../../../../../../../shared/caller";
@@ -26,18 +26,18 @@ function ChangePassword({ history }) {
         resetForms();
 
         if (res.status === 200) {
-          setReqErr("Successfully changed password");
           setSeverity("success");
-        } else setReqErr(res.data.message);
+          setMessage("Successfully changed password");
+        } else setMessage(res.data.message);
       })
       .catch((err) => {
         setSeverity("error");
 
         if (err.response === undefined)
-          setReqErr("Something went wrong. Try again.");
+          setMessage("Something went wrong. Try again.");
         else if (err.response.status === 401) history.push("/sign-in");
         else if (err.response.status === 403) history.push("/forbidden");
-        else setReqErr(err.response.data.error);
+        else setMessage(err.response.data.error);
       });
   }
 
@@ -67,9 +67,7 @@ function ChangePassword({ history }) {
     ChangePasswordAPI
   );
 
-  // req message
-  const [reqErr, setReqErr] = useState("");
-  const [severity, setSeverity] = useState("error");
+  const { setMessage, setSeverity } = useAlert();
 
   return (
     <>
@@ -80,8 +78,6 @@ function ChangePassword({ history }) {
           <Title title="My Account" />
 
           <div className="w-4/5 mx-auto mt-10">
-            <Alert state={reqErr} modifier={setReqErr} severity={severity} />
-
             <h1 className="text-gray-800 text-2xl font-semibold">
               Change Password
             </h1>

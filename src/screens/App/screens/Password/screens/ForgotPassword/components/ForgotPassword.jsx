@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Alert from "../../../../../../../shared/Auth/Alert";
+import useAlert from "../../../../../../../hooks/useAlert";
 import InputField from "../../../../../../../shared/Auth/InputField.Auth";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title.Page";
@@ -13,14 +13,14 @@ function ForgotPassword() {
         resetForms();
 
         setSeverity("success");
-        setReqErr(res.data.message);
+        setMessage(res.data.message);
       })
       .catch((err) => {
         setSeverity("error");
 
         if (err.response === undefined)
-          setReqErr("Something went wrong. Try again");
-        else setReqErr(err.response.data.error);
+          setMessage("Something went wrong. Try again");
+        else setMessage(err.response.data.error);
       });
   }
 
@@ -44,8 +44,7 @@ function ForgotPassword() {
     ForgotPasswordAPI
   );
 
-  const [reqErr, setReqErr] = useState("");
-  const [severity, setSeverity] = useState("error");
+  const { setMessage, setSeverity } = useAlert();
 
   return (
     <div>
@@ -77,8 +76,6 @@ function ForgotPassword() {
         </div>
 
         <div className="w-3/5 space-y-6">
-          <Alert state={reqErr} modifier={setReqErr} severity={severity} />
-
           <InputField
             label="EMAIL"
             error={errors.email}
