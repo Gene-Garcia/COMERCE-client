@@ -1,6 +1,9 @@
 import React from "react";
+import useAlert from "../../../hooks/useAlert";
 
-function Alert({ state, modifier, severity }) {
+function Alert() {
+  const { message, setMessage, severity } = useAlert();
+
   let color;
   if (severity === "error") color = "bg-red-100 border-red-500";
   else if (severity === "success") color = "bg-green-100 border-green-500";
@@ -8,16 +11,16 @@ function Alert({ state, modifier, severity }) {
   return (
     <div
       className={
-        (state ? "absolute" : "hidden") +
+        (message ? "absolute" : "hidden") +
         " transition duration-300 py-6 w-80 rounded-md shadow-md border-l-4 px-4 flex justify-between items-center left-8 bottom-8 " +
         color
       }
     >
-      <div className="text-gray-800 font-semibold">{state}</div>
+      <div className="text-gray-800 font-semibold">{message}</div>
 
       <button
         onClick={() => {
-          modifier("");
+          setMessage("");
         }}
       >
         <svg
