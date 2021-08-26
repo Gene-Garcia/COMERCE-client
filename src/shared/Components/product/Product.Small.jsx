@@ -43,7 +43,7 @@ function ProductSmall({ data }) {
         </div>
 
         <div>
-          <ProductPurchase />
+          <ProductPurchase productId={productId} />
         </div>
       </div>
     </div>
