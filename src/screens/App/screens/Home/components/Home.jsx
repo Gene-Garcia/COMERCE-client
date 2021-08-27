@@ -1,9 +1,9 @@
 import React from "react";
-import ProductFocused from "../../../../../shared/Components/product/Product.Focused";
-import ProductHalf from "../../../../../shared/Components/product/Product.Half";
-import ProductLong from "../../../../../shared/Components/product/Product.Long";
-import ProductSmall from "../../../../../shared/Components/product/Product.Small";
-import HomeNav from "./Home.Nav";
+import ProductFocused from "../../../../../shared/Components/product/ProductFocused";
+import ProductHalf from "../../../../../shared/Components/product/ProductHalf";
+import ProductLong from "../../../../../shared/Components/product/ProductLong";
+import ProductSmall from "../../../../../shared/Components/product/ProductSmall";
+import HomeNav from "./HomeNav";
 
 function Home() {
   return (

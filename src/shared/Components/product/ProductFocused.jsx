@@ -5,7 +5,7 @@ import {
   ProductPrice,
   ProductPurchase,
   ProductRating,
-} from "./Product.Components";
+} from "./ProductComponents";
 
 function ProductFocused() {
   return (

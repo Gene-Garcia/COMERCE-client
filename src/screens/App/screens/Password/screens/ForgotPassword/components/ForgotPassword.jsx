@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import useAlert from "../../../../../../../hooks/useAlert";
-import InputField from "../../../../../../../shared/Auth/InputField.Auth";
+import InputField from "../../../../../../../shared/Auth/InputField";
 import axios from "../../../../../../../shared/caller";
-import Title from "../../../../../../../shared/Components/pages/Title.Page";
+import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../shared/Form/useForm";
 
 function ForgotPassword() {
