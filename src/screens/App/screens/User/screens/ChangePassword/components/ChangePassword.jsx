@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useAlert from "../../../../../../../hooks/useAlert";
-import InputField from "../../../../../../../shared/Auth/InputField.Auth";
+import InputField from "../../../../../../../shared/Auth/InputField";
 import validateUser from "../../../../../../../shared/Auth/Validation";
 import axios from "../../../../../../../shared/caller";
-import Title from "../../../../../../../shared/Components/pages/Title.Page";
+import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../shared/Form/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
 

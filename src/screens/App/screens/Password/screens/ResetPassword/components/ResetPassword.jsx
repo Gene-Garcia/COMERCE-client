@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "../../../../../../../shared/caller";
 import useQuery from "../../../../../../../shared/Route/useQuery";
 import { useForm } from "../../../../../../../shared/Form/useForm";
-import Title from "../../../../../../../shared/Components/pages/Title.Page";
-import InputField from "../../../../../../../shared/Auth/InputField.Auth";
+import Title from "../../../../../../../shared/Components/pages/Title";
+import InputField from "../../../../../../../shared/Auth/InputField";
 import { Link } from "react-router-dom";
 import useAlert from "../../../../../../../hooks/useAlert";
 

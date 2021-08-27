@@ -1,9 +1,9 @@
 import React from "react";
 import iconLogo from "../../../shared/images/comerce-logo-blue.webp";
-import Search from "../../../shared/Components/navigation/Search.Nav";
-import Cart from "../../../shared/Components/navigation/Cart.Nav";
+import Search from "../../../shared/Components/navigation/Search";
+import Cart from "../../../shared/Components/navigation/Cart";
 import { Link } from "react-router-dom";
-import Account from "../../../shared/Components/navigation/Account.Nav";
+import Account from "../../../shared/Components/navigation/Account";
 
 function Navbar() {
   return (

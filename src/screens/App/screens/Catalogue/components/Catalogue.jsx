@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Title from "../../../../../shared/Components/pages/Title.Page";
-import ProductSmall from "../../../../../shared/Components/product/Product.Small";
+import Title from "../../../../../shared/Components/pages/Title";
+import ProductSmall from "../../../../../shared/Components/product/ProductSmall";
 import axios from "../../../../../shared/caller";
 
 function Button({ name }) {
