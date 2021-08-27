@@ -63,10 +63,11 @@ function App() {
         .then((res) => {
           axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
         })
-        .catch((err) =>
+        .catch((err) =>{
+        console.log(err.response);
           console.log(
             "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
-          )
+          )}
         );
     }
 
