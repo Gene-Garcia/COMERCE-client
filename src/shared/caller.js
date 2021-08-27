@@ -2,8 +2,9 @@
 // other library for api calls
 
 import axios from "axios";
-export default axios.create({
-  baseURL: "http://localhost:3001",
+
+axios.create({
+  baseURL: process.env.REACT_APP_API_ENDPOINT,
   withCredentials: "true",
   headers: {
     "Content-Type": "application/json",
@@ -11,3 +12,5 @@ export default axios.create({
     "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH",
   },
 });
+
+export default axios;

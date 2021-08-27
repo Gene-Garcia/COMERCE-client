@@ -1,11 +1,31 @@
 module.exports = {
-  purge: [],
+  purge: [
+    "./public/index.html",
+    "./src/**/*.jsx",
+    "./src/screens/**/*.jsx",
+    "./src/shared/**/*.jsx",
+  ],
   darkMode: false, // other values 'media' and 'class'
   theme: {
+    screens: {
+      sm: "570px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
+    minWidth: {
+      0: "0",
+      "1/5": "20%",
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
+      full: "100%",
+    },
     extend: {
       colors: {
         "my-accent": "#0092CA",
-        "my-accent-light": "#03a8e7",
+        "my-accent-mono": "#4085CB",
         "my-contrast": "#F9FAFB",
         "my-black": "#082032",
         "my-dark": "#2C394B",
@@ -15,8 +35,16 @@ module.exports = {
   },
   variants: {
     extend: {
+      borderWidth: ["hover"],
+      borderOpacity: ["hover"],
       display: ["group-hover"],
+      ringWidth: ["active"],
+      ringColor: ["active"],
+      ringOpacity: ["active"],
+      ringOffsetWidth: ["active"],
       textColor: ["active"],
+      transitionDuration: ["hover"],
+      transitionProperty: ["hover"],
     },
   },
   plugins: [],

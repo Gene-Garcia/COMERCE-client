@@ -1,9 +1,9 @@
 import routes from "../../../../shared/Route/routes";
-import SignUp from "./index";
+import Login from "./index";
 
 const route = {
-  path: routes.SIGN_UP.path,
-  component: SignUp,
+  path: routes.LOGIN.path,
+  component: Login,
   exact: true,
 };
 export default route;

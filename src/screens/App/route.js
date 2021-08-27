@@ -1,15 +1,23 @@
-import routes from "../../shared/routes";
-
 // components' route
+import HomeRoute from "./screens/Home/route";
+import CatalogueRoute from "./screens/Catalogue/route";
+
 import SignUpRoute from "./screens/SignUp/route";
-import SignInRoute from "./screens/SignIn/route";
+import LoginRoute from "./screens/Login/route";
+import SignOutRoute from "./screens/SignOut/route";
 import PasswordRoute from "./screens/Password/route";
 
 import UserIndexRoute from "./screens/User/route";
 
-export default {
+const route = {
+  HOME: HomeRoute,
+  CATALOGUE: CatalogueRoute,
+  CatalogueRoute,
   SIGN_UP: SignUpRoute,
-  SIGN_IN: SignInRoute,
+  LOGIN: LoginRoute,
   USER: UserIndexRoute,
   PASSWORD: PasswordRoute,
+  SIGN_OUT: SignOutRoute,
 };
+
+export default route;

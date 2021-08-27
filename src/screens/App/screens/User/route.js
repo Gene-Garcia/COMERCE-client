@@ -1,10 +1,10 @@
-import routes from "../../../../shared/routes";
+import routes from "../../../../shared/Route/routes";
 import UserIndex from "./index";
 
 // subroute
 import ChangePasswordRoute from "./screens/ChangePassword/route";
 
-export default {
+const route = {
   path: routes.USER.path,
   component: UserIndex,
   exact: true,
@@ -12,3 +12,4 @@ export default {
     CHANGE_PASSWORD: ChangePasswordRoute,
   },
 };
+export default route;

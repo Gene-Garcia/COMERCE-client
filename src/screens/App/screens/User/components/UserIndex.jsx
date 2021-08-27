@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "../../../../../shared/caller";
+import validateUser from "../../../../../shared/Auth/Validation";
 import Loading from "../../../../../shared/Loading/Loading";
 
 function UserIndex({ history }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      await axios
-        .get("/user")
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err.response === undefined || err.response.status === 401)
-            history.push("/sign-in");
-          else console.log(err.response.data.error);
-        });
-    }
-
-    fetchData();
+    validateUser((s) => {
+      if (s === "SUCCESS") setLoading(false);
+      else if (s === "FAILED") history.push("/login");
+      else if (s === "UNAUTHORIZED") history.push("/unauthorized");
+      else if (s === "FORBIDDEN") history.push("/forbidden");
+    });
   }, []);
 
   function Component() {

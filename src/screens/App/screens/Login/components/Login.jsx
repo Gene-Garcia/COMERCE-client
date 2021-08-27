@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
-import InputField from "../../../../../shared/Auth/InputField.Auth";
 import { useForm } from "../../../../../shared/Form/useForm";
+import InputField from "../../../../../shared/Auth/InputField.Auth";
+import { setUserPersistData } from "../../../../../shared/Auth/Login";
 import useAlert from "../../../../../hooks/useAlert";
 
-function SignUp({ history }) {
-  async function SignUpAPI() {
+function Login({ history }) {
+  // state variable for API message
+  const { setMessage, setSeverity } = useAlert(0);
+
+  async function LoginApi() {
     await axios
-      .post("/api/signup", values)
+      .post("/api/signin", values)
       .then((res) => {
         if (res.status === 200) {
-          resetForms();
-
+          setUserPersistData(res.data.user.email, res.data.user.username);
           setSeverity("success");
-          setMessage("Account created successfully!");
-          //clear
-          history.push("/login");
+          setMessage("Logged in Successfully!");
+          history.push("/user");
         }
       })
       .catch((err) => {
         setSeverity("error");
-
         if (err.response) setMessage(err.response.data.error);
         else setMessage("Something went wrong. Try again.");
       });
@@ -30,28 +31,11 @@ function SignUp({ history }) {
   function validate(formData, setErrors) {
     let tempErrs = { ...errors };
 
-    if ("username" in formData)
-      tempErrs.username =
-        formData.username === "" || formData.username === null
-          ? "Username is required"
-          : "";
-
     if ("email" in formData)
       tempErrs.email =
         formData.email === "" || formData.email === null
           ? "Email is required"
           : "";
-
-    if ("confirmEmail" in formData)
-      // check for empty values
-      tempErrs.confirmEmail =
-        formData.confirmEmail === "" || formData.confirmEmail === null
-          ? "Confirm email is required"
-          : "";
-
-    if ("confirmEmail" in formData && values.email !== formData.confirmEmail)
-      // omg this was the fix FUCK
-      tempErrs.confirmEmail = "Email does not match";
 
     if ("password" in formData)
       tempErrs.password =
@@ -62,29 +46,48 @@ function SignUp({ history }) {
     setErrors(tempErrs);
   }
 
-  const initialState = {
-    username: "",
-    email: "",
-    confirmEmail: "",
-    password: "",
-  };
+  const initialState = { email: "", password: "" };
   const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
     initialState,
     initialState,
     validate,
-    SignUpAPI
+    LoginApi
   );
-
-  // Request error message
-  const { setSeverity, setMessage } = useAlert();
 
   return (
     <div className="flex h-full">
+      {/* hero */}
+      <div className="w-2/5 h-full flex justify-start items-center py-20 gap-y-40 flex-col bg-gradient-to-t from-my-accent to-my-accent-mono">
+        <div className="flex flex-col justify-center items-center gap-y-6">
+          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+            Don't have an account?
+          </h2>
+          <Link
+            to="/sign-up"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+          >
+            Sign Up
+          </Link>
+        </div>
+
+        <div className="flex flex-col justify-center items-center gap-y-6">
+          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+            Start filling up your cart
+          </h2>
+          <Link
+            to="/catalogue"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+          >
+            Browse
+          </Link>
+        </div>
+      </div>
+
       {/* form */}
       <div className="h-full bg-white flex-grow flex flex-col justify-evenly items-center px-44">
         <div className="flex flex-col items-center gap-y-1">
-          <h1 className="font-bold text-3xl font-sans text-gray-700 ">
-            Create an account
+          <h1 className="font-bold text-3xl font-sans text-gray-700">
+            Login to your account
           </h1>
           <p className="font-medium text-xl text-gray-400">CoMerce Account</p>
         </div>
@@ -110,32 +113,12 @@ function SignUp({ history }) {
         <div className="flex flex-col w-full gap-y-8">
           <InputField
             name="email"
-            type="email"
+            type="text"
             label="EMAIL"
             error={errors.email}
             value={values.email}
             onChange={handleInput}
             svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-          />
-
-          <InputField
-            name="confirmEmail"
-            type="email"
-            label="CONFIRM EMAIL"
-            error={errors.confirmEmail}
-            value={values.confirmEmail}
-            onChange={handleInput}
-            svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-          />
-
-          <InputField
-            name="username"
-            type="text"
-            label="USERNAME"
-            error={errors.username}
-            value={values.username}
-            onChange={handleInput}
-            svgD="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
           />
 
           <InputField
@@ -152,39 +135,21 @@ function SignUp({ history }) {
             onClick={handleFormSubmit}
             className="transition border border-my-accent rounded-md text-my-accenet font-semibold text-xl text-my-accent h-10 hover:bg-my-accent hover:text-my-contrast active:ring active:ring-my-accent-mono active:ring-offset-2"
           >
-            SIGN UP
-          </button>
-        </div>
-      </div>
-
-      {/* hero */}
-      <div className="w-2/5 h-full flex justify-start items-center py-20 gap-y-40 flex-col bg-gradient-to-t from-my-accent to-my-accent-mono">
-        <div className="flex flex-col justify-center items-center gap-y-6">
-          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
-            Already have an account?
-          </h2>
-          <Link
-            to="/login"
-            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
-          >
             Login
-          </Link>
-        </div>
+          </button>
 
-        <div className="flex flex-col justify-center items-center gap-y-6">
-          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
-            Start filling up your cart
-          </h2>
-          <Link
-            to="/catalogue"
-            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
-          >
-            Browse
-          </Link>
+          <div className="flex justify-end">
+            <Link
+              to="/password/forgot"
+              className="transition duration-300 text-my-accent font-medium text-md py-2 border-b border-transparent hover:border-my-accent "
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;

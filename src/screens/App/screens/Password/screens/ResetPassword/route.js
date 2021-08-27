@@ -1,9 +1,10 @@
-import routes from "../../../../../../shared/routes";
+import routes from "../../../../../../shared/Route/routes";
 
 import ResetPassword from "./index";
 
-export default {
+const route = {
   path: routes.PASSWORD.subroutes.RESET_PASSWORD.path,
   component: ResetPassword,
   exact: true,
 };
+export default route;
