@@ -4,7 +4,7 @@
 import axios from "axios";
 
 axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: process.env.REACT_APP_API_ENDPOINT,
   withCredentials: "true",
   headers: {
     "Content-Type": "application/json",
