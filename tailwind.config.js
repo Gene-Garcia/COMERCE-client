@@ -1,5 +1,10 @@
 module.exports = {
-  purge: [],
+  purge: [
+    "./public/index.html",
+    "./src/**/*.jsx",
+    "./src/screens/**/*.jsx",
+    "./src/shared/**/*.jsx",
+  ],
   darkMode: false, // other values 'media' and 'class'
   theme: {
     screens: {
