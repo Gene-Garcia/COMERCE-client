@@ -63,12 +63,14 @@ function App() {
         .then((res) => {
           axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
         })
-        .catch((err) =>{
-        console.log(err.response);
+        .catch((err) => {
+          console.log(axios);
+          console.log(err);
+          console.log(err.response);
           console.log(
             "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
-          )}
-        );
+          );
+        });
     }
 
     fetchCookieProtection();
