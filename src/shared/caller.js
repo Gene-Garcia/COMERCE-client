@@ -8,8 +8,8 @@ axios.create({
   withCredentials: "true",
   headers: {
     "Content-Type": "application/json",
-    // "Access-Control-Allow-Origin": "*",
-    // "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH",
   },
 });
 
