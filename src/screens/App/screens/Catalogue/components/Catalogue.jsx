@@ -21,6 +21,7 @@ function Catalogue() {
         .then((res) => {
           if (res.status === 200) {
             // const { available: data } = res.data;
+            console.log(res.data);
             setItems(res.data.available);
           }
         })
