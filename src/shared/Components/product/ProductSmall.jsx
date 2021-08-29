@@ -17,7 +17,7 @@ function ProductSmall({ data }) {
   } = data;
 
   return (
-    <div className="flex flex-col w-full max-w-xs h-full rounded-md shadow-md">
+    <div className="flex flex-col w-full max-w-xs h-full rounded-md shadow-lg">
       {/* image */}
       <div className="w-full">
         <img
