@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { checkLoggedIn } from "../../Auth/Login";
 
 function UnAuthenticated({ bgType }) {
@@ -32,6 +33,8 @@ function UnAuthenticated({ bgType }) {
 }
 
 function Authenticated({ bgType }) {
+  const cookies = new Cookies();
+
   const color = "text-my-contrast";
 
   const themes = {
@@ -45,7 +48,7 @@ function Authenticated({ bgType }) {
         className={`${themes[bgType]} font-semibold inline-flex items-center`}
       >
         <span className="mr-1">
-          {localStorage.getItem(process.env.REACT_APP_LS_USERNAME_KEY)}
+          {cookies.get(process.env.REACT_APP_LS_USERNAME_KEY)}
         </span>
         <svg
           className="fill-current h-4 w-4 font-bold"
@@ -60,7 +63,7 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2">
             <p className="text-sm font-semibold w-full">Signed in as</p>
             <p className="text-base font-semibold text-gray-600">
-              {localStorage.getItem(process.env.REACT_APP_LS_EMAIL_KEY)}
+              {cookies.get(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
           </li>
 
