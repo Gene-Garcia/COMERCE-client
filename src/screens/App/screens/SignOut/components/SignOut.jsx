@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
+import useAlert from "../../../../../hooks/useAlert";
 import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
+  const { setMessage, setSeverity } = useAlert();
+
   useEffect(() => {
     async function signOut() {
       await axios
         .get("/api/signout")
         .then((res) => {
           clearUserPersistData();
+
+          setSeverity("success");
+          setMessage("Sign Out Success");
+
           history.push("/login");
         })
         .catch((err) => {
@@ -16,7 +23,7 @@ function SignOut({ history }) {
 
           if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else alert("Something went wrong. Sign out again");
+          else history.push("/error");
         });
     }
 
