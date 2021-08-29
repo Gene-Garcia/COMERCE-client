@@ -1,11 +1,40 @@
+import Cookies from "universal-cookie";
+
 function clearUserPersistData() {
-  localStorage.removeItem(process.env.REACT_APP_LS_EMAIL_KEY);
-  localStorage.removeItem(process.env.REACT_APP_LS_USERNAME_KEY);
+  const cookies = new Cookies();
+
+  cookies.remove(process.env.REACT_APP_LS_EMAIL_KEY);
+  cookies.remove(process.env.REACT_APP_LS_USERNAME_KEY);
 }
 
 function setUserPersistData(email, username) {
-  localStorage.setItem(process.env.REACT_APP_LS_EMAIL_KEY, email);
-  localStorage.setItem(process.env.REACT_APP_LS_USERNAME_KEY, username);
+  const cookies = new Cookies();
+
+  const options = {
+    path: "/",
+    expires: getExpiration(),
+  };
+
+  cookies.set(process.env.REACT_APP_LS_EMAIL_KEY, email, options);
+  cookies.set(process.env.REACT_APP_LS_USERNAME_KEY, username, options);
 }
 
-export { clearUserPersistData, setUserPersistData };
+function checkLoggedIn() {
+  const cookies = new Cookies();
+
+  return (
+    cookies.get(process.env.REACT_APP_LS_EMAIL_KEY) &&
+    cookies.get(process.env.REACT_APP_LS_USERNAME_KEY)
+  );
+}
+
+function getExpiration() {
+  // 15 minutes, the server also uses 15-minute expiry
+  const date = new Date();
+  date.setMinutes(date.getMinutes() + 1);
+  console.log(date);
+
+  return date;
+}
+
+export { clearUserPersistData, setUserPersistData, checkLoggedIn };

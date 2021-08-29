@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { checkLoggedIn } from "../../Auth/Login";
 
 function UnAuthenticated({ bgType }) {
   const base = "transition font-sans h-9 font-semibold text-base px-4 py-1.5";
@@ -169,9 +170,11 @@ function Authenticated({ bgType }) {
 }
 
 function Account({ bgType }) {
-  if (localStorage.getItem(process.env.REACT_APP_LS_EMAIL_KEY))
-    return <Authenticated bgType={bgType} />;
-  else return <UnAuthenticated bgType={bgType} />;
+  return checkLoggedIn() ? (
+    <Authenticated bgType={bgType} />
+  ) : (
+    <UnAuthenticated bgType={bgType} />
+  );
 }
 
 export default Account;

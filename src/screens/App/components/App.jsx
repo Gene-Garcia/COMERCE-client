@@ -61,7 +61,6 @@ function App() {
       await axios
         .get("/api/cs")
         .then((res) => {
-          console.log(res.data);
           axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
         })
         .catch((err) => {
