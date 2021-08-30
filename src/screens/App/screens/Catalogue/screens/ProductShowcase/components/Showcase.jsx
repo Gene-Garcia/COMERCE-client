@@ -7,7 +7,13 @@ import {
 } from "../../../../../../../shared/Components/product/ProductComponents";
 
 function Showcase(props) {
-  console.log(props);
+  const {
+    match: {
+      params: { product },
+    },
+  } = props;
+  console.log(product);
+
   return (
     <>
       <div className="h-3/5 bg-gradient-to-b from-my-accent">
@@ -16,9 +22,9 @@ function Showcase(props) {
         </h1>
       </div>
 
-      <div className="flex container mx-auto gap-x-12 -mt-106 mb-16 ">
+      <div className="flex flex-col lg:flex-row items-center  mx-auto gap-x-0 lg:gap-x-12 -mt-106 mb-16 container ">
         {/* image */}
-        <div className="w-3/5">
+        <div className="w-11/12 lg:w-3/5">
           <img
             src="https://img.endgamegear.com/products/xm1-rgb/2"
             alt="smart-watch"
@@ -27,7 +33,7 @@ function Showcase(props) {
         </div>
 
         {/* content */}
-        <div className="w-2/5 bg-white rounded-lg shadow-lg p-16 flex flex-col gap-y-20">
+        <div className="w-11/12 lg:w-2/5 bg-white rounded-lg shadow-lg p-8 md:p-16 flex flex-col gap-y-20">
           {/* buy now */}
           <div>
             <p className="text-gray-500 font-medium text-xl">
