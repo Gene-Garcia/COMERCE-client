@@ -74,7 +74,8 @@ function ProductRating({ size }) {
 }
 
 function ProductDescription({ desc }) {
-  const truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+  let truncated;
+  if (desc) truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
 
   return <p className="font-medium text-gray-700 text-md ">long {truncated}</p>;
 }
