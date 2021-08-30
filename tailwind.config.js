@@ -23,6 +23,9 @@ module.exports = {
       full: "100%",
     },
     extend: {
+      spacing: {
+        106: "28rem",
+      },
       colors: {
         "my-accent": "#0092CA",
         "my-accent-mono": "#4085CB",
