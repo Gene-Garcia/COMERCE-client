@@ -30,17 +30,17 @@ function Showcase(props) {
         <div className="w-2/5 bg-white rounded-lg shadow-lg p-16 flex flex-col gap-y-20">
           {/* buy now */}
           <div>
-            <p className="text-gray-500 font-medium text-2xl">
+            <p className="text-gray-500 font-medium text-xl">
               Buy now for only
             </p>
-            <ProductPrice price="13,999.99" />
+            <ProductPrice price="13,999.99" size="extralarge" />
             <br />
-            <ProductPurchase />
+            <ProductPurchase size="extralarge" />
           </div>
 
           {/* rating */}
           <div>
-            <ProductRating />
+            <ProductRating size="extralarge" />
           </div>
 
           {/* desc */}
