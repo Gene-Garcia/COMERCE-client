@@ -73,11 +73,13 @@ function ProductRating({ size }) {
   );
 }
 
-function ProductDescription({ desc }) {
+function ProductDescription({ desc, fullText }) {
   let truncated;
-  if (desc) truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+  if (!fullText && desc)
+    truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+  else truncated = desc;
 
-  return <p className="font-medium text-gray-700 text-md ">long {truncated}</p>;
+  return <p className="font-medium text-gray-700 text-md ">{truncated}</p>;
 }
 
 function ProductPurchase({ productId, size }) {
