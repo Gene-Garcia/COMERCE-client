@@ -32,6 +32,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 
         <Route {...route.USER} />
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+        <Route {...route.USER.subroutes.CART} />
 
         {/* <PrivateRoute
           path={route.USER.path}
