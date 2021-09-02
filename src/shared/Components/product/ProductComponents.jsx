@@ -85,12 +85,12 @@ function ProductDescription({ desc, fullText }) {
 function ProductPurchase({ productId, size }) {
   function success(res) {
     setSeverity("success");
-    setMessage("add to cart success");
+    setMessage("Item added to your cart.");
   }
 
   function failed(err) {
     setSeverity("error");
-    setMessage("add to cart failed");
+    setMessage("Error encountered in adding item to your cart.");
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
