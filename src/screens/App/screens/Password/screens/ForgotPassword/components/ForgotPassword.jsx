@@ -3,7 +3,7 @@ import useAlert from "../../../../../../../hooks/useAlert";
 import InputField from "../../../../../../../shared/Auth/InputField";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
-import { useForm } from "../../../../../../../shared/Form/useForm";
+import { useForm } from "../../../../../../../hooks/useForm";
 
 function ForgotPassword() {
   async function ForgotPasswordAPI() {

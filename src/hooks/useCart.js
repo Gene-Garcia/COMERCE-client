@@ -1,4 +1,4 @@
-import axios from "../caller";
+import axios from "../shared/caller";
 
 function useAddToCart(productId, callbackSuccess, callbackFailed) {
   const patchAddToCart = async () => {

@@ -21,7 +21,7 @@ function UnAuthenticated({ bgType }) {
   };
 
   return (
-    <div className="space-x-3">
+    <div className="flex flex-row gap-x-3">
       <Link to="/login" className={`${base} ${themes[bgType].login}`}>
         Login
       </Link>
