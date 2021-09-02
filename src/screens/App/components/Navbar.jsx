@@ -7,12 +7,12 @@ import Account from "../../../shared/Components/navigation/Account";
 
 function Navbar() {
   return (
-    <div className="w-full bg-my-contrast flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg ">
+    <div className="w-full bg-my-contrast flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg gap-x-10 md:gap-x-0">
       {/* logo */}
       <Link
         component="div"
         to="/"
-        className="flex flex-row xs:flex-col sm:flex-row items-center flex-grow-0 lg:flex-grow "
+        className="flex flex-row xs:flex-col sm:flex-row items-center  "
       >
         <div className="place-self-center">
           <img src={iconLogo} alt="comerce-logo" width="50" />
@@ -26,19 +26,18 @@ function Navbar() {
       </Link>
 
       {/* links */}
-      <div className="w-full xs:w-auto justify-self-end text-my-dim xs:flex-grow md:flex-grow-0 place-self-end md:mt-2.5">
-        <div className=" self-center flex flex-col md:flex-row gap-x-6 lg:gap-x-10 gap-y-4">
+      <div className="w-full sm:w-3/4 items-center text-my-dim flex flex-row justify-end">
+        <div className="w-full flex justify-end flex-col md:flex-row gap-x-6 lg:gap-x-10 gap-y-4">
           {/* search */}
-          <div className="w-full xs:w-4/5 md:w-auto self-end">
+          <div className="flex-grow">
             <Search />
           </div>
 
           {/* account */}
-          <div className="xs:self-end flex flex-row gap-x-4 items-center">
+          <div className="flex-shrink flex flex-row items-center justify-end gap-x-4">
             <div className="">
               <Account bgType="contrast" />
             </div>
-
             {/* cart */}
             <div className="">
               <Cart bgType="contrast" />
