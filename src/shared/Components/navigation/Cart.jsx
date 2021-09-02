@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Cart({ bgType }) {
   const themes = {
@@ -13,7 +14,10 @@ function Cart({ bgType }) {
   };
 
   return (
-    <div className="inline-flex place-self-center self-center items-center group">
+    <Link
+      to="/user/cart"
+      className="inline-flex place-self-center self-center items-center group"
+    >
       <div className={`${themes[bgType].svg} font-semibold`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +37,7 @@ function Cart({ bgType }) {
       <div className={`ml-1.5 text-lg ${themes[bgType].text} font-semibold`}>
         5
       </div>
-    </div>
+    </Link>
   );
 }
 

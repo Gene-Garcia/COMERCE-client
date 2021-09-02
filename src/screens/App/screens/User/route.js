@@ -3,6 +3,7 @@ import UserIndex from "./index";
 
 // subroute
 import ChangePasswordRoute from "./screens/ChangePassword/route";
+import CartRoute from "./screens/Cart/route";
 
 const route = {
   path: routes.USER.path,
@@ -10,6 +11,7 @@ const route = {
   exact: true,
   subroutes: {
     CHANGE_PASSWORD: ChangePasswordRoute,
+    CART: CartRoute,
   },
 };
 export default route;
