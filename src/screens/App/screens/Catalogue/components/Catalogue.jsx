@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Title from "../../../../../shared/Components/pages/Title";
 import ProductSmall from "../../../../../shared/Components/product/ProductSmall";
 import axios from "../../../../../shared/caller";
+import Loading from "../../../../../shared/Loading/Loading";
+import useAlert from "../../../../../hooks/useAlert";
 
 function Button({ name }) {
   return (
@@ -12,7 +14,9 @@ function Button({ name }) {
 }
 
 function Catalogue() {
+  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const { setSeverity, setMessage } = useAlert();
 
   useEffect(() => {
     async function fetchItems() {
@@ -21,12 +25,14 @@ function Catalogue() {
         .then((res) => {
           if (res.status === 200) {
             // const { available: data } = res.data;
-            console.log(res.data);
             setItems(res.data.available);
+            setLoading(false);
           }
         })
         .catch((err) => {
           console.log(err.response);
+          setSeverity("error");
+          setMessage("Unable to load items. Refresh the page and try again.");
         });
     }
 
@@ -77,11 +83,17 @@ function Catalogue() {
         </div>
 
         <div className="flex-grow">
-          <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
-            {items.map((item) => (
-              <ProductSmall data={item} key={item._id} />
-            ))}
-          </div>
+          {loading ? (
+            <div>
+              <Loading />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
+              {items.map((item) => (
+                <ProductSmall data={item} key={item._id} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
