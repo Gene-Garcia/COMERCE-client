@@ -1,6 +1,6 @@
 import React from "react";
 import useAlert from "../../../hooks/useAlert";
-import { useAddToCart } from "../../Cart/useCart";
+import { useAddToCart } from "../../../hooks/useCart";
 
 function ProductName({ name }) {
   return (
