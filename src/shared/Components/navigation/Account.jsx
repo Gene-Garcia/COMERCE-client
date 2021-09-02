@@ -22,18 +22,10 @@ function UnAuthenticated({ bgType }) {
 
   return (
     <div className="flex flex-row gap-x-3">
-      <Link
-        component="div"
-        to="/login"
-        className={`${base} ${themes[bgType].login}`}
-      >
+      <Link to="/login" className={`${base} ${themes[bgType].login}`}>
         Login
       </Link>
-      <Link
-        component="div"
-        to="/sign-up"
-        className={`${base} ${themes[bgType].signUp}`}
-      >
+      <Link to="/sign-up" className={`${base} ${themes[bgType].signUp}`}>
         Sign Up
       </Link>
     </div>

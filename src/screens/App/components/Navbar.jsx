@@ -10,7 +10,6 @@ function Navbar() {
     <div className="w-full bg-my-contrast flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg gap-x-10 md:gap-x-0">
       {/* logo */}
       <Link
-        component="div"
         to="/"
         className="flex flex-row xs:flex-col sm:flex-row items-center  "
       >
