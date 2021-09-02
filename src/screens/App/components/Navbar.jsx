@@ -7,17 +7,17 @@ import Account from "../../../shared/Components/navigation/Account";
 
 function Navbar() {
   return (
-    <div className="w-full bg-my-contrast flex items-center p-2 sm:p-5 shadow-lg ">
+    <div className="w-full bg-my-contrast flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg gap-x-10 md:gap-x-0">
       {/* logo */}
       <Link
         to="/"
-        className="flex flex-col sm:flex-row items-center flex-grow "
+        className="flex flex-row xs:flex-col sm:flex-row items-center  "
       >
         <div className="place-self-center">
           <img src={iconLogo} alt="comerce-logo" width="50" />
         </div>
 
-        <div className="ml-0 sm:ml-3 ">
+        <div className="ml-3 xs:ml-0 sm:ml-3 ">
           <p className="font-mono text-2xl font-bold tracking-widest text-my-dim text-opacity-80">
             COMERCE
           </p>
@@ -25,21 +25,22 @@ function Navbar() {
       </Link>
 
       {/* links */}
-      <div className="justify-self-end text-my-dim flex-grow-0 place-self-end md:mt-2.5">
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-4 md:gap-y-0 self-center">
+      <div className="w-full sm:w-3/4 items-center text-my-dim flex flex-row justify-end">
+        <div className="w-full flex justify-end flex-col md:flex-row gap-x-6 lg:gap-x-10 gap-y-4">
           {/* search */}
-          <div className="place-self-end col-span-2 sm:col-span-4 md:col-span-3 w-full">
+          <div className="flex-grow">
             <Search />
           </div>
 
           {/* account */}
-          <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-3 md:col-span-2 pb-1 sm:pb-0">
-            <Account bgType="contrast" />
-          </div>
-
-          {/* cart */}
-          <div className="place-self-end sm:place-self-center col-span-2 sm:col-span-1 md:col-span-1">
-            <Cart bgType="contrast" />
+          <div className="flex-shrink flex flex-row items-center justify-end gap-x-4">
+            <div className="">
+              <Account bgType="contrast" />
+            </div>
+            {/* cart */}
+            <div className="">
+              <Cart bgType="contrast" />
+            </div>
           </div>
         </div>
       </div>

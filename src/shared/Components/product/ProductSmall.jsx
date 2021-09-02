@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   ProductDescription,
   ProductName,
@@ -16,15 +17,19 @@ function ProductSmall({ data }) {
     description,
   } = data;
 
+  const productLink = `/catalogue/item/${productId}`;
+
   return (
     <div className="flex flex-col w-full max-w-xs h-full rounded-md shadow-lg">
       {/* image */}
-      <div className="w-full">
-        <img
-          src={imageAddress}
-          alt="smart-watch"
-          className="w-full h-56 object-cover"
-        />
+      <div className="w-full overflow-hidden">
+        <Link to={productLink}>
+          <img
+            src={imageAddress}
+            alt="smart-watch"
+            className="w-full h-56 object-cover transition duration-500 transform hover:scale-110"
+          />
+        </Link>
       </div>
 
       {/* details and desc */}

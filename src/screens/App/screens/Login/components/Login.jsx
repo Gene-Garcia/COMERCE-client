@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
-import { useForm } from "../../../../../shared/Form/useForm";
+import { useForm } from "../../../../../hooks/useForm";
 import InputField from "../../../../../shared/Auth/InputField";
 import { setUserPersistData } from "../../../../../shared/Auth/Login";
 import useAlert from "../../../../../hooks/useAlert";

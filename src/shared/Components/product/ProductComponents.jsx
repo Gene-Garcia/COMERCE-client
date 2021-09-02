@@ -1,25 +1,37 @@
 import React from "react";
 import useAlert from "../../../hooks/useAlert";
-import { useAddToCart } from "../../Cart/useCart";
+import { useAddToCart } from "../../../hooks/useCart";
 
 function ProductName({ name }) {
   return (
-    <h3 className="text-my-dark font-sans font-semibold text-xl">{name}</h3>
+    <h3 className={`text-my-dark font-sans font-semibold text-xl`}>{name}</h3>
   );
 }
 
-function ProductPrice({ price }) {
+function ProductPrice({ price, size }) {
+  let theme;
+  if (size === "large") theme = "text-2xl";
+  else if (size === "extralarge") theme = "text-3xl";
+  else theme = "text-lg";
+
   return (
-    <h3 className="text-my-accent font-sans font-semibold text-lg">${price}</h3>
+    <h3 className={`text-my-accent font-sans font-semibold ${theme}`}>
+      ${price}
+    </h3>
   );
 }
 
-function ProductRating() {
-  function Star({ color }) {
+function ProductRating({ size }) {
+  function Star({ color, size }) {
+    let theme;
+    if (size === "large") theme = "h-6 w-6";
+    else if (size === "extralarge") theme = "h-7 w-7";
+    else theme = "h-5 w-5";
+
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className={`h-5 w-5 ${color}`}
+        className={`${theme} ${color}`}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -38,19 +50,19 @@ function ProductRating() {
     <div>
       <div className="flex flex-shrink-0">
         <div>
-          <Star color="text-my-accent" />
+          <Star color="text-my-accent" size={size} />
         </div>
         <div>
-          <Star color="text-my-accent" />
+          <Star color="text-my-accent" size={size} />
         </div>
         <div>
-          <Star color="text-my-accent" />
+          <Star color="text-my-accent" size={size} />
         </div>
         <div>
-          <Star />
+          <Star size={size} />
         </div>
         <div>
-          <Star />
+          <Star size={size} />
         </div>
       </div>
 
@@ -61,21 +73,24 @@ function ProductRating() {
   );
 }
 
-function ProductDescription({ desc }) {
-  const truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+function ProductDescription({ desc, fullText }) {
+  let truncated;
+  if (!fullText && desc)
+    truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+  else truncated = desc;
 
-  return <p className="font-medium text-gray-700 text-md ">long {truncated}</p>;
+  return <p className="font-medium text-gray-700 text-md ">{truncated}</p>;
 }
 
-function ProductPurchase({ productId }) {
+function ProductPurchase({ productId, size }) {
   function success(res) {
     setSeverity("success");
-    setMessage("add to cart success");
+    setMessage("Item added to your cart.");
   }
 
   function failed(err) {
     setSeverity("error");
-    setMessage("add to cart failed");
+    setMessage("Error encountered in adding item to your cart.");
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
@@ -84,14 +99,23 @@ function ProductPurchase({ productId }) {
 
   // this is innefficient because, each product card will now be embedded with an alert component
 
+  let theme;
+  if (size === "large") theme = "text-md py-1.5 px-6";
+  else if (size === "extralarge") theme = "text-md py-1.5 px-5";
+  else theme = "text-sm py-1 px-3";
+
   return (
     <>
-      <div className="flex flex-wrap gap-y-3 gap-x-5">
+      <div className="flex flex-wrap gap-y-3 gap-x-4">
+        <button
+          className={`font-medium text-my-contrast bg-my-accent ${theme} rounded-md hover:bg-my-accent-mono`}
+        >
+          Buy Now
+        </button>
+
         <button
           onClick={addToCartClick}
-          className="group transition inline-flex items-center gap-x-2 font-sans
-        py-1 px-2 rounded-md border border-transparent hover:border
-        hover:border-gray-400"
+          className={`group transition inline-flex items-center gap-x-2 font-sans ${theme} rounded-md border border-transparent hover:border hover:border-gray-400`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -101,10 +125,7 @@ function ProductPurchase({ productId }) {
           >
             <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
           </svg>
-          <span className="font-medium text-my-dim text-sm">Add to Cart</span>
-        </button>
-        <button className="font-medium text-my-contrast text-sm bg-my-accent py-1 px-3 rounded-md hover:bg-my-accent-mono">
-          Buy Now
+          <span className="font-medium text-my-dim">Add to Cart</span>
         </button>
       </div>
     </>

@@ -8,6 +8,7 @@ module.exports = {
   darkMode: false, // other values 'media' and 'class'
   theme: {
     screens: {
+      xs: "453px",
       sm: "570px",
       md: "768px",
       lg: "1024px",
@@ -23,6 +24,9 @@ module.exports = {
       full: "100%",
     },
     extend: {
+      spacing: {
+        106: "28rem",
+      },
       colors: {
         "my-accent": "#0092CA",
         "my-accent-mono": "#4085CB",
@@ -30,6 +34,9 @@ module.exports = {
         "my-black": "#082032",
         "my-dark": "#2C394B",
         "my-dim": "#334756",
+      },
+      inset: {
+        "1/5": "20%",
       },
     },
   },
