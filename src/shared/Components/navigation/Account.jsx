@@ -10,7 +10,7 @@ function UnAuthenticated({ bgType }) {
       login:
         "text-my-contrast rounded-full border border-transparent hover:border hover:border-my-contrast",
       signUp:
-        "text-my-contrast rounded-full border border-my-contrast hover:bg-my-contrast hover:text-my-accent",
+        "text-my-accent bg-my-contrast rounded-full border border-my-contrast hover:bg-transparent hover:text-my-contrast",
     },
     contrast: {
       login:
