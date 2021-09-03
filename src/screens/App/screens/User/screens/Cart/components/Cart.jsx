@@ -25,7 +25,7 @@ function Cart() {
             </div>
 
             {/* items */}
-            <div className="pt-14 flex flex-col gap-y-10">
+            <div className="mt-14 flex flex-col gap-y-10">
               <CartItem />
               <CartItem />
               <CartItem />
@@ -36,10 +36,53 @@ function Cart() {
           </div>
 
           {/* cart checkout */}
-          <div className="w-2/5 rounded-lg shadow-lg p-8">
+          <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
             <p className="text-lg text-gray-600 font-medium">
               Checkout Summary
             </p>
+
+            {/* items */}
+            <div className="mt-6 flex flex-col gap-y-3">
+              <CheckoutItem />
+              <CheckoutItem />
+              <CheckoutItem />
+              <CheckoutItem />
+              <CheckoutItem />
+            </div>
+            <div className="my-7 border-b border-3 border-gray-300"></div>
+            <div className="">
+              {/* sub total */}
+              <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
+                <p className="">Sub Total</p>
+                <p className="">P2,729,998.05</p>
+              </div>
+
+              {/* shipping fee */}
+              <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
+                <p className="">Shipping Fee (?)</p>
+                <p className="">P78.06</p>
+              </div>
+            </div>
+            <div className="my-7 border-b border-3 border-gray-300"></div>
+            <div className="flex flex-row justify-between items-center">
+              <div>
+                <p className="text-lg font-medium text-gray-700">Grand Total</p>
+                <p>(including VAT)</p>
+              </div>
+
+              <div>
+                <p className="text-xl font-medium text-my-accent">
+                  P2,70,076.10
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              {/* Checkout Button */}
+              <button className="transition duration-300 w-full bg-my-accent text-white font-medium text-xl rounded-md py-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
+                Go to Checkout
+              </button>
+            </div>
           </div>
         </div>
       </Container>
@@ -47,6 +90,28 @@ function Cart() {
   );
 }
 export default Cart;
+
+function CheckoutItem() {
+  return (
+    <div className="flex flex-row items-center gap-x-2">
+      <div className="rounded-md shadow-md bg-gray-100">
+        <img
+          className="object-contain w-12 h-12 p-1"
+          src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
+        />
+      </div>
+
+      <div className="flex-grow flex-shrink -space-y-2">
+        <p className="text-md font-medium text-gray-600">Smart Watch</p>
+        <p className="text-gray-500 text-base">x5</p>
+      </div>
+
+      <div className="justify-self-end">
+        <p className="text-gray-700 font-semibold text-lg">P13,999.99</p>
+      </div>
+    </div>
+  );
+}
 
 function CartItem() {
   return (
