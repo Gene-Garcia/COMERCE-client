@@ -1,6 +1,6 @@
 import React from "react";
 import useAlert from "../../../hooks/useAlert";
-import { useAddToCart } from "../../../hooks/useCart";
+import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
 
 function ProductName({ name }) {
   return (
@@ -83,7 +83,11 @@ function ProductDescription({ desc, fullText }) {
 }
 
 function ProductPurchase({ productId, size }) {
+  const { setCartCount } = useGetCartCount();
+
   function success(res) {
+    // manually increment by one, because we assume that the add to cart was a success
+    setCartCount((p) => p + 1);
     setSeverity("success");
     setMessage("Item added to your cart.");
   }
@@ -94,7 +98,6 @@ function ProductPurchase({ productId, size }) {
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
-
   const { setMessage, setSeverity } = useAlert();
 
   // this is innefficient because, each product card will now be embedded with an alert component
