@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";
 
 function Cart({ bgType }) {
   const themes = {
@@ -12,6 +13,13 @@ function Cart({ bgType }) {
       text: "text-my-dim",
     },
   };
+
+  const { cartCount, setCartCount } = useGetCartCount();
+
+  /* Every time this component is rendered, it will always create an API call to set the number of cart items and set it to the CartContext state variable */
+  useEffect(() => {
+    fetchCartCount((count) => setCartCount(count));
+  }, []);
 
   return (
     <Link
@@ -35,7 +43,7 @@ function Cart({ bgType }) {
         </svg>
       </div>
       <div className={`ml-1.5 text-lg ${themes[bgType].text} font-semibold`}>
-        5
+        {cartCount}
       </div>
     </Link>
   );
