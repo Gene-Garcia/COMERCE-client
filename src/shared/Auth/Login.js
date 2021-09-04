@@ -32,7 +32,6 @@ function getExpiration() {
   // 15 minutes, the server also uses 15-minute expiry
   const date = new Date();
   date.setMinutes(date.getMinutes() + 1);
-  console.log(date);
 
   return date;
 }

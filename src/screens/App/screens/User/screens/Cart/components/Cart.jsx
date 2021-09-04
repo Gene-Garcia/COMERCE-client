@@ -97,6 +97,7 @@ function CheckoutItem() {
       <div className="rounded-md shadow-md bg-gray-100">
         <img
           className="object-contain w-12 h-12 p-1"
+          alt="for-checkout-item"
           src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
         />
       </div>
@@ -120,6 +121,7 @@ function CartItem() {
       <div className=" flex-grow-0 rounded-md shadow-md bg-gray-100">
         <img
           className="object-contain w-56 h-56 p-5"
+          alt="cart-item"
           src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
         />
       </div>

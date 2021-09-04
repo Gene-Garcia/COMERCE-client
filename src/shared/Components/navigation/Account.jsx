@@ -35,7 +35,7 @@ function UnAuthenticated({ bgType }) {
 function Authenticated({ bgType }) {
   const cookies = new Cookies();
 
-  const color = "text-my-contrast";
+  // const color = "text-my-contrast";
 
   const themes = {
     accent: "text-my-contrast",
@@ -58,10 +58,12 @@ function Authenticated({ bgType }) {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
         </svg>
       </button>
+
       <ul className="dropdown-menu  absolute right-0  hidden text-gray-500 group-hover:block">
         <div className="mt-3 bg-my-contrast shadow-xl  rounded border border-gray-200">
           <li className="px-4 pt-2">
             <p className="text-sm font-semibold w-full">Signed in as</p>
+
             <p className="text-base font-semibold text-gray-600">
               {cookies.get(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
@@ -70,9 +72,9 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/me"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,15 +91,15 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               My Account
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/purchases"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,13 +116,13 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               Purchases
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-1 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/orders"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +140,7 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               Orders
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-2 border-b border-gray-200"></li>
@@ -147,7 +149,6 @@ function Authenticated({ bgType }) {
             <Link
               to="/sign-out"
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

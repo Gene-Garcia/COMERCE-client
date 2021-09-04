@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
 import validateUser from "../../../../../shared/Auth/Validation";
 import Loading from "../../../../../shared/Loading/Loading";
 
 function UserIndex({ history }) {
   const [loading, setLoading] = useState(true);
-
-  const cookies = new Cookies();
 
   useEffect(() => {
     validateUser((s) => {
@@ -16,8 +13,6 @@ function UserIndex({ history }) {
       else if (s === "UNAUTHORIZED") history.push("/unauthorized");
       else if (s === "FORBIDDEN") history.push("/forbidden");
     });
-
-    console.log(cookies.get("first"));
   }, []);
 
   function Component() {
