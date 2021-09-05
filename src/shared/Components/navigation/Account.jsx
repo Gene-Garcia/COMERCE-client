@@ -1,3 +1,21 @@
+/*
+ * The account component has two sub-components that can be rendered
+ * based on the current status of user authentication.
+ *
+ * That is, when there is no logged in user, the <UnAuthenticated> component will be rendered.
+ * This component basically shows the sign up and login buttons
+ *
+ * On the other hand, when there is a logged in user, it will render the <Authenticated>.
+ * Now, this compoment will show the username of the user which also is a dropdown for other
+ * options. Like, orders, purchase, my account, and sign out.
+ *
+ * Notably, both components accepts a prop name bgType. Through this, we are
+ * promoting component reusability with changing design.
+ * This prop is responsible for influencing the design and layout of the component.
+ * That is, the app has to navbar design, one with a gradient bg and one with white bg.
+ *
+ */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";

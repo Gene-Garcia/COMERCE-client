@@ -1,3 +1,37 @@
+/*
+ * The useForm is custom function that holds all the functionalities
+ * for form validation.
+ *
+ * To fully utilize the functionality of this form validation, the form component
+ * will create their own 'validate' function. There is a template of validate function
+ * at this file.
+ *
+ * The component also needs to create and pass their own 'submitFunction' such as
+ * a function that  holds the API request to post the data to the server.
+ * The submit function must be an async function
+ *
+ * These validate and submit function will then be called in this function every
+ * key stroke input in a field and the onclick of submit button.
+ *
+ *
+ * const validateTemplate = (fieldData, setErrors) => {
+ *  let tempErrs = { ...errors };
+ *
+ *  if ("name" in fieldData) {
+ *    tempErrs["name"] =
+ *      fieldData["name"] === "" || fieldData["name"] === null
+ *         ? "Titnamele is required"
+ *         : "";
+ *  }
+ *
+ *  // repeat if as needed
+ *
+ *  // update state errors
+ *  setErrors({ ...tempErrs });
+ * };
+ *
+ */
+
 import { useState } from "react";
 
 function useForm(initialValues, initialErros, validate, submitFunction) {
@@ -81,21 +115,5 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
     resetForms,
   };
 }
-
-// const validateTemplate = (fieldData, setErrors) => {
-//   let tempErrs = { ...errors };
-
-//   if ("name" in fieldData) {
-//     tempErrs["name"] =
-//       fieldData["name"] === "" || fieldData["name"] === null
-//         ? "Titnamele is required"
-//         : "";
-//   }
-
-//   // repeat if as needed
-
-//   // update state errors
-//   setErrors({ ...tempErrs });
-// };
 
 export { useForm };

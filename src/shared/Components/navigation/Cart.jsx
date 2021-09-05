@@ -1,3 +1,13 @@
+/*
+ * The cart component is the link going through the user's cart, and
+ * displays the current logged in user's number of cart items.
+ *
+ * The number of cart items is determine through an API call, then the CartContext's cart count
+ * state variable will be changed. It then casuses the div in this component
+ * that uses that state variable to be re-rendered with the new cart count.
+ *
+ */
+
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";

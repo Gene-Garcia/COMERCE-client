@@ -1,3 +1,14 @@
+/*
+ * The AlertContext holds the state variables used in displaying a
+ * global notification.
+ *
+ * Components that wants to display an Alert notification, they need to
+ * have access to these state variables.
+ * Additionally, access to these state vars, they need to use the hook useAlert, which
+ * uses this context and returns the state variables
+ *
+ */
+
 import { createContext, useState } from "react";
 
 const AlertContext = createContext();

@@ -1,3 +1,8 @@
+/*
+ * This component is a standard design for login and sign up input field
+ *
+ */
+
 import React from "react";
 
 function InputField({ type, name, label, error, value, onChange, svgD }) {

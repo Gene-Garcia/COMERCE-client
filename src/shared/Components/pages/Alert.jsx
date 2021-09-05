@@ -1,3 +1,12 @@
+/*
+ * This component is only instantiated or called once, however, it is capable of 
+ * appearing (when an error message is set) and disappearing (when the user clicks the x button). 
+ *
+ * The value used by this component is provided by the AlertContext, and using it
+ * must go through the useAlert which creates the AlertContext and returns the state variables
+ * 
+ */
+
 import React from "react";
 import useAlert from "../../../hooks/useAlert";
 
