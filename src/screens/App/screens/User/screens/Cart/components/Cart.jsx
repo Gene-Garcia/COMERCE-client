@@ -1,59 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
+import axios from "../../../../../../../shared/caller";
+import validateUser from "../../../../../../../shared/Auth/Validation";
+import Loading from "../../../../../../../shared/Loading/Loading";
 
-const dummy = [
-  {
-    productId: "1",
-    item: "Smart Watch",
-    quantity: 5,
-    price: 13999.99,
-    checkout: false,
-  },
+function Cart({ history }) {
+  const [loading, setLoading] = useState(true);
 
-  {
-    productId: "2",
-    item: "Smart Phone",
-    quantity: 6,
-    price: 25000.99,
-    checkout: false,
-  },
+  useEffect(() => {
+    validateUser((status) => {
+      if (status === "SUCCESS") setLoading(false);
+      else if (status === "FAILED") history.push("/login");
+      else if (status === "UNAUTHORIZED") history.push("/unauthorized");
+      else if (status === "FORBIDDEN") history.push("/forbidden");
+    });
 
-  {
-    productId: "3",
-    item: "AirPods",
-    quantity: 1,
-    price: 1299.99,
-    checkout: false,
-  },
+    async function getUserCart() {
+      await axios
+        .get("/api/cart/user")
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
 
-  {
-    productId: "4",
-    item: "Headset",
-    quantity: 8,
-    price: 899.99,
-    checkout: false,
-  },
+    getUserCart();
+  }, []);
 
-  {
-    productId: "5",
-    item: "Laptop",
-    quantity: 1,
-    price: 35500.0,
-    checkout: false,
-  },
-
-  {
-    productId: "6",
-    item: "Wireless Keyboard and Mouse Combo",
-    quantity: 2,
-    price: 14999.99,
-    checkout: false,
-  },
-];
-
-function Cart() {
-  const [items, setItems] = useState(dummy);
+  const [items, setItems] = useState([]);
 
   // change quantity
   function changeQuantity(currentQty, increment, productId) {
@@ -87,7 +60,9 @@ function Cart() {
     );
   }
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Title title="Shopping Cart" />
 
