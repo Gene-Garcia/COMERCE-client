@@ -1,11 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 
+const dummy = [
+  {
+    productId: "1",
+    item: "Smart Watch",
+    quantity: 5,
+    price: 13999.99,
+  },
+
+  {
+    productId: "2",
+    item: "Smart Phone",
+    quantity: 6,
+    price: 25000.99,
+  },
+
+  {
+    productId: "3",
+    item: "AirPods",
+    quantity: 1,
+    price: 1299.99,
+  },
+
+  {
+    productId: "4",
+    item: "Headset",
+    quantity: 8,
+    price: 899.99,
+  },
+
+  {
+    productId: "5",
+    item: "Laptop",
+    quantity: 1,
+    price: 35500.0,
+  },
+
+  {
+    productId: "6",
+    item: "Wireless Keyboard and Mouse Combo",
+    quantity: 2,
+    price: 14999.99,
+  },
+];
+
 function Cart() {
+  const [items, setItems] = useState(dummy);
+  const [checkout, setCheckout] = useState({});
+
+  // change quantity
+  function changeQuantity(currentQty, increment, productId) {
+    if (!(!increment && currentQty - 1 <= 0))
+      setItems((prev) =>
+        prev.map((e) =>
+          e.productId === productId
+            ? increment
+              ? { ...e, quantity: ++e.quantity }
+              : { ...e, quantity: --e.quantity }
+            : e
+        )
+      );
+  }
+
   return (
     <>
       <Title title="Shopping Cart" />
+
       <Container>
         <div className="flex flex-row justify-between w-full gap-x-12">
           {/* cart items */}
@@ -26,12 +88,13 @@ function Cart() {
 
             {/* items */}
             <div className="mt-14 flex flex-col gap-y-10">
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
+              {items.map((e) => (
+                <CartItem
+                  key={e.productId}
+                  data={e}
+                  changeQuantity={changeQuantity}
+                />
+              ))}
             </div>
           </div>
 
@@ -43,12 +106,11 @@ function Cart() {
 
             {/* items */}
             <div className="mt-6 flex flex-col gap-y-3">
-              <CheckoutItem />
-              <CheckoutItem />
-              <CheckoutItem />
-              <CheckoutItem />
-              <CheckoutItem />
+              {dummy.map((e) => (
+                <CheckoutItem key={e.productId} data={e} />
+              ))}
             </div>
+
             <div className="my-7 border-b border-3 border-gray-300"></div>
             <div className="">
               {/* sub total */}
@@ -76,7 +138,6 @@ function Cart() {
                 </p>
               </div>
             </div>
-
             <div className="mt-8">
               {/* Checkout Button */}
               <button className="transition duration-300 w-full bg-my-accent text-white font-medium text-xl rounded-md py-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
@@ -91,7 +152,7 @@ function Cart() {
 }
 export default Cart;
 
-function CheckoutItem() {
+function CheckoutItem({ data: { item, price, quantity } }) {
   return (
     <div className="flex flex-row items-center gap-x-2">
       <div className="rounded-md shadow-md bg-gray-100">
@@ -103,18 +164,21 @@ function CheckoutItem() {
       </div>
 
       <div className="flex-grow flex-shrink -space-y-2">
-        <p className="text-md font-medium text-gray-600">Smart Watch</p>
-        <p className="text-gray-500 text-base">x5</p>
+        <p className="text-md font-medium text-gray-600">{item}</p>
+        <p className="text-gray-500 text-base">x{quantity}</p>
       </div>
 
       <div className="justify-self-end">
-        <p className="text-gray-700 font-semibold text-lg">P13,999.99</p>
+        <p className="text-gray-700 font-semibold text-lg">P{price}</p>
       </div>
     </div>
   );
 }
 
-function CartItem() {
+function CartItem({
+  data: { productId, item, price, quantity },
+  changeQuantity,
+}) {
   return (
     <div className="flex flex-row justify-start gap-x-6">
       {/* image */}
@@ -129,15 +193,18 @@ function CartItem() {
       {/* info */}
       <div className="flex-grow w-4/5 flex flex-col justify-between">
         <div className="flex flex-row items-center justify-between">
-          <p className="font-semibold text-my-black text-xl">Smart watch</p>
+          <p className="font-semibold text-my-black text-xl">{item}</p>
 
-          <p className="text-gray-500 font-medium text-lg">P14,999.99</p>
+          <p className="text-gray-500 font-medium text-lg">P{price}</p>
         </div>
 
         <div>
           <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
           <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
-            <button className="transition w-full h-full flex justify-center items-center group hover:bg-gray-200">
+            <button
+              onClick={() => changeQuantity(quantity, false, productId)}
+              className="transition w-full h-full flex justify-center items-center group hover:bg-gray-200"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-600 group-hover:text-my-accent"
@@ -155,10 +222,13 @@ function CartItem() {
             </button>
 
             <div className="w-full h-full flex justify-center items-center text-lg font-bold text-gray-500">
-              5
+              {quantity}
             </div>
 
-            <button className="w-full h-full flex justify-center items-center group hover:bg-gray-200">
+            <button
+              onClick={() => changeQuantity(quantity, true, productId)}
+              className="w-full h-full flex justify-center items-center group hover:bg-gray-200"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-600 group-hover:text-my-accent"
@@ -177,7 +247,7 @@ function CartItem() {
           </div>
         </div>
 
-        <div className="inline-flex  gap-x-3">
+        <div className="inline-flex  flex-wrap gap-x-3 gap-y-2">
           <button className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent">
             Add to Checkout
           </button>
