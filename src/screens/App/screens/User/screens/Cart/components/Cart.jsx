@@ -78,6 +78,15 @@ function Cart() {
     );
   }
 
+  // remove from checkout
+  function removeFromCheckout(productId) {
+    setItems((prev) =>
+      prev.map((e) =>
+        e.productId === productId ? { ...e, checkout: false } : e
+      )
+    );
+  }
+
   return (
     <>
       <Title title="Shopping Cart" />
@@ -122,7 +131,14 @@ function Cart() {
             {/* items */}
             <div className="mt-6 flex flex-col gap-y-3">
               {items.map(
-                (e) => e.checkout && <CheckoutItem key={e.productId} data={e} />
+                (e) =>
+                  e.checkout && (
+                    <CheckoutItem
+                      key={e.productId}
+                      data={e}
+                      removeFromCheckout={removeFromCheckout}
+                    />
+                  )
               )}
             </div>
 
@@ -167,24 +183,40 @@ function Cart() {
 }
 export default Cart;
 
-function CheckoutItem({ data: { item, price, quantity } }) {
+function CheckoutItem({
+  data: { productId, item, price, quantity },
+  removeFromCheckout,
+}) {
   return (
-    <div className="flex flex-row items-center gap-x-2">
-      <div className="rounded-md shadow-md bg-gray-100">
-        <img
-          className="object-contain w-12 h-12 p-1"
-          alt="for-checkout-item"
-          src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
-        />
+    <div className="relative group">
+      <div className="absolute z-20 w-full transition duration-300 bg-gradient-to-b from-gray-200 to-gray-100 rounded-md opacity-0 group-hover:opacity-100 group-hover:bg-opacity-50">
+        <button
+          onClick={() => removeFromCheckout(productId)}
+          className="w-full h-12  font-medium text-base text-my-accent"
+        >
+          Remove from checkout
+        </button>
       </div>
 
-      <div className="flex-grow flex-shrink -space-y-2">
-        <p className="text-md font-medium text-gray-600">{item}</p>
-        <p className="text-gray-500 text-base">x{quantity}</p>
-      </div>
+      <div className="w-full top-0 z-10 transition duration-300 ">
+        <div className="flex flex-row items-center gap-x-2">
+          <div className="transition duration-300 shadow-md group-hover:shadow-none rounded-md bg-gray-100 flex-shrink-0">
+            <img
+              className="object-contain w-12 h-12 p-1"
+              alt="for-checkout-item"
+              src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
+            />
+          </div>
 
-      <div className="justify-self-end">
-        <p className="text-gray-700 font-semibold text-lg">P{price}</p>
+          <div className="flex-grow flex-shrink -space-y-2">
+            <p className="text-md font-medium text-gray-600">{item}</p>
+            <p className="text-gray-500 text-base">x{quantity}</p>
+          </div>
+
+          <div className="justify-self-end">
+            <p className="text-gray-700 font-semibold text-lg">P{price}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
