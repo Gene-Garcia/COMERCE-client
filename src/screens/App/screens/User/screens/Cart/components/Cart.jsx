@@ -19,7 +19,9 @@ function Cart({ history }) {
     async function getUserCart() {
       await axios
         .get("/api/cart/user")
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.status === 200) setItems(res.data.cart);
+        })
         .catch((err) => console.log(err));
     }
 
@@ -159,7 +161,7 @@ function Cart({ history }) {
 export default Cart;
 
 function CheckoutItem({
-  data: { productId, item, price, quantity },
+  data: { productId, item, retailPrice, quantity, image },
   removeFromCheckout,
 }) {
   return (
@@ -179,7 +181,7 @@ function CheckoutItem({
             <img
               className="object-contain w-12 h-12 p-1"
               alt="for-checkout-item"
-              src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
+              src={image}
             />
           </div>
 
@@ -189,7 +191,9 @@ function CheckoutItem({
           </div>
 
           <div className="justify-self-end">
-            <p className="text-gray-700 font-semibold text-lg">P{price}</p>
+            <p className="text-gray-700 font-semibold text-lg">
+              P{retailPrice}
+            </p>
           </div>
         </div>
       </div>
@@ -198,7 +202,7 @@ function CheckoutItem({
 }
 
 function CartItem({
-  data: { productId, item, price, quantity },
+  data: { productId, item, retailPrice, quantity, image },
   changeQuantity,
   addToCheckout,
 }) {
@@ -209,7 +213,7 @@ function CartItem({
         <img
           className="object-contain w-56 h-56 p-5"
           alt="cart-item"
-          src="https://images.ctfassets.net/wcfotm6rrl7u/3q2wEA5hO0QcWqiyTpPlAf/879789cd85bd8649c9948b8b05be9dbc/android_10-DIGITAL_WELLBEING-1-desktop.png?f=center&fit=fill&q=88"
+          src={image}
         />
       </div>
 
@@ -218,7 +222,7 @@ function CartItem({
         <div className="flex flex-row items-center justify-between">
           <p className="font-semibold text-my-black text-xl">{item}</p>
 
-          <p className="text-gray-500 font-medium text-lg">P{price}</p>
+          <p className="text-gray-500 font-medium text-lg">P{retailPrice}</p>
         </div>
 
         <div>
