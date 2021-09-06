@@ -66,7 +66,7 @@ function Showcase(props) {
             </div>
 
             {/* content */}
-            <div className=" w-11/12 lg:w-2/5 bg-white rounded-xl shadow-lg p-8 sm:p-16 lg:p-10 xl:p-16 flex flex-col gap-y-20">
+            <div className="place-self-start w-11/12 lg:w-2/5 bg-white rounded-xl shadow-lg p-8 sm:p-16 lg:p-10 xl:p-16 flex flex-col gap-y-20">
               {/* buy now */}
               <div>
                 <p className="text-gray-500 font-medium text-xl">

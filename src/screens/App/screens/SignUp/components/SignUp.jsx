@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../shared/caller";
 import InputField from "../../../../../shared/Auth/InputField";
@@ -15,7 +15,7 @@ function SignUp({ history }) {
 
           setSeverity("success");
           setMessage("Account created successfully!");
-          //clear
+
           history.push("/login");
         }
       })

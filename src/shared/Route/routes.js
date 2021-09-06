@@ -62,6 +62,11 @@ const routes = {
         path: "/user/change-password",
         name: "Change Password",
       },
+
+      CART: {
+        path: "/user/cart",
+        name: "Shopping Cart",
+      },
     },
   },
 };

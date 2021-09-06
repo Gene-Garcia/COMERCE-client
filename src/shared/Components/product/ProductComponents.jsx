@@ -1,6 +1,13 @@
+/*
+ * This component is made up of the components used in product cards.
+ *
+ * The card layouts display uses all of these component.
+ *
+ */
+
 import React from "react";
 import useAlert from "../../../hooks/useAlert";
-import { useAddToCart } from "../../../hooks/useCart";
+import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
 
 function ProductName({ name }) {
   return (
@@ -82,8 +89,26 @@ function ProductDescription({ desc, fullText }) {
   return <p className="font-medium text-gray-700 text-md ">{truncated}</p>;
 }
 
+/*
+ * The product purchase compoment renders the 'add to cart' and 'buy now' button
+ *
+ * The cart functionality:
+ *      The component will use the customer useAddToCart hook and pass
+ *      current product id to that hook.
+ *      The hook will then return a product-specific/unique add to cart function.
+ *      This function, once triggered, will create an API call to store to the user's
+ *      cart records the new item
+ *
+ * The buy functionality:
+ *     Redirects user to /checkout/[array of product ids in the format '{id|quantity; id2|5;...}']
+ *
+ */
 function ProductPurchase({ productId, size }) {
+  const { setCartCount } = useGetCartCount();
+
   function success(res) {
+    // manually increment by one, because we assume that the add to cart was a success
+    setCartCount((p) => p + 1);
     setSeverity("success");
     setMessage("Item added to your cart.");
   }
@@ -94,7 +119,6 @@ function ProductPurchase({ productId, size }) {
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
-
   const { setMessage, setSeverity } = useAlert();
 
   // this is innefficient because, each product card will now be embedded with an alert component

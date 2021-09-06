@@ -1,3 +1,12 @@
+/*
+ * This function is responsible for creating an API call that checks if the
+ * the request has a user logged in.
+ *
+ * The result made by the API call will not be handled by this function, but through a
+ * callback function. Refer to the bottom of the page for the callback template.
+ *
+ */
+
 import axios from "../caller";
 import { clearUserPersistData } from "./Login";
 
@@ -25,7 +34,7 @@ async function validateUser(cb) {
 
 export default validateUser;
 
-// template
+/* validate callback template */
 // validateUser((status) => {
 //     if (status === "SUCCESS") setLoading(false);
 //     else if (status === "FAILED") history.push("/login");
