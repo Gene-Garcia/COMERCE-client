@@ -8,6 +8,7 @@ const dummy = [
     item: "Smart Watch",
     quantity: 5,
     price: 13999.99,
+    checkout: false,
   },
 
   {
@@ -15,6 +16,7 @@ const dummy = [
     item: "Smart Phone",
     quantity: 6,
     price: 25000.99,
+    checkout: false,
   },
 
   {
@@ -22,6 +24,7 @@ const dummy = [
     item: "AirPods",
     quantity: 1,
     price: 1299.99,
+    checkout: false,
   },
 
   {
@@ -29,6 +32,7 @@ const dummy = [
     item: "Headset",
     quantity: 8,
     price: 899.99,
+    checkout: false,
   },
 
   {
@@ -36,6 +40,7 @@ const dummy = [
     item: "Laptop",
     quantity: 1,
     price: 35500.0,
+    checkout: false,
   },
 
   {
@@ -43,12 +48,12 @@ const dummy = [
     item: "Wireless Keyboard and Mouse Combo",
     quantity: 2,
     price: 14999.99,
+    checkout: false,
   },
 ];
 
 function Cart() {
   const [items, setItems] = useState(dummy);
-  const [checkout, setCheckout] = useState({});
 
   // change quantity
   function changeQuantity(currentQty, increment, productId) {
@@ -62,6 +67,15 @@ function Cart() {
             : e
         )
       );
+  }
+
+  // add to checkout
+  function addToCheckout(productId) {
+    setItems((prev) =>
+      prev.map((e) =>
+        e.productId === productId ? { ...e, checkout: true } : e
+      )
+    );
   }
 
   return (
@@ -93,6 +107,7 @@ function Cart() {
                   key={e.productId}
                   data={e}
                   changeQuantity={changeQuantity}
+                  addToCheckout={addToCheckout}
                 />
               ))}
             </div>
@@ -106,9 +121,9 @@ function Cart() {
 
             {/* items */}
             <div className="mt-6 flex flex-col gap-y-3">
-              {dummy.map((e) => (
-                <CheckoutItem key={e.productId} data={e} />
-              ))}
+              {items.map(
+                (e) => e.checkout && <CheckoutItem key={e.productId} data={e} />
+              )}
             </div>
 
             <div className="my-7 border-b border-3 border-gray-300"></div>
@@ -178,6 +193,7 @@ function CheckoutItem({ data: { item, price, quantity } }) {
 function CartItem({
   data: { productId, item, price, quantity },
   changeQuantity,
+  addToCheckout,
 }) {
   return (
     <div className="flex flex-row justify-start gap-x-6">
@@ -248,7 +264,10 @@ function CartItem({
         </div>
 
         <div className="inline-flex  flex-wrap gap-x-3 gap-y-2">
-          <button className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent">
+          <button
+            onClick={() => addToCheckout(productId)}
+            className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent"
+          >
             Add to Checkout
           </button>
           <button className="group inline-flex items-center gap-x-1.5 transition border border-transparent rounded-md px-2 py-0.5 font-medium text-gray-500 hover:border-gray-500">
