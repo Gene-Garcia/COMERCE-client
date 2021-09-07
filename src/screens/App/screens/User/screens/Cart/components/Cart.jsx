@@ -44,6 +44,11 @@ function Cart({ history }) {
       );
   }
 
+  // add all to checkout
+  function addAllToCheckout() {
+    setItems((prev) => prev.map((e) => ({ ...e, checkout: true })));
+  }
+
   // add to checkout
   function addToCheckout(productId) {
     setItems((prev) =>
@@ -80,7 +85,10 @@ function Cart({ history }) {
               </div>
 
               <div>
-                <button className="transition duration-300 text-sm text-gray-500 font-medium px-3 py-1 rounded-md border border-gray-500 hover:border-gray-400 hover:bg-gray-400 hover:text-white active:ring-4 active:ring-gray-300">
+                <button
+                  onClick={addAllToCheckout}
+                  className="transition duration-300 text-sm text-gray-500 font-medium px-3 py-1 rounded-md border border-gray-500 hover:border-gray-400 hover:bg-gray-400 hover:text-white active:ring-4 active:ring-gray-300"
+                >
                   Checkout All Items
                 </button>
               </div>
