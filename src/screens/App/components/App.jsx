@@ -11,6 +11,7 @@ import axios from "../../../shared/caller";
 import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
 import { CartCountProvider } from "../../../context/CartCountContext";
+import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -32,8 +33,10 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
         <Route {...route.USER} />
+        <ShoppingCartProvider>
+          <Route {...route.USER.subroutes.CART} />
+        </ShoppingCartProvider>
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
-        <Route {...route.USER.subroutes.CART} />
 
         {/* <PrivateRoute
           path={route.USER.path}
