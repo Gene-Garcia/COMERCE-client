@@ -1,7 +1,10 @@
 import React from "react";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import CartItem from "./CartItem";
 
-function CartItems({ items, changeQuantity, addToCheckout }) {
+function CartItems() {
+  const { items, addToCheckout } = useShoppingCart();
+
   return (
     <>
       <div className="flex flex-row justify-between items-center">
@@ -22,12 +25,7 @@ function CartItems({ items, changeQuantity, addToCheckout }) {
       {/* items */}
       <div className="mt-14 flex flex-col gap-y-10">
         {items.map((e) => (
-          <CartItem
-            key={e.productId}
-            data={e}
-            changeQuantity={changeQuantity}
-            addToCheckout={addToCheckout}
-          />
+          <CartItem key={e.productId} data={e} />
         ))}
       </div>
     </>

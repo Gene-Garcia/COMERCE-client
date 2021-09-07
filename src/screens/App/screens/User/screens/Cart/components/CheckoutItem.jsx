@@ -1,9 +1,10 @@
 import React from "react";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 
-function CheckoutItem({
-  data: { productId, item, retailPrice, quantity, image },
-  removeFromCheckout,
-}) {
+function CheckoutItem({ data }) {
+  const { productId, item, retailPrice, quantity, image } = data;
+  const { removeFromCheckout } = useShoppingCart();
+
   return (
     <div className="relative group">
       <div className="absolute z-20 w-full transition duration-300 bg-gradient-to-b from-gray-200 to-gray-100 rounded-md opacity-0 group-hover:opacity-100 group-hover:bg-opacity-50">

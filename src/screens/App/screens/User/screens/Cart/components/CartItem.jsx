@@ -1,10 +1,10 @@
 import React from "react";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 
-function CartItem({
-  data: { productId, item, retailPrice, quantity, image },
-  changeQuantity,
-  addToCheckout,
-}) {
+function CartItem({ data }) {
+  const { productId, item, retailPrice, quantity, image } = data;
+  const { modifyQuantity, addToCheckout } = useShoppingCart();
+
   return (
     <div className="flex flex-row justify-start gap-x-6">
       {/* image */}
@@ -28,7 +28,7 @@ function CartItem({
           <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
           <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
             <button
-              onClick={() => changeQuantity(quantity, false, productId)}
+              onClick={() => modifyQuantity(false, productId)}
               className="transition w-full h-full flex justify-center items-center group hover:bg-gray-200"
             >
               <svg
@@ -52,7 +52,7 @@ function CartItem({
             </div>
 
             <button
-              onClick={() => changeQuantity(quantity, true, productId)}
+              onClick={() => modifyQuantity(true, productId)}
               className="w-full h-full flex justify-center items-center group hover:bg-gray-200"
             >
               <svg
