@@ -12,16 +12,16 @@
 
 import { createContext, useState } from "react";
 
-const CartContext = createContext();
-export default CartContext;
+const CartCountContext = createContext();
+export default CartCountContext;
 
-function CartProvider({ children }) {
+function CartCountProvider({ children }) {
   const [cartCount, setCartCount] = useState(0);
 
   return (
-    <CartContext.Provider value={{ cartCount, setCartCount }}>
+    <CartCountContext.Provider value={{ cartCount, setCartCount }}>
       {children}
-    </CartContext.Provider>
+    </CartCountContext.Provider>
   );
 }
-export { CartProvider };
+export { CartCountProvider };

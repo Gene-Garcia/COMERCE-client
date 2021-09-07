@@ -77,7 +77,7 @@ function Authenticated({ bgType }) {
         </svg>
       </button>
 
-      <ul className="dropdown-menu  absolute right-0  hidden text-gray-500 group-hover:block">
+      <ul className="dropdown-menu  absolute right-0 z-50  hidden text-gray-500 group-hover:block">
         <div className="mt-3 bg-my-contrast shadow-xl  rounded border border-gray-200">
           <li className="px-4 pt-2">
             <p className="text-sm font-semibold w-full">Signed in as</p>

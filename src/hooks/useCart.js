@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import CartContext from "../context/CartContext";
+import CartCountContext from "../context/CartCountContext";
+import ShoppingCartContext from "../context/ShoppingCartContext";
 import axios from "../shared/caller";
 
 /*
@@ -44,7 +45,7 @@ function useAddToCart(productId, callbackSuccess, callbackFailed) {
  * importing the CartContext and the useContext, and initiating it
  */
 function useGetCartCount() {
-  const { cartCount, setCartCount } = useContext(CartContext);
+  const { cartCount, setCartCount } = useContext(CartCountContext);
 
   return { cartCount, setCartCount };
 }
@@ -64,4 +65,34 @@ async function fetchCartCount(cb) {
     .catch((err) => cb(0)); // raises and http error when there is no user logged in, or server-client encoutered any error
 }
 
-export { useAddToCart, useGetCartCount, fetchCartCount };
+/*
+ *
+ *
+ */
+function useShoppingCart() {
+  const {
+    items,
+    subTotal,
+    shippingFee,
+    grandTotal,
+    loadCartItems,
+    modifyQuantity,
+    addToCheckout,
+    removeFromCheckout,
+    computePrices,
+  } = useContext(ShoppingCartContext);
+
+  return {
+    items,
+    subTotal,
+    shippingFee,
+    grandTotal,
+    loadCartItems,
+    modifyQuantity,
+    addToCheckout,
+    removeFromCheckout,
+    computePrices,
+  };
+}
+
+export { useAddToCart, useGetCartCount, fetchCartCount, useShoppingCart };
