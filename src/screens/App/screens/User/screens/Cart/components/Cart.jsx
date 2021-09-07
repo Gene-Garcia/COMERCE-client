@@ -67,6 +67,23 @@ function Cart({ history }) {
     );
   }
 
+  // computes sub total including the quantity checkedout
+  function computeSubTotal() {
+    // prices = retailPrice * quantity
+    const prices = items.map((e) =>
+      e.checkout ? e.retailPrice * e.quantity : 0
+    );
+
+    return prices.length > 0 ? prices.reduce((a, c) => a + c) : 0.0;
+  }
+
+  // computes sub total with added shipping fee
+  function computeGrandTotal() {
+    const shippingFee = 75;
+
+    return computeSubTotal() + shippingFee;
+  }
+
   return loading ? (
     <Loading />
   ) : (
@@ -132,13 +149,13 @@ function Cart({ history }) {
               {/* sub total */}
               <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
                 <p className="">Sub Total</p>
-                <p className="">P2,729,998.05</p>
+                <p className="">P{computeSubTotal()}</p>
               </div>
 
               {/* shipping fee */}
               <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
                 <p className="">Shipping Fee (?)</p>
-                <p className="">P78.06</p>
+                <p className="">P75.00</p>
               </div>
             </div>
             <div className="my-7 border-b border-3 border-gray-300"></div>
@@ -150,7 +167,7 @@ function Cart({ history }) {
 
               <div>
                 <p className="text-xl font-medium text-my-accent">
-                  P2,70,076.10
+                  P{computeGrandTotal()}
                 </p>
               </div>
             </div>
