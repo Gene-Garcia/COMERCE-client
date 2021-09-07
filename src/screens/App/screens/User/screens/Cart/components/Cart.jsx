@@ -44,17 +44,14 @@ function Cart({ history }) {
       );
   }
 
-  // add all to checkout
-  function addAllToCheckout() {
-    setItems((prev) => prev.map((e) => ({ ...e, checkout: true })));
-  }
-
-  // add to checkout
-  function addToCheckout(productId) {
+  // dynamic add to checkout, both for individual product or every product
+  function addToCheckout(individual, productId) {
     setItems((prev) =>
-      prev.map((e) =>
-        e.productId === productId ? { ...e, checkout: true } : e
-      )
+      prev.map((e) => {
+        if (individual)
+          return e.productId === productId ? { ...e, checkout: true } : e;
+        else return { ...e, checkout: true };
+      })
     );
   }
 
@@ -103,7 +100,7 @@ function Cart({ history }) {
 
               <div>
                 <button
-                  onClick={addAllToCheckout}
+                  onClick={() => addToCheckout(false, undefined)}
                   className="transition duration-300 text-sm text-gray-500 font-medium px-3 py-1 rounded-md border border-gray-500 hover:border-gray-400 hover:bg-gray-400 hover:text-white active:ring-4 active:ring-gray-300"
                 >
                   Checkout All Items
@@ -301,7 +298,7 @@ function CartItem({
 
         <div className="inline-flex  flex-wrap gap-x-3 gap-y-2">
           <button
-            onClick={() => addToCheckout(productId)}
+            onClick={() => addToCheckout(true, productId)}
             className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent"
           >
             Add to Checkout
