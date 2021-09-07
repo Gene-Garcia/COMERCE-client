@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CartContext from "../context/CartContext";
+import CartCountContext from "../context/CartCountContext";
 import axios from "../shared/caller";
 
 /*
@@ -10,7 +10,7 @@ import axios from "../shared/caller";
  * The success and fail callback function is responsible for calling that callback
  * add passing the the response for success and error for failed.
  * The embedded add to cart to button will have their own callback functions.
- */
+ */ 
 function useAddToCart(productId, callbackSuccess, callbackFailed) {
   const patchAddToCart = async () => {
     await axios
@@ -44,7 +44,7 @@ function useAddToCart(productId, callbackSuccess, callbackFailed) {
  * importing the CartContext and the useContext, and initiating it
  */
 function useGetCartCount() {
-  const { cartCount, setCartCount } = useContext(CartContext);
+  const { cartCount, setCartCount } = useContext(CartCountContext);
 
   return { cartCount, setCartCount };
 }
