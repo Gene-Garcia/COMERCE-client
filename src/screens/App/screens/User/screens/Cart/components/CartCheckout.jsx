@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import CheckoutItem from "./CheckoutItem";
 
 function CartCheckout() {
-  const { items, subTotal, grandTotal, shippingFee } = useShoppingCart();
+  const { items, subTotal, grandTotal, shippingFee, checkoutable } =
+    useShoppingCart();
 
   return (
     <>
@@ -34,18 +36,27 @@ function CartCheckout() {
       <div className="flex flex-row justify-between items-center">
         <div>
           <p className="text-lg font-medium text-gray-700">Grand Total</p>
-          <p>(including VAT)</p>
+          <p className="text-sm text-gray-400">(including VAT)</p>
         </div>
 
         <div>
           <p className="text-xl font-medium text-my-accent">P{grandTotal}</p>
         </div>
       </div>
-      <div className="mt-8">
+      <div className="flex mt-8">
         {/* Checkout Button */}
-        <button className="transition duration-300 w-full bg-my-accent text-white font-medium text-xl rounded-md py-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
-          Go to Checkout
-        </button>
+        {checkoutable ? (
+          <Link
+            to="/user/checkout"
+            className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
+          >
+            PROCEED TO CHECKOUT
+          </Link>
+        ) : (
+          <p className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
+            No Product(s) Selected
+          </p>
+        )}
       </div>
     </>
   );
