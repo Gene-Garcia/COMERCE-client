@@ -9,7 +9,7 @@ import CartItems from "./CartItems";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 
 function Cart({ history }) {
-  const { loadCartItems } = useShoppingCart();
+  const { loadCartItems, resetPricings } = useShoppingCart();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,8 +29,9 @@ function Cart({ history }) {
         })
         .catch((err) => console.log(err));
     }
-
     getUserCart();
+
+    resetPricings();
   }, []);
 
   return loading ? (

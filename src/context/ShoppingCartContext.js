@@ -16,8 +16,13 @@ function ShoppingCartProvider({ children }) {
   const [state, dispatch] = useReducer(ShoppingCartReducer, initialState);
 
   /* Pass the dispatch and get the actions */
-  const { loadCartItems, modifyQuantity, addToCheckout, removeFromCheckout } =
-    actions(dispatch);
+  const {
+    loadCartItems,
+    modifyQuantity,
+    addToCheckout,
+    removeFromCheckout,
+    resetPricings,
+  } = actions(dispatch);
 
   return (
     <ShoppingCartContext.Provider
@@ -27,6 +32,7 @@ function ShoppingCartProvider({ children }) {
         modifyQuantity,
         addToCheckout,
         removeFromCheckout,
+        resetPricings,
       }}
     >
       {children}

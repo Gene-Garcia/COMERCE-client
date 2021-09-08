@@ -71,6 +71,13 @@ function ShoppingCartReducer(state, action) {
           : false,
       };
 
+    case "RESET_PRICINGS":
+      return {
+        ...state,
+        subTotal: 0,
+        grandTotal: 0,
+      };
+
     default:
       throw Error;
   }
@@ -132,11 +139,24 @@ function actions(dispatch) {
     });
   };
 
+  /*
+   * Resets state variables, other than the items, to default value.
+   *
+   * Because a bug occurs after clicking checkout button, and going back to cart page
+   * All checked out item are gone, but the pricing are still their
+   */
+  const resetPricings = () => {
+    dispatch({
+      type: "RESET_PRICINGS",
+    });
+  };
+
   return {
     loadCartItems,
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
+    resetPricings,
   };
 }
 export { actions };
