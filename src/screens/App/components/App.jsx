@@ -33,9 +33,10 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
         <Route {...route.USER} />
-        <ShoppingCartProvider>
-          <Route {...route.USER.subroutes.CART} />
-        </ShoppingCartProvider>
+
+        <Route {...route.USER.subroutes.CART} />
+        <Route {...route.USER.subroutes.CHECKOUT} />
+
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
         {/* <PrivateRoute
@@ -85,7 +86,9 @@ function App() {
         <Alert />
 
         <CartCountProvider>
-          <AppContent />
+          <ShoppingCartProvider>
+            <AppContent />
+          </ShoppingCartProvider>
         </CartCountProvider>
       </AlertProvider>
     </Router>
