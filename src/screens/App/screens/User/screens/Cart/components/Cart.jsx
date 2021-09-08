@@ -2,40 +2,38 @@ import React, { useEffect, useState } from "react";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import axios from "../../../../../../../shared/caller";
-import validateUser from "../../../../../../../shared/Auth/Validation";
 import Loading from "../../../../../../../shared/Loading/Loading";
 import CartCheckout from "./CartCheckout";
 import CartItems from "./CartItems";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 
 function Cart({ history }) {
-  const { loadCartItems } = useShoppingCart();
-  const [loading, setLoading] = useState(true);
+  const { setLoading, loadCartItems, resetPricings } = useShoppingCart();
 
   useEffect(() => {
-    // if unauthorized, redirect to login with error message
-    validateUser((status) => {
-      if (status === "SUCCESS") setLoading(false);
-      else if (status === "FAILED") history.push("/login");
-      else if (status === "UNAUTHORIZED") history.push("/unauthorized");
-      else if (status === "FORBIDDEN") history.push("/forbidden");
-    });
-
     async function getUserCart() {
       await axios
         .get("/api/cart/user")
         .then((res) => {
-          if (res.status === 200) loadCartItems(res.data.cart);
+          if (res.status === 200) {
+            loadCartItems(res.data.cart);
+            // setLoading(false);
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (!err.response) history.push("/login");
+          else if (err.response.status === "UNAUTHORIZED")
+            history.push("/unauthorized");
+          else if (err.response.status === "FORBIDDEN")
+            history.push("/forbidden");
+        });
     }
-
     getUserCart();
+
+    resetPricings();
   }, []);
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <>
       <Title title="Shopping Cart" />
 

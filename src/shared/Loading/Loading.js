@@ -7,15 +7,13 @@
  *
  */
 
-import React, { useState } from "react";
-import "./Loading.css";
+import React from "react";
+import target from "../animations/target-loading.gif";
 
 function Loading() {
   return (
-    <div id="loading">
-      <div id="content">
-        <h1>Loading...</h1>
-      </div>
+    <div className="w-full h-full">
+      <img src={target} className="w-1/6 m-auto" />
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
+import Loading from "../../../../../../../shared/Loading/Loading";
 import CartItem from "./CartItem";
 
 function CartItems() {
-  const { items, addToCheckout } = useShoppingCart();
+  const { loading, items, addToCheckout } = useShoppingCart();
 
   return (
     <>
@@ -24,9 +25,11 @@ function CartItems() {
 
       {/* items */}
       <div className="mt-14 flex flex-col gap-y-10">
-        {items.map((e) => (
-          <CartItem key={e.productId} data={e} />
-        ))}
+        {loading ? (
+          <Loading />
+        ) : (
+          items.map((e) => <CartItem key={e.productId} data={e} />)
+        )}
       </div>
     </>
   );
