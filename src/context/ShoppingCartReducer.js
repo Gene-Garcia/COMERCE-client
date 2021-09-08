@@ -4,9 +4,6 @@
  *
  */
 function ShoppingCartReducer(state, action) {
-  console.log(`state: ${state}`);
-  console.log(`action: ${action}`);
-
   switch (action.type) {
     case "LOAD_CART_ITEMS":
       return { ...state, items: [...action.payload] };
@@ -64,6 +61,14 @@ function ShoppingCartReducer(state, action) {
         ...state,
         subTotal: tempSubTotal,
         grandTotal: tempGrandTotal,
+      };
+
+    case "DETERMINE_CHECKOUTABLE":
+      return {
+        ...state,
+        checkoutable: state.items.find((e) => e.checkout === true)
+          ? true
+          : false,
       };
 
     default:

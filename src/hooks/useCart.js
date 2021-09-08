@@ -71,15 +71,13 @@ async function fetchCartCount(cb) {
  */
 function useShoppingCart() {
   const {
-    items,
-    subTotal,
-    shippingFee,
-    grandTotal,
+    state: { items, subTotal, shippingFee, grandTotal, checkoutable },
     loadCartItems,
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
     computePrices,
+    determineCheckoutable,
   } = useContext(ShoppingCartContext);
 
   return {
@@ -87,11 +85,13 @@ function useShoppingCart() {
     subTotal,
     shippingFee,
     grandTotal,
+    checkoutable,
     loadCartItems,
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
     computePrices,
+    determineCheckoutable,
   };
 }
 

@@ -9,6 +9,7 @@ const initialState = {
   subTotal: 0,
   shippingFee: 75,
   grandTotal: 0,
+  checkoutable: false,
 };
 
 function ShoppingCartProvider({ children }) {
@@ -40,6 +41,7 @@ function ShoppingCartProvider({ children }) {
     });
 
     computePrices();
+    determineCheckoutable();
   };
 
   /* Change an item with productId's checkout field to false */
@@ -50,6 +52,7 @@ function ShoppingCartProvider({ children }) {
     });
 
     computePrices();
+    determineCheckoutable();
   };
 
   /* Computes both sub total and grand total */
@@ -59,18 +62,23 @@ function ShoppingCartProvider({ children }) {
     });
   };
 
+  /* Determines if the has selected atleast one product for checkout */
+  const determineCheckoutable = () => {
+    dispatch({
+      type: "DETERMINE_CHECKOUTABLE",
+    });
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
-        items: state.items,
-        subTotal: state.subTotal,
-        shippingFee: state.shippingFee,
-        grandTotal: state.grandTotal,
+        state,
         loadCartItems,
         modifyQuantity,
         addToCheckout,
         removeFromCheckout,
         computePrices,
+        determineCheckoutable,
       }}
     >
       {children}
