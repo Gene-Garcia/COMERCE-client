@@ -8,7 +8,7 @@ function CartItem({ data }) {
   return (
     <div className="flex flex-row justify-start gap-x-6">
       {/* image */}
-      <div className=" flex-grow-0 rounded-md shadow-md bg-gray-100">
+      <div className=" flex-grow-0 rounded-md shadow-lg bg-gray-50">
         <img
           className="object-contain w-56 h-56 p-5"
           alt="cart-item"
@@ -19,9 +19,9 @@ function CartItem({ data }) {
       {/* info */}
       <div className="flex-grow w-4/5 flex flex-col justify-between">
         <div className="flex flex-row items-center justify-between">
-          <p className="font-semibold text-my-black text-xl">{item}</p>
+          <p className="font-semibold text-gray-700 text-xl">{item}</p>
 
-          <p className="text-gray-500 font-medium text-lg">P{retailPrice}</p>
+          <p className="text-gray-600 font-medium text-lg">P{retailPrice}</p>
         </div>
 
         <div>

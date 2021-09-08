@@ -71,6 +71,8 @@ async function fetchCartCount(cb) {
  */
 function useShoppingCart() {
   const {
+    loading,
+    setLoading,
     state: { items, subTotal, shippingFee, grandTotal, checkoutable },
     loadCartItems,
     modifyQuantity,
@@ -80,6 +82,8 @@ function useShoppingCart() {
   } = useContext(ShoppingCartContext);
 
   return {
+    loading,
+    setLoading,
     items,
     subTotal,
     shippingFee,
