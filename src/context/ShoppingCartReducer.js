@@ -75,5 +75,68 @@ function ShoppingCartReducer(state, action) {
       throw Error;
   }
 }
-
 export default ShoppingCartReducer;
+
+function actions(dispatch) {
+  /* Add items from the API call */
+  const loadCartItems = (items) => {
+    dispatch({
+      type: "LOAD_CART_ITEMS",
+      payload: items,
+    });
+  };
+
+  /* Increase or decrease the quantity of the product with the productId */
+  const modifyQuantity = (increment, productId) => {
+    dispatch({
+      type: increment ? "INCREASE_QUANTITY" : "DECREASE_QUANTITY",
+      payload: productId,
+    });
+
+    computePrices();
+  };
+
+  /* Make an individual item or every item as checkout */
+  const addToCheckout = (individual, productId) => {
+    dispatch({
+      type: individual ? "ADD_TO_CHECKOUT" : "ADD_ALL_TO_CHECKOUT",
+      payload: productId,
+    });
+
+    computePrices();
+    determineCheckoutable();
+  };
+
+  /* Change an item with productId's checkout field to false */
+  const removeFromCheckout = (productId) => {
+    dispatch({
+      type: "REMOVE_FROM_CHECKOUT",
+      payload: productId,
+    });
+
+    computePrices();
+    determineCheckoutable();
+  };
+
+  /* Computes both sub total and grand total */
+  const computePrices = () => {
+    dispatch({
+      type: "COMPUTE_PRICES",
+    });
+  };
+
+  /* Determines if the has selected atleast one product for checkout */
+  const determineCheckoutable = () => {
+    dispatch({
+      type: "DETERMINE_CHECKOUTABLE",
+    });
+  };
+
+  return {
+    loadCartItems,
+    modifyQuantity,
+    addToCheckout,
+    removeFromCheckout,
+  };
+}
+export { actions };
