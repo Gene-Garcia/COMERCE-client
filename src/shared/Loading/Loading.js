@@ -11,10 +11,6 @@ import React from "react";
 import target from "../animations/target-loading.gif";
 
 function Loading() {
-  return (
-    <div className="w-full h-full">
-      <img src={target} className="w-1/6 m-auto" />
-    </div>
-  );
+  return <img src={target} className="m-auto w-24 h-24" />;
 }
 export default Loading;

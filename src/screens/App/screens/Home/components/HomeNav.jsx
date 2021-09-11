@@ -35,14 +35,12 @@ function HomeNav() {
           </div>
 
           {/* account */}
-          <div className="self-end xl:place-self-end flex flex-row items-center gap-x-6 ">
+          <div className="self-end xl:place-self-start flex flex-row items-center  gap-x-6 ">
             <div className="">
               <Account bgType="accent" />
             </div>
             {/* cart */}
-            <div className="">
-              <Cart bgType="accent" />
-            </div>
+            <Cart bgType="accent" />
           </div>
         </div>
       </div>

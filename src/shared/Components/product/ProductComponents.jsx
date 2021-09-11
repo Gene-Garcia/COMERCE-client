@@ -6,6 +6,7 @@
  */
 
 import React from "react";
+import { Link } from "react-router-dom";
 import useAlert from "../../../hooks/useAlert";
 import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
 
@@ -121,8 +122,6 @@ function ProductPurchase({ productId, size }) {
   const { addToCartClick } = useAddToCart(productId, success, failed);
   const { setMessage, setSeverity } = useAlert();
 
-  // this is innefficient because, each product card will now be embedded with an alert component
-
   let theme;
   if (size === "large") theme = "text-md py-1.5 px-6";
   else if (size === "extralarge") theme = "text-md py-1.5 px-5";
@@ -131,11 +130,12 @@ function ProductPurchase({ productId, size }) {
   return (
     <>
       <div className="flex flex-wrap gap-y-3 gap-x-4">
-        <button
+        <Link
+          to={`/user/checkout?product=${productId}`}
           className={`font-medium text-my-contrast bg-my-accent ${theme} rounded-md hover:bg-my-accent-mono`}
         >
           Buy Now
-        </button>
+        </Link>
 
         <button
           onClick={addToCartClick}
