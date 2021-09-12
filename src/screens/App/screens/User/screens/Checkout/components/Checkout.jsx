@@ -89,6 +89,21 @@ function Checkout({ history }) {
   //   }
   // }, []);
 
+  // add these things to CheckoutContext
+  const [stepToggle, setStepToggle] = useState({
+    highestVisited: 1,
+    active: "SD",
+  });
+  function toggleStep(number, id) {
+    setStepToggle((prev) => ({
+      ...prev,
+      active:
+        number > prev.highestVisited || number === prev.highestVisited
+          ? prev.active
+          : id,
+    }));
+  }
+
   return (
     <>
       <Title title="Checkout" />
@@ -122,18 +137,18 @@ function Checkout({ history }) {
             </div>
 
             <div>
-              <StepIndicators />
+              <StepIndicators toggleStep={toggleStep} />
             </div>
 
-            <div className="hidden">
+            <div className={stepToggle.active === "SD" ? "block" : "hidden"}>
               <ShippingDetails />
             </div>
 
-            <div className="hidden">
+            <div className={stepToggle.active === "PD" ? "block" : "hidden"}>
               <PaymentDetails />
             </div>
 
-            <div className="block">
+            <div className={stepToggle.active === "RD" ? "block" : "hidden"}>
               <ReviewDetails />
             </div>
           </div>
@@ -173,36 +188,58 @@ function CheckoutInput({ label, className, type, name, placeholder }) {
   );
 }
 
-function StepIndicators() {
+function StepIndicators({ toggleStep }) {
   return (
     <div className="flex flex-row justify-between shadow-lg rounded-lg py-4 px-5">
       {/* shipping */}
-      <div className="flex flex-row items-center gap-x-2">
-        <div className="bg-my-accent bg-opacity-90 h-8 w-8 rounded-full text-white text-md font-bold flex items-center justify-center">
-          1
-        </div>
-
-        <p className="font-semibold text-gray-600">Shipping</p>
-      </div>
+      <Indicator
+        number="1"
+        stepName="Shipping"
+        active={true}
+        id="SD"
+        toggleStep={toggleStep}
+      />
 
       {/* payment */}
-      <div className="flex flex-row items-center gap-x-2">
-        <div className="border border-my-accent bg-opacity-90 h-8 w-8 rounded-full text-my-accent text-md font-bold flex items-center justify-center">
-          2
-        </div>
-
-        <p className="font-semibold text-gray-600">Payment</p>
-      </div>
+      <Indicator
+        number="2"
+        stepName="Payment"
+        active={false}
+        id="PD"
+        toggleStep={toggleStep}
+      />
 
       {/* review */}
-      <div className="flex flex-row items-center gap-x-2">
-        <div className="border border-my-accent bg-opacity-90 h-8 w-8 rounded-full text-my-accent text-md font-bold flex items-center justify-center">
-          3
-        </div>
-
-        <p className="font-semibold text-gray-600">Review</p>
-      </div>
+      <Indicator
+        number="3"
+        stepName="Review"
+        active={false}
+        id="RD"
+        toggleStep={toggleStep}
+      />
     </div>
+  );
+}
+
+function Indicator({ id, number, stepName: name, active, toggleStep: toggle }) {
+  return (
+    <button
+      onClick={() => toggle(number, id)}
+      className="flex flex-row items-center gap-x-2"
+    >
+      <div
+        className={
+          (active
+            ? "bg-my-accent border-transparent text-white"
+            : "border-my-accent text-gray-500") +
+          ` transition border bg-opacity-90 h-8 w-8 rounded-full text-md font-bold flex items-center justify-center`
+        }
+      >
+        {number}
+      </div>
+
+      <p className="font-semibold text-gray-600">{name}</p>
+    </button>
   );
 }
 
