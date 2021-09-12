@@ -9,6 +9,9 @@ import validateUser from "../../../../../../../shared/Auth/Validation";
 import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import { Link } from "react-router-dom";
+import visaIcon from "../../../../../../../shared/images/visa.png";
+import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
+import paypalIcon from "../../../../../../../shared/images/paypal.png";
 
 /*
  * The checkout method is able to receive checkouted product in TWO ways.
@@ -121,8 +124,12 @@ function Checkout({ history }) {
               <StepIndicators />
             </div>
 
-            <div>
+            <div className="hidden">
               <ShippingDetails />
+            </div>
+
+            <div className="block">
+              <PaymentDetails />
             </div>
           </div>
 
@@ -240,6 +247,7 @@ function ShippingDetails() {
           name="province"
           className="w-4/6"
         />
+
         <CheckoutInput
           label="City or Municipality"
           type="text"
@@ -277,6 +285,158 @@ function ShippingDetails() {
           Cancel Order
         </Link>
       </div>
+    </div>
+  );
+}
+
+function PaymentMethod({ id, children, toggle, active }) {
+  return (
+    <button
+      onClick={() => toggle(id)}
+      className={
+        (active ? `border-my-accent` : `border-gray-200`) +
+        ` transition duration-300 px-7 py-0 border-b-4 font-semibold text-gray-600 flex items-center justify-center`
+      }
+    >
+      {children}
+    </button>
+  );
+}
+
+function PaymentDetails() {
+  /* State variables used to toggle the payment methods after onclick */
+  const [paymentToggle, setPaymentToggle] = useState("COD");
+  function toggle(method) {
+    setPaymentToggle(method);
+  }
+
+  return (
+    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-10">
+      {/* payment methods */}
+      <div className="flex flex-row gap-x-2">
+        <PaymentMethod
+          active={paymentToggle === "COD"}
+          id="COD"
+          toggle={toggle}
+        >
+          <span>Cash on Delivery</span>
+        </PaymentMethod>
+
+        <PaymentMethod active={paymentToggle === "CC"} id="CC" toggle={toggle}>
+          <div className="flex flex-row gap-x-2">
+            <img src={visaIcon} className="w-16 object-scale-down" />
+            <img src={mastercardIcon} className="w-12 object-scale-down" />
+          </div>
+        </PaymentMethod>
+
+        <PaymentMethod active={paymentToggle === "PP"} id="PP" toggle={toggle}>
+          <img src={paypalIcon} className="w-20 object-scale-down" />
+        </PaymentMethod>
+      </div>
+
+      <p className="text-lg text-gray-600 font-medium">Payment Details</p>
+
+      <div className={paymentToggle === "COD" ? "block" : "hidden"}>
+        <CashOnDelivery />
+      </div>
+
+      <div className={paymentToggle === "CC" ? "block" : "hidden"}>
+        <CreditCard />
+      </div>
+
+      <div className={paymentToggle === "PP" ? "block" : "hidden"}>
+        <PayPal />
+      </div>
+
+      {/* CTA of payment */}
+      <div className="flex flex-row gap-x-3">
+        <Link className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-2 hover:bg-my-accent-mono">
+          Review Order
+        </Link>
+        <Link
+          to="/user/cart"
+          className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-lg font-semibold px-4 py-2 hover:border-gray-300"
+        >
+          Cancel Order
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function CashOnDelivery() {
+  return (
+    <div className="space-y-4 font-regular text-md">
+      <p className="text-lg">
+        You have selected
+        <span className="font-semibold text-my-accent"> cash-on-delivery </span>
+        payment.
+      </p>
+      <p>Please wait for your order to arrive at your address.</p>
+      <p>
+        Upon arrival of the ordered parcel, please pay the exact amount due
+        <span className="font-semibold text-my-accent"> P#,###.##</span>
+      </p>
+    </div>
+  );
+}
+
+function CreditCard() {
+  return (
+    <div className="space-y-6">
+      <CheckoutInput
+        label="Name of Card Holder"
+        type="text"
+        placeholder="Enter your name indicated on the card"
+        name="name"
+        className="w-3/4"
+      />
+
+      <CheckoutInput
+        label="Card Number"
+        type="number"
+        placeholder="Enter your credit card number"
+        name="cardNumber"
+        className="w-3/5"
+      />
+
+      <div className="flex flex-row gap-x-3">
+        <CheckoutInput
+          label="Card Expiration"
+          type="text"
+          placeholder="Month / Year"
+          name="cardExpiration"
+          className="w-1/5"
+        />
+
+        <CheckoutInput
+          label="Card Security Number"
+          type="number"
+          placeholder="CVV"
+          name="cvv"
+          className="w-1/5"
+        />
+      </div>
+    </div>
+  );
+}
+
+function PayPal() {
+  return (
+    <div className=" space-y-6">
+      <p className="font-semibold text-lg">
+        Payment through <span className="text-my-accent">PayPal</span> will
+        require you to login to your valid
+        <span className="text-my-accent"> PayPal</span> account.
+      </p>
+
+      <CheckoutInput
+        label="PayPal Email"
+        type="email"
+        placeholder="Enter your valid and active PayPal email"
+        name="paypalEmail"
+        className="w-3/4"
+      />
     </div>
   );
 }
