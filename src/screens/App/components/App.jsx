@@ -12,6 +12,7 @@ import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
 import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
+import { CheckoutProvider } from "../../../context/CheckoutContext";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -87,7 +88,9 @@ function App() {
 
         <CartCountProvider>
           <ShoppingCartProvider>
-            <AppContent />
+            <CheckoutProvider>
+              <AppContent />
+            </CheckoutProvider>
           </ShoppingCartProvider>
         </CartCountProvider>
       </AlertProvider>
