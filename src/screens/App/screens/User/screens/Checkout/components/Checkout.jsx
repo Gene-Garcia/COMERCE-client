@@ -13,6 +13,7 @@ import visaIcon from "../../../../../../../shared/images/visa.png";
 import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
 import paypalIcon from "../../../../../../../shared/images/paypal.png";
 import { checkLoggedIn } from "../../../../../../../shared/Auth/Login";
+import useCheckout from "../../../../../../../hooks/useCheckout";
 
 /*
  * The checkout method is able to receive checkouted product in TWO ways.
@@ -90,19 +91,7 @@ function Checkout({ history }) {
   // }, []);
 
   // add these things to CheckoutContext
-  const [stepToggle, setStepToggle] = useState({
-    highestVisited: 1,
-    active: "SD",
-  });
-  function toggleStep(number, id) {
-    setStepToggle((prev) => ({
-      ...prev,
-      active:
-        number > prev.highestVisited || number === prev.highestVisited
-          ? prev.active
-          : id,
-    }));
-  }
+  const { toggledStep } = useCheckout();
 
   return (
     <>
@@ -137,18 +126,18 @@ function Checkout({ history }) {
             </div>
 
             <div>
-              <StepIndicators toggleStep={toggleStep} />
+              <StepIndicators />
             </div>
 
-            <div className={stepToggle.active === "SD" ? "block" : "hidden"}>
+            <div className={toggledStep === "SD" ? "block" : "hidden"}>
               <ShippingDetails />
             </div>
 
-            <div className={stepToggle.active === "PD" ? "block" : "hidden"}>
+            <div className={toggledStep === "PD" ? "block" : "hidden"}>
               <PaymentDetails />
             </div>
 
-            <div className={stepToggle.active === "RD" ? "block" : "hidden"}>
+            <div className={toggledStep === "RD" ? "block" : "hidden"}>
               <ReviewDetails />
             </div>
           </div>
@@ -188,43 +177,26 @@ function CheckoutInput({ label, className, type, name, placeholder }) {
   );
 }
 
-function StepIndicators({ toggleStep }) {
+function StepIndicators() {
   return (
     <div className="flex flex-row justify-between shadow-lg rounded-lg py-4 px-5">
       {/* shipping */}
-      <Indicator
-        number="1"
-        stepName="Shipping"
-        active={true}
-        id="SD"
-        toggleStep={toggleStep}
-      />
+      <Indicator number="1" stepName="Shipping" active={true} id="SD" />
 
       {/* payment */}
-      <Indicator
-        number="2"
-        stepName="Payment"
-        active={false}
-        id="PD"
-        toggleStep={toggleStep}
-      />
+      <Indicator number="2" stepName="Payment" active={false} id="PD" />
 
       {/* review */}
-      <Indicator
-        number="3"
-        stepName="Review"
-        active={false}
-        id="RD"
-        toggleStep={toggleStep}
-      />
+      <Indicator number="3" stepName="Review" active={false} id="RD" />
     </div>
   );
 }
 
-function Indicator({ id, number, stepName: name, active, toggleStep: toggle }) {
+function Indicator({ id, number, stepName: name, active }) {
+  const { toggleStep } = useCheckout();
   return (
     <button
-      onClick={() => toggle(number, id)}
+      onClick={() => toggleStep(id, number)}
       className="flex flex-row items-center gap-x-2"
     >
       <div

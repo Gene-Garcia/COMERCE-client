@@ -1,4 +1,24 @@
-function CheckoutReducer(state, action) {}
+function CheckoutReducer(state, action) {
+  switch (action.type) {
+    case "NEXT_STEP":
+      return { ...state };
+
+    case "TOGGLE_STEP":
+      return {
+        ...state,
+        toggledStep:
+          action.payload.stepNumber <= state.visitedStep
+            ? action.payload.stepId
+            : state.toggledStep,
+      };
+
+    case "TOGGLE_PAYMENT":
+      return { ...state };
+
+    case "PLACE_ORDER":
+      return { ...state };
+  }
+}
 export default CheckoutReducer;
 
 function actions(dispatch) {
@@ -29,6 +49,6 @@ function actions(dispatch) {
     });
   };
 
-  return { toggleStep, togglePaymentOption };
+  return { nextStep, toggleStep, togglePaymentOption, placeOrder };
 }
 export { actions };

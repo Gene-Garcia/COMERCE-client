@@ -1,13 +1,13 @@
 import { createContext, useReducer, useState } from "react";
 import CheckoutReducer from "./CheckoutReducer";
-import { actions } from "./ShoppingCartReducer";
+import { actions } from "./CheckoutReducer";
 
 const CheckoutContext = createContext();
 export default CheckoutContext;
 
 const initialState = {
   toggledStep: "SD",
-  visitedStep: 1,
+  visitedStep: 3,
 
   shippingDetails: {},
 
@@ -18,7 +18,15 @@ const initialState = {
 function CheckoutProvider({ children }) {
   const [state, dispatch] = useReducer(CheckoutReducer, initialState);
 
-  const {} = actions(dispatch);
+  const { nextStep, toggleStep, togglePaymentOption, placeOrder } =
+    actions(dispatch);
 
-  return <CheckoutContext.Provider>{children}</CheckoutContext.Provider>;
+  return (
+    <CheckoutContext.Provider
+      value={{ state, nextStep, toggleStep, togglePaymentOption, placeOrder }}
+    >
+      {children}
+    </CheckoutContext.Provider>
+  );
 }
+export { CheckoutProvider };

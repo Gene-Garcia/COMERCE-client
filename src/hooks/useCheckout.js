@@ -2,7 +2,20 @@ import { useContext } from "react";
 import CheckoutContext from "../context/CheckoutContext";
 
 function useCheckout() {
-  const {} = useContext(CheckoutContext);
+  const {
+    state: { toggledStep },
+    nextStep,
+    toggleStep,
+    togglePaymentOption,
+    placeOrder,
+  } = useContext(CheckoutContext);
 
-  return;
+  return {
+    toggledStep,
+    nextStep,
+    toggleStep,
+    togglePaymentOption,
+    placeOrder,
+  };
 }
+export default useCheckout;
