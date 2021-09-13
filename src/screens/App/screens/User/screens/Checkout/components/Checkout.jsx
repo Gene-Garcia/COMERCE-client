@@ -99,7 +99,7 @@ function Checkout({ history }) {
 
       <Container>
         <div className="flex flex-row justify-between w-full gap-x-12">
-          {/* steps: shipping, payment, and review */}
+          {/* steps are: shipping, payment, and review */}
           <div className="w-3/5 space-y-8">
             <div className="flex flex-row items-center gap-x-7">
               <p className="text-lg text-gray-600 font-medium">
@@ -178,16 +178,33 @@ function CheckoutInput({ label, className, type, name, placeholder }) {
 }
 
 function StepIndicators() {
+  const { toggledStep } = useCheckout();
+
   return (
     <div className="flex flex-row justify-between shadow-lg rounded-lg py-4 px-5">
       {/* shipping */}
-      <Indicator number="1" stepName="Shipping" active={true} id="SD" />
+      <Indicator
+        number="1"
+        stepName="Shipping"
+        active={toggledStep === "SD"}
+        id="SD"
+      />
 
       {/* payment */}
-      <Indicator number="2" stepName="Payment" active={false} id="PD" />
+      <Indicator
+        number="2"
+        stepName="Payment"
+        active={toggledStep === "PD"}
+        id="PD"
+      />
 
       {/* review */}
-      <Indicator number="3" stepName="Review" active={false} id="RD" />
+      <Indicator
+        number="3"
+        stepName="Review"
+        active={toggledStep === "RD"}
+        id="RD"
+      />
     </div>
   );
 }
