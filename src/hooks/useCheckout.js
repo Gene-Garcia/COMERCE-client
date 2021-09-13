@@ -3,7 +3,7 @@ import CheckoutContext from "../context/CheckoutContext";
 
 function useCheckout() {
   const {
-    state: { toggledStep },
+    state: { toggledStep, toggledPayment },
     nextStep,
     toggleStep,
     togglePaymentOption,
@@ -12,6 +12,7 @@ function useCheckout() {
 
   return {
     toggledStep,
+    toggledPayment,
     nextStep,
     toggleStep,
     togglePaymentOption,

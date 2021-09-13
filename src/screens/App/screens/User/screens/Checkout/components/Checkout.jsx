@@ -320,10 +320,12 @@ function ShippingDetails() {
   );
 }
 
-function PaymentMethod({ id, children, toggle, active }) {
+function PaymentMethod({ id, children, active }) {
+  const { togglePaymentOption } = useCheckout();
+
   return (
     <button
-      onClick={() => toggle(id)}
+      onClick={() => togglePaymentOption(id)}
       className={
         (active ? `border-my-accent` : `border-gray-200`) +
         ` transition duration-300 px-7 py-0 border-b-4 font-semibold text-gray-600 flex items-center justify-center`
@@ -335,47 +337,39 @@ function PaymentMethod({ id, children, toggle, active }) {
 }
 
 function PaymentDetails() {
-  /* State variables used to toggle the payment methods after onclick */
-  const [paymentToggle, setPaymentToggle] = useState("COD");
-  function toggle(method) {
-    setPaymentToggle(method);
-  }
+  /* Context state variables used to toggle the payment methods after onclick */
+  const { toggledPayment } = useCheckout();
 
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-10">
-      {/* payment methods */}
       <div className="flex flex-row gap-x-2">
-        <PaymentMethod
-          active={paymentToggle === "COD"}
-          id="COD"
-          toggle={toggle}
-        >
+        <PaymentMethod active={toggledPayment === "COD"} id="COD">
           <span>Cash on Delivery</span>
         </PaymentMethod>
 
-        <PaymentMethod active={paymentToggle === "CC"} id="CC" toggle={toggle}>
+        <PaymentMethod active={toggledPayment === "CC"} id="CC">
           <div className="flex flex-row gap-x-2">
             <img src={visaIcon} className="w-16 object-scale-down" />
             <img src={mastercardIcon} className="w-12 object-scale-down" />
           </div>
         </PaymentMethod>
 
-        <PaymentMethod active={paymentToggle === "PP"} id="PP" toggle={toggle}>
+        <PaymentMethod active={toggledPayment === "PP"} id="PP">
           <img src={paypalIcon} className="w-20 object-scale-down" />
         </PaymentMethod>
       </div>
 
       <p className="text-lg text-gray-600 font-medium">Payment Details</p>
 
-      <div className={paymentToggle === "COD" ? "block" : "hidden"}>
+      <div className={toggledPayment === "COD" ? "block" : "hidden"}>
         <CashOnDelivery />
       </div>
 
-      <div className={paymentToggle === "CC" ? "block" : "hidden"}>
+      <div className={toggledPayment === "CC" ? "block" : "hidden"}>
         <CreditCard />
       </div>
 
-      <div className={paymentToggle === "PP" ? "block" : "hidden"}>
+      <div className={toggledPayment === "PP" ? "block" : "hidden"}>
         <PayPal />
       </div>
 

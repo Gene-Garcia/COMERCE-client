@@ -13,7 +13,7 @@ function CheckoutReducer(state, action) {
       };
 
     case "TOGGLE_PAYMENT":
-      return { ...state };
+      return { ...state, toggledPayment: action.payload };
 
     case "PLACE_ORDER":
       return { ...state };
