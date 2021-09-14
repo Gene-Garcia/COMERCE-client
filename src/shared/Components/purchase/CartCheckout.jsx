@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../../hooks/useCart";
 import CheckoutItem from "./CheckoutItem";
 
-function CartCheckout() {
+function CartCheckout({ editable }) {
   const { items, subTotal, grandTotal, shippingFee, checkoutable } =
     useShoppingCart();
 
@@ -14,7 +14,10 @@ function CartCheckout() {
       {/* items */}
       <div className="mt-6 flex flex-col gap-y-3">
         {items.map(
-          (e) => e.checkout && <CheckoutItem key={e.productId} data={e} />
+          (e) =>
+            e.checkout && (
+              <CheckoutItem key={e.productId} data={e} editable={editable} />
+            )
         )}
       </div>
 
@@ -43,7 +46,8 @@ function CartCheckout() {
           <p className="text-xl font-medium text-my-accent">P{grandTotal}</p>
         </div>
       </div>
-      <div className="flex mt-8">
+
+      <div className={`${editable ? "flex" : "hidden"} mt-8`}>
         {/* Checkout Button */}
         {checkoutable ? (
           <Link

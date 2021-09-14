@@ -145,7 +145,7 @@ function Checkout({ history }) {
 
           {/* checkout summary */}
           <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
-            <CartCheckout />
+            <CartCheckout editable={false} />
           </div>
         </div>
       </Container>
