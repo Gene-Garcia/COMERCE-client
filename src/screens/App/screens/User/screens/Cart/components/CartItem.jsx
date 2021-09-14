@@ -1,5 +1,5 @@
 import React from "react";
-import { useShoppingCart } from "../../../hooks/useCart";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 
 function CartItem({ data }) {
   const { productId, item, retailPrice, quantity, image } = data;

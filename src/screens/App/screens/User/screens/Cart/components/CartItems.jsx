@@ -1,6 +1,6 @@
 import React from "react";
-import { useShoppingCart } from "../../../hooks/useCart";
-import Loading from "../../Loading/Loading";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
+import Loading from "../../../../../../../shared/Loading/Loading";
 import CartItem from "./CartItem";
 
 function CartItems() {

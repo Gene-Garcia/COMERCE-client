@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "../../../../../../../shared/caller";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
-import CartItems from "../../../../../../../shared/Components/purchase/CartItems";
+import CartItems from "./CartItems";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 
