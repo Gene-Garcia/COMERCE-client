@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useCheckout from "../../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../../hooks/useForm";
 import CheckoutInput from "./CheckoutInput";
 
 function ShippingDetails() {
+  const { loadShippingDetails, nextStep } = useCheckout();
+
   async function saveShippingDetails() {
-    alert("Success");
+    loadShippingDetails(values);
+    nextStep(false, 2, "PD");
   }
 
   function validate(data, setError) {

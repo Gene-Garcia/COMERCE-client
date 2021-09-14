@@ -7,7 +7,7 @@ export default CheckoutContext;
 
 const initialState = {
   toggledStep: "SD",
-  visitedStep: 3,
+  visitedStep: 1,
 
   shippingDetails: {},
 
@@ -18,12 +18,24 @@ const initialState = {
 function CheckoutProvider({ children }) {
   const [state, dispatch] = useReducer(CheckoutReducer, initialState);
 
-  const { nextStep, toggleStep, togglePaymentOption, placeOrder } =
-    actions(dispatch);
+  const {
+    nextStep,
+    toggleStep,
+    togglePaymentOption,
+    loadShippingDetails,
+    placeOrder,
+  } = actions(dispatch);
 
   return (
     <CheckoutContext.Provider
-      value={{ state, nextStep, toggleStep, togglePaymentOption, placeOrder }}
+      value={{
+        state,
+        nextStep,
+        toggleStep,
+        togglePaymentOption,
+        loadShippingDetails,
+        placeOrder,
+      }}
     >
       {children}
     </CheckoutContext.Provider>

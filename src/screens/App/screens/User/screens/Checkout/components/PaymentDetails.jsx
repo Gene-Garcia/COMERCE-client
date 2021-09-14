@@ -6,8 +6,8 @@ import PaymentMethod, {
   PayPal,
 } from "./PaymentMethod";
 import visaIcon from "../../../../../../../shared/images/visa.png";
-import mastercardIcon from "../../../../../../../shared/images/visa.png";
-import paypalIcon from "../../../../../../../shared/images/visa.png";
+import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
+import paypalIcon from "../../../../../../../shared/images/paypal.png";
 import { Link } from "react-router-dom";
 
 function PaymentDetails() {
