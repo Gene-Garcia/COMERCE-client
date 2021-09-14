@@ -17,20 +17,7 @@ function PaymentDetails() {
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-10">
       <div className="flex flex-row gap-x-2">
-        <PaymentMethod active={toggledPayment === "COD"} id="COD">
-          <span>Cash on Delivery</span>
-        </PaymentMethod>
-
-        <PaymentMethod active={toggledPayment === "CC"} id="CC">
-          <div className="flex flex-row gap-x-2">
-            <img src={visaIcon} className="w-16 object-scale-down" />
-            <img src={mastercardIcon} className="w-12 object-scale-down" />
-          </div>
-        </PaymentMethod>
-
-        <PaymentMethod active={toggledPayment === "PP"} id="PP">
-          <img src={paypalIcon} className="w-20 object-scale-down" />
-        </PaymentMethod>
+        <Options />
       </div>
 
       <p className="text-lg text-gray-600 font-medium">Payment Details</p>
@@ -63,3 +50,26 @@ function PaymentDetails() {
   );
 }
 export default PaymentDetails;
+
+function Options() {
+  const { toggledPayment } = useCheckout();
+
+  return (
+    <>
+      <PaymentMethod active={toggledPayment === "COD"} id="COD">
+        <span>Cash on Delivery</span>
+      </PaymentMethod>
+
+      <PaymentMethod active={toggledPayment === "CC"} id="CC">
+        <div className="flex flex-row gap-x-2">
+          <img src={visaIcon} className="w-16 object-scale-down" />
+          <img src={mastercardIcon} className="w-12 object-scale-down" />
+        </div>
+      </PaymentMethod>
+
+      <PaymentMethod active={toggledPayment === "PP"} id="PP">
+        <img src={paypalIcon} className="w-20 object-scale-down" />
+      </PaymentMethod>
+    </>
+  );
+}
