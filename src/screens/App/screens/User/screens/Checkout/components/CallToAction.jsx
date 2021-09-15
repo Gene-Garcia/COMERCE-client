@@ -12,10 +12,10 @@ function ReturnToCart() {
   );
 }
 
-function DesignedButton({ submit, name }) {
+function DesignedButton({ onClick, name }) {
   return (
     <button
-      onClick={submit}
+      onClick={onClick}
       className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-3 hover:bg-my-accent-mono"
     >
       {name}
@@ -27,7 +27,7 @@ function DesignedBody({ children }) {
   return <div className="flex flex-row gap-x-3">{children}</div>;
 }
 
-function ShippingCTA(submit) {
+function ShippingCTA({ submit }) {
   return (
     <DesignedBody>
       <DesignedButton onClick={submit} name="Save Address" />
@@ -54,7 +54,7 @@ function PaymentCTA({ submit, type }) {
 
   return (
     <DesignedBody>
-      <DesignedButton submit={submit} name={display} />
+      <DesignedButton onClick={submit} name={display} />
       <ReturnToCart />
     </DesignedBody>
   );

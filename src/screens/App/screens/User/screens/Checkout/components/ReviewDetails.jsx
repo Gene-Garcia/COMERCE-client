@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import useCheckout from "../../../../../../../hooks/useCheckout";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails() {
+  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
+
+  const decodePaymentType = (type) => {
+    if (type === "COD") return "Cash on Delivery";
+    else if (type === "CC") return "Credit Card";
+    else if (type === "PP") return "PayPal";
+  };
+
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
       <ReviewBody title="Estimated Delivery Time">
@@ -13,15 +21,22 @@ function ReviewDetails() {
       </ReviewBody>
 
       <ReviewBody title="Shipping Address">
-        <p>House/Unit/Flr #, Bldg Name, Blk or Lot #</p>
-        <p>Barangay, City-Municipality</p>
-        <p>Province, Philippines</p>
+        <p>{`Ship to ${sd.firstName} ${sd.lastName}`}</p>
+        <p>{sd.streetAddress}</p>
+        <p>
+          {sd.barangay}, {sd.cityMunicipality}
+        </p>
+        <p>{sd.province}, Philippines</p>
         <p>Zip Code</p>
       </ReviewBody>
 
       <ReviewBody title="Payment Details">
         <p className="font-medium mb-2.5">
-          Pay order with <span className="text-my-accent"> Payment Method</span>
+          Pay order with{" "}
+          <span className="text-my-accent">
+            {" "}
+            {decodePaymentType(toggledPayment)}
+          </span>
         </p>
         <span className="bg-gray-100 px-3 py-1.5 rounded-md">
           Credit Card Number or Email

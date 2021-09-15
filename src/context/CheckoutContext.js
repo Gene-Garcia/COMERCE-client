@@ -6,8 +6,8 @@ const CheckoutContext = createContext();
 export default CheckoutContext;
 
 const initialState = {
-  toggledStep: "PD",
-  visitedStep: 2,
+  toggledStep: "SD",
+  visitedStep: 1,
 
   shippingDetails: {},
 

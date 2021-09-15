@@ -23,6 +23,16 @@ function CheckoutReducer(state, action) {
     case "LOAD_SHIPPING_DETAILS":
       return { ...state, shippingDetails: { ...action.payload } };
 
+    // load payment details
+    case "LOAD_COD_PAYMENT":
+      return { ...state };
+
+    case "LOAD_CC_PAYMENT":
+      return { ...state, paymentDetails: { ...action.payload } };
+
+    case "LOAD_PP_PAYMENT":
+      return { ...state, paymentDetails: { ...action.payload } };
+
     case "PLACE_ORDER":
       return { ...state };
 
@@ -63,25 +73,10 @@ function actions(dispatch) {
 
   const loadPaymentDetails = (paymentType, details) => {
     let type;
-    switch (paymentType) {
-      case "COD":
-        type = "LOAD_COD_PAYMENT";
-        alert("COD");
-        break;
 
-      case "CC":
-        type = "LOAD_CC_PAYMENT";
-        alert("CC");
-        break;
-
-      case "PP":
-        type = "LOAD_PP_PAYMENT";
-        alert("PP");
-        break;
-
-      default:
-        throw Error;
-    }
+    if (paymentType === "PP") type = "LOAD_PP_PAYMENT";
+    else if (paymentType === "CC") type = "LOAD_CC_PAYMENT";
+    else type = "LOAD_COD_PAYMENT";
 
     dispatch({
       type,

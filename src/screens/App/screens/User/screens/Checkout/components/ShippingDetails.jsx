@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../../hooks/useForm";
 import { ShippingCTA } from "./CallToAction";
@@ -176,7 +175,7 @@ function ShippingDetails() {
       </>
 
       {/* CTA of shipping */}
-      <ShippingCTA submit={saveShippingDetails} />
+      <ShippingCTA submit={handleFormSubmit} />
     </div>
   );
 }

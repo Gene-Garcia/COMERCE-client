@@ -22,7 +22,7 @@ function PaymentMethod({ id, children, active }) {
 export default PaymentMethod;
 
 function CashOnDelivery() {
-  const { loadPaymentDetails } = useCheckout();
+  const { loadPaymentDetails, nextStep } = useCheckout();
 
   return (
     <div className="space-y-8">
@@ -45,6 +45,7 @@ function CashOnDelivery() {
       <PaymentCTA
         submit={() => {
           loadPaymentDetails("COD", null);
+          nextStep(false, 3, "RD");
         }}
         type="COD"
       />
@@ -53,10 +54,11 @@ function CashOnDelivery() {
 }
 
 function CreditCard() {
-  const { loadPaymentDetails } = useCheckout();
+  const { loadPaymentDetails, nextStep } = useCheckout();
 
   async function loadCreditCard() {
     loadPaymentDetails("CC", values);
+    nextStep(false, 3, "RD");
   }
 
   function validate(data, setErrors) {
@@ -183,10 +185,11 @@ function CreditCard() {
 }
 
 function PayPal() {
-  const { loadPaymentDetails } = useCheckout();
+  const { loadPaymentDetails, nextStep } = useCheckout();
 
   function loadPayPal() {
     loadPaymentDetails("PP", values);
+    nextStep(false, 3, "RD");
   }
 
   function validate(data, setErrors) {
