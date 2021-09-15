@@ -12,10 +12,10 @@ function ReturnToCart() {
   );
 }
 
-function DesignedButton({ onClick, name }) {
+function DesignedButton({ submit, name }) {
   return (
     <button
-      onClick={onClick}
+      onClick={submit}
       className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-3 hover:bg-my-accent-mono"
     >
       {name}

@@ -8,19 +8,18 @@ import PaymentMethod, {
 import visaIcon from "../../../../../../../shared/images/visa.png";
 import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
 import paypalIcon from "../../../../../../../shared/images/paypal.png";
-import { Link } from "react-router-dom";
 
 function PaymentDetails() {
   /* Context state variables used to toggle the payment methods after onclick */
   const { toggledPayment } = useCheckout();
 
   return (
-    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-10">
+    <div className="rounded-md shadow-md py-4 px-5 flex flex-col justify-evenly gap-y-8">
       <div className="flex flex-row gap-x-2">
         <Options />
       </div>
 
-      <p className="text-lg text-gray-600 font-medium">Payment Details</p>
+      <p className="text-lg text-gray-600 font-medium mb-0">Payment Details</p>
 
       <div className={toggledPayment === "COD" ? "block" : "hidden"}>
         <CashOnDelivery />

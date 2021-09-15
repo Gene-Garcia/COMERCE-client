@@ -6,8 +6,8 @@ const CheckoutContext = createContext();
 export default CheckoutContext;
 
 const initialState = {
-  toggledStep: "SD",
-  visitedStep: 1,
+  toggledStep: "PD",
+  visitedStep: 2,
 
   shippingDetails: {},
 
@@ -23,6 +23,7 @@ function CheckoutProvider({ children }) {
     toggleStep,
     togglePaymentOption,
     loadShippingDetails,
+    loadPaymentDetails,
     placeOrder,
   } = actions(dispatch);
 
@@ -34,6 +35,7 @@ function CheckoutProvider({ children }) {
         toggleStep,
         togglePaymentOption,
         loadShippingDetails,
+        loadPaymentDetails,
         placeOrder,
       }}
     >

@@ -22,8 +22,10 @@ function PaymentMethod({ id, children, active }) {
 export default PaymentMethod;
 
 function CashOnDelivery() {
+  const { loadPaymentDetails } = useCheckout();
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div className="space-y-4 font-regular text-md">
         <p className="text-lg">
           You have selected
@@ -40,14 +42,93 @@ function CashOnDelivery() {
         </p>
       </div>
 
-      <PaymentCTA submit={() => {}} type="COD" />
+      <PaymentCTA
+        submit={() => {
+          loadPaymentDetails("COD", null);
+        }}
+        type="COD"
+      />
     </div>
   );
 }
 
 function CreditCard() {
+  const { loadPaymentDetails } = useCheckout();
+
+  async function loadCreditCard() {
+    loadPaymentDetails("CC", values);
+  }
+
+  function validate(data, setErrors) {
+    let tempErrs = { ...errors };
+
+    if ("cardHolderName" in data)
+      tempErrs["cardHolderName"] = data["cardHolderName"]
+        ? ""
+        : "Holder's name is required";
+
+    if ("cardNumber" in data) {
+      tempErrs["cardNumber"] = data["cardNumber"]
+        ? ""
+        : "Card number is required";
+
+      // check for numeric value
+      if (!tempErrs["cardNumber"])
+        tempErrs["cardNumber"] = !isNaN(data["cardNumber"])
+          ? ""
+          : "Numeric values only";
+
+      // check for length
+      if (!tempErrs["cardNumber"])
+        tempErrs["cardNumber"] =
+          data["cardNumber"].trim().length === 12
+            ? ""
+            : "12-digit card number only";
+    }
+
+    if ("cardExpiration" in data) {
+      tempErrs["cardExpiration"] = data["cardExpiration"]
+        ? ""
+        : "Card's expiration is required";
+
+      //add regex
+    }
+
+    if ("securityCode" in data) {
+      tempErrs["securityCode"] = data["securityCode"]
+        ? ""
+        : "Security code is required";
+
+      // check for numeric value
+      if (!tempErrs["securityCode"])
+        tempErrs["securityCode"] = !isNaN(data["securityCode"])
+          ? ""
+          : "Numeric values only";
+
+      // check for length
+      if (!tempErrs["securityCode"])
+        tempErrs["securityCode"] =
+          data["securityCode"].trim().length === 3 ? "" : "3-digit code only";
+    }
+
+    setErrors(tempErrs);
+  }
+
+  const init = {
+    cardHolderName: "",
+    cardNumber: "",
+    cardExpiration: "",
+    securityCode: "",
+  };
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    loadCreditCard
+  );
+
   return (
-    <>
+    <div className="space-y-8">
       <div className="space-y-6">
         <CheckoutInput
           label="Name of Card Holder"
@@ -55,6 +136,9 @@ function CreditCard() {
           placeholder="Enter your name indicated on the card"
           name="cardHolderName"
           className="w-3/4"
+          values={values.cardHolderName}
+          error={errors.cardHolderName}
+          onChange={handleInput}
         />
 
         <CheckoutInput
@@ -63,36 +147,73 @@ function CreditCard() {
           placeholder="Enter your credit card number"
           name="cardNumber"
           className="w-3/5"
+          values={values.cardNumber}
+          error={errors.cardNumber}
+          onChange={handleInput}
         />
 
         <div className="flex flex-row gap-x-3">
           <CheckoutInput
             label="Card Expiration"
             type="text"
-            placeholder="Month / Year"
+            placeholder="MM/YYYY"
             name="cardExpiration"
             className="w-1/5"
+            values={values.cardExpiration}
+            error={errors.cardExpiration}
+            onChange={handleInput}
           />
 
           <CheckoutInput
             label="Card Security Number"
             type="number"
             placeholder="CVV"
-            name="securityNumber"
+            name="securityCode"
             className="w-1/5"
+            values={values.securityCode}
+            error={errors.securityCode}
+            onChange={handleInput}
           />
         </div>
       </div>
 
-      <PaymentCTA submit={() => {}} type="CC" />
-    </>
+      <PaymentCTA submit={handleFormSubmit} type="CC" />
+    </div>
   );
 }
 
 function PayPal() {
+  const { loadPaymentDetails } = useCheckout();
+
+  function loadPayPal() {
+    loadPaymentDetails("PP", values);
+  }
+
+  function validate(data, setErrors) {
+    let tempErrs = { ...errors };
+
+    if ("paypalEmail" in data) {
+      tempErrs["paypalEmail"] = data["paypalEmail"]
+        ? ""
+        : "PayPal email is required";
+
+      // add regex
+    }
+
+    setErrors(tempErrs);
+  }
+
+  const init = { paypalEmail: "" };
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    loadPayPal
+  );
+
   return (
-    <>
-      <div className=" space-y-6">
+    <div className="space-y-8">
+      <div className="space-y-6">
         <p className="font-semibold text-lg">
           Payment through <span className="text-my-accent">PayPal</span> will
           require you to login to your valid
@@ -105,10 +226,13 @@ function PayPal() {
           placeholder="Enter your valid and active PayPal email"
           name="paypalEmail"
           className="w-3/4"
+          onChange={handleInput}
+          value={values.paypalEmail}
+          error={errors.paypalEmail}
         />
       </div>
-      <PaymentCTA submit={() => {}} type="PP" />{" "}
-    </>
+      <PaymentCTA submit={handleFormSubmit} type="PP" />
+    </div>
   );
 }
 

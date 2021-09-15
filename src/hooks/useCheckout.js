@@ -8,6 +8,7 @@ function useCheckout() {
     toggleStep,
     togglePaymentOption,
     loadShippingDetails,
+    loadPaymentDetails,
     placeOrder,
   } = useContext(CheckoutContext);
 
@@ -19,6 +20,7 @@ function useCheckout() {
     toggleStep,
     togglePaymentOption,
     loadShippingDetails,
+    loadPaymentDetails,
     placeOrder,
   };
 }

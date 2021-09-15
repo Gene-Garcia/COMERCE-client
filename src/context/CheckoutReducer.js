@@ -25,6 +25,9 @@ function CheckoutReducer(state, action) {
 
     case "PLACE_ORDER":
       return { ...state };
+
+    default:
+      throw Error;
   }
 }
 export default CheckoutReducer;
@@ -58,6 +61,34 @@ function actions(dispatch) {
     });
   };
 
+  const loadPaymentDetails = (paymentType, details) => {
+    let type;
+    switch (paymentType) {
+      case "COD":
+        type = "LOAD_COD_PAYMENT";
+        alert("COD");
+        break;
+
+      case "CC":
+        type = "LOAD_CC_PAYMENT";
+        alert("CC");
+        break;
+
+      case "PP":
+        type = "LOAD_PP_PAYMENT";
+        alert("PP");
+        break;
+
+      default:
+        throw Error;
+    }
+
+    dispatch({
+      type,
+      payload: details,
+    });
+  };
+
   const placeOrder = () => {
     dispatch({
       type: "PLACE_ORDER",
@@ -69,6 +100,7 @@ function actions(dispatch) {
     toggleStep,
     togglePaymentOption,
     loadShippingDetails,
+    loadPaymentDetails,
     placeOrder,
   };
 }
