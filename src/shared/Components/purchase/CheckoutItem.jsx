@@ -1,13 +1,18 @@
 import React from "react";
 import { useShoppingCart } from "../../../hooks/useCart";
 
-function CheckoutItem({ data }) {
+function CheckoutItem({ data, editable }) {
   const { productId, item, retailPrice, quantity, image } = data;
   const { removeFromCheckout } = useShoppingCart();
 
+  /* Configuration if the checkouted items are editable. True in Cart, False in Checkout */
+  const removerPosition = editable ? "absolute" : "hidden";
+
   return (
     <div className="relative group">
-      <div className="absolute z-20 w-full transition duration-300 bg-gradient-to-b from-gray-200 to-gray-100 rounded-md opacity-0 group-hover:opacity-100 group-hover:bg-opacity-50">
+      <div
+        className={`${removerPosition} z-20 w-full transition duration-300 bg-gradient-to-b from-gray-200 to-gray-100 rounded-md opacity-0 group-hover:opacity-100 group-hover:bg-opacity-50`}
+      >
         <button
           onClick={() => removeFromCheckout(productId)}
           className="w-full h-12  font-medium text-base text-my-accent"
