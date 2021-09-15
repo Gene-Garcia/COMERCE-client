@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails() {
   return (
@@ -45,17 +46,7 @@ function ReviewDetails() {
       </ReviewBody>
 
       {/* CTA of review */}
-      <div className="flex flex-row gap-x-3">
-        <Link className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-2 hover:bg-my-accent-mono">
-          Place Order
-        </Link>
-        <Link
-          to="/user/cart"
-          className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-lg font-semibold px-4 py-2 hover:border-gray-300"
-        >
-          Cancel Order
-        </Link>
-      </div>
+      <ReviewCTA submit={() => {}} />
     </div>
   );
 }

@@ -60,4 +60,13 @@ function PaymentCTA({ submit, type }) {
   );
 }
 
-export { ShippingCTA, PaymentCTA };
+function ReviewCTA({ submit }) {
+  return (
+    <DesignedBody>
+      <DesignedButton onClick={submit} name="Place Order" />
+      <ReturnToCart />
+    </DesignedBody>
+  );
+}
+
+export { ShippingCTA, PaymentCTA, ReviewCTA };
