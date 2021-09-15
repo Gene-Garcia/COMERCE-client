@@ -33,19 +33,6 @@ function PaymentDetails() {
       <div className={toggledPayment === "PP" ? "block" : "hidden"}>
         <PayPal />
       </div>
-
-      {/* CTA of payment */}
-      <div className="flex flex-row gap-x-3">
-        <Link className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-2 hover:bg-my-accent-mono">
-          Review Order
-        </Link>
-        <Link
-          to="/user/cart"
-          className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-lg font-semibold px-4 py-2 hover:border-gray-300"
-        >
-          Cancel Order
-        </Link>
-      </div>
     </div>
   );
 }

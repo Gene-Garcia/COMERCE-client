@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../../hooks/useForm";
+import { ShippingCTA } from "./CallToAction";
 import CheckoutInput from "./CheckoutInput";
 
 function ShippingDetails() {
@@ -175,20 +176,7 @@ function ShippingDetails() {
       </>
 
       {/* CTA of shipping */}
-      <div className="flex flex-row gap-x-3">
-        <button
-          onClick={handleFormSubmit}
-          className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-3 hover:bg-my-accent-mono"
-        >
-          Save Address
-        </button>
-        <Link
-          to="/user/cart"
-          className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-lg font-semibold px-4 py-3 hover:border-gray-300"
-        >
-          Cancel Order
-        </Link>
-      </div>
+      <ShippingCTA submit={saveShippingDetails} />
     </div>
   );
 }
