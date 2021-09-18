@@ -5,7 +5,7 @@ function StepIndicators() {
   const { toggledStep } = useCheckout();
 
   return (
-    <div className="flex flex-row justify-between shadow-lg rounded-lg py-4 px-5">
+    <div className="flex flex-col sm:flex-row justify-between shadow-lg rounded-lg py-4 px-5 gap-y-4">
       {/* shipping */}
       <Indicator
         number="1"

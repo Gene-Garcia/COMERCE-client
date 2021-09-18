@@ -131,7 +131,7 @@ function ProductPurchase({ productId, size }) {
     <>
       <div className="flex flex-wrap gap-y-3 gap-x-4">
         <Link
-          to={`/user/checkout?product=${productId}`}
+          to={`/user/checkout?products=${productId}+1`}
           className={`font-medium text-my-contrast bg-my-accent ${theme} rounded-md hover:bg-my-accent-mono`}
         >
           Buy Now

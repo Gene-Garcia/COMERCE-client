@@ -1,107 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
+import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import useQuery from "../../../../../../../hooks/useQuery";
-import axios from "../../../../../../../shared/caller";
-import Loading from "../../../../../../../shared/Loading/Loading";
 import useAlert from "../../../../../../../hooks/useAlert";
-import validateUser from "../../../../../../../shared/Auth/Validation";
 import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
 import Container from "../../../../../../../shared/Components/pages/Container";
-import { Link } from "react-router-dom";
-import { checkLoggedIn } from "../../../../../../../shared/Auth/Login";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import StepIndicators from "./StepIndicators";
 import ShippingDetails from "./ShippingDetails";
 import PaymentDetails from "./PaymentDetails";
 import ReviewDetails from "./ReviewDetails";
+import { parseUrlForProducts } from "../../../../../../../shared/Route/urlParser";
+import Loading from "../../../../../../../shared/Loading/Loading";
 
 /*
- * The checkout method is able to receive checkouted product in TWO ways.
+ * The checkout method is able to receive checkouted product through the url parameter.
  *
- * First way is after the clicking the 'PROCEED TO CHECKOUT' button in the cart page.
- * The data of the checkouted item are the old data used on the ShoppingCart context. The checkout
- * page will still be able to retain and persist those data.
+ * Originally, the plan was to have 2 ways of getting the data. The first one was recycled
+ * from the cart page. The second was through the url paramater which is solely triggered by
+ * the 'BUY NOW.'
+ * However, now, we will persist the URL params to send the data. Because, we will now implement
+ * useEffect cleanup on items. Hence, we will also cleanup the stored items.
  *
- * Second way is getting the product id on the url which is triggered by clicking the individual
- * 'BUY NOW' button. If the data obtained is from the url, then it will make an API call to get
- * that product. Notably, since we rely on the 'checkout' property, the server will automatically set
- * thet property to true. Then, will be stored again in the ShoppingCart context.
+ * format would be products={id}+{quantity}|{id}+{quantity}|{id}+{quantity};
  */
 function Checkout({ history }) {
   const { setMessage, setSeverity } = useAlert();
-  // Checkout products initially stored in the context, with propert of 'checkout':true
-  const { loading, setLoading, items, loadCartItems } = useShoppingCart();
+  // shopping cart context is empty
+  const { loading, setLoading, loadCartItems, addToCheckout, resetToDefault } =
+    useShoppingCart();
   // URL stored in product id
   const query = useQuery();
 
-  /*
-   * This useEffect is to create an API call and verify if there is a user logged in
-   * because this checkout can be triggered by a button even there is no user logged in.
-   * That is the buy now button in product components
-   */
-  // useEffect(() => {
-  //   validateUser((status) => {
-  //     if (status === "SUCCESS") {
-  //       // do nothing
-  //     } else if (status === "FAILED") history.push("/catalogue");
-  //     else if (status === "UNAUTHORIZED") {
-  //       setSeverity("error");
-  //       setMessage(
-  //         "We apologize but you do not have authorization to acces this page. Please login first."
-  //       );
-  //       history.push("/login");
-  //     } else if (status === "FORBIDDEN") history.push("/forbidden");
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   // check if items is empty
-  //   // if not empty, then this render was caused by Cart page
-  //   // setloading false
-  //   // if empty, then it was caused by the buy now button
-  //   // create api call
-  //   // loadcartitems
-  //   // setloading false
-  //   // else, history push
-
-  //   async function getProduct(pId) {
-  //     await axios
-  //       .get(`/api/cart/product/${pId}`)
-  //       .then((res) => {
-  //         if (res.status === 200) {
-  //           console.log(res);
-  //           loadCartItems(res.data.product);
-  //           setLoading(false);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         if (!err.response) history.push("/login");
-  //         else if (err.response.status === 401) history.push("/unauthorized");
-  //         else if (err.response.status === 403) history.push("/forbidden");
-  //       });
-  //   }
-
-  //   if (items && items.length > 0) {
-  //     setLoading(false);
-  //   } else if (query.get("product")) {
-  //     getProduct(query.get("product"));
-  //   } else {
-  //     console.log("Failed both conditions. Redirect user to some error page");
-  //   }
-  // }, []);
-
-  // add these things to CheckoutContext
   const { toggledStep } = useCheckout();
+
+  useEffect(() => {
+    async function getProducts(products) {
+      await axios
+        .post(`/api/cart/products`, { products })
+        .then((res) => {
+          if (res.status === 200) {
+            loadCartItems(res.data.products);
+            addToCheckout(false); //just basically sets all found items into checkout true, also includes computation on prices
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          if (!err.response) history.push("/login");
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else if (err.response.status === 403) history.push("/forbidden");
+        });
+    }
+
+    if (!query.get("products")) {
+      setSeverity("error");
+      setMessage("Invalid URL");
+      history.push("/user/cart");
+    } else getProducts(parseUrlForProducts(query.get("products")));
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      resetToDefault();
+    };
+  }, []);
 
   return (
     <>
       <Title title="Checkout" />
 
       <Container>
-        <div className="flex flex-row justify-between w-full gap-x-12">
+        <div className="flex flex-col lg:flex-row justify-between w-full gap-x-12 gap-y-8">
           {/* steps are: shipping, payment, and review */}
-          <div className="w-3/5 space-y-8">
+          <div className="w-full lg:w-3/5 space-y-8">
             <div className="flex flex-row items-center gap-x-7">
               <p className="text-lg text-gray-600 font-medium">
                 Checkout Details
@@ -144,8 +116,8 @@ function Checkout({ history }) {
           </div>
 
           {/* checkout summary */}
-          <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
-            <CartCheckout editable={false} />
+          <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
+            {loading ? <Loading /> : <CartCheckout editable={false} />}
           </div>
         </div>
       </Container>

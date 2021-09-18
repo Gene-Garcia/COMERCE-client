@@ -7,7 +7,7 @@ import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 
 function Cart({ history }) {
-  const { setLoading, loadCartItems, resetPricings } = useShoppingCart();
+  const { setLoading, loadCartItems, resetToDefault } = useShoppingCart();
 
   useEffect(() => {
     async function getUserCart() {
@@ -26,8 +26,18 @@ function Cart({ history }) {
         });
     }
     getUserCart();
+  }, []);
 
-    resetPricings();
+  /*
+   * useEffect cleanup to reset the shopping cart state variables
+   * so that when we reload or go back to the cart or go the checkout
+   * there would no dependen state variables.
+   *
+   */
+  useEffect(() => {
+    return () => {
+      resetToDefault();
+    };
   }, []);
 
   return (
@@ -35,14 +45,14 @@ function Cart({ history }) {
       <Title title="Shopping Cart" />
 
       <Container>
-        <div className="flex flex-row justify-between w-full gap-x-12">
+        <div className="flex flex-col lg:flex-row justify-between w-full gap-x-12 gap-y-8">
           {/* cart items */}
-          <div className="w-3/5 rounded-lg shadow-lg p-8">
+          <div className="w-full lg:w-3/5 rounded-lg shadow-lg p-8">
             <CartItems />
           </div>
 
           {/* cart checkout */}
-          <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
+          <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
             <CartCheckout editable={true} />
           </div>
         </div>

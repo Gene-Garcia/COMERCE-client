@@ -1,57 +1,8 @@
 import React from "react";
-import useCheckout from "../../../../../../../hooks/useCheckout";
-import { useForm } from "../../../../../../../hooks/useForm";
-import { PaymentCTA } from "./CallToAction";
-import CheckoutInput from "./CheckoutInput";
-
-function PaymentMethod({ id, children, active }) {
-  const { togglePaymentOption } = useCheckout();
-
-  return (
-    <button
-      onClick={() => togglePaymentOption(id)}
-      className={
-        (active ? `border-my-accent` : `border-gray-200`) +
-        ` transition duration-300 px-7 py-0 border-b-4 font-semibold text-gray-600 flex items-center justify-center`
-      }
-    >
-      {children}
-    </button>
-  );
-}
-export default PaymentMethod;
-
-function CashOnDelivery() {
-  const { loadPaymentDetails, nextStep } = useCheckout();
-
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4 font-regular text-md">
-        <p className="text-lg">
-          You have selected
-          <span className="font-semibold text-my-accent">
-            {" "}
-            cash-on-delivery
-          </span>
-          payment.
-        </p>
-        <p>Please wait for your order to arrive at your address.</p>
-        <p>
-          Upon arrival of the ordered parcel, please pay the exact amount due
-          <span className="font-semibold text-my-accent"> P#,###.##</span>
-        </p>
-      </div>
-
-      <PaymentCTA
-        submit={() => {
-          loadPaymentDetails("COD", null);
-          nextStep(false, 3, "RD");
-        }}
-        type="COD"
-      />
-    </div>
-  );
-}
+import useCheckout from "../../../../../../../../hooks/useCheckout";
+import { useForm } from "../../../../../../../../hooks/useForm";
+import { PaymentCTA } from "../CallToAction";
+import CheckoutInput from "../CheckoutInput";
 
 function CreditCard() {
   const { loadPaymentDetails, nextStep } = useCheckout();
@@ -183,60 +134,4 @@ function CreditCard() {
     </div>
   );
 }
-
-function PayPal() {
-  const { loadPaymentDetails, nextStep } = useCheckout();
-
-  function loadPayPal() {
-    loadPaymentDetails("PP", values);
-    nextStep(false, 3, "RD");
-  }
-
-  function validate(data, setErrors) {
-    let tempErrs = { ...errors };
-
-    if ("paypalEmail" in data) {
-      tempErrs["paypalEmail"] = data["paypalEmail"]
-        ? ""
-        : "PayPal email is required";
-
-      // add regex
-    }
-
-    setErrors(tempErrs);
-  }
-
-  const init = { paypalEmail: "" };
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
-    init,
-    init,
-    validate,
-    loadPayPal
-  );
-
-  return (
-    <div className="space-y-8">
-      <div className="space-y-6">
-        <p className="font-semibold text-lg">
-          Payment through <span className="text-my-accent">PayPal</span> will
-          require you to login to your valid
-          <span className="text-my-accent"> PayPal</span> account.
-        </p>
-
-        <CheckoutInput
-          label="PayPal Email"
-          type="email"
-          placeholder="Enter your valid and active PayPal email"
-          name="paypalEmail"
-          className="w-3/4"
-          onChange={handleInput}
-          value={values.paypalEmail}
-          error={errors.paypalEmail}
-        />
-      </div>
-      <PaymentCTA submit={handleFormSubmit} type="PP" />
-    </div>
-  );
-}
-
-export { CashOnDelivery, CreditCard, PayPal };
+export default CreditCard;

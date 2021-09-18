@@ -71,11 +71,13 @@ function ShoppingCartReducer(state, action) {
           : false,
       };
 
-    case "RESET_PRICINGS":
+    case "RESET_TO_DEFAULT":
       return {
-        ...state,
+        items: [],
         subTotal: 0,
+        shippingFee: 75,
         grandTotal: 0,
+        checkoutable: false,
       };
 
     default:
@@ -140,14 +142,14 @@ function actions(dispatch) {
   };
 
   /*
-   * Resets state variables, other than the items, to default value.
+   * Resets state variables to default value.
    *
    * Because a bug occurs after clicking checkout button, and going back to cart page
    * All checked out item are gone, but the pricing are still their
    */
-  const resetPricings = () => {
+  const resetToDefault = () => {
     dispatch({
-      type: "RESET_PRICINGS",
+      type: "RESET_TO_DEFAULT",
     });
   };
 
@@ -156,7 +158,7 @@ function actions(dispatch) {
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
-    resetPricings,
+    resetToDefault,
   };
 }
 export { actions };

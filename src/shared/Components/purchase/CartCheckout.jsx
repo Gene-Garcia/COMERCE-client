@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../../hooks/useCart";
+import { prepareUrlForProducts } from "../../Route/urlParser";
 import CheckoutItem from "./CheckoutItem";
 
 function CartCheckout({ editable }) {
@@ -51,7 +52,7 @@ function CartCheckout({ editable }) {
         {/* Checkout Button */}
         {checkoutable ? (
           <Link
-            to="/user/checkout"
+            to={`/user/checkout?products=${prepareUrlForProducts(items)}`}
             className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
           >
             PROCEED TO CHECKOUT
