@@ -1,13 +1,12 @@
 import React from "react";
 import useCheckout from "../../../../../../../hooks/useCheckout";
-import PaymentMethod, {
-  CashOnDelivery,
-  CreditCard,
-  PayPal,
-} from "./PaymentMethod";
 import visaIcon from "../../../../../../../shared/images/visa.png";
 import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
 import paypalIcon from "../../../../../../../shared/images/paypal.png";
+import PMBody from "./paymentMethods/MethodBody";
+import CashOnDelivery from "./paymentMethods/CashOnDelivery";
+import CreditCard from "./paymentMethods/CreditCard";
+import PayPal from "./paymentMethods/PayPal";
 
 function PaymentDetails() {
   /* Context state variables used to toggle the payment methods after onclick */
@@ -42,20 +41,20 @@ function Options() {
 
   return (
     <>
-      <PaymentMethod active={toggledPayment === "COD"} id="COD">
+      <PMBody active={toggledPayment === "COD"} id="COD">
         <span>Cash on Delivery</span>
-      </PaymentMethod>
+      </PMBody>
 
-      <PaymentMethod active={toggledPayment === "CC"} id="CC">
+      <PMBody active={toggledPayment === "CC"} id="CC">
         <div className="flex flex-row gap-x-2">
           <img src={visaIcon} className="w-16 object-scale-down" />
           <img src={mastercardIcon} className="w-12 object-scale-down" />
         </div>
-      </PaymentMethod>
+      </PMBody>
 
-      <PaymentMethod active={toggledPayment === "PP"} id="PP">
+      <PMBody active={toggledPayment === "PP"} id="PP">
         <img src={paypalIcon} className="w-20 object-scale-down" />
-      </PaymentMethod>
+      </PMBody>
     </>
   );
 }
