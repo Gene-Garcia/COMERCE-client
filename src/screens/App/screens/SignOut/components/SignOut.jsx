@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import useAlert from "../../../../../hooks/useAlert";
+import { useGetCartCount } from "../../../../../hooks/useCart";
 import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
   const { setMessage, setSeverity } = useAlert();
+  const { setCartCount } = useGetCartCount();
 
   useEffect(() => {
     async function signOut() {
@@ -12,6 +14,8 @@ function SignOut({ history }) {
         .get("/api/signout")
         .then((res) => {
           clearUserPersistData();
+
+          setCartCount(0);
 
           setSeverity("success");
           setMessage("Sign Out Success");

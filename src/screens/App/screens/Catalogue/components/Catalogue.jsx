@@ -4,14 +4,7 @@ import ProductSmall from "../../../../../shared/Components/product/ProductSmall"
 import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
-
-function Button({ name }) {
-  return (
-    <button className="w-36 text-left px-2 py-1 font-medium text-gray-700 rounded-md hover:bg-gray-200    ">
-      {name}
-    </button>
-  );
-}
+import FilterButton from "./FilterButton";
 
 function Catalogue() {
   const [loading, setLoading] = useState(true);
@@ -49,36 +42,36 @@ function Catalogue() {
             <span className="text-sm font-semibold text-gray-400">
               Product View
             </span>
-            <Button name="Grid View" />
-            <Button name="Board View" />
+            <FilterButton name="Grid View" />
+            <FilterButton name="Board View" />
           </div>
 
           <div className="flex flex-col gap-y-1">
             <span className="text-sm font-semibold text-gray-400">Sort By</span>
-            <Button name="All-time Sales" />
-            <Button name="Product Rating" />
+            <FilterButton name="All-time Sales" />
+            <FilterButton name="Product Rating" />
           </div>
 
           <div className="flex flex-col gap-y-1">
             <span className="text-sm font-semibold text-gray-400">
               Order by
             </span>
-            <Button name="Highest Price" />
-            <Button name="Lowest Price" />
+            <FilterButton name="Highest Price" />
+            <FilterButton name="Lowest Price" />
           </div>
 
           <div className="flex flex-col gap-y-1">
             <span className="text-sm font-semibold text-gray-400">
               Price Range
             </span>
-            <Button name="Coming Soon..." />
+            <FilterButton name="Coming Soon..." />
           </div>
 
           <div className="flex flex-col gap-y-1">
             <span className="text-sm font-semibold text-gray-400">
               Product Category
             </span>
-            <Button name="Coming Soon..." />
+            <FilterButton name="Coming Soon..." />
           </div>
         </div>
 

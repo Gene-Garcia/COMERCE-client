@@ -1,3 +1,21 @@
+/*
+ * The account component has two sub-components that can be rendered
+ * based on the current status of user authentication.
+ *
+ * That is, when there is no logged in user, the <UnAuthenticated> component will be rendered.
+ * This component basically shows the sign up and login buttons
+ *
+ * On the other hand, when there is a logged in user, it will render the <Authenticated>.
+ * Now, this compoment will show the username of the user which also is a dropdown for other
+ * options. Like, orders, purchase, my account, and sign out.
+ *
+ * Notably, both components accepts a prop name bgType. Through this, we are
+ * promoting component reusability with changing design.
+ * This prop is responsible for influencing the design and layout of the component.
+ * That is, the app has to navbar design, one with a gradient bg and one with white bg.
+ *
+ */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -10,7 +28,7 @@ function UnAuthenticated({ bgType }) {
       login:
         "text-my-contrast rounded-full border border-transparent hover:border hover:border-my-contrast",
       signUp:
-        "text-my-contrast rounded-full border border-my-contrast hover:bg-my-contrast hover:text-my-accent",
+        "text-my-accent bg-my-contrast rounded-full border border-my-contrast hover:bg-transparent hover:text-my-contrast",
     },
     contrast: {
       login:
@@ -35,7 +53,7 @@ function UnAuthenticated({ bgType }) {
 function Authenticated({ bgType }) {
   const cookies = new Cookies();
 
-  const color = "text-my-contrast";
+  // const color = "text-my-contrast";
 
   const themes = {
     accent: "text-my-contrast",
@@ -58,10 +76,12 @@ function Authenticated({ bgType }) {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
         </svg>
       </button>
-      <ul className="dropdown-menu  absolute right-0  hidden text-gray-500 group-hover:block">
+
+      <ul className="dropdown-menu  absolute right-0 z-50  hidden text-gray-500 group-hover:block">
         <div className="mt-3 bg-my-contrast shadow-xl  rounded border border-gray-200">
           <li className="px-4 pt-2">
             <p className="text-sm font-semibold w-full">Signed in as</p>
+
             <p className="text-base font-semibold text-gray-600">
               {cookies.get(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
@@ -70,9 +90,9 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/me"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,15 +109,15 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               My Account
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/purchases"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,13 +134,13 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               Purchases
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-1 hover:text-gray-800 transition">
-            <a
+            <Link
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
+              to="/user/orders"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +158,7 @@ function Authenticated({ bgType }) {
                 />
               </svg>
               Orders
-            </a>
+            </Link>
           </li>
 
           <li className="px-4 pt-2 border-b border-gray-200"></li>
@@ -147,7 +167,6 @@ function Authenticated({ bgType }) {
             <Link
               to="/sign-out"
               className="flex items-center font-semi-bold py-1 font-semibold"
-              href="#"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

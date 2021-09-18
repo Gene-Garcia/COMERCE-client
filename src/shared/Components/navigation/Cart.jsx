@@ -1,4 +1,16 @@
-import React from "react";
+/*
+ * The cart component is the link going through the user's cart, and
+ * displays the current logged in user's number of cart items.
+ *
+ * The number of cart items is determine through an API call, then the CartContext's cart count
+ * state variable will be changed. It then casuses the div in this component
+ * that uses that state variable to be re-rendered with the new cart count.
+ *
+ */
+
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";
 
 function Cart({ bgType }) {
   const themes = {
@@ -12,8 +24,18 @@ function Cart({ bgType }) {
     },
   };
 
+  const { cartCount, setCartCount } = useGetCartCount();
+
+  /* Every time this component is rendered, it will always create an API call to set the number of cart items and set it to the CartContext state variable */
+  useEffect(() => {
+    fetchCartCount((count) => setCartCount(count));
+  }, []);
+
   return (
-    <div className="inline-flex place-self-center self-center items-center group">
+    <Link
+      to="/user/cart"
+      className="inline-flex place-self-center self-center items-center group"
+    >
       <div className={`${themes[bgType].svg} font-semibold`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,9 +53,9 @@ function Cart({ bgType }) {
         </svg>
       </div>
       <div className={`ml-1.5 text-lg ${themes[bgType].text} font-semibold`}>
-        5
+        {cartCount}
       </div>
-    </div>
+    </Link>
   );
 }
 

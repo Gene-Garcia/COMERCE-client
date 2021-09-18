@@ -7,7 +7,6 @@ import { setUserPersistData } from "../../../../../shared/Auth/Login";
 import useAlert from "../../../../../hooks/useAlert";
 
 function Login({ history }) {
-  // state variable for API message
   const { setMessage, setSeverity } = useAlert(0);
 
   async function LoginApi() {
@@ -47,7 +46,7 @@ function Login({ history }) {
   }
 
   const initialState = { email: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
     initialState,
     initialState,
     validate,

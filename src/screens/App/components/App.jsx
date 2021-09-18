@@ -10,6 +10,9 @@ import Navbar from "./Navbar";
 import axios from "../../../shared/caller";
 import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
+import { CartCountProvider } from "../../../context/CartCountContext";
+import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
+import { CheckoutProvider } from "../../../context/CheckoutContext";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -31,6 +34,10 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
         <Route {...route.USER} />
+
+        <Route {...route.USER.subroutes.CART} />
+        <Route {...route.USER.subroutes.CHECKOUT} />
+
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
         {/* <PrivateRoute
@@ -55,14 +62,12 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 });
 
 function App() {
-  // itiate X-CSRF-TOKEN
+  // call server function to set XSRF-TOKEN in the cookie
   useEffect(() => {
     async function fetchCookieProtection() {
       await axios
         .get("/api/cs")
-        .then((res) => {
-          axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
-        })
+        .then()
         .catch((err) => {
           console.log(
             "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
@@ -78,7 +83,14 @@ function App() {
       <AlertProvider>
         {/* Global message notification */}
         <Alert />
-        <AppContent />
+
+        <CartCountProvider>
+          <ShoppingCartProvider>
+            <CheckoutProvider>
+              <AppContent />
+            </CheckoutProvider>
+          </ShoppingCartProvider>
+        </CartCountProvider>
       </AlertProvider>
     </Router>
   );
