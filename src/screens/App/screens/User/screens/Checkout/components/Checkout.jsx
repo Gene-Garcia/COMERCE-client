@@ -71,9 +71,9 @@ function Checkout({ history }) {
       <Title title="Checkout" />
 
       <Container>
-        <div className="flex flex-row justify-between w-full gap-x-12">
+        <div className="flex flex-col lg:flex-row justify-between w-full gap-x-12 gap-y-8">
           {/* steps are: shipping, payment, and review */}
-          <div className="w-3/5 space-y-8">
+          <div className="w-full lg:w-3/5 space-y-8">
             <div className="flex flex-row items-center gap-x-7">
               <p className="text-lg text-gray-600 font-medium">
                 Checkout Details
@@ -116,7 +116,7 @@ function Checkout({ history }) {
           </div>
 
           {/* checkout summary */}
-          <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
+          <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
             {loading ? <Loading /> : <CartCheckout editable={false} />}
           </div>
         </div>

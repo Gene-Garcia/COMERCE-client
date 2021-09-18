@@ -78,17 +78,17 @@ function ShippingDetails() {
   );
 
   return (
-    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
+    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-4 sm:gap-y-8">
       <p className="text-lg text-gray-600 font-medium">Shipping Details</p>
 
       <>
-        <div className="flex flex-row gap-x-4">
+        <div className="flex flex-col sm:flex-row gap-x-4 gap-y-4 sm:gap-y-8">
           <CheckoutInput
             label="First Name"
             type="text"
             placeholder="John Doe"
             name="firstName"
-            className="w-1/2"
+            className="w-full sm:w-1/2"
             onChange={handleInput}
             value={values.firstName}
             error={errors.firstName}
@@ -98,7 +98,7 @@ function ShippingDetails() {
             type="text"
             placeholder="John Doe"
             name="lastName"
-            className="w-1/2"
+            className="w-full sm:w-1/2"
             onChange={handleInput}
             value={values.lastName}
             error={errors.lastName}
@@ -110,7 +110,7 @@ function ShippingDetails() {
           type="text"
           placeholder="Cellphone Number"
           name="cellphoneNumber"
-          className="w-1/2"
+          className="w-full sm:w-1/2"
           onChange={handleInput}
           value={values.cellphoneNumber}
           error={errors.cellphoneNumber}
@@ -121,19 +121,19 @@ function ShippingDetails() {
           type="text"
           placeholder="Street Address"
           name="streetAddress"
-          className="w-4/5"
+          className="w-full sm:w-4/5"
           onChange={handleInput}
           value={values.streetAddress}
           error={errors.streetAddress}
         />
 
-        <div className="flex flex-row gap-x-4">
+        <div className="flex flex-col sm:flex-row gap-x-4 gap-y-4 sm:gap-y-8">
           <CheckoutInput
             label="Province"
             type="text"
             placeholder="Enter your province"
             name="province"
-            className="w-4/6"
+            className="w-full sm:w-4/6"
             onChange={handleInput}
             value={values.province}
             error={errors.province}
@@ -144,7 +144,7 @@ function ShippingDetails() {
             type="text"
             placeholder="Enter your city or municipality"
             name="cityMunicipality"
-            className="w-4/6"
+            className="w-full sm:w-4/6"
             onChange={handleInput}
             value={values.cityMunicipality}
             error={errors.cityMunicipality}
@@ -156,7 +156,7 @@ function ShippingDetails() {
           type="text"
           placeholder="Enter your barangay"
           name="barangay"
-          className="w-1/2"
+          className="w-full sm:w-1/2"
           onChange={handleInput}
           value={values.barangay}
           error={errors.barangay}

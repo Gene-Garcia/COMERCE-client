@@ -45,14 +45,14 @@ function Cart({ history }) {
       <Title title="Shopping Cart" />
 
       <Container>
-        <div className="flex flex-row justify-between w-full gap-x-12">
+        <div className="flex flex-col lg:flex-row justify-between w-full gap-x-12 gap-y-8">
           {/* cart items */}
-          <div className="w-3/5 rounded-lg shadow-lg p-8">
+          <div className="w-full lg:w-3/5 rounded-lg shadow-lg p-8">
             <CartItems />
           </div>
 
           {/* cart checkout */}
-          <div className="sticky top-3 w-2/5 place-self-start rounded-lg shadow-lg p-8">
+          <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
             <CartCheckout editable={true} />
           </div>
         </div>

@@ -14,7 +14,7 @@ function PaymentDetails() {
 
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col justify-evenly gap-y-8">
-      <div className="flex flex-row gap-x-2">
+      <div className=" flex flex-col md:flex-row gap-x-2 gap-y-2">
         <Options />
       </div>
 

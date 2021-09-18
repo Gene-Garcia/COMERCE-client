@@ -5,7 +5,7 @@ function ReturnToCart() {
   return (
     <Link
       to="/user/cart"
-      className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-lg font-semibold px-4 py-3 hover:border-gray-300"
+      className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-base sm:text-lg font-semibold px-4 py-3 hover:border-gray-300"
     >
       Return To Cart
     </Link>
@@ -16,7 +16,7 @@ function DesignedButton({ onClick, name }) {
   return (
     <button
       onClick={onClick}
-      className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-lg font-semibold px-10 py-3 hover:bg-my-accent-mono"
+      className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-base sm:text-lg font-semibold px-4 py-0 sm:px-10 sm:py-3 hover:bg-my-accent-mono"
     >
       {name}
     </button>
