@@ -7,7 +7,7 @@ import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 
 function Cart({ history }) {
-  const { setLoading, loadCartItems, resetPricings } = useShoppingCart();
+  const { setLoading, loadCartItems, resetToDefault } = useShoppingCart();
 
   useEffect(() => {
     async function getUserCart() {
@@ -26,8 +26,18 @@ function Cart({ history }) {
         });
     }
     getUserCart();
+  }, []);
 
-    resetPricings();
+  /*
+   * useEffect cleanup to reset the shopping cart state variables
+   * so that when we reload or go back to the cart or go the checkout
+   * there would no dependen state variables.
+   *
+   */
+  useEffect(() => {
+    return () => {
+      resetToDefault();
+    };
   }, []);
 
   return (
