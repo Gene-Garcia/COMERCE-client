@@ -62,14 +62,12 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 });
 
 function App() {
-  // itiate X-CSRF-TOKEN
+  // call server function to set XSRF-TOKEN in the cookie
   useEffect(() => {
     async function fetchCookieProtection() {
       await axios
         .get("/api/cs")
-        .then((res) => {
-          axios.defaults.headers["X-CSRF-Token"] = res.data.csrfToken;
-        })
+        .then()
         .catch((err) => {
           console.log(
             "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
