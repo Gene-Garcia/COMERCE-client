@@ -28,10 +28,12 @@ import Loading from "../../../../../../../shared/Loading/Loading";
 function Checkout({ history }) {
   const { setMessage, setSeverity } = useAlert();
   // shopping cart context is empty
-  const { loading, setLoading, loadCartItems, addToCheckout } =
+  const { loading, setLoading, loadCartItems, addToCheckout, resetToDefault } =
     useShoppingCart();
   // URL stored in product id
   const query = useQuery();
+
+  const { toggledStep } = useCheckout();
 
   useEffect(() => {
     async function getProducts(products) {
@@ -58,7 +60,11 @@ function Checkout({ history }) {
     } else getProducts(parseUrlForProducts(query.get("products")));
   }, []);
 
-  const { toggledStep } = useCheckout();
+  useEffect(() => {
+    return () => {
+      resetToDefault();
+    };
+  }, []);
 
   return (
     <>
