@@ -45,6 +45,7 @@ module.exports = {
       borderWidth: ["hover"],
       borderOpacity: ["hover"],
       display: ["group-hover"],
+      grayscale: ["hover"],
       ringWidth: ["active"],
       ringColor: ["active"],
       ringOpacity: ["active"],
