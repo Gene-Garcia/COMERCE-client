@@ -4,6 +4,7 @@ import axios from "../../../../../shared/caller";
 import InputField from "../../../../../shared/Auth/InputField";
 import { useForm } from "../../../../../hooks/useForm";
 import useAlert from "../../../../../hooks/useAlert";
+import OAuths from "../../../../../shared/Auth/OAuths";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
@@ -92,21 +93,7 @@ function SignUp({ history }) {
         </div>
 
         <div className="flex flex-row gap-x-4">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">
-              Google
-            </span>
-          </div>
-
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">FB</span>
-          </div>
-
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">
-              Twitter
-            </span>
-          </div>
+          <OAuths />
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
