@@ -4,6 +4,7 @@ import axios from "../../../../../shared/caller";
 import InputField from "../../../../../shared/Auth/InputField";
 import { useForm } from "../../../../../hooks/useForm";
 import useAlert from "../../../../../hooks/useAlert";
+import OAuths from "../../../../../shared/Auth/OAuths";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
@@ -79,32 +80,20 @@ function SignUp({ history }) {
   const { setSeverity, setMessage } = useAlert();
 
   return (
-    <div className="flex h-full">
+    <div className="flex flex-col lg:flex-row h-full">
       {/* form */}
-      <div className="h-full bg-white flex-grow flex flex-col justify-evenly items-center px-44">
+      <div className="lg:order-last lg:h-full bg-white flex-grow flex flex-col justify-evenly items-center gap-y-10 lg:gap-y-0 py-5 sm:py-12 md:py-16 lg:py-0 px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44">
         <div className="flex flex-col items-center gap-y-1">
-          <h1 className="font-bold text-3xl font-sans text-gray-700 ">
+          <h1 className="font-bold text-center text-2xl md:text-3xl font-sans text-gray-700">
             Create an account
           </h1>
-          <p className="font-medium text-xl text-gray-400">CoMerce Account</p>
+          <p className="font-medium text-lg md:text-xl text-gray-400">
+            CoMerce Account
+          </p>
         </div>
 
         <div className="flex flex-row gap-x-4">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">
-              Google
-            </span>
-          </div>
-
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">FB</span>
-          </div>
-
-          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-my-accent to-my-accent-mono flex justify-center items-center">
-            <span className="text-my-contrast text-semibold text-xl">
-              Twitter
-            </span>
-          </div>
+          <OAuths />
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
@@ -158,26 +147,26 @@ function SignUp({ history }) {
       </div>
 
       {/* hero */}
-      <div className="w-2/5 h-full flex justify-start items-center py-20 gap-y-40 flex-col bg-gradient-to-t from-my-accent to-my-accent-mono">
-        <div className="flex flex-col justify-center items-center gap-y-6">
-          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+      <div className="lg:w-2/5 lg:h-full flex justify-start items-center py-6 sm:py-10 lg:py-20 gap-y-2 sm:gap-y-3 lg:gap-y-40 flex-col bg-gradient-to-t from-my-accent to-my-accent-mono">
+        <div className="flex flex-col justify-center items-center lg:gap-y-6">
+          <h2 className="text-my-contrast font-bold text-xl lg:text-3xl text-opacity-80">
             Already have an account?
           </h2>
           <Link
             to="/login"
-            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-md lg:text-xl hover:border-my-contrast px-20 py-3"
           >
             Login
           </Link>
         </div>
 
-        <div className="flex flex-col justify-center items-center gap-y-6">
-          <h2 className="text-my-contrast font-bold text-3xl text-opacity-80">
+        <div className="flex flex-col justify-center items-center lg:gap-y-6">
+          <h2 className="text-my-contrast font-bold text-xl lg:text-3xl text-opacity-80">
             Start filling up your cart
           </h2>
           <Link
             to="/catalogue"
-            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-xl hover:border-my-contrast px-20 py-3"
+            className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-md lg:text-xl hover:border-my-contrast px-20 py-3"
           >
             Browse
           </Link>
