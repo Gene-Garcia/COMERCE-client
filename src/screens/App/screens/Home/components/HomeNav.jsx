@@ -25,7 +25,7 @@ function HomeNav() {
         <div className="flex flex-col xl:flex-row gap-x-6 gap-y-4 md:gap-y-6">
           {/* search & catalogue link */}
           <div className="flex-grow flex flex-col">
-            <Search />
+            <Search bgType="accent" />
             <Link
               to="/catalogue"
               className="self-end transition duration-100 mt-0.5 font-sans text-base font-semibold text-gray-100"
