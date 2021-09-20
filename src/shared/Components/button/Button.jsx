@@ -11,7 +11,7 @@ function Button({ isLoading, buttonClass, svgClass, onClick, children }) {
     >
       {isLoading && (
         <svg
-          className={`animate-spin h-6 w-6 mr-3 ${svgClass}`}
+          className={`animate-spin h-6 w-6 mr-2 ${svgClass}`}
           viewBox="0 0 24 24"
         >
           <circle
