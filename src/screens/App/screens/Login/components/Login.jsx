@@ -6,6 +6,7 @@ import InputField from "../../../../../shared/Auth/InputField";
 import { setUserPersistData } from "../../../../../shared/Auth/Login";
 import useAlert from "../../../../../hooks/useAlert";
 import OAuths from "../../../../../shared/Auth/OAuths";
+import Button from "../../../../../shared/Components/button/Button";
 
 function Login({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -47,7 +48,7 @@ function Login({ history }) {
   }
 
   const initialState = { email: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
+  const { values, errors, handleInput, handleFormSubmit, isLoading } = useForm(
     initialState,
     initialState,
     validate,
@@ -119,12 +120,16 @@ function Login({ history }) {
             svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
           />
 
-          <button
+          <Button
+            isLoading={isLoading}
+            buttonClass="transition duration-300 border border-my-accent rounded-md h-10 group hover:bg-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2"
+            svgClass="text-my-accent group-hover:text-my-contrast"
             onClick={handleFormSubmit}
-            className="transition border border-my-accent rounded-md text-my-accenet font-semibold text-xl text-my-accent h-10 hover:bg-my-accent hover:text-my-contrast active:ring active:ring-my-accent-mono active:ring-offset-2"
           >
-            Login
-          </button>
+            <span className="text-my-accenet font-semibold text-xl text-my-accent group-hover:text-my-contrast">
+              LOGIN
+            </span>
+          </Button>
 
           <div className="flex justify-end">
             <Link

@@ -5,6 +5,7 @@ import InputField from "../../../../../shared/Auth/InputField";
 import { useForm } from "../../../../../hooks/useForm";
 import useAlert from "../../../../../hooks/useAlert";
 import OAuths from "../../../../../shared/Auth/OAuths";
+import Button from "../../../../../shared/Components/button/Button";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
@@ -69,12 +70,14 @@ function SignUp({ history }) {
     confirmEmail: "",
     password: "",
   };
-  const { values, errors, handleInput, handleFormSubmit, resetForms } = useForm(
-    initialState,
-    initialState,
-    validate,
-    SignUpAPI
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    resetForms,
+    isLoading,
+  } = useForm(initialState, initialState, validate, SignUpAPI);
 
   // Request error message
   const { setSeverity, setMessage } = useAlert();
@@ -137,12 +140,16 @@ function SignUp({ history }) {
             svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
           />
 
-          <button
+          <Button
+            isLoading={isLoading}
+            buttonClass="transition duration-300 border border-my-accent rounded-md h-10 group hover:bg-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2"
+            svgClass="text-my-accent group-hover:text-my-contrast"
             onClick={handleFormSubmit}
-            className="transition border border-my-accent rounded-md text-my-accenet font-semibold text-xl text-my-accent h-10 hover:bg-my-accent hover:text-my-contrast active:ring active:ring-my-accent-mono active:ring-offset-2"
           >
-            SIGN UP
-          </button>
+            <span className="text-my-accenet font-semibold text-xl text-my-accent group-hover:text-my-contrast">
+              SIGN UP
+            </span>
+          </Button>
         </div>
       </div>
 
