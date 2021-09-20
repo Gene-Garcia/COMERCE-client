@@ -63,6 +63,7 @@ function Checkout({ history }) {
   useEffect(() => {
     return () => {
       resetToDefault();
+      setLoading(true);
     };
   }, []);
 
