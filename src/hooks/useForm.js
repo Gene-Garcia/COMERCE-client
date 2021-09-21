@@ -99,7 +99,7 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
         await submitFunction(); // always make sure that this is async
         // resetForms(); this will raise an error in console, saying that cannot update UNMOUNTED react components.
         //If the form submit was success, it can already be redirected to other pages even before deleting/updating form data
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     });
   };
