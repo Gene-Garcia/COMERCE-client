@@ -25,13 +25,21 @@ function CheckoutReducer(state, action) {
 
     // load payment details
     case "LOAD_COD_PAYMENT":
-      return { ...state };
+      return { ...state, paymentMethod: "COD" };
 
     case "LOAD_CC_PAYMENT":
-      return { ...state, paymentDetails: { ...action.payload } };
+      return {
+        ...state,
+        paymentMethod: "CC",
+        paymentDetails: { ...action.payload },
+      };
 
     case "LOAD_PP_PAYMENT":
-      return { ...state, paymentDetails: { ...action.payload } };
+      return {
+        ...state,
+        paymentMethod: "PP",
+        paymentDetails: { ...action.payload },
+      };
 
     case "PLACE_ORDER":
       return { ...state };

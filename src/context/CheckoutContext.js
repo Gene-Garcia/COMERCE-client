@@ -12,6 +12,7 @@ const initialState = {
   shippingDetails: {},
 
   toggledPayment: "COD",
+  paymentMethod: "",
   paymentDetails: {},
 };
 
