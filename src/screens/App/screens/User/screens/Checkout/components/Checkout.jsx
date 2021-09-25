@@ -28,13 +28,21 @@ import Loading from "../../../../../../../shared/Loading/Loading";
 function Checkout({ history }) {
   const { setMessage, setSeverity } = useAlert();
   // shopping cart context is empty
-  const { loading, setLoading, loadCartItems, addToCheckout, resetToDefault } =
-    useShoppingCart();
+  const {
+    loading,
+    setLoading,
+    loadCartItems,
+    addToCheckout,
+    resetToDefault,
+    items,
+  } = useShoppingCart();
   // URL stored in product id
   const query = useQuery();
+  // checkout context, mainly uses the toggled step for this component
+  const { toggledStep, shippingDetails, paymentMethod, paymentDetails } =
+    useCheckout();
 
-  const { toggledStep } = useCheckout();
-
+  // populate the checkouted products from url value
   useEffect(() => {
     async function getProducts(products) {
       await axios
@@ -60,12 +68,40 @@ function Checkout({ history }) {
     } else getProducts(parseUrlForProducts(query.get("products")));
   }, []);
 
+  // clean up onWillUnMount
   useEffect(() => {
     return () => {
       resetToDefault();
       setLoading(true);
     };
   }, []);
+
+  // For now, it is located here and just drilled down to <ReviewDetails />
+  // The API caller to place the checkouted order.
+  async function placeOrder() {
+    // data needed: items, shippingDetails, paymentMethod, paymentDetails
+    await axios
+      .post("/api/order/place", {
+        items,
+        shippingDetails,
+        paymentMethod,
+        paymentDetails,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setSeverity("success");
+          setMessage(res.data.message);
+          history.push("/user/cart");
+        }
+      })
+      .catch((err) => {
+        setSeverity("error");
+        if (err.response) {
+          if (err.response.data === 403) history.push("/login");
+          else setMessage(err.response.data.error);
+        } else setMessage("Unable to process your order. Try again later");
+      });
+  }
 
   return (
     <>
@@ -112,7 +148,7 @@ function Checkout({ history }) {
             </div>
 
             <div className={toggledStep === "RD" ? "block" : "hidden"}>
-              <ReviewDetails />
+              <ReviewDetails placeOrder={placeOrder} />
             </div>
           </div>
 
