@@ -35,6 +35,7 @@ function Checkout({ history }) {
     addToCheckout,
     resetToDefault,
     items,
+    shippingFee,
   } = useShoppingCart();
   // URL stored in product id
   const query = useQuery();
@@ -83,6 +84,7 @@ function Checkout({ history }) {
     await axios
       .post("/api/order/place", {
         items,
+        shippingFee,
         shippingDetails,
         paymentMethod,
         paymentDetails,
