@@ -2,7 +2,7 @@ import React from "react";
 
 function OrderLinks() {
   return (
-    <>
+    <div className="rounded-lg shadow-lg p-8 ">
       <div className="flex flex-row items-center gap-6 mb-8">
         <p className="font-semibold text-xl">Orders</p>
         <p className="font-medium text-gray-500">Select to view details</p>
@@ -16,7 +16,7 @@ function OrderLinks() {
         <OrderLink />
         <OrderLink />
       </div>
-    </>
+    </div>
   );
 }
 export default OrderLinks;
