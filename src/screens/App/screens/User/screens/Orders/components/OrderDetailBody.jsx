@@ -2,8 +2,8 @@ import React from "react";
 
 function OrderDetailBody({ title, children }) {
   return (
-    <div>
-      <p className="mb-6">{title}</p>
+    <div className="rounded-lg shadow-md p-8 ">
+      <p className="mb-6 font-semibold text-xl">{title}</p>
 
       <>{children}</>
     </div>
