@@ -4,8 +4,8 @@ function OrderLinks() {
   return (
     <div className="rounded-lg shadow-lg p-8 ">
       <div className="flex flex-row items-center gap-6 mb-8">
-        <p className="font-semibold text-xl">Orders</p>
-        <p className="font-medium text-gray-500">Select to view details</p>
+        <p className="font-medium text-lg text-gray-600">Orders</p>
+        <p className="font-base text-gray-400">Select to view details</p>
       </div>
 
       {/* link buttons */}
@@ -29,10 +29,10 @@ function OrderLink() {
     >
       {/* id and date */}
       <div>
-        <p className="transition duration-300 font-medium text-lg text-gray-700 group-hover:text-my-accent group-hover:underline">
+        <p className="transition duration-300 font-medium text-md text-gray-700 group-hover:text-my-accent group-hover:underline">
           61330ffda979f0da4b4a3f4
         </p>
-        <p className="font-medium text-md text-gray-400">SEP 18 2021</p>
+        <p className="font-regular text-md text-gray-400">SEP 18 2021</p>
       </div>
 
       {/* arrow chevron */}
