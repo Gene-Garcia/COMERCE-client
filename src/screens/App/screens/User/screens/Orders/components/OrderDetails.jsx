@@ -1,9 +1,9 @@
 import React from "react";
-import OrderDetailBody from "./OrderDetailBody";
-import OrderedProducts from "./OrderedProducts";
-import OrderInformation from "./OrderInformation";
-import PaymentInformation from "./PaymentInformation";
-import ShipmentInformation from "./ShipmentInformation";
+import OrderDetailBody from "./OrderDetailComponents/OrderDetailBody";
+import OrderedProducts from "./OrderDetailComponents/OrderedProducts";
+import OrderInformation from "./OrderDetailComponents/OrderInformation";
+import PaymentInformation from "./OrderDetailComponents/PaymentInformation";
+import ShipmentInformation from "./OrderDetailComponents/ShipmentInformation";
 
 function OrderDetails() {
   return (
