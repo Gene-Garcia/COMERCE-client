@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useOrders from "../../../../../../../hooks/useOrders";
 
 function OrderLinks() {
+  const { orders } = useOrders();
+
   return (
     <div className="rounded-lg shadow-lg p-8 ">
       <div className="flex flex-row items-center gap-6 mb-8">
@@ -10,29 +13,51 @@ function OrderLinks() {
 
       {/* link buttons */}
       <div className="flex flex-col gap-y-6">
-        <OrderLink />
-        <OrderLink />
-        <OrderLink />
-        <OrderLink />
-        <OrderLink />
+        {orders.map((e) => (
+          <OrderLink key={e._id} id={e._id} date={e.orderDate} />
+        ))}
       </div>
     </div>
   );
 }
 export default OrderLinks;
 
-function OrderLink() {
+function OrderLink({ id, date }) {
+  function formatDate(d) {
+    const strMonth = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+
+    const date = new Date(d);
+    const month = date.getMonth();
+    const day = "" + date.getDate();
+    const year = "" + date.getFullYear();
+
+    return `${strMonth[month]} ${day}, ${year}`;
+  }
+
   return (
     <div
       className="group flex flex-row items-center justify-between"
-      onClick={() => alert("Clicked")}
+      onClick={() => alert(`id: ${id}`)}
     >
       {/* id and date */}
       <div>
         <p className="transition duration-300 font-medium text-md text-gray-700 group-hover:text-my-accent group-hover:underline">
-          61330ffda979f0da4b4a3f4
+          {id}
         </p>
-        <p className="font-regular text-md text-gray-400">SEP 18 2021</p>
+        <p className="font-regular text-md text-gray-400">{formatDate(date)}</p>
       </div>
 
       {/* arrow chevron */}
