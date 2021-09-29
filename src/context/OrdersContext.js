@@ -24,10 +24,13 @@ function OrdersProvider({ children }) {
 
   const computeSubTotal = () => {
     let subTotal = 0;
-
     order.orderedProducts.forEach((e) => (subTotal += e.priceAtPoint));
-
     return subTotal;
+  };
+
+  const getOrderById = (id) => {
+    const selectedOrder = orders.find((e) => e._id == id);
+    return selectedOrder
   };
 
   return (
@@ -42,6 +45,7 @@ function OrdersProvider({ children }) {
         setOrdersWrapper,
         setSelectedOrder,
         computeSubTotal,
+        getOrderById,
       }}
     >
       {children}

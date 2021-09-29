@@ -24,10 +24,16 @@ function OrderLinks() {
 export default OrderLinks;
 
 function OrderLink({ id, date }) {
+  const { getOrderById, setSelectedOrder } = useOrders();
+
+  const selectOrder = () => {
+    setSelectedOrder(getOrderById(id));
+  };
+
   return (
     <div
       className="group flex flex-row items-center justify-between"
-      onClick={() => alert(`id: ${id}`)}
+      onClick={selectOrder}
     >
       {/* id and date */}
       <div>
