@@ -12,7 +12,8 @@ function Orders({ history }) {
   // alert context message
   const { setMessage, setSeverity } = useAlert();
   // orders context
-  const { loading, setLoading, setOrders } = useOrders();
+  const { loading, setLoading, setOrdersWrapper, setSelectedOrder } =
+    useOrders();
 
   // use effect to fetch all the user's order. also includes validation if there is a logged in user
   useEffect(() => {
@@ -21,7 +22,10 @@ function Orders({ history }) {
         .get("/api/order/orders")
         .then((res) => {
           if (res.status === 200) {
-            setOrders(res.data.orders);
+            setOrdersWrapper(res.data.orders);
+            setSelectedOrder(
+              res.data.orders.length > 0 ? res.data.orders[0] : null
+            );
             setLoading(false);
           }
         })
