@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useOrders from "../../../../../../../hooks/useOrders";
 import { formatDate } from "../../../../../../../shared/utils/date";
 

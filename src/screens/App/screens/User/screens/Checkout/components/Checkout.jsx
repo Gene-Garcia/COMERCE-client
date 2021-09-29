@@ -93,7 +93,7 @@ function Checkout({ history }) {
         if (res.status === 200) {
           setSeverity("success");
           setMessage(res.data.message);
-          history.push("/user/cart");
+          history.push("/user/orders");
         }
       })
       .catch((err) => {
