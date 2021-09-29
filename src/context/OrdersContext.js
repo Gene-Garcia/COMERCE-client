@@ -24,7 +24,9 @@ function OrdersProvider({ children }) {
 
   const computeSubTotal = () => {
     let subTotal = 0;
-    order.orderedProducts.forEach((e) => (subTotal += e.priceAtPoint));
+    order.orderedProducts.forEach(
+      (e) => (subTotal += e.priceAtPoint * e.quantity)
+    );
     return subTotal;
   };
 
