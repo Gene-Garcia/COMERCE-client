@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useOrders from "../../../../../../../hooks/useOrders";
+import { formatDate } from "../../../../../../../shared/utils/date";
 
 function OrderLinks() {
   const { orders } = useOrders();
@@ -23,30 +24,6 @@ function OrderLinks() {
 export default OrderLinks;
 
 function OrderLink({ id, date }) {
-  function formatDate(d) {
-    const strMonth = [
-      "JAN",
-      "FEB",
-      "MAR",
-      "APR",
-      "MAY",
-      "JUN",
-      "JUL",
-      "AUG",
-      "SEP",
-      "OCT",
-      "NOV",
-      "DEC",
-    ];
-
-    const date = new Date(d);
-    const month = date.getMonth();
-    const day = "" + date.getDate();
-    const year = "" + date.getFullYear();
-
-    return `${strMonth[month]} ${day}, ${year}`;
-  }
-
   return (
     <div
       className="group flex flex-row items-center justify-between"
