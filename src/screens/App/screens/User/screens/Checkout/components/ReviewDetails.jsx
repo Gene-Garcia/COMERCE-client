@@ -2,8 +2,8 @@ import React from "react";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import { ReviewCTA } from "./CallToAction";
 
-function ReviewDetails() {
-  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
+function ReviewDetails({ placeOrder }) {
+  const { shippingDetails: sd, toggledPayment } = useCheckout();
 
   const decodePaymentType = (type) => {
     if (type === "COD") return "Cash on Delivery";
@@ -61,7 +61,7 @@ function ReviewDetails() {
       </ReviewBody>
 
       {/* CTA of review */}
-      <ReviewCTA submit={() => {}} />
+      <ReviewCTA submit={placeOrder} />
     </div>
   );
 }

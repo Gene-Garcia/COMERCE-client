@@ -72,6 +72,11 @@ const routes = {
         path: "/user/checkout",
         name: "Checkout",
       },
+
+      ORDERS: {
+        path: "/user/orders",
+        name: "Orders",
+      },
     },
   },
 };

@@ -15,8 +15,8 @@ function PayPal() {
   function validate(data, setErrors) {
     let tempErrs = { ...errors };
 
-    if ("paypalEmail" in data) {
-      tempErrs["paypalEmail"] = data["paypalEmail"]
+    if ("payPalEmail" in data) {
+      tempErrs["payPalEmail"] = data["payPalEmail"]
         ? ""
         : "PayPal email is required";
 
@@ -26,7 +26,7 @@ function PayPal() {
     setErrors(tempErrs);
   }
 
-  const init = { paypalEmail: "" };
+  const init = { payPalEmail: "" };
   const { values, errors, handleInput, handleFormSubmit } = useForm(
     init,
     init,
@@ -47,11 +47,11 @@ function PayPal() {
           label="PayPal Email"
           type="email"
           placeholder="Enter your valid and active PayPal email"
-          name="paypalEmail"
+          name="payPalEmail"
           className="w-3/4"
           onChange={handleInput}
-          value={values.paypalEmail}
-          error={errors.paypalEmail}
+          value={values.payPalEmail}
+          error={errors.payPalEmail}
         />
       </div>
 

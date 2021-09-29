@@ -13,6 +13,7 @@ import Alert from "../../../shared/Components/pages/Alert";
 import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
 import { CheckoutProvider } from "../../../context/CheckoutContext";
+import { OrdersProvider } from "../../../context/OrdersContext";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -37,6 +38,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
 
         <Route {...route.USER.subroutes.CART} />
         <Route {...route.USER.subroutes.CHECKOUT} />
+        <Route {...route.USER.subroutes.ORDERS} />
 
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
@@ -87,7 +89,9 @@ function App() {
         <CartCountProvider>
           <ShoppingCartProvider>
             <CheckoutProvider>
-              <AppContent />
+              <OrdersProvider>
+                <AppContent />
+              </OrdersProvider>
             </CheckoutProvider>
           </ShoppingCartProvider>
         </CartCountProvider>

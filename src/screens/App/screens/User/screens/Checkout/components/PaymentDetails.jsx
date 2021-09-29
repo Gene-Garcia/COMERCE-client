@@ -47,13 +47,25 @@ function Options() {
 
       <PMBody active={toggledPayment === "CC"} id="CC">
         <div className="flex flex-row gap-x-2">
-          <img src={visaIcon} className="w-16 object-scale-down" />
-          <img src={mastercardIcon} className="w-12 object-scale-down" />
+          <img
+            src={visaIcon}
+            className="w-16 object-scale-down"
+            alt="visa-logo"
+          />
+          <img
+            src={mastercardIcon}
+            className="w-12 object-scale-down"
+            alt="mastercard-logo"
+          />
         </div>
       </PMBody>
 
       <PMBody active={toggledPayment === "PP"} id="PP">
-        <img src={paypalIcon} className="w-20 object-scale-down" />
+        <img
+          src={paypalIcon}
+          className="w-20 object-scale-down"
+          alt="paypal-logo"
+        />
       </PMBody>
     </>
   );

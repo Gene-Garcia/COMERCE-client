@@ -29,7 +29,7 @@ function Navbar() {
         <div className="w-full flex justify-end flex-col md:flex-row gap-x-6 lg:gap-x-10 gap-y-4">
           {/* search */}
           <div className="flex-grow">
-            <Search />
+            <Search bgType="contrast" />
           </div>
 
           {/* account */}

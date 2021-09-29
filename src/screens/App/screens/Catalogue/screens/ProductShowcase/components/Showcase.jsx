@@ -40,7 +40,6 @@ function Showcase(props) {
     }
 
     getProduct();
-    console.log(showcased);
   }, []);
 
   return loading ? (

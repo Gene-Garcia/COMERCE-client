@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
 import CheckoutReducer from "./CheckoutReducer";
 import { actions } from "./CheckoutReducer";
 
@@ -12,6 +12,7 @@ const initialState = {
   shippingDetails: {},
 
   toggledPayment: "COD",
+  paymentMethod: "",
   paymentDetails: {},
 };
 
@@ -25,6 +26,7 @@ function CheckoutProvider({ children }) {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   } = actions(dispatch);
 
   return (
@@ -37,6 +39,7 @@ function CheckoutProvider({ children }) {
         loadShippingDetails,
         loadPaymentDetails,
         placeOrder,
+        resetToDefault,
       }}
     >
       {children}
