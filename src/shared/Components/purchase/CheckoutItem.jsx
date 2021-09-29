@@ -1,5 +1,6 @@
 import React from "react";
 import { useShoppingCart } from "../../../hooks/useCart";
+import { formatPrice } from "../../utils/price";
 
 function CheckoutItem({ data, editable }) {
   const { productId, item, retailPrice, quantity, image } = data;
@@ -38,7 +39,7 @@ function CheckoutItem({ data, editable }) {
 
           <div className="justify-self-end">
             <p className="text-gray-700 font-semibold text-lg">
-              P{retailPrice}
+              {`₱${formatPrice(retailPrice)}`}
             </p>
           </div>
         </div>

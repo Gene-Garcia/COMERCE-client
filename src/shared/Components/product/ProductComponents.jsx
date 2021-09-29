@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAlert from "../../../hooks/useAlert";
 import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
+import { formatPrice } from "../../utils/price";
 import Button from "../button/Button";
 
 function ProductName({ name }) {
@@ -25,7 +26,7 @@ function ProductPrice({ price, size }) {
 
   return (
     <h3 className={`text-my-accent font-sans font-semibold ${theme}`}>
-      ${price}
+      {`₱${formatPrice(price)}`}
     </h3>
   );
 }

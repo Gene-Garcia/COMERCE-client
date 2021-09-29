@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../../hooks/useCart";
 import { prepareUrlForProducts } from "../../Route/urlParser";
+import { formatPrice } from "../../utils/price";
 import CheckoutItem from "./CheckoutItem";
 
 function CartCheckout({ editable }) {
@@ -27,13 +28,13 @@ function CartCheckout({ editable }) {
         {/* sub total */}
         <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
           <p className="">Sub Total</p>
-          <p className="">P{subTotal}</p>
+          <p className="">{`₱${formatPrice(subTotal)}`}</p>
         </div>
 
         {/* shipping fee */}
         <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
           <p className="">Shipping Fee (?)</p>
-          <p className="">P{shippingFee}</p>
+          <p className="">{`₱${formatPrice(shippingFee)}`}</p>
         </div>
       </div>
       <div className="my-7 border-b border-3 border-gray-300"></div>
@@ -44,7 +45,9 @@ function CartCheckout({ editable }) {
         </div>
 
         <div>
-          <p className="text-xl font-medium text-my-accent">P{grandTotal}</p>
+          <p className="text-xl font-medium text-my-accent">
+            {`₱${formatPrice(grandTotal)}`}
+          </p>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
+import { formatPrice } from "../../../../../../../shared/utils/price";
 
 function CartItem({ data }) {
   const { productId, item, retailPrice, quantity, image } = data;
@@ -21,7 +22,9 @@ function CartItem({ data }) {
         <div className="flex flex-row items-center justify-between">
           <p className="font-semibold text-gray-700 text-xl">{item}</p>
 
-          <p className="text-gray-600 font-medium text-lg">P{retailPrice}</p>
+          <p className="text-gray-600 font-medium text-lg">
+            {`₱${formatPrice(retailPrice)}`}
+          </p>
         </div>
 
         <div>
