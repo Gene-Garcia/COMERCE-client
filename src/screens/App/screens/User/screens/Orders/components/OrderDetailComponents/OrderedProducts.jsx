@@ -1,5 +1,6 @@
 import React from "react";
 import useOrders from "../../../../../../../../hooks/useOrders";
+import { formatPrice } from "../../../../../../../../shared/utils/price";
 
 function OrderedProducts() {
   const { order, loading } = useOrders();
@@ -36,7 +37,7 @@ function ProductCard({ data }) {
 
         <p className="flex flex-row justify-between items-center">
           <span className="text-my-accent font-medium text-lg">
-            {data.priceAtPoint}
+            {`₱${formatPrice(data.priceAtPoint)}`}
           </span>
           <span>x{data.quantity}</span>
         </p>

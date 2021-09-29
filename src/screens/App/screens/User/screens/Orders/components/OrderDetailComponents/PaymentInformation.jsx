@@ -4,6 +4,7 @@ import {
   displayPaymentInfo,
   methods as pMethods,
 } from "../../../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../../../shared/utils/price";
 import InformationBody from "./InformationBody";
 
 function PaymentInformation() {
@@ -20,14 +21,14 @@ function PaymentInformation() {
             <div>
               <InformationBody
                 title="Subtotal"
-                value={`P${computeSubTotal()}`}
+                value={`₱${formatPrice(computeSubTotal())}`}
               />
             </div>
             {/* shipping fee */}
             <div>
               <InformationBody
                 title="Shipping Fee"
-                value={`P${order.shippingFee}`}
+                value={`₱${formatPrice(order.shippingFee)}`}
               />
             </div>
 
@@ -35,7 +36,7 @@ function PaymentInformation() {
             <div>
               <InformationBody
                 title="Grand Total after shipping fee"
-                value={`P${order.shippingFee + computeSubTotal()}`}
+                value={`₱${formatPrice(order.shippingFee + computeSubTotal())}`}
               />
             </div>
           </div>
