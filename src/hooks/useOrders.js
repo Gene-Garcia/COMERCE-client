@@ -6,9 +6,26 @@ import OrdersContext from "../context/OrdersContext";
  *
  */
 function useOrders() {
-  const { orders, setOrders, order, setOrder, loading, setLoading } =
-    useContext(OrdersContext);
+  const {
+    orders,
+    setOrders,
+    order,
+    setOrder,
+    loading,
+    setLoading,
+    setOrdersWrapper,
+    setSelectedOrder,
+  } = useContext(OrdersContext);
 
-  return { orders, setOrders, order, setOrder, loading, setLoading };
+  return {
+    orders,
+    setOrders,
+    order,
+    setOrder,
+    loading,
+    setLoading,
+    setOrdersWrapper,
+    setSelectedOrder,
+  };
 }
 export default useOrders;
