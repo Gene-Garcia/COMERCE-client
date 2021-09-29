@@ -3,7 +3,7 @@ import useCheckout from "../../../../../../../hooks/useCheckout";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails({ placeOrder }) {
-  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
+  const { shippingDetails: sd, toggledPayment } = useCheckout();
 
   const decodePaymentType = (type) => {
     if (type === "COD") return "Cash on Delivery";

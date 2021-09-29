@@ -12,7 +12,7 @@ function OrderedProducts() {
       ) : (
         <div className="flex flex-row gap-x-6 overflow-x-auto pb-5">
           {order.orderedProducts.map((e) => (
-            <ProductCard data={e} />
+            <ProductCard key={e._id} data={e} />
           ))}
         </div>
       )}
@@ -27,7 +27,7 @@ function ProductCard({ data }) {
       <div className="w-44 bg-gray-100 rounded-md mb-1">
         <img
           src={data._product.imageAddress}
-          alt="ordered-product-image"
+          alt="ordered-product"
           className="w-full object-contain p-2"
         />
       </div>

@@ -29,8 +29,8 @@ function OrdersProvider({ children }) {
   };
 
   const getOrderById = (id) => {
-    const selectedOrder = orders.find((e) => e._id == id);
-    return selectedOrder
+    const selectedOrder = orders.find((e) => e._id === id);
+    return selectedOrder;
   };
 
   return (

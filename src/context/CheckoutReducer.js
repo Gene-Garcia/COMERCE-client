@@ -7,6 +7,7 @@ function CheckoutReducer(state, action) {
           toggledStep: action.payload.nextStepId,
           visitedStep: action.payload.nextStepNumber,
         };
+      break;
 
     case "TOGGLE_STEP":
       return {

@@ -12,6 +12,8 @@ function displayPaymentInfo(type, data) {
       return data.payPalEmail;
     case "CC":
       return data.cardNumber;
+    default:
+      return "";
   }
 }
 

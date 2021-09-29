@@ -11,6 +11,6 @@ import React from "react";
 import target from "../animations/target-loading.gif";
 
 function Loading() {
-  return <img src={target} className="m-auto w-24 h-24" />;
+  return <img src={target} className="m-auto w-24 h-24" alt="loading" />;
 }
 export default Loading;
