@@ -16,6 +16,7 @@ function useCheckout() {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   } = useContext(CheckoutContext);
 
   return {
@@ -30,6 +31,7 @@ function useCheckout() {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   };
 }
 export default useCheckout;

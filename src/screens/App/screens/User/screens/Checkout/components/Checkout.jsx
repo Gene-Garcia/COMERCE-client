@@ -33,15 +33,20 @@ function Checkout({ history }) {
     setLoading,
     loadCartItems,
     addToCheckout,
-    resetToDefault,
+    resetToDefault: resetCartToDefault,
     items,
     shippingFee,
   } = useShoppingCart();
   // URL stored in product id
   const query = useQuery();
   // checkout context, mainly uses the toggled step for this component
-  const { toggledStep, shippingDetails, paymentMethod, paymentDetails } =
-    useCheckout();
+  const {
+    toggledStep,
+    shippingDetails,
+    paymentMethod,
+    paymentDetails,
+    resetToDefault: resetCheckoutToDefault,
+  } = useCheckout();
 
   // populate the checkouted products from url value
   useEffect(() => {
@@ -69,10 +74,11 @@ function Checkout({ history }) {
     } else getProducts(parseUrlForProducts(query.get("products")));
   }, []);
 
-  // clean up onWillUnMount
+  // clean up onWillUnMount both checkout and shopping cart
   useEffect(() => {
     return () => {
-      resetToDefault();
+      resetCartToDefault();
+      resetCheckoutToDefault();
       setLoading(true);
     };
   }, []);

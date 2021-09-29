@@ -26,6 +26,7 @@ function CheckoutProvider({ children }) {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   } = actions(dispatch);
 
   return (
@@ -38,6 +39,7 @@ function CheckoutProvider({ children }) {
         loadShippingDetails,
         loadPaymentDetails,
         placeOrder,
+        resetToDefault,
       }}
     >
       {children}

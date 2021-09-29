@@ -45,6 +45,16 @@ function CheckoutReducer(state, action) {
     case "PLACE_ORDER":
       return { ...state };
 
+    case "RESET_TO_DEFAULT":
+      return {
+        toggledStep: "SD",
+        visitedStep: 1,
+        shippingDetails: {},
+        toggledPayment: "COD",
+        paymentMethod: "",
+        paymentDetails: {},
+      };
+
     default:
       throw Error;
   }
@@ -99,6 +109,12 @@ function actions(dispatch) {
     });
   };
 
+  const resetToDefault = () => {
+    dispatch({
+      type: "RESET_TO_DEFAULT",
+    });
+  };
+
   return {
     nextStep,
     toggleStep,
@@ -106,6 +122,7 @@ function actions(dispatch) {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   };
 }
 export { actions };
