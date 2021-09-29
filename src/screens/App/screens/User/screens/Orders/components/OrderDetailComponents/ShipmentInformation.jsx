@@ -1,28 +1,46 @@
 import React from "react";
+import useOrders from "../../../../../../../../hooks/useOrders";
 import InformationBody from "./InformationBody";
 
 function ShipmentInformation() {
+  const { order, loading } = useOrders();
+
   return (
-    <div className="flex flex-col gap-6">
-      {/* street address */}
-      <div>
-        <InformationBody
-          title="Street Address"
-          value="Lot 1, Block 14, Jade St., Juana 1"
-        />
-      </div>
+    <>
+      {loading || !order ? (
+        <></>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {/* street address */}
+          <div>
+            <InformationBody
+              title="Street Address"
+              value={order.shipmentDetails.streetAddress}
+            />
+          </div>
 
-      {/* barangay & city-municipality */}
-      <div className="flex flex-row gap-24">
-        <InformationBody title="Barangay" value="San Francisco" />
-        <InformationBody title="City/Municipality" value="Biñan" />
-      </div>
+          {/* barangay & city-municipality */}
+          <div className="flex flex-row gap-24">
+            <InformationBody
+              title="Barangay"
+              value={order.shipmentDetails.barangay}
+            />
+            <InformationBody
+              title="City/Municipality"
+              value={order.shipmentDetails.cityMunicipality}
+            />
+          </div>
 
-      {/* province */}
-      <div>
-        <InformationBody title="Province" value="Laguna" />
-      </div>
-    </div>
+          {/* province */}
+          <div>
+            <InformationBody
+              title="Province"
+              value={order.shipmentDetails.province}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 export default ShipmentInformation;
