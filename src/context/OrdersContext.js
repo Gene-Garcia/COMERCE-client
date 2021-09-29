@@ -22,6 +22,14 @@ function OrdersProvider({ children }) {
     setOrder(selected);
   };
 
+  const computeSubTotal = () => {
+    let subTotal = 0;
+
+    order.orderedProducts.forEach((e) => (subTotal += e.priceAtPoint));
+
+    return subTotal;
+  };
+
   return (
     <OrdersContext.Provider
       value={{
@@ -33,6 +41,7 @@ function OrdersProvider({ children }) {
         setLoading,
         setOrdersWrapper,
         setSelectedOrder,
+        computeSubTotal,
       }}
     >
       {children}

@@ -15,6 +15,7 @@ function useOrders() {
     setLoading,
     setOrdersWrapper,
     setSelectedOrder,
+    computeSubTotal,
   } = useContext(OrdersContext);
 
   return {
@@ -26,6 +27,7 @@ function useOrders() {
     setLoading,
     setOrdersWrapper,
     setSelectedOrder,
+    computeSubTotal,
   };
 }
 export default useOrders;
