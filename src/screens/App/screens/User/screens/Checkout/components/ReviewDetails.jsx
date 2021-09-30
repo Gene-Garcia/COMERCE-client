@@ -1,22 +1,29 @@
 import React from "react";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import useCheckout from "../../../../../../../hooks/useCheckout";
+import { formatDate } from "../../../../../../../shared/utils/date";
+import {
+  displayPaymentInfo,
+  methods,
+} from "../../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../../shared/utils/price";
+import { getShipmentETAs } from "../../../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails({ placeOrder }) {
-  const { shippingDetails: sd, toggledPayment } = useCheckout();
+  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
+  const { shippingFee, subTotal, grandTotal } = useShoppingCart();
 
-  const decodePaymentType = (type) => {
-    if (type === "COD") return "Cash on Delivery";
-    else if (type === "CC") return "Credit Card";
-    else if (type === "PP") return "PayPal";
-  };
+  const [early, late] = getShipmentETAs();
 
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
       <ReviewBody title="Estimated Delivery Time">
         <p className="font-medium">
-          Receive item by
-          <span className="text-my-accent"> Month ## - Month ##</span>
+          Receive item by{" "}
+          <span className="text-my-accent">
+            {`${formatDate(early, 1)} - ${formatDate(late, 1)}`}
+          </span>
         </p>
       </ReviewBody>
 
@@ -33,30 +40,29 @@ function ReviewDetails({ placeOrder }) {
       <ReviewBody title="Payment Details">
         <p className="font-medium mb-2.5">
           Pay order with{" "}
-          <span className="text-my-accent">
-            {" "}
-            {decodePaymentType(toggledPayment)}
-          </span>
+          <span className="text-my-accent">{methods[toggledPayment]}</span>
         </p>
-        <span className="bg-gray-100 px-3 py-1.5 rounded-md">
-          Credit Card Number or Email
-        </span>
+        {toggledPayment !== "COD" && (
+          <span className="bg-gray-100 px-3 py-1.5 rounded-md">
+            {displayPaymentInfo(toggledPayment, paymentDetails)}
+          </span>
+        )}
       </ReviewBody>
 
       <ReviewBody title="Summary">
         <div className="flex flex-row justify-between font-medium">
           <p>Subtotal before shipping fee</p>
-          <p>P#,###.00</p>
+          <p>{`₱${formatPrice(subTotal)}`}</p>
         </div>
 
         <div className="flex flex-row justify-between font-medium">
           <p>Shipping Fee</p>
-          <p>P75.00</p>
+          <p>{`₱${formatPrice(shippingFee)}`}</p>
         </div>
         <br />
         <div className="flex flex-row justify-between font-medium text-lg">
           <p>Grand Total (Incl. vat)</p>
-          <p className="text-my-accent">P##,###.00</p>
+          <p className="text-my-accent">{`₱${formatPrice(grandTotal)}`}</p>
         </div>
       </ReviewBody>
 

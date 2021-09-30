@@ -6,7 +6,7 @@ function OrderLinks() {
   const { orders } = useOrders();
 
   return (
-    <div className="rounded-lg shadow-lg p-8 ">
+    <div className="p-8 ">
       <div className="flex flex-row items-center gap-6 mb-8">
         <p className="font-medium text-lg text-gray-600">Orders</p>
         <p className="font-base text-gray-400">Select to view details</p>

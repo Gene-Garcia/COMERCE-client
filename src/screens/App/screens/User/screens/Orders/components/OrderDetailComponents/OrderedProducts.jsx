@@ -32,7 +32,7 @@ function ProductCard({ data }) {
         />
       </div>
 
-      <div className="px-3 py-2 flex flex-col gap-y-2">
+      <div className="px-3 py-2 flex flex-col gap-y-2 w-44">
         <p className="text-gray-600 font-medium">{data._product.item}</p>
 
         <p className="flex flex-row justify-between items-center">
