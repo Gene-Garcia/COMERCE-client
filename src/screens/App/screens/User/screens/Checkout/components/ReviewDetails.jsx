@@ -1,19 +1,16 @@
 import React from "react";
+import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import {
   displayPaymentInfo,
   methods,
 } from "../../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../../shared/utils/price";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails({ placeOrder }) {
   const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
-
-  const decodePaymentType = (type) => {
-    if (type === "COD") return "Cash on Delivery";
-    else if (type === "CC") return "Credit Card";
-    else if (type === "PP") return "PayPal";
-  };
+  const { shippingFee, subTotal, grandTotal } = useShoppingCart();
 
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
@@ -49,17 +46,17 @@ function ReviewDetails({ placeOrder }) {
       <ReviewBody title="Summary">
         <div className="flex flex-row justify-between font-medium">
           <p>Subtotal before shipping fee</p>
-          <p>P#,###.00</p>
+          <p>{`₱${formatPrice(subTotal)}`}</p>
         </div>
 
         <div className="flex flex-row justify-between font-medium">
           <p>Shipping Fee</p>
-          <p>P75.00</p>
+          <p>{`₱${formatPrice(shippingFee)}`}</p>
         </div>
         <br />
         <div className="flex flex-row justify-between font-medium text-lg">
           <p>Grand Total (Incl. vat)</p>
-          <p className="text-my-accent">P##,###.00</p>
+          <p className="text-my-accent">{`₱${formatPrice(grandTotal)}`}</p>
         </div>
       </ReviewBody>
 
