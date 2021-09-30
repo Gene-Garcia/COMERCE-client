@@ -16,7 +16,7 @@ function OrderDetails() {
         <OrderedProducts />
       </OrderDetailBody>
 
-      <div className="flex flex-row justify-between gap-6">
+      <div className="flex flex-col xl:flex-row justify-between gap-6">
         <OrderDetailBody title="Payment Information">
           <PaymentInformation />
         </OrderDetailBody>

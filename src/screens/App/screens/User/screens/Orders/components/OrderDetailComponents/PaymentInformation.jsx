@@ -16,7 +16,7 @@ function PaymentInformation() {
         <></>
       ) : (
         <>
-          <div className="flex flex-row gap-24 mb-6">
+          <div className="flex flex-col lg:flex-row gap-y-4 xl:gap-y-24 gap-x-16 2xl:gap-x-24 mb-6">
             {/* subtotal */}
             <div>
               <InformationBody

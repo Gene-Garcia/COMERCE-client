@@ -55,12 +55,12 @@ function Orders({ history }) {
           <Loading />
         ) : (
           <>
-            <div className="flex flex-row gap-8">
-              <div className="w-1/4">
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="min-w-1/4 rounded-lg shadow-md md:shadow-lg md:place-self-start flex-shrink-0">
                 <OrderLinks />
               </div>
 
-              <div className="w-3/4">
+              <div className="flex-grow">
                 <OrderDetails />
               </div>
             </div>

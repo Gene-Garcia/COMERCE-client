@@ -10,7 +10,7 @@ function ShipmentInformation() {
       {loading || !order ? (
         <></>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 xl:gap-6">
           {/* street address */}
           <div>
             <InformationBody
@@ -20,7 +20,7 @@ function ShipmentInformation() {
           </div>
 
           {/* barangay & city-municipality */}
-          <div className="flex flex-row gap-24">
+          <div className="flex flex-col lg:flex-row gap-y-4 gap-x-24">
             <InformationBody
               title="Barangay"
               value={order.shipmentDetails.barangay}
