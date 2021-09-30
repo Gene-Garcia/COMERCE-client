@@ -1,17 +1,34 @@
 import React from "react";
 
-function Search() {
+function Search({ bgType }) {
+  const themes = {
+    accent: {
+      root: "bg-transparent border border-gray-300 focus-within:border focus-within:border-my-contrast",
+      input: "bg-transparent text-white ",
+      button: "bg-transparent text-my-contrast active:text-my-black",
+    },
+    contrast: {
+      root: "bg-my-contrast border border-gray-300 focus-within:border focus-within:border-my-accent ",
+      input: "bg-my-contrast text-gray-700 ",
+      button: " bg-my-contrast text-my-accent active:text-my-dim",
+    },
+  };
+
   return (
-    <div className="inline-flex rounded-md bg-my-contrast place-self-center border border-grey-300 focus-within:border focus-within:border-my-accent w-full">
-      <div className=" w-full">
+    <div
+      className={`inline-flex rounded-md place-self-center w-full ${themes[bgType].root}`}
+    >
+      <div className="w-full">
         <input
-          className="w-full rounded-md py-1.5 px-3 text-gray-700 leading-tight bg-my-contrast focus:outline-none h-full"
+          className={`w-full rounded-md py-1.5 px-3 leading-tight h-full focus:outline-none ${themes[bgType].input} `}
           type="text"
           placeholder=""
         />
       </div>
       <div className="w-auto">
-        <button className="transition rounded-md bg-my-contrast font-medium text-base text-my-accent px-3.5 py-1 h-full active:text-my-dim ">
+        <button
+          className={`transition rounded-md font-medium text-base px-3.5 py-1 h-full ${themes[bgType].button}`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"

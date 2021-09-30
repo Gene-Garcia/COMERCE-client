@@ -57,6 +57,11 @@ function ShippingDetails() {
         ? ""
         : "Barangay address is required";
 
+    if ("additionalNotes" in data)
+      tempErrs["additionalNotes"] = data["additionalNotes"].trim()
+        ? ""
+        : "Input N/A if you have no additional notes";
+
     setError(tempErrs);
   }
 

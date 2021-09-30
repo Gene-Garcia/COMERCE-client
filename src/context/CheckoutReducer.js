@@ -7,6 +7,7 @@ function CheckoutReducer(state, action) {
           toggledStep: action.payload.nextStepId,
           visitedStep: action.payload.nextStepNumber,
         };
+      break;
 
     case "TOGGLE_STEP":
       return {
@@ -25,16 +26,34 @@ function CheckoutReducer(state, action) {
 
     // load payment details
     case "LOAD_COD_PAYMENT":
-      return { ...state };
+      return { ...state, paymentMethod: "COD" };
 
     case "LOAD_CC_PAYMENT":
-      return { ...state, paymentDetails: { ...action.payload } };
+      return {
+        ...state,
+        paymentMethod: "CC",
+        paymentDetails: { ...action.payload },
+      };
 
     case "LOAD_PP_PAYMENT":
-      return { ...state, paymentDetails: { ...action.payload } };
+      return {
+        ...state,
+        paymentMethod: "PP",
+        paymentDetails: { ...action.payload },
+      };
 
     case "PLACE_ORDER":
       return { ...state };
+
+    case "RESET_TO_DEFAULT":
+      return {
+        toggledStep: "SD",
+        visitedStep: 1,
+        shippingDetails: {},
+        toggledPayment: "COD",
+        paymentMethod: "",
+        paymentDetails: {},
+      };
 
     default:
       throw Error;
@@ -90,6 +109,12 @@ function actions(dispatch) {
     });
   };
 
+  const resetToDefault = () => {
+    dispatch({
+      type: "RESET_TO_DEFAULT",
+    });
+  };
+
   return {
     nextStep,
     toggleStep,
@@ -97,6 +122,7 @@ function actions(dispatch) {
     loadShippingDetails,
     loadPaymentDetails,
     placeOrder,
+    resetToDefault,
   };
 }
 export { actions };

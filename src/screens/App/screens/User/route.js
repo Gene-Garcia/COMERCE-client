@@ -5,6 +5,7 @@ import UserIndex from "./index";
 import ChangePasswordRoute from "./screens/ChangePassword/route";
 import CartRoute from "./screens/Cart/route";
 import CheckoutRoute from "./screens/Checkout/route";
+import OrdersRoute from "./screens/Orders/route";
 
 const route = {
   path: routes.USER.path,
@@ -14,6 +15,7 @@ const route = {
     CHANGE_PASSWORD: ChangePasswordRoute,
     CART: CartRoute,
     CHECKOUT: CheckoutRoute,
+    ORDERS: OrdersRoute,
   },
 };
 export default route;

@@ -37,6 +37,7 @@ function Cart({ history }) {
   useEffect(() => {
     return () => {
       resetToDefault();
+      setLoading(true);
     };
   }, []);
 

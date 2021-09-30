@@ -14,9 +14,16 @@ import { createContext, useState } from "react";
 const AlertContext = createContext();
 export default AlertContext;
 
-function AlertProvider({ children }) {
-  const [message, setMessage] = useState("");
+function AlertProvider({ children }) {    
+  const [message, setUnWrappedMessage] = useState("");
   const [severity, setSeverity] = useState("");
+
+  // message
+  const setMessage = (s) => {
+    setUnWrappedMessage(s);
+
+    setTimeout(() => setUnWrappedMessage(""), 5000);
+  };
 
   return (
     <AlertContext.Provider
