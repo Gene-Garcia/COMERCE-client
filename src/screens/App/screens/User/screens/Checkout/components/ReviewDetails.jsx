@@ -1,23 +1,29 @@
 import React from "react";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import useCheckout from "../../../../../../../hooks/useCheckout";
+import { formatDate } from "../../../../../../../shared/utils/date";
 import {
   displayPaymentInfo,
   methods,
 } from "../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../shared/utils/price";
+import { getShipmentETAs } from "../../../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails({ placeOrder }) {
   const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
   const { shippingFee, subTotal, grandTotal } = useShoppingCart();
 
+  const [early, late] = getShipmentETAs();
+
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
       <ReviewBody title="Estimated Delivery Time">
         <p className="font-medium">
-          Receive item by
-          <span className="text-my-accent"> Month ## - Month ##</span>
+          Receive item by{" "}
+          <span className="text-my-accent">
+            {`${formatDate(early, 1)} - ${formatDate(late, 1)}`}
+          </span>
         </p>
       </ReviewBody>
 
