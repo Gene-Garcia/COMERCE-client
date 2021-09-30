@@ -1,9 +1,13 @@
 import React from "react";
 import useCheckout from "../../../../../../../hooks/useCheckout";
+import {
+  displayPaymentInfo,
+  methods,
+} from "../../../../../../../shared/utils/payment";
 import { ReviewCTA } from "./CallToAction";
 
 function ReviewDetails({ placeOrder }) {
-  const { shippingDetails: sd, toggledPayment } = useCheckout();
+  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
 
   const decodePaymentType = (type) => {
     if (type === "COD") return "Cash on Delivery";
@@ -33,14 +37,13 @@ function ReviewDetails({ placeOrder }) {
       <ReviewBody title="Payment Details">
         <p className="font-medium mb-2.5">
           Pay order with{" "}
-          <span className="text-my-accent">
-            {" "}
-            {decodePaymentType(toggledPayment)}
-          </span>
+          <span className="text-my-accent">{methods[toggledPayment]}</span>
         </p>
-        <span className="bg-gray-100 px-3 py-1.5 rounded-md">
-          Credit Card Number or Email
-        </span>
+        {toggledPayment !== "COD" && (
+          <span className="bg-gray-100 px-3 py-1.5 rounded-md">
+            {displayPaymentInfo(toggledPayment, paymentDetails)}
+          </span>
+        )}
       </ReviewBody>
 
       <ReviewBody title="Summary">
