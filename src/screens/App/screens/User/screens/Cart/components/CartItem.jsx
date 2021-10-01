@@ -31,19 +31,19 @@ function CartItem({ data, history }) {
   }
 
   return (
-    <div className="flex flex-row justify-start gap-x-6">
+    <div className="flex flex-col sm:flex-row justify-start gap-3 lg:gap-6">
       {/* image */}
-      <div className=" flex-grow-0 rounded-md shadow-lg bg-gray-50">
+      <div className="flex-grow-0 rounded-md shadow sm:shadow-lg bg-gray-50">
         <img
-          className="object-contain w-56 h-56 p-5"
+          className="object-contain w-40 h-40 sm:w-56 sm:h-56 p-2 mx-auto"
           alt="cart-item"
           src={image}
         />
       </div>
 
       {/* info */}
-      <div className="flex-grow w-4/5 flex flex-col justify-between">
-        <div className="flex flex-row items-center justify-between">
+      <div className="flex-grow w-4/5 flex flex-col gap-4 justify-between">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-y-0.5">
           <p className="font-semibold text-gray-700 text-xl">{item}</p>
 
           <p className="text-gray-600 font-medium text-lg">
@@ -100,7 +100,7 @@ function CartItem({ data, history }) {
           </div>
         </div>
 
-        <div className="inline-flex  flex-wrap gap-x-3 gap-y-2">
+        <div className="inline-flex flex-wrap gap-x-3 gap-y-1 ">
           <button
             onClick={() => addToCheckout(true, productId)}
             className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent"
