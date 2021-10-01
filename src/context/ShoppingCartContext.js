@@ -24,6 +24,7 @@ function ShoppingCartProvider({ children }) {
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
+    removeCartItem,
     resetToDefault,
   } = actions(dispatch);
 
@@ -37,6 +38,7 @@ function ShoppingCartProvider({ children }) {
         modifyQuantity,
         addToCheckout,
         removeFromCheckout,
+        removeCartItem,
         resetToDefault,
       }}
     >

@@ -78,6 +78,7 @@ function useShoppingCart() {
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
+    removeCartItem,
     resetToDefault,
   } = useContext(ShoppingCartContext);
 
@@ -93,6 +94,7 @@ function useShoppingCart() {
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
+    removeCartItem,
     resetToDefault,
   };
 }

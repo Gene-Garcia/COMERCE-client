@@ -71,6 +71,12 @@ function ShoppingCartReducer(state, action) {
           : false,
       };
 
+    case "REMOVE_CART_ITEM":
+      return {
+        ...state,
+        items: state.items.filter((e) => e.cartId !== action.payload),
+      };
+
     case "RESET_TO_DEFAULT":
       return {
         items: [],
@@ -141,6 +147,14 @@ function actions(dispatch) {
     });
   };
 
+  /* Manually removes an item from our list, instead of creating another API query  */
+  const removeCartItem = (cartId) => {
+    dispatch({
+      type: "REMOVE_CART_ITEM",
+      payload: cartId,
+    });
+  };
+
   /*
    * Resets state variables to default value.
    *
@@ -158,6 +172,7 @@ function actions(dispatch) {
     modifyQuantity,
     addToCheckout,
     removeFromCheckout,
+    removeCartItem,
     resetToDefault,
   };
 }
