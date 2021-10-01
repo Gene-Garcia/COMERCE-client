@@ -1,10 +1,34 @@
 import React from "react";
+import useAlert from "../../../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import { formatPrice } from "../../../../../../../shared/utils/price";
+import axios from "../../.././../../../../shared/caller";
 
-function CartItem({ data }) {
-  const { productId, item, retailPrice, quantity, image } = data;
-  const { modifyQuantity, addToCheckout } = useShoppingCart();
+function CartItem({ data, history }) {
+  const { setMessage, setSeverity } = useAlert();
+  const { cartId, productId, item, retailPrice, quantity, image } = data;
+  const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
+
+  /* API function to delete this cart */
+  async function removeFromCart(cId) {
+    axios
+      .delete(`/api/cart/remove/${cId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setSeverity("success");
+          setMessage(res.data.message);
+          removeCartItem(res.data.removedCart);
+        }
+      })
+      .catch((err) => {
+        setSeverity("error");
+        if (!err.response) setMessage("Something went wrong. Try again later.");
+        else if (err.response.status === 403 || err.response.status === 401) {
+          setMessage("You don not have access to this page.");
+          history.push("/login");
+        }
+      });
+  }
 
   return (
     <div className="flex flex-row justify-start gap-x-6">
@@ -83,7 +107,10 @@ function CartItem({ data }) {
           >
             Add to Checkout
           </button>
-          <button className="group inline-flex items-center gap-x-1.5 transition border border-transparent rounded-md px-2 py-0.5 font-medium text-gray-500 hover:border-gray-500">
+          <button
+            onClick={() => removeFromCart(cartId)}
+            className="group inline-flex items-center gap-x-1.5 transition border border-transparent rounded-md px-2 py-0.5 font-medium text-gray-500 hover:border-gray-500"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-gray-500 group-hover:text-my-accent"
