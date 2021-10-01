@@ -1,10 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import useAlert from "../../../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
-function CartItem({ data, history }) {
+function CartItem({ data }) {
+  const history = useHistory();
+
   const { setMessage, setSeverity } = useAlert();
   const { cartId, productId, item, retailPrice, quantity, image } = data;
   const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
