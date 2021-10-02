@@ -39,6 +39,7 @@ const AppContent = withRouter(({ location: { pathname } }) => {
         <Route {...route.USER.subroutes.CART} />
         <Route {...route.USER.subroutes.CHECKOUT} />
         <Route {...route.USER.subroutes.ORDERS} />
+        <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
 
         <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 

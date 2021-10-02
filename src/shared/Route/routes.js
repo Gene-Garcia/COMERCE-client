@@ -76,6 +76,13 @@ const routes = {
       ORDERS: {
         path: "/user/orders",
         name: "Orders",
+
+        subroutes: {
+          RATE: {
+            path: "/user/orders/rate",
+            name: "Rate",
+          },
+        },
       },
     },
   },
