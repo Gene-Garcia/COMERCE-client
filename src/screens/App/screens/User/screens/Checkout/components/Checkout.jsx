@@ -7,7 +7,7 @@ import useAlert from "../../../../../../../hooks/useAlert";
 import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import useCheckout from "../../../../../../../hooks/useCheckout";
-import StepIndicators from "./StepIndicators";
+import StepIndicators from "./utils/StepIndicators";
 import ShippingDetails from "./ShippingDetails";
 import PaymentDetails from "./PaymentDetails";
 import ReviewDetails from "./ReviewDetails";
