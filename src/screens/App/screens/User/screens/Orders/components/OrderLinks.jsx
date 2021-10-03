@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import useOrders from "../../../../../../../hooks/useOrders";
 import { formatDate } from "../../../../../../../shared/utils/date";
 
@@ -29,6 +30,8 @@ function OrderLinks() {
 export default OrderLinks;
 
 function OrderLink({ id, date, status }) {
+  const history = useHistory();
+  // Orders context
   const { getOrderById, setSelectedOrder } = useOrders();
 
   const selectOrder = () => {
@@ -54,7 +57,7 @@ function OrderLink({ id, date, status }) {
           {status.toLowerCase() === "review" ? (
             <button
               className="transition duration-200 bg-gray-200 px-1.5 rounded-md font-medium text-gray-500 hover:bg-blue-100"
-              onClick={() => alert("clicked")}
+              onClick={() => history.push("/user/orders/rate")}
             >
               Rate Order
             </button>
