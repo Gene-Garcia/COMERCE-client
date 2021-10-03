@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../../../../../../../../shared/Components/button/Button";
 import { ProductCardDisplay } from "./utils/ProductCard";
 
@@ -34,28 +34,43 @@ function SelectedProduct() {
 export default SelectedProduct;
 
 function ProductRating() {
+  const [hoverStar, setHoverStar] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  function mouseOver(id) {
+    setHoverStar((prev) => {
+      let temp = [];
+      for (let i = 0; i < prev.length; i++) temp.push(i <= id ? true : false);
+      return temp;
+    });
+  }
+
   return (
     <div>
       <p>Product Rating</p>
       <div className="flex flex-row gap-3">
-        <Star />
-        <Star />
-        <Star />
-        <Star />
-        <Star />
+        {hoverStar.map((e, i) => (
+          <Star key={i} id={i} hovered={e} over={mouseOver} />
+        ))}
       </div>
     </div>
   );
 }
 
-function Star({ className }) {
+function Star({ id, hovered, over }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-16 w-16 ${className}`}
+      className={`h-16 w-16 ${hovered ? "text-my-accent" : ""}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      onMouseOver={() => over(id)}
     >
       <path
         strokeLinecap="round"
