@@ -20,6 +20,11 @@ function RateProvider({ children }) {
   const { loadProducts, setSelectedProduct, setRating, onCommentChange } =
     actions(dispatch);
 
+  // other functions
+  const getProductById = (pId, oId) => {
+    return state.products.find((e) => e.productId === pId && e.orderId === oId);
+  };
+
   return (
     <RateContext.Provider
       value={{
@@ -30,6 +35,7 @@ function RateProvider({ children }) {
         setSelectedProduct,
         setRating,
         onCommentChange,
+        getProductById,
       }}
     >
       {children}

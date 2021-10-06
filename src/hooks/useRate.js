@@ -9,6 +9,7 @@ function useRate() {
     setSelectedProduct,
     setRating,
     onCommentChange,
+    getProductById,
     state: { products, selected, rating, comment },
   } = useContext(RateContext);
 
@@ -23,6 +24,7 @@ function useRate() {
     setSelectedProduct,
     setRating,
     onCommentChange,
+    getProductById,
   };
 }
 export { useRate };
