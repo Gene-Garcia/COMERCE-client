@@ -2,12 +2,21 @@ import React from "react";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../../../../../../../../shared/utils/date";
+import { useRate } from "../../../../../../../../../../hooks/useRate";
 
 function ProductCardLink({
-  data: { imageAddress, item, retailPrice: price, orderId },
+  data: { imageAddress, item, retailPrice: price, orderId, productId },
 }) {
+  // rate context
+  const { setSelectedProduct, getProductById } = useRate();
+
+  // changes the selected product onclick
+  function changeSelected() {
+    setSelectedProduct(getProductById(productId, orderId));
+  }
+
   return (
-    <div className="shadow rounded-md flex flex-row">
+    <div className="shadow rounded-md flex flex-row" onClick={changeSelected}>
       <img
         src={imageAddress}
         alt="product"
