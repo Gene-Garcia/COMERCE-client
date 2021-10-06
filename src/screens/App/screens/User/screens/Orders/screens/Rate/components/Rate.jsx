@@ -11,7 +11,7 @@ function Rate({ history }) {
   // display message
   const { setMessage, setSeverity } = useAlert();
   // rate context
-  const { loadProducts, setLoading } = useRate();
+  const { loadProducts, setSelectedProduct, setLoading } = useRate();
 
   // API Fetch Data
   useEffect(() => {
@@ -22,6 +22,11 @@ function Rate({ history }) {
           setSeverity("success");
           if (res.status === 200) {
             loadProducts(res.data.products);
+
+            // set default selected
+            setSelectedProduct(
+              res.data.products.length > 0 ? res.data.products[0] : null
+            );
             setLoading(false);
           }
         })
@@ -59,7 +64,7 @@ function Rate({ history }) {
 
           <div className="w-3/5">
             <div className="rounded-lg shadow-lg p-8">
-              <p className="font-medium text-lg text-gray-600">
+              <p className="font-medium text-lg text-gray-600 mb-6">
                 Selected Product
               </p>
 
