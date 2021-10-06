@@ -1,10 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRate } from "../../../../../../../../../hooks/useRate";
 import Container from "../../../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../../../shared/Components/pages/Title";
 import ProductLinks from "./ProductLinks";
 import SelectedProduct from "./SelectedProduct";
+import axios from "../../../../../../../../../shared/caller";
+import useAlert from "../../../../../../../../../hooks/useAlert";
 
-function Rate() {
+function Rate({ history }) {
+  // display message
+  const { setMessage, setSeverity } = useAlert();
+  // rate context
+  const { loadProducts, setLoading } = useRate();
+
+  // API Fetch Data
+  useEffect(() => {
+    async function getProducts() {
+      await axios
+        .get("/api/rate/unrated")
+        .then((res) => {
+          setSeverity("success");
+          if (res.status === 200) {
+            loadProducts(res.data.products);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          setSeverity("error");
+          if (!err.response)
+            setMessage(
+              "Something went wrong in fetching the products to rate. Try again."
+            );
+          else if (err.response.status === 403 || err.response.status === 401) {
+            setMessage(err.response.data.error);
+            history.push("/user/orders");
+          } else setMessage(err.response.data.error);
+        });
+    }
+
+    getProducts();
+  }, []);
+
   return (
     <>
       <Title title="Rate Orders" />
