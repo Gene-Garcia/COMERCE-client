@@ -6,7 +6,7 @@ export default RateContext;
 
 const initial = {
   products: [],
-  selected: {},
+  selected: {}, // if set by components, if no data found, will be set to null directly. Kasi it is much more efficient to check for null then to check if object has any property
   rating: -1,
   comment: "",
 };

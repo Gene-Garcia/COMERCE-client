@@ -9,7 +9,7 @@ function RateReducer(state, action) {
     case "SET_SELECTED_PRODUCT":
       return {
         ...state,
-        selected: state.products.filter((e) => e.productId == action.payload),
+        selected: action.payload,
       };
 
     case "SET_RATING":
@@ -38,10 +38,10 @@ function actions(dispatch) {
     });
   };
 
-  const setSelectedProduct = (id) => {
+  const setSelectedProduct = (product) => {
     dispatch({
       type: "SET_SELECTED_PRODUCT",
-      payload: id,
+      payload: product,
     });
   };
 
