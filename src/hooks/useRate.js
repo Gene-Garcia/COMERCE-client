@@ -3,14 +3,18 @@ import RateContext from "../context/RateContext";
 
 function useRate() {
   const {
-    state: { products, selected, rating, comment },
+    loading,
+    setLoading,
     loadProducts,
     setSelectedProduct,
     setRating,
     onCommentChange,
+    state: { products, selected, rating, comment },
   } = useContext(RateContext);
 
   return {
+    loading,
+    setLoading,
     products,
     selected,
     rating,

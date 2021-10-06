@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import RateReducer, { actions } from "./RateReducer";
 
 const RateContext = createContext();
@@ -14,6 +14,9 @@ const initial = {
 function RateProvider({ children }) {
   const [state, dispatch] = useReducer(RateReducer, initial);
 
+  // loading state variable so that products will not be displayed until it has been populated
+  const [loading, setLoading] = useState(true);
+
   const { loadProducts, setSelectedProduct, setRating, onCommentChange } =
     actions(dispatch);
 
@@ -21,12 +24,16 @@ function RateProvider({ children }) {
     <RateContext.Provider
       value={{
         state,
+        loading,
+        setLoading,
         loadProducts,
         setSelectedProduct,
         setRating,
         onCommentChange,
       }}
-    ></RateContext.Provider>
+    >
+      {children}
+    </RateContext.Provider>
   );
 }
 export { RateProvider };
