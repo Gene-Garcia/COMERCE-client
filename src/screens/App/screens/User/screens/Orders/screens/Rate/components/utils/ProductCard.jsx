@@ -53,35 +53,41 @@ function ProductCardDisplay({
 }) {
   return (
     <>
-      <div className="flex flex-row">
-        <img src={imageAddress} alt="product" className="w-1/4 h-1/4" />
+      <div className="flex flex-row gap-3">
+        <img
+          src={imageAddress}
+          alt="product"
+          className="w-64 h-64 object-contain"
+        />
 
-        <div className="flex flex-col justify-between px-4 py-1.5">
+        <div className="flex flex-col justify-between">
           <p className="font-medium text-2xl text-gray-600">{item}</p>
 
-          <div>
-            <p className="text-gray-400">Order ID</p>
-            <Link
-              to="/users/orders?p=dsasdfasfas"
-              className="transition duration-200 font-medium text-md text-gray-400 hover:text-gray-900"
-            >
-              {orderId}
-            </Link>
-          </div>
-
-          <div className="flex flex-row gap-10">
+          <div className="flex flex-col gap-4">
             <div>
-              <p className="text-gray-400">Date Ordered</p>
-              <p className="font-medium text-md text-gray-500">
-                {formatDate(orderDate, 1)}
-              </p>
+              <p className="text-gray-400">Order ID</p>
+              <Link
+                to="/users/orders?p=dsasdfasfas"
+                className="transition duration-200 font-medium text-md text-gray-500 hover:text-gray-900"
+              >
+                {orderId}
+              </Link>
             </div>
 
-            <div>
-              <p className="text-gray-400">Date Received</p>
-              <p className="font-medium text-md text-gray-500">
-                {formatDate(ETADate, 1)}
-              </p>
+            <div className="flex flex-row gap-10">
+              <div>
+                <p className="text-gray-400">Date Ordered</p>
+                <p className="font-medium text-md text-gray-500">
+                  {formatDate(orderDate, 1)}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-gray-400">Date Received</p>
+                <p className="font-medium text-md text-gray-500">
+                  {formatDate(ETADate, 1)}
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -24,10 +24,10 @@ function SelectedProduct({ data }) {
 
             {/* Comments */}
             <div>
-              <p>Comments</p>
+              <p className="text-gray-400">Comments</p>
               <textarea
                 type="text"
-                className="w-full rounded-md bg-gray-100 h-2/5 p-3"
+                className="transition duration-200 w-full rounded-md shadow bg-gray-100 h-2/5 p-3 focus:outline-none focus-within:shadow-lg"
                 placeholder="Share us your thoughts about this product"
                 rows="7"
                 value={comment}
@@ -39,6 +39,7 @@ function SelectedProduct({ data }) {
                 }}
               ></textarea>
             </div>
+
             {/* CTA */}
             <Button
               isLoading={false}
