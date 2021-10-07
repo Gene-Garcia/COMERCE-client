@@ -16,26 +16,29 @@ function ProductCardLink({
   }
 
   return (
-    <div className="shadow rounded-md flex flex-row" onClick={changeSelected}>
+    <div
+      className="shadow rounded-md flex flex-row p-0.5"
+      onClick={changeSelected}
+    >
       <img
         src={imageAddress}
         alt="product"
-        className="object-contain w-24 h-24 flex-shrink-0"
+        className="object-contain w-20 h-20 flex-shrink-0 m-auto"
       />
 
-      <div className="flex flex-row justify-between flex-grow flex-shrink px-4 py-2">
-        <div className="flex flex-col justify-between">
-          <p className="text-xl font-medium text-gray-600">{item}</p>
-          <p className="text-my-accent text-lg font-medium">
-            {`₱${formatPrice(price)}`}
-          </p>
+      <div className="flex flex-row justify-between flex-grow flex-shrink px-4 py-2 gap-4">
+        <div className="flex flex-col justify-between gap-2">
+          <p className="text-lg font-medium text-gray-500">{item}</p>
+          <p className="text-my-accent text-md font-medium">{`₱${formatPrice(
+            price
+          )}`}</p>
         </div>
 
         <div className="space-y-0 text-right">
-          <p className="text-gray-400">Order ID</p>
+          <p className="text-gray-400 text-sm">Order ID</p>
           <Link
             to={`/users/orders?oid=${orderId}`}
-            className="transition duration-200 font-medium text-md text-gray-400 hover:text-gray-900"
+            className="transition duration-200 text-sm text-gray-500 hover:text-gray-900"
           >
             {orderId}
           </Link>

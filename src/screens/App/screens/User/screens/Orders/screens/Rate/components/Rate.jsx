@@ -53,7 +53,7 @@ function Rate({ history }) {
       <Container>
         <div className="flex flex-row gap-12">
           <div className="w-2/5">
-            <div className="rounded-lg shadow-lg p-8">
+            <div className="rounded-lg shadow-lg p-7">
               <p className="font-medium text-lg text-gray-600 mb-6">
                 Products To Rate
               </p>
@@ -63,7 +63,7 @@ function Rate({ history }) {
           </div>
 
           <div className="w-3/5">
-            <div className="rounded-lg shadow-lg p-8">
+            <div className="rounded-lg shadow-lg p-7">
               <p className="font-medium text-lg text-gray-600 mb-6">
                 Selected Product
               </p>
