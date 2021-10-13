@@ -26,7 +26,7 @@ function ProductCardLink({
         className="object-contain w-20 h-20 flex-shrink-0 m-auto"
       />
 
-      <div className="flex flex-row justify-between flex-grow flex-shrink px-4 py-2 gap-4">
+      <div className="flex flex-col xl:flex-row justify-between flex-grow flex-shrink px-4 py-2 gap-4">
         <div className="flex flex-col justify-between gap-2">
           <p className="text-lg font-medium text-gray-500">{item}</p>
           <p className="text-my-accent text-md font-medium">{`₱${formatPrice(
@@ -53,17 +53,17 @@ function ProductCardDisplay({
 }) {
   return (
     <>
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-col lg:flex-row gap-3">
         <img
           src={imageAddress}
           alt="product"
-          className="w-64 h-64 object-contain"
+          className="w-56 lg:w-64 h-56 lg:h-64 object-contain m-auto"
         />
 
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between gap-8">
           <p className="font-medium text-2xl text-gray-600">{item}</p>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2 xl:gap-4">
             <div>
               <p className="text-gray-400">Order ID</p>
               <Link
@@ -74,7 +74,7 @@ function ProductCardDisplay({
               </Link>
             </div>
 
-            <div className="flex flex-row gap-10">
+            <div className="flex flex-row lg:flex-col xl:flex-row gap-10 lg:gap-2 xl:gap-10">
               <div>
                 <p className="text-gray-400">Date Ordered</p>
                 <p className="font-medium text-md text-gray-500">

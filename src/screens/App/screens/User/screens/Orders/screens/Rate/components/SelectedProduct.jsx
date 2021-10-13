@@ -16,10 +16,10 @@ function SelectedProduct({ data }) {
       {loading || !selected ? (
         <></>
       ) : (
-        <div className="space-y-10">
+        <div className="space-y-6 lg:space-y-8">
           <ProductCardDisplay data={selected} />
 
-          <div className="space-y-8">
+          <div className="space-y-6 lg:space-y-8">
             <ProductRating />
 
             {/* Comments */}

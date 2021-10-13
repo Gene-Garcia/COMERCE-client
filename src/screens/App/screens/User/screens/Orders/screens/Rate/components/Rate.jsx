@@ -51,7 +51,7 @@ function Rate({ history }) {
       <Title title="Rate Orders" />
 
       <Container>
-        <div className="flex flex-row gap-12">
+        <div className="flex flex-row gap-10">
           <div className="w-2/5">
             <div className="rounded-lg shadow-lg p-7">
               <p className="font-medium text-lg text-gray-600 mb-6">
