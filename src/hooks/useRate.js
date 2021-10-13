@@ -10,6 +10,7 @@ function useRate() {
     setRating,
     onCommentChange,
     getProductById,
+    resetRateValuesToDefault,
     state: { products, selected, rating, comment },
   } = useContext(RateContext);
 
@@ -25,6 +26,7 @@ function useRate() {
     setRating,
     onCommentChange,
     getProductById,
+    resetRateValuesToDefault,
   };
 }
 export { useRate };

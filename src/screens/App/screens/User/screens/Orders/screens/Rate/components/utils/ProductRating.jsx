@@ -1,20 +1,41 @@
 import React, { useState } from "react";
+import { useRate } from "../../../../../../../../../../hooks/useRate";
 
 function ProductRating() {
+  // rate context
+  const { setRating } = useRate();
+
   const [hoverStar, setHoverStar] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
+    false, // 1 rating
+    false, // 2 rating
+    false, // 3 rating
+    false, // 4 rating
+    false, // 5 rating
   ]);
 
+  // upon exit of the mouse, the hover star will retain its value so that we would be able to save the value
   function mouseOver(id) {
     setHoverStar((prev) => {
       let temp = [];
       for (let i = 0; i < prev.length; i++) temp.push(i <= id ? true : false);
       return temp;
     });
+
+    // find the index of the last true value, iterate through the array in reverse
+    const lastIndex = reverseFindLastIndex();
+    setRating(lastIndex + 1);
+  }
+
+  // a function the iterates the array of star to find the first true value-in the end
+  function reverseFindLastIndex() {
+    let lastIndex = -1;
+    for (let i = hoverStar.length - 1; i >= 0; i--)
+      // if current index has the true value, break the loop
+      if (hoverStar[i]) {
+        lastIndex = i;
+        break;
+      }
+    return lastIndex;
   }
 
   return (

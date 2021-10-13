@@ -6,7 +6,7 @@ export default RateContext;
 
 const initial = {
   products: [],
-  selected: {}, // if set by components, if no data found, will be set to null directly. Kasi it is much more efficient to check for null then to check if object has any property
+  selected: null, // if set by components, if no data found, will be set to null directly. Kasi it is much more efficient to check for null then to check if object has any property
   rating: -1,
   comment: "",
 };
@@ -16,9 +16,14 @@ function RateProvider({ children }) {
 
   // loading state variable so that products will not be displayed until it has been populated
   const [loading, setLoading] = useState(true);
-
-  const { loadProducts, setSelectedProduct, setRating, onCommentChange } =
-    actions(dispatch);
+  
+  const {
+    loadProducts,
+    setSelectedProduct,
+    setRating,
+    onCommentChange,
+    resetRateValuesToDefault,
+  } = actions(dispatch);
 
   // other functions
   const getProductById = (pId, oId) => {
@@ -35,6 +40,7 @@ function RateProvider({ children }) {
         setSelectedProduct,
         setRating,
         onCommentChange,
+        resetRateValuesToDefault,
         getProductById,
       }}
     >

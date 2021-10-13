@@ -24,6 +24,14 @@ function RateReducer(state, action) {
         comment: action.payload,
       };
 
+    case "RESET_RATE_VALUES":
+      return {
+        ...state,
+        selected: null,
+        rating: -1,
+        comment: "",
+      };
+
     default:
       throw Error;
   }
@@ -59,6 +67,18 @@ function actions(dispatch) {
     });
   };
 
-  return { loadProducts, setSelectedProduct, setRating, onCommentChange };
+  const resetRateValuesToDefault = () => {
+    dispatch({
+      type: "RESET_RATE_VALUES",
+    });
+  };
+
+  return {
+    loadProducts,
+    setSelectedProduct,
+    setRating,
+    onCommentChange,
+    resetRateValuesToDefault,
+  };
 }
 export { actions };
