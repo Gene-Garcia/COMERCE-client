@@ -15,6 +15,7 @@ function SelectedProduct() {
     rating,
     resetRateValuesToDefault,
     setProductToRated,
+    nextProductToRate,
   } = useRate();
 
   // alert context
@@ -29,6 +30,7 @@ function SelectedProduct() {
     } else {
       setProductToRated(selected.productId, selected.orderId);
       resetRateValuesToDefault();
+      nextProductToRate();
     }
   }
 

@@ -13,6 +13,7 @@ function useRate() {
     resetRateValuesToDefault,
     state: { products, selected, rating, comment },
     setProductToRated,
+    nextProductToRate,
   } = useContext(RateContext);
 
   return {
@@ -29,6 +30,7 @@ function useRate() {
     getProductById,
     resetRateValuesToDefault,
     setProductToRated,
+    nextProductToRate,
   };
 }
 export { useRate };

@@ -23,6 +23,13 @@ function RateReducer(state, action) {
         ),
       };
 
+    // finds any product that has rated false
+    case "NEXT_PRODUCT_TO_RATE":
+      return {
+        ...state,
+        selected: state.products.find((e) => !e.rated),
+      };
+
     case "SET_RATING":
       return {
         ...state,
@@ -71,6 +78,12 @@ function actions(dispatch) {
     });
   };
 
+  const nextProductToRate = () => {
+    dispatch({
+      type: "NEXT_PRODUCT_TO_RATE",
+    });
+  };
+
   const setRating = (rate) => {
     dispatch({
       type: "SET_RATING",
@@ -98,6 +111,7 @@ function actions(dispatch) {
     onCommentChange,
     resetRateValuesToDefault,
     setProductToRated,
+    nextProductToRate,
   };
 }
 export { actions };
