@@ -16,7 +16,7 @@ function RateProvider({ children }) {
 
   // loading state variable so that products will not be displayed until it has been populated
   const [loading, setLoading] = useState(true);
-  
+
   const {
     loadProducts,
     setSelectedProduct,
@@ -26,8 +26,11 @@ function RateProvider({ children }) {
   } = actions(dispatch);
 
   // other functions
+  // get only a selected product that is not yet rated or rated === false
   const getProductById = (pId, oId) => {
-    return state.products.find((e) => e.productId === pId && e.orderId === oId);
+    return state.products.find(
+      (e) => e.productId === pId && e.orderId === oId && e.rated === false
+    );
   };
 
   return (

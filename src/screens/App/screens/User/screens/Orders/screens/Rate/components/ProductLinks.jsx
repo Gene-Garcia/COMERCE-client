@@ -11,9 +11,10 @@ function ProductLinks() {
         <></>
       ) : (
         <div className="flex gap-6 flex-col">
-          {products.map((e, i) => (
-            <ProductCardLink key={i} data={e} />
-          ))}
+          {/* render only products that are not rated or rated === false */}
+          {products.map(
+            (e, i) => e.rated === false && <ProductCardLink key={i} data={e} />
+          )}
         </div>
       )}
     </>

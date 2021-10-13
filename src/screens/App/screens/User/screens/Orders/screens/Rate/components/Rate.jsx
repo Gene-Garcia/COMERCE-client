@@ -21,6 +21,7 @@ function Rate({ history }) {
         .then((res) => {
           setSeverity("success");
           if (res.status === 200) {
+            console.log(res.data.products);
             loadProducts(res.data.products);
 
             // set default selected
