@@ -23,6 +23,7 @@ function RateProvider({ children }) {
     setRating,
     onCommentChange,
     resetRateValuesToDefault,
+    setProductToRated,
   } = actions(dispatch);
 
   // other functions
@@ -45,6 +46,7 @@ function RateProvider({ children }) {
         onCommentChange,
         resetRateValuesToDefault,
         getProductById,
+        setProductToRated,
       }}
     >
       {children}

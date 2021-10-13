@@ -12,6 +12,17 @@ function RateReducer(state, action) {
         selected: action.payload,
       };
 
+    // iterates and finds in the product the pId and oId, and updates its rated to true
+    case "SET_PRODUCT_TO_RATED":
+      return {
+        ...state,
+        products: state.products.map((e) =>
+          e.productId === action.payload.pId && e.orderId === action.payload.oId
+            ? { ...e, rated: true }
+            : e
+        ),
+      };
+
     case "SET_RATING":
       return {
         ...state,
@@ -53,6 +64,13 @@ function actions(dispatch) {
     });
   };
 
+  const setProductToRated = (pId, oId) => {
+    dispatch({
+      type: "SET_PRODUCT_TO_RATED",
+      payload: { pId, oId },
+    });
+  };
+
   const setRating = (rate) => {
     dispatch({
       type: "SET_RATING",
@@ -79,6 +97,7 @@ function actions(dispatch) {
     setRating,
     onCommentChange,
     resetRateValuesToDefault,
+    setProductToRated,
   };
 }
 export { actions };

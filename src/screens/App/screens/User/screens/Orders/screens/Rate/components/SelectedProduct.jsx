@@ -14,6 +14,7 @@ function SelectedProduct() {
     onCommentChange,
     rating,
     resetRateValuesToDefault,
+    setProductToRated,
   } = useRate();
 
   // alert context
@@ -25,7 +26,10 @@ function SelectedProduct() {
       setMessage(
         "Select a rating for this product. You may hover on the stars."
       );
-    } else resetRateValuesToDefault();
+    } else {
+      setProductToRated(selected.productId, selected.orderId);
+      resetRateValuesToDefault();
+    }
   }
 
   return (
