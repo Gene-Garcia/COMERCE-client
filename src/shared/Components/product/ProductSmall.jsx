@@ -40,7 +40,7 @@ function ProductSmall({ data }) {
         </div>
 
         <div>
-          <ProductRating />
+          <ProductRating rating={[]} />
         </div>
 
         <div>

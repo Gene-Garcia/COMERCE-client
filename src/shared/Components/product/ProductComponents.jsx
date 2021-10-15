@@ -31,7 +31,12 @@ function ProductPrice({ price, size }) {
   );
 }
 
-function ProductRating({ size }) {
+/*
+ * 'rating' is an array that contains numbers which are the
+ * rating of the product
+ *
+ */
+function ProductRating({ size, rating }) {
   function Star({ color, size }) {
     let theme;
     if (size === "large") theme = "h-6 w-6";
@@ -56,28 +61,36 @@ function ProductRating({ size }) {
     );
   }
 
+  let score =
+    rating.length > 0
+      ? rating.reduce((prev, curr) => prev + curr) / rating.length
+      : 0;
+
   return (
     <div>
       <div className="flex flex-shrink-0">
         <div>
-          <Star color="text-my-accent" size={size} />
+          <Star
+            color={score >= 1.99 && score > 0 ? "text-my-accent" : ""}
+            size={size}
+          />
         </div>
         <div>
-          <Star color="text-my-accent" size={size} />
+          <Star color={score >= 2.99 ? "text-my-accent" : ""} size={size} />
         </div>
         <div>
-          <Star color="text-my-accent" size={size} />
+          <Star color={score >= 3.99 ? "text-my-accent" : ""} size={size} />
         </div>
         <div>
-          <Star size={size} />
+          <Star color={score >= 4.99 ? "text-my-accent" : ""} size={size} />
         </div>
         <div>
-          <Star size={size} />
+          <Star color={score >= 5.99 ? "text-my-accent" : ""} size={size} />
         </div>
       </div>
 
       <div className="">
-        <p className="text-gray-500 text-xs font-medium">401 ratings</p>
+        <p className="text-gray-500 text-xs font-medium">{`${rating.length} Ratings`}</p>
       </div>
     </div>
   );
