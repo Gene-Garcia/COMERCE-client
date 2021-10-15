@@ -1,11 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router";
 import useAlert from "../../../../../../../../../hooks/useAlert";
 import { useRate } from "../../../../../../../../../hooks/useRate";
 import Button from "../../../../../../../../../shared/Components/button/Button";
 import { ProductCardDisplay } from "./utils/ProductCard";
 import ProductRating from "./utils/ProductRating";
+import axios from "../../../../../../../../../shared/caller";
 
 function SelectedProduct() {
+  // history
+  const history = useHistory();
   // rate context
   // onCommentChange is a wrapper itself that destructures the event
   const {
@@ -21,16 +25,47 @@ function SelectedProduct() {
   // alert context
   const { setSeverity, setMessage } = useAlert();
 
-  function submitRatingForCurrent() {
+  // onClick submit function
+  async function submitRatingForCurrent() {
     if (rating === -1) {
       setSeverity("error");
       setMessage(
         "Select a rating for this product. You may hover on the stars."
       );
     } else {
-      setProductToRated(selected.productId, selected.orderId);
-      resetRateValuesToDefault();
-      nextProductToRate();
+      const bodyData = {
+        product: {
+          productId: selected.productId,
+          orderId: selected.orderId,
+        },
+        rating,
+        comment,
+      };
+
+      // API request
+      await axios
+        .patch("/api/rate/save", bodyData)
+        .then((res) => {
+          // success
+          if (res.status === 200) {
+            setMessage(res.data.message);
+            setProductToRated(selected.productId, selected.orderId);
+            resetRateValuesToDefault();
+            nextProductToRate();
+          }
+        })
+        .catch((err) => {
+          setSeverity("error");
+
+          if (!err.response) {
+            setMessage(
+              "We apologise something went wrong in saving your product rating. Try again later."
+            );
+            history.push("/");
+          } else if (err.response.status === 401 || err.response.status === 403)
+            history.push("/login");
+          else setMessage(err.response.data.error);
+        });
     }
   }
 
