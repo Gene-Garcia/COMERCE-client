@@ -28,7 +28,7 @@ function ProductSmall({ data }) {
           <img
             src={imageAddress}
             alt="smart-watch"
-            className="w-full h-56 object-cover transition duration-500 transform hover:scale-110"
+            className="w-full h-56 object-contain transition duration-500 transform hover:scale-110"
           />
         </Link>
       </div>
