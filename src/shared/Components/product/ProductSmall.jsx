@@ -15,6 +15,7 @@ function ProductSmall({ data }) {
     imageAddress,
     retailPrice,
     description,
+    rating,
   } = data;
 
   const productLink = `/catalogue/item/${productId}`;
@@ -40,7 +41,7 @@ function ProductSmall({ data }) {
         </div>
 
         <div>
-          <ProductRating rating={[]} />
+          <ProductRating rating={rating} />
         </div>
 
         <div>
