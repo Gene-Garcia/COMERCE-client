@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useReducer, useState } from "react";
 
 const ProductPaginationContext = createContext();
 export default ProductPaginationContext;
@@ -9,37 +9,44 @@ const initial = {
   minPageOption: 1,
   maxPageOption: 5,
   searchFilter: "", // append to some regex
+  maxPagesPossible: 10,
 };
 
 function ProductPaginationProvider({ children }) {
+  const [state, dispatch] = useReducer(ProductPaginationReducer, initial);
+
+  // loading state
+  const [loading, setLoading] = useState(true);
+
+  const {
+    loadPaginationData,
+    computeMaxPagesPossible,
+    updateSearchFilter,
+    updateCurrentPage,
+    forwardButtonClick,
+    previousButtonClick,
+    updateDataOrder,
+    resetToDefault,
+  } = action(dispatch);
+
   return (
-    <ProductPaginationContext.Provider>
+    <ProductPaginationContext.Provider
+      value={{
+        state,
+        loading,
+        setLoading,
+        computeMaxPagesPossible,
+        loadPaginationData,
+        updateSearchFilter,
+        updateCurrentPage,
+        forwardButtonClick,
+        previousButtonClick,
+        updateDataOrder,
+        resetToDefault,
+      }}
+    >
       {children}
     </ProductPaginationContext.Provider>
   );
 }
-
-// ProductPaginationReducer
-function action(dispatch) {
-  //
-  const loadPaginationData = () => {};
-
-  const updateSearchFilter = (searchVal) => {};
-
-  const updateCurrentPage = (pageId) => {};
-
-  const forwardButtonClick = () => {};
-
-  const previousButtonClick = () => {};
-
-  const updateDataOrder = (orderCommand) => {};
-
-  const resetToDefault = () => {};
-
-  return {};
-}
-
-function ProductPaginationReducer(action, payload) {
-  switch (action.type) {
-  }
-}
+export { ProductPaginationProvider };

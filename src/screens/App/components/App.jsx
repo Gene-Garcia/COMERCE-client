@@ -15,6 +15,7 @@ import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
 import { CheckoutProvider } from "../../../context/CheckoutContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
+import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 
 const AppContent = withRouter(({ location: { pathname } }) => {
   const navles = ["/login", "/sign-up", "/"];
@@ -88,17 +89,19 @@ function App() {
         {/* Global message notification */}
         <Alert />
 
-        <CartCountProvider>
-          <ShoppingCartProvider>
-            <CheckoutProvider>
-              <OrdersProvider>
-                <RateProvider>
-                  <AppContent />
-                </RateProvider>
-              </OrdersProvider>
-            </CheckoutProvider>
-          </ShoppingCartProvider>
-        </CartCountProvider>
+        <ProductPaginationProvider>
+          <CartCountProvider>
+            <ShoppingCartProvider>
+              <CheckoutProvider>
+                <OrdersProvider>
+                  <RateProvider>
+                    <AppContent />
+                  </RateProvider>
+                </OrdersProvider>
+              </CheckoutProvider>
+            </ShoppingCartProvider>
+          </CartCountProvider>
+        </ProductPaginationProvider>
       </AlertProvider>
     </Router>
   );
