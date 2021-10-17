@@ -6,7 +6,7 @@ export default ProductPaginationContext;
 
 const initial = {
   products: [],
-  currentPage: 0,
+  currentPage: 1,
   minPageOption: 1,
   maxPageOption: 5,
   searchFilter: "", // append to some regex

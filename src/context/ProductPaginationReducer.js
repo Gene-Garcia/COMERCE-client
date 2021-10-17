@@ -67,6 +67,7 @@ function ProductPaginationReducer(state, action) {
       else
         return {
           ...state,
+          currentPage: state.currentPage + 1,
           minPageOption: state.minPageOption + 1,
           maxPageOption: state.maxPageOption + 1,
         };
@@ -78,6 +79,7 @@ function ProductPaginationReducer(state, action) {
       else
         return {
           ...state,
+          currentPage: state.currentPage - 1,
           minPageOption: state.minPageOption - 1,
           maxPageOption: state.maxPageOption - 1,
         };
