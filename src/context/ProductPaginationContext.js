@@ -1,4 +1,5 @@
 import { createContext, useReducer, useState } from "react";
+import ProductPaginationReducer, { actions } from "./ProductPaginationReducer";
 
 const ProductPaginationContext = createContext();
 export default ProductPaginationContext;
@@ -27,7 +28,7 @@ function ProductPaginationProvider({ children }) {
     previousButtonClick,
     updateDataOrder,
     resetToDefault,
-  } = action(dispatch);
+  } = actions(dispatch);
 
   return (
     <ProductPaginationContext.Provider
