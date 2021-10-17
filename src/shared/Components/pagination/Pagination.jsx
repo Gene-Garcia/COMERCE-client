@@ -80,10 +80,15 @@ function Arrow({ svg, onClick }) {
 }
 
 function Page({ id, pageNum, onClick }) {
+  const { currentPage } = useProductPagination();
+
+  // changes bg color if active
+  const stateStyle = currentPage == id ? "bg-my-accent text-my-contrast" : "";
+
   return (
     <button
       onClick={onClick}
-      className="transition duration-300 rounded bg-gray-200 text-gray-800 w-8 h-8 font-bold hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white"
+      className={`${stateStyle} transition duration-300 rounded bg-gray-200 text-gray-800 w-8 h-8 font-bold hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
     >
       {pageNum}
     </button>
