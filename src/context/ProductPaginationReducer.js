@@ -52,7 +52,7 @@ function ProductPaginationReducer(state, action) {
 
     case "COMPUTE_MAX_PAGES_POSSIBLE":
       // length / 2 - round up
-      return { ...state, maxPagesPossible: ceil(state.products / 16) };
+      return { ...state, maxPagesPossible: Math.ceil(state.products / 16) };
 
     case "UPDATE_SEARCH_FILTER":
       return { ...state, searchFilter: action.payload };
@@ -62,8 +62,7 @@ function ProductPaginationReducer(state, action) {
 
     case "FORWARD_BUTTON_CLICK":
       // there can be no more pagination pages to be rendered
-      if (state.maxPagesPossible == state.maxPageOption + 1)
-        return { ...state };
+      if (state.maxPageOption + 1 > state.maxPagesPossible) return { ...state };
       // we still have not reached to render the maximum page possible
       else
         return {
