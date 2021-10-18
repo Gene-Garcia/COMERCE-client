@@ -14,7 +14,7 @@ function Catalogue() {
   useEffect(() => {
     async function fetchItems() {
       await axios
-        .get("/api/product/available")
+        .get("/api/product/available/16/1")
         .then((res) => {
           if (res.status === 200) {
             // const { available: data } = res.data;
