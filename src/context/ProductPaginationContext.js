@@ -5,11 +5,13 @@ const ProductPaginationContext = createContext();
 export default ProductPaginationContext;
 
 const initial = {
+  productCount: 6,
   products: [],
   currentPage: 1,
   minPageOption: 1,
   maxPageOption: 5,
   searchFilter: "", // append to some regex
+  productCountPerPage: 16,
   maxPagesPossible: 10,
 };
 
@@ -21,6 +23,7 @@ function ProductPaginationProvider({ children }) {
 
   const {
     loadPaginationData,
+    setTotalProductCount,
     computeMaxPagesPossible,
     updateSearchFilter,
     updateCurrentPage,
@@ -38,6 +41,7 @@ function ProductPaginationProvider({ children }) {
         setLoading,
         computeMaxPagesPossible,
         loadPaginationData,
+        setTotalProductCount,
         updateSearchFilter,
         updateCurrentPage,
         forwardButtonClick,

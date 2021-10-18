@@ -4,6 +4,13 @@ function actions(dispatch) {
     dispatch({ type: "LOAD_PAGINATION_DATA", payload: data });
   };
 
+  const setTotalProductCount = (count) => {
+    dispatch({
+      type: "SET_TOTAL_PRODUCT_COUNT",
+      payload: count,
+    });
+  };
+
   const computeMaxPagesPossible = () => {
     dispatch({ type: "COMPUTE_MAX_PAGES_POSSIBLE" });
   };
@@ -34,6 +41,7 @@ function actions(dispatch) {
 
   return {
     loadPaginationData,
+    setTotalProductCount,
     updateSearchFilter,
     computeMaxPagesPossible,
     updateCurrentPage,
@@ -49,6 +57,9 @@ function ProductPaginationReducer(state, action) {
   switch (action.type) {
     case "LOAD_PAGINATION_DATA":
       return { ...state, products: action.payload };
+
+    case "SET_TOTAL_PRODUCT_COUNT":
+      return { ...state, productCount: action.payload };
 
     case "COMPUTE_MAX_PAGES_POSSIBLE":
       // length / 2 - round up
