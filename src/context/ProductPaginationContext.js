@@ -11,7 +11,7 @@ const initial = {
   minPageOption: 1,
   maxPageOption: 5,
   searchFilter: "", // append to some regex
-  productCountPerPage: 16,
+  productCountPerPage: 4,
   maxPagesPossible: 10,
 };
 

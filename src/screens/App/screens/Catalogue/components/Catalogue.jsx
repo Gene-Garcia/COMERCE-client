@@ -6,6 +6,7 @@ import Loading from "../../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
 import FilterButton from "./FilterButton";
 import useProductPagination from "../../../../../hooks/useProductPagination";
+import Pagination from "../../../../../shared/Components/pagination/Pagination";
 
 function Catalogue() {
   const [loading, setLoading] = useState(true);
@@ -87,11 +88,16 @@ function Catalogue() {
               <Loading />
             </div>
           ) : (
-            <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
-              {items.map((item) => (
-                <ProductSmall data={item} key={item._id} />
-              ))}
-            </div>
+            <>
+              <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
+                {items.map((item) => (
+                  <ProductSmall data={item} key={item._id} />
+                ))}
+              </div>
+              <div className="my-10 flex justify-center">
+                <Pagination />
+              </div>
+            </>
           )}
         </div>
       </div>
