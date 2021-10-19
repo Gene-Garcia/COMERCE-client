@@ -6,7 +6,7 @@ import ProductPaginationContext from "../context/ProductPaginationContext";
  *
  */
 function useProductPagination() {
-  return ({
+  const {
     state: {
       productCount,
       products,
@@ -28,6 +28,28 @@ function useProductPagination() {
     previousButtonClick,
     updateDataOrder,
     resetToDefault,
-  } = useContext(ProductPaginationContext));
+  } = useContext(ProductPaginationContext);
+
+  return {
+    productCount,
+    products,
+    currentPage,
+    minPageOption,
+    maxPageOption,
+    searchFilter,
+    productCountPerPage,
+    maxPagesPossible,
+    loading,
+    setLoading,
+    computeMaxPagesPossible,
+    loadPaginationData,
+    setTotalProductCount,
+    updateSearchFilter,
+    updateCurrentPage,
+    forwardButtonClick,
+    previousButtonClick,
+    updateDataOrder,
+    resetToDefault,
+  };
 }
 export default useProductPagination;

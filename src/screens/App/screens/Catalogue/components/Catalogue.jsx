@@ -5,16 +5,20 @@ import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
 import FilterButton from "./FilterButton";
+import useProductPagination from "../../../../../hooks/useProductPagination";
 
 function Catalogue() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { setSeverity, setMessage } = useAlert();
 
+  // product pagination context
+  const { productCountPerPage, currentPage } = useProductPagination();
+
   useEffect(() => {
     async function fetchItems() {
       await axios
-        .get("/api/product/available/16/1")
+        .get(`/api/product/available/${productCountPerPage}/${currentPage}`)
         .then((res) => {
           if (res.status === 200) {
             // const { available: data } = res.data;
@@ -29,8 +33,10 @@ function Catalogue() {
         });
     }
 
+    console.log("triggered");
+    setLoading(true);
     fetchItems();
-  }, []);
+  }, [productCountPerPage, currentPage]);
 
   return (
     <>
