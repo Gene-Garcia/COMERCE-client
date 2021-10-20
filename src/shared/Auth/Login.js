@@ -52,3 +52,27 @@ function getExpiration() {
 }
 
 export { clearUserPersistData, setUserPersistData, checkLoggedIn };
+
+// class
+
+class Authenticator {
+  constructor(cookie) {
+    this.cookie = cookie;
+  }
+
+  getEmail() {
+    return this.cookie.get(process.env.REACT_APP_LS_EMAIL_KEY);
+  }
+
+  getUsername() {
+    return this.cookie.get(process.env.REACT_APP_LS_USERNAME_KEY);
+  }
+
+  setUserPersistData(email, username) {}
+
+  clearUserPersistData() {}
+
+  checkLoggedIn() {}
+
+  getExpiration() {}
+}
