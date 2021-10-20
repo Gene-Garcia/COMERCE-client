@@ -68,11 +68,34 @@ class Authenticator {
     return this.cookie.get(process.env.REACT_APP_LS_USERNAME_KEY);
   }
 
-  setUserPersistData(email, username) {}
+  setUserPersistData(email, username) {
+    const options = {
+      path: "/",
+      expires: getExpiration(),
+    };
 
-  clearUserPersistData() {}
+    this.cookie.set(process.env.REACT_APP_LS_EMAIL_KEY, email, options);
+    this.cookie.set(process.env.REACT_APP_LS_USERNAME_KEY, username, options);
+  }
 
-  checkLoggedIn() {}
+  clearUserPersistData() {
+    this.cookie.remove(process.env.REACT_APP_LS_EMAIL_KEY);
+    this.cookie.remove(process.env.REACT_APP_LS_USERNAME_KEY);
+  }
 
-  getExpiration() {}
+  checkLoggedIn() {
+    return (
+      this.cookie.get(process.env.REACT_APP_LS_EMAIL_KEY) &&
+      this.cookie.get(process.env.REACT_APP_LS_USERNAME_KEY)
+    );
+  }
+
+  getExpiration() {
+    // 15 minutes, the server also uses 15-minute expiry
+    const date = new Date();
+    date.setMinutes(date.getMinutes() + 15);
+
+    return date;
+  }
 }
+export default Authenticator;
