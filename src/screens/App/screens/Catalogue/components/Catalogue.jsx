@@ -22,6 +22,7 @@ function Catalogue() {
     computeMaxPagesPossible,
   } = useProductPagination();
 
+  // the useEffect that will only run once, onMount of this component
   useEffect(() => {
     async function fetchItems() {
       await axios
@@ -47,7 +48,27 @@ function Catalogue() {
         });
     }
 
-    console.log("triggered");
+    fetchItems();
+  }, []);
+
+  // the useEffect that will get re-triggered when current pages changes
+  useEffect(() => {
+    async function fetchItems() {
+      await axios
+        .get(`/api/product/available/${productCountPerPage}/${currentPage}`)
+        .then((res) => {
+          if (res.status === 200) {
+            setItems(res.data.available);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setSeverity("error");
+          setMessage("Unable to load items. Refresh the page and try again.");
+        });
+    }
+
     setLoading(true);
     fetchItems();
   }, [currentPage]);
