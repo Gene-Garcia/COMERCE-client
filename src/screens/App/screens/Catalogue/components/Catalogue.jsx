@@ -14,7 +14,12 @@ function Catalogue() {
   const { setSeverity, setMessage } = useAlert();
 
   // product pagination context
-  const { productCountPerPage, currentPage } = useProductPagination();
+  const {
+    productCountPerPage,
+    currentPage,
+    setTotalProductCount,
+    computeMaxPagesPossible,
+  } = useProductPagination();
 
   useEffect(() => {
     async function fetchItems() {
@@ -23,6 +28,12 @@ function Catalogue() {
         .then((res) => {
           if (res.status === 200) {
             // const { available: data } = res.data;
+
+            // iniating methods
+            setTotalProductCount(res.data.productCount);
+            // sets the possible number of pages
+            computeMaxPagesPossible();
+
             setItems(res.data.available);
             setLoading(false);
           }
@@ -37,7 +48,7 @@ function Catalogue() {
     console.log("triggered");
     setLoading(true);
     fetchItems();
-  }, [productCountPerPage, currentPage]);
+  }, [currentPage]);
 
   return (
     <>
