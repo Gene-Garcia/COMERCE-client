@@ -63,7 +63,12 @@ function ProductPaginationReducer(state, action) {
 
     case "COMPUTE_MAX_PAGES_POSSIBLE":
       // length / 2 - round up
-      return { ...state, maxPagesPossible: Math.ceil(state.productCount / 16) };
+      return {
+        ...state,
+        maxPagesPossible: Math.ceil(
+          state.productCount / state.productCountPerPage
+        ),
+      };
 
     case "UPDATE_SEARCH_FILTER":
       return { ...state, searchFilter: action.payload };

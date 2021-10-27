@@ -5,14 +5,17 @@ const ProductPaginationContext = createContext();
 export default ProductPaginationContext;
 
 const initial = {
-  productCount: 6,
+  productCount: 0,
   products: [],
   currentPage: 1,
+
+  // these 2 variables is responsible for limiting only 5 pages buttons to be displayed
   minPageOption: 1,
   maxPageOption: 5,
+
   searchFilter: "", // append to some regex
-  productCountPerPage: 4,
-  maxPagesPossible: 10,
+  productCountPerPage: 8,
+  maxPagesPossible: 1, // to be changed on first load
 };
 
 function ProductPaginationProvider({ children }) {
