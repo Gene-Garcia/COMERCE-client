@@ -18,6 +18,7 @@ function Catalogue() {
     productCountPerPage,
     currentPage,
     setTotalProductCount,
+    initMinMaxPageOptions,
     computeMaxPagesPossible,
   } = useProductPagination();
 
@@ -33,6 +34,7 @@ function Catalogue() {
             setTotalProductCount(res.data.productCount);
             // sets the possible number of pages
             computeMaxPagesPossible();
+            initMinMaxPageOptions();
 
             setItems(res.data.available);
             setLoading(false);

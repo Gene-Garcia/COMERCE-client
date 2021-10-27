@@ -14,7 +14,7 @@ const initial = {
   maxPageOption: 5,
 
   searchFilter: "", // append to some regex
-  productCountPerPage: 8,
+  productCountPerPage: 3,
   maxPagesPossible: 1, // to be changed on first load
 };
 
@@ -28,6 +28,7 @@ function ProductPaginationProvider({ children }) {
     loadPaginationData,
     setTotalProductCount,
     computeMaxPagesPossible,
+    initMinMaxPageOptions,
     updateSearchFilter,
     updateCurrentPage,
     forwardButtonClick,
@@ -43,6 +44,7 @@ function ProductPaginationProvider({ children }) {
         loading,
         setLoading,
         computeMaxPagesPossible,
+        initMinMaxPageOptions,
         loadPaginationData,
         setTotalProductCount,
         updateSearchFilter,

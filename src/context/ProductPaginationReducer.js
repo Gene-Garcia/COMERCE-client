@@ -15,6 +15,10 @@ function actions(dispatch) {
     dispatch({ type: "COMPUTE_MAX_PAGES_POSSIBLE" });
   };
 
+  const initMinMaxPageOptions = () => {
+    dispatch({ type: "INITIALIZE_MIN_MAX_PAGE_OPTIONS" });
+  };
+
   const updateSearchFilter = (searchVal) => {
     dispatch({ type: "UPDATE_SEARCH_FILTER", payload: searchVal });
   };
@@ -44,6 +48,7 @@ function actions(dispatch) {
     setTotalProductCount,
     updateSearchFilter,
     computeMaxPagesPossible,
+    initMinMaxPageOptions,
     updateCurrentPage,
     forwardButtonClick,
     previousButtonClick,
@@ -68,6 +73,15 @@ function ProductPaginationReducer(state, action) {
         maxPagesPossible: Math.ceil(
           state.productCount / state.productCountPerPage
         ),
+      };
+
+    // by default min option is 1, and max option is 5. If maxPagesPossible is less than 5, maxOption should maxPagesPossible value
+    // e.g., if maxPagesPossible is 4, then max option should be 4 also. Otherwise if 5 or higher, max option should be 5.
+    case "INITIALIZE_MIN_MAX_PAGE_OPTIONS":
+      return {
+        ...state,
+        minPageOption: 1,
+        maxPageOption: state.maxPagesPossible < 5 ? state.maxPagesPossible : 5,
       };
 
     case "UPDATE_SEARCH_FILTER":
