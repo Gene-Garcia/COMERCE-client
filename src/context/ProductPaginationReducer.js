@@ -91,16 +91,32 @@ function ProductPaginationReducer(state, action) {
       return { ...state, currentPage: action.payload };
 
     case "FORWARD_BUTTON_CLICK":
-      // there can be no more pagination pages to be rendered
-      if (state.maxPageOption + 1 > state.maxPagesPossible) return { ...state };
-      // we still have not reached to render the maximum page possible
-      else
-        return {
-          ...state,
-          currentPage: state.currentPage + 1,
-          minPageOption: state.minPageOption + 1,
-          maxPageOption: state.maxPageOption + 1,
-        };
+      // click fwdBtn has two actions
+      // one: the active page button will move from 1 to 5,
+      // two: reaching 5 then click fwdBtn, incrementing 5 with another 5 (or to its maxvalue possible-1)
+
+      return {
+        ...state,
+
+        currentPage:
+          state.currentPage + 1 <= state.maxPagesPossible
+            ? state.currentPage + 1
+            : state.maxPagesPossible,
+
+        minPageOption:
+          state.currentPage + 1 <= state.maxPageOption
+            ? state.minPageOption
+            : state.maxPageOption + 5 >= state.maxPagesPossible
+            ? state.maxPagesPossible - 4
+            : state.minPageOption + 5,
+
+        maxPageOption:
+          state.currentPage + 1 <= state.maxPageOption
+            ? state.maxPageOption
+            : state.maxPageOption + 5 >= state.maxPagesPossible
+            ? state.maxPagesPossible
+            : state.maxPageOption + 5,
+      };
 
     case "PREVIOUS_BUTTON_CLICK":
       // going back means that it will result to 0 or negative numbered page

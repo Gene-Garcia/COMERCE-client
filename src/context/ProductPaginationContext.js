@@ -14,7 +14,7 @@ const initial = {
   maxPageOption: 5,
 
   searchFilter: "", // append to some regex
-  productCountPerPage: 3,
+  productCountPerPage: 1,
   maxPagesPossible: 1, // to be changed on first load
 };
 
