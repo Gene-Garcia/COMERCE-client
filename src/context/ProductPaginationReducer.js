@@ -95,14 +95,28 @@ function ProductPaginationReducer(state, action) {
       // one: the active page button will move from 1 to 5,
       // two: reaching 5 then click fwdBtn, incrementing 5 with another 5 (or to its maxvalue possible-1)
 
+      /*
+       * The conditions of the return implements isolated if statements, meaning each variable will modify
+       * it value alone and not within an if () else statement. I think its a much understandble
+       *
+       */
+
       return {
         ...state,
 
+        // increment current page as long as it is still within maxPagesPossible
         currentPage:
           state.currentPage + 1 <= state.maxPagesPossible
             ? state.currentPage + 1
             : state.maxPagesPossible,
 
+        // if the currentPage is still within maxPageOption then minPageOption is still ok. In a sense
+        // the highlighted page number is within min and maxPageOption
+        // else, we increment minPageOption to 5 or within the bounds of maxPagesPossible
+        // if we increment maxPageOption to an additional 5 and is it is still within maxPagePossible then
+        // maxPagesPossible can still be added with 5
+        // else, the maxPageOption incremented with 5 results to a greater number to maxPagesPossible then
+        // minPageOption should be based on maxPagesPossible deducted by 4. (so that display will be 9 minus 4 = 5 6 7 8 9)
         minPageOption:
           state.currentPage + 1 <= state.maxPageOption
             ? state.minPageOption
