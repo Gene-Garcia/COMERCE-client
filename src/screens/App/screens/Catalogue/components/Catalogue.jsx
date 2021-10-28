@@ -9,12 +9,14 @@ import useProductPagination from "../../../../../hooks/useProductPagination";
 import Pagination from "../../../../../shared/Components/pagination/Pagination";
 
 function Catalogue() {
-  const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState([]);
   const { setSeverity, setMessage } = useAlert();
 
   // product pagination context
   const {
+    loading,
+    products: items,
+    loadPaginationData,
+    setLoading,
     productCountPerPage,
     currentPage,
     setTotalProductCount,
@@ -37,7 +39,7 @@ function Catalogue() {
             computeMaxPagesPossible();
             initMinMaxPageOptions();
 
-            setItems(res.data.available);
+            loadPaginationData(res.data.available);
             setLoading(false);
           }
         })
@@ -58,7 +60,7 @@ function Catalogue() {
         .get(`/api/product/available/${productCountPerPage}/${currentPage}`)
         .then((res) => {
           if (res.status === 200) {
-            setItems(res.data.available);
+            loadPaginationData(res.data.available);
             setLoading(false);
           }
         })
