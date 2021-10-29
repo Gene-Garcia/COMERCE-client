@@ -15,7 +15,7 @@ const initial = {
 
   // const values
   range: 5,
-  productCountPerPage: 12,
+  productCountPerPage: 4,
 
   searchFilter: "", // append to some regex
   maxPagesPossible: 1, // to be changed on first load

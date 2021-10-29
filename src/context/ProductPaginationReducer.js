@@ -123,8 +123,12 @@ function ProductPaginationReducer(state, action) {
         minPageOption:
           state.currentPage + 1 <= state.maxPageOption
             ? state.minPageOption
-            : state.maxPageOption + state.range >= state.maxPagesPossible
-            ? state.maxPagesPossible - (state.range - 1)
+            : state.maxPageOption + state.range > state.maxPagesPossible
+            ? addMustNotExceed(
+                state.maxPageOption + 1,
+                state.maxPagesPossible,
+                state.minPageOption
+              ) // whenever maxPageOption exceeds or is maxPagesPossible, then the value of maxPageOption should incremented by 1 only.
             : state.minPageOption + state.range,
 
         maxPageOption:
@@ -153,7 +157,7 @@ function ProductPaginationReducer(state, action) {
             ? state.maxPageOption
             : state.minPageOption - state.range >= 1
             ? state.minPageOption - 1
-            : 5,
+            : state.maxPageOption, // whenever minPageOption becomes lower than 1, then the value of maxPageOption should be the default
       };
 
     case "UPDATE_DATA_ORDER":
@@ -167,3 +171,11 @@ function ProductPaginationReducer(state, action) {
   }
 }
 export default ProductPaginationReducer;
+
+function alwaysOne(v) {
+  return v >= 1 ? v : 1;
+}
+
+function addMustNotExceed(value, limiter, retain) {
+  return value > limiter ? retain : value;
+}
