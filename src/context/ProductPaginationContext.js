@@ -11,7 +11,8 @@ const initial = {
 
   // these 2 variables is responsible for limiting only 5 pages buttons to be displayed
   minPageOption: 1,
-  maxPageOption: 5,
+  maxPageOption: 1,
+  range: 5,
 
   searchFilter: "", // append to some regex
   productCountPerPage: 1,

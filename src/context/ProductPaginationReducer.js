@@ -81,7 +81,10 @@ function ProductPaginationReducer(state, action) {
       return {
         ...state,
         minPageOption: 1,
-        maxPageOption: state.maxPagesPossible < 5 ? state.maxPagesPossible : 5,
+        maxPageOption:
+          state.maxPagesPossible < state.range
+            ? state.maxPagesPossible
+            : state.range,
       };
 
     case "UPDATE_SEARCH_FILTER":
@@ -120,29 +123,38 @@ function ProductPaginationReducer(state, action) {
         minPageOption:
           state.currentPage + 1 <= state.maxPageOption
             ? state.minPageOption
-            : state.maxPageOption + 5 >= state.maxPagesPossible
-            ? state.maxPagesPossible - 4
-            : state.minPageOption + 5,
+            : state.maxPageOption + state.range >= state.maxPagesPossible
+            ? state.maxPagesPossible - (state.range - 1)
+            : state.minPageOption + state.range,
 
         maxPageOption:
           state.currentPage + 1 <= state.maxPageOption
             ? state.maxPageOption
-            : state.maxPageOption + 5 >= state.maxPagesPossible
+            : state.maxPageOption + state.range >= state.maxPagesPossible
             ? state.maxPagesPossible
-            : state.maxPageOption + 5,
+            : state.maxPageOption + state.range,
       };
 
     case "PREVIOUS_BUTTON_CLICK":
-      // going back means that it will result to 0 or negative numbered page
-      if (state.minPageOption - 1 <= 0) return { ...state };
-      // going back means we are still able to render positive number
-      else
-        return {
-          ...state,
-          currentPage: state.currentPage - 1,
-          minPageOption: state.minPageOption - 1,
-          maxPageOption: state.maxPageOption - 1,
-        };
+      return {
+        ...state,
+
+        currentPage: state.currentPage - 1 >= 1 ? state.currentPage - 1 : 1,
+
+        minPageOption:
+          state.currentPage - 1 >= state.minPageOption
+            ? state.minPageOption
+            : state.minPageOption - state.range >= 1
+            ? state.minPageOption - state.range
+            : 1,
+
+        maxPageOption:
+          state.currentPage - 1 >= state.minPageOption
+            ? state.maxPageOption
+            : state.minPageOption - state.range >= 1
+            ? state.minPageOption - 1
+            : 5,
+      };
 
     case "UPDATE_DATA_ORDER":
       return { ...state };
