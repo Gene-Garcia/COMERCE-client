@@ -3,10 +3,10 @@ import useCheckout from "../../../../../../../hooks/useCheckout";
 import visaIcon from "../../../../../../../shared/images/visa.png";
 import mastercardIcon from "../../../../../../../shared/images/mastercard.png";
 import paypalIcon from "../../../../../../../shared/images/paypal.png";
-import PMBody from "./paymentMethods/MethodBody";
-import CashOnDelivery from "./paymentMethods/CashOnDelivery";
-import CreditCard from "./paymentMethods/CreditCard";
-import PayPal from "./paymentMethods/PayPal";
+import PMBody from "./paymentDetails/MethodBody";
+import CashOnDelivery from "./paymentDetails/CashOnDelivery";
+import CreditCard from "./paymentDetails/CreditCard";
+import PayPal from "./paymentDetails/PayPal";
 
 function PaymentDetails() {
   /* Context state variables used to toggle the payment methods after onclick */

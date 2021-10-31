@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import useOrders from "../../../../../../../hooks/useOrders";
 import { formatDate } from "../../../../../../../shared/utils/date";
 
@@ -15,7 +16,12 @@ function OrderLinks() {
       {/* link buttons */}
       <div className="flex flex-col gap-y-6">
         {orders.map((e) => (
-          <OrderLink key={e._id} id={e._id} date={e.orderDate} />
+          <OrderLink
+            key={e._id}
+            id={e._id}
+            date={e.orderDate}
+            status={e.status}
+          />
         ))}
       </div>
     </div>
@@ -23,7 +29,9 @@ function OrderLinks() {
 }
 export default OrderLinks;
 
-function OrderLink({ id, date }) {
+function OrderLink({ id, date, status }) {
+  const history = useHistory();
+  // Orders context
   const { getOrderById, setSelectedOrder } = useOrders();
 
   const selectOrder = () => {
@@ -37,10 +45,26 @@ function OrderLink({ id, date }) {
     >
       {/* id and date */}
       <div>
-        <p className="transition duration-300 font-medium text-md text-gray-700 group-hover:text-my-accent group-hover:underline">
+        <p className="transition duration-200 font-medium text-md text-gray-700 group-hover:text-my-accent">
           {id}
         </p>
-        <p className="font-regular text-md text-gray-400">{formatDate(date)}</p>
+
+        <div className="flex flex-wrap flex-row justify-between">
+          <p className="font-regular text-md text-gray-400">
+            {formatDate(date)}
+          </p>
+
+          {status.toLowerCase() === "review" ? (
+            <button
+              className="transition duration-200 bg-gray-200 px-1.5 rounded-md font-medium text-gray-500 hover:bg-blue-100"
+              onClick={() => history.push("/user/orders/rate")}
+            >
+              Rate Order
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
 
       {/* arrow chevron */}

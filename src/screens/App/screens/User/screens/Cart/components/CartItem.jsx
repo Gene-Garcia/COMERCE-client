@@ -1,25 +1,52 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import useAlert from "../../../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import { formatPrice } from "../../../../../../../shared/utils/price";
+import axios from "../../.././../../../../shared/caller";
 
 function CartItem({ data }) {
-  const { productId, item, retailPrice, quantity, image } = data;
-  const { modifyQuantity, addToCheckout } = useShoppingCart();
+  const history = useHistory();
+
+  const { setMessage, setSeverity } = useAlert();
+  const { cartId, productId, item, retailPrice, quantity, image } = data;
+  const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
+
+  /* API function to delete this cart */
+  async function removeFromCart(cId) {
+    axios
+      .delete(`/api/cart/remove/${cId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setSeverity("success");
+          setMessage(res.data.message);
+          removeCartItem(res.data.removedCart);
+        }
+      })
+      .catch((err) => {
+        setSeverity("error");
+        if (!err.response) setMessage("Something went wrong. Try again later.");
+        else if (err.response.status === 403 || err.response.status === 401) {
+          setMessage("You don not have access to this page.");
+          history.push("/login");
+        }
+      });
+  }
 
   return (
-    <div className="flex flex-row justify-start gap-x-6">
+    <div className="flex flex-col sm:flex-row justify-start gap-3 lg:gap-6">
       {/* image */}
-      <div className=" flex-grow-0 rounded-md shadow-lg bg-gray-50">
+      <div className="flex-grow-0 rounded-md shadow sm:shadow-lg bg-gray-50">
         <img
-          className="object-contain w-56 h-56 p-5"
+          className="object-contain w-40 h-40 sm:w-56 sm:h-56 p-2 mx-auto"
           alt="cart-item"
           src={image}
         />
       </div>
 
       {/* info */}
-      <div className="flex-grow w-4/5 flex flex-col justify-between">
-        <div className="flex flex-row items-center justify-between">
+      <div className="flex-grow w-4/5 flex flex-col gap-4 justify-between">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-y-0.5">
           <p className="font-semibold text-gray-700 text-xl">{item}</p>
 
           <p className="text-gray-600 font-medium text-lg">
@@ -76,14 +103,17 @@ function CartItem({ data }) {
           </div>
         </div>
 
-        <div className="inline-flex  flex-wrap gap-x-3 gap-y-2">
+        <div className="inline-flex flex-wrap gap-x-3 gap-y-1 ">
           <button
             onClick={() => addToCheckout(true, productId)}
             className="transition border border-my-accent font-medium text-my-accent text-md rounded-md px-3 py-0.5 hover:text-white hover:bg-my-accent"
           >
             Add to Checkout
           </button>
-          <button className="group inline-flex items-center gap-x-1.5 transition border border-transparent rounded-md px-2 py-0.5 font-medium text-gray-500 hover:border-gray-500">
+          <button
+            onClick={() => removeFromCart(cartId)}
+            className="group inline-flex items-center gap-x-1.5 transition border border-transparent rounded-md px-2 py-0.5 font-medium text-gray-500 hover:border-gray-500"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-gray-500 group-hover:text-my-accent"

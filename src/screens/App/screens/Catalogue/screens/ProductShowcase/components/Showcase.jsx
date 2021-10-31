@@ -78,7 +78,7 @@ function Showcase(props) {
 
               {/* rating */}
               <div>
-                <ProductRating size="extralarge" />
+                <ProductRating size="extralarge" rating={showcased.rating} />
               </div>
 
               {/* desc */}

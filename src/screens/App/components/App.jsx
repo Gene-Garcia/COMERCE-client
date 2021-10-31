@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,35 +14,39 @@ import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
 import { CheckoutProvider } from "../../../context/CheckoutContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
+import { RateProvider } from "../../../context/RateContext";
+import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 
-const AppContent = withRouter(({ location: { pathname } }) => {
-  const navles = ["/login", "/sign-up", "/"];
+const AppContent = memo(
+  withRouter(({ location: { pathname } }) => {
+    const navles = ["/login", "/sign-up", "/"];
 
-  return (
-    <>
-      <>{!navles.includes(pathname) && <Navbar />}</>
+    return (
+      <>
+        <>{!navles.includes(pathname) && <Navbar />}</>
 
-      <Switch>
-        <Route {...route.HOME} />
+        <Switch>
+          <Route {...route.HOME} />
 
-        <Route {...route.CATALOGUE} />
-        <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
+          <Route {...route.CATALOGUE} />
+          <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
-        <Route {...route.SIGN_UP} />
-        <Route {...route.LOGIN} />
-        <Route {...route.SIGN_OUT} />
-        <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
-        <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
+          <Route {...route.SIGN_UP} />
+          <Route {...route.LOGIN} />
+          <Route {...route.SIGN_OUT} />
+          <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
+          <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
-        <Route {...route.USER} />
+          <Route {...route.USER} />
 
-        <Route {...route.USER.subroutes.CART} />
-        <Route {...route.USER.subroutes.CHECKOUT} />
-        <Route {...route.USER.subroutes.ORDERS} />
+          <Route {...route.USER.subroutes.CART} />
+          <Route {...route.USER.subroutes.CHECKOUT} />
+          <Route {...route.USER.subroutes.ORDERS} />
+          <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
 
-        <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+          <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
-        {/* <PrivateRoute
+          {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
@@ -53,15 +57,16 @@ const AppContent = withRouter(({ location: { pathname } }) => {
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         /> */}
 
-        <Route>
-          <h1>404</h1>
-        </Route>
-      </Switch>
+          <Route>
+            <h1>404</h1>
+          </Route>
+        </Switch>
 
-      {/* <>{!navles.includes(pathname) && <Footer />}</> */}
-    </>
-  );
-});
+        {/* <>{!navles.includes(pathname) && <Footer />}</> */}
+      </>
+    );
+  })
+);
 
 function App() {
   // call server function to set XSRF-TOKEN in the cookie
@@ -86,15 +91,19 @@ function App() {
         {/* Global message notification */}
         <Alert />
 
-        <CartCountProvider>
-          <ShoppingCartProvider>
-            <CheckoutProvider>
-              <OrdersProvider>
-                <AppContent />
-              </OrdersProvider>
-            </CheckoutProvider>
-          </ShoppingCartProvider>
-        </CartCountProvider>
+        <ProductPaginationProvider>
+          <CartCountProvider>
+            <ShoppingCartProvider>
+              <CheckoutProvider>
+                <OrdersProvider>
+                  <RateProvider>
+                    <AppContent />
+                  </RateProvider>
+                </OrdersProvider>
+              </CheckoutProvider>
+            </ShoppingCartProvider>
+          </CartCountProvider>
+        </ProductPaginationProvider>
       </AlertProvider>
     </Router>
   );

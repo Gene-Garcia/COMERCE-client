@@ -1,6 +1,6 @@
 import React from "react";
 import useCheckout from "../../../../../../../../hooks/useCheckout";
-import { PaymentCTA } from "../CallToAction";
+import { PaymentCTA } from "../utils/CallToAction";
 
 function CashOnDelivery() {
   const { loadPaymentDetails, nextStep } = useCheckout();

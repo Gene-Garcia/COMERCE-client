@@ -16,6 +16,7 @@ function Cart({ history }) {
         .then((res) => {
           if (res.status === 200) {
             loadCartItems(res.data.cart);
+            console.log(res.data.cart);
             setLoading(false);
           }
         })

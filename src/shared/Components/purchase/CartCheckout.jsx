@@ -56,12 +56,12 @@ function CartCheckout({ editable }) {
         {checkoutable ? (
           <Link
             to={`/user/checkout?products=${prepareUrlForProducts(items)}`}
-            className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
+            className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-md lg:text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
           >
             PROCEED TO CHECKOUT
           </Link>
         ) : (
-          <p className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
+          <p className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-md lg:text-lg rounded-md p-1 md:p-2 lg:p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
             No Product(s) Selected
           </p>
         )}
