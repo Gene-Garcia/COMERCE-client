@@ -1,5 +1,5 @@
 import React from "react";
-import useCheckout from "../../../../../../../hooks/useCheckout";
+import useCheckout from "../../../../../../../../hooks/useCheckout";
 
 function StepIndicators() {
   const { toggledStep } = useCheckout();

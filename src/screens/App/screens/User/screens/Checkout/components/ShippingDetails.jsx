@@ -1,8 +1,8 @@
 import React from "react";
 import useCheckout from "../../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../../hooks/useForm";
-import { ShippingCTA } from "./CallToAction";
-import CheckoutInput from "./CheckoutInput";
+import { ShippingCTA } from "./utils/CallToAction";
+import CheckoutInput from "./utils/CheckoutInput";
 
 function ShippingDetails() {
   const { loadShippingDetails, nextStep } = useCheckout();

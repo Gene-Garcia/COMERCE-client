@@ -8,7 +8,7 @@ import {
 } from "../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import { getShipmentETAs } from "../../../../../../../shared/utils/shipping";
-import { ReviewCTA } from "./CallToAction";
+import { ReviewCTA } from "./utils/CallToAction";
 
 function ReviewDetails({ placeOrder }) {
   const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();

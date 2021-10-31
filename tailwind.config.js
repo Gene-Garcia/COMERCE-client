@@ -35,15 +35,14 @@ module.exports = {
         "my-dark": "#2C394B",
         "my-dim": "#334756",
       },
-      inset: {
-        "1/5": "20%",
-      },
     },
   },
   variants: {
     extend: {
+      backgroundColor: ["active"],
       borderWidth: ["hover"],
       borderOpacity: ["hover"],
+      boxShadow: ["active"],
       display: ["group-hover"],
       grayscale: ["hover"],
       ringWidth: ["active"],
