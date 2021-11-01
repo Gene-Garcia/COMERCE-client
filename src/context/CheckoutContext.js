@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import CheckoutReducer from "./CheckoutReducer";
 import { actions } from "./CheckoutReducer";
 
@@ -19,6 +19,9 @@ const initialState = {
 function CheckoutProvider({ children }) {
   const [state, dispatch] = useReducer(CheckoutReducer, initialState);
 
+  // loading state for placing order
+  const [loading, setLoading] = useState(false);
+
   const {
     nextStep,
     toggleStep,
@@ -32,6 +35,8 @@ function CheckoutProvider({ children }) {
   return (
     <CheckoutContext.Provider
       value={{
+        loading,
+        setLoading,
         state,
         nextStep,
         toggleStep,
