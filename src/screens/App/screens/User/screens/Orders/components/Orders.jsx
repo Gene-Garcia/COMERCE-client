@@ -7,8 +7,11 @@ import OrderDetails from "./OrderDetails";
 import OrderLinks from "./OrderLinks";
 import axios from "../../../../../../../shared/caller";
 import useAlert from "../../../../../../../hooks/useAlert";
+import useQuery from "../../../../../../../hooks/useQuery";
 
 function Orders({ history }) {
+  // query to get parameter in url
+  const query = useQuery();
   // alert context message
   const { setMessage, setSeverity } = useAlert();
   // orders context
@@ -23,9 +26,18 @@ function Orders({ history }) {
         .then((res) => {
           if (res.status === 200) {
             setOrdersWrapper(res.data.orders);
-            setSelectedOrder(
-              res.data.orders.length > 0 ? res.data.orders[0] : null
-            );
+
+            // determine if there is oid parameter
+            if (query.get("oid"))
+              setSelectedOrder(
+                res.data.orders.find((e) => e._id == query.get("oid"))
+              );
+            // no oid so set a default
+            else
+              setSelectedOrder(
+                res.data.orders.length > 0 ? res.data.orders[0] : null
+              );
+
             setLoading(false);
           }
         })
@@ -44,6 +56,7 @@ function Orders({ history }) {
     }
 
     getOrders();
+    console.log(query.get("oid"));
   }, []);
 
   return (
