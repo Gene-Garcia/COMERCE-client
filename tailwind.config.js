@@ -7,6 +7,11 @@ module.exports = {
   ],
   darkMode: false, // other values 'media' and 'class'
   theme: {
+    fontFamily: {
+      sans: ["'Roboto'", "sans-serif"],
+      serif: ["'Rokkitt'", "serif"],
+      mono: ["'DM Sans'", "sans-serif"],
+    },
     screens: {
       xs: "453px",
       sm: "570px",
