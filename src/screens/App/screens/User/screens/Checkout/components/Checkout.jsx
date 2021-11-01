@@ -46,6 +46,7 @@ function Checkout({ history }) {
     paymentMethod,
     paymentDetails,
     resetToDefault: resetCheckoutToDefault,
+    setLoading: setLoadingCheckout,
   } = useCheckout();
 
   // populate the checkouted products from url value
@@ -86,6 +87,7 @@ function Checkout({ history }) {
   // For now, it is located here and just drilled down to <ReviewDetails />
   // The API caller to place the checkouted order.
   async function placeOrder() {
+    setLoadingCheckout(true);
     // data needed: items, shippingDetails, paymentMethod, paymentDetails
     await axios
       .post("/api/order/place", {
@@ -99,6 +101,7 @@ function Checkout({ history }) {
         if (res.status === 200) {
           setSeverity("success");
           setMessage(res.data.message);
+          // no need to setLoading to false because we will redirect
           history.push("/user/orders");
         }
       })

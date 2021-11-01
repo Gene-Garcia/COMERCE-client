@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "../../../../../../../../shared/Components/button/Button";
 
 function ReturnToCart() {
   return (
@@ -60,10 +61,17 @@ function PaymentCTA({ submit, type }) {
   );
 }
 
-function ReviewCTA({ submit }) {
+function ReviewCTA({ submit, loading }) {
   return (
     <DesignedBody>
-      <DesignedButton onClick={submit} name="Place Order" />
+      {/* <DesignedButton onClick={submit} name="Place Order" /> */}
+      <Button
+        isLoading={loading}
+        buttonClass="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-base sm:text-lg font-semibold px-4 py-0 sm:px-10 sm:py-3 hover:bg-my-accent-mono"
+        onClick={submit}
+      >
+        Place Order
+      </Button>
       <ReturnToCart />
     </DesignedBody>
   );

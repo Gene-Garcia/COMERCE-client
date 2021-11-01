@@ -11,7 +11,12 @@ import { getShipmentETAs } from "../../../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
 
 function ReviewDetails({ placeOrder }) {
-  const { shippingDetails: sd, toggledPayment, paymentDetails } = useCheckout();
+  const {
+    shippingDetails: sd,
+    toggledPayment,
+    paymentDetails,
+    loading,
+  } = useCheckout();
   const { shippingFee, subTotal, grandTotal } = useShoppingCart();
 
   const [early, late] = getShipmentETAs();
@@ -67,7 +72,7 @@ function ReviewDetails({ placeOrder }) {
       </ReviewBody>
 
       {/* CTA of review */}
-      <ReviewCTA submit={placeOrder} />
+      <ReviewCTA submit={placeOrder} loading={loading} />
     </div>
   );
 }
