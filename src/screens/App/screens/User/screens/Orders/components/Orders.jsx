@@ -69,11 +69,11 @@ function Orders({ history }) {
         ) : (
           <>
             <div className="flex flex-col md:flex-row gap-8">
-              <div className="min-w-1/4 rounded-lg shadow-md md:shadow-lg md:place-self-start flex-shrink-0">
+              <div className="w-1/4 rounded-lg shadow-md md:shadow-lg md:place-self-start flex-shrink-0">
                 <OrderLinks />
               </div>
 
-              <div className="flex-grow">
+              <div className="w-3/4 flex-grow-0 flex-shrink">
                 <OrderDetails />
               </div>
             </div>
