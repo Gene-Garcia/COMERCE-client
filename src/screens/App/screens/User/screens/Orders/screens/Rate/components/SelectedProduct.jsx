@@ -20,6 +20,8 @@ function SelectedProduct() {
     resetRateValuesToDefault,
     setProductToRated,
     nextProductToRate,
+    loading,
+    setLoading,
   } = useRate();
 
   // alert context
@@ -27,6 +29,7 @@ function SelectedProduct() {
 
   // onClick submit function
   async function submitRatingForCurrent() {
+    setLoading(true);
     if (rating === -1) {
       setSeverity("error");
       setMessage(
@@ -52,6 +55,7 @@ function SelectedProduct() {
             setProductToRated(selected.productId, selected.orderId);
             resetRateValuesToDefault();
             nextProductToRate();
+            setLoading(false);
           }
         })
         .catch((err) => {
@@ -95,7 +99,7 @@ function SelectedProduct() {
 
             {/* CTA */}
             <Button
-              isLoading={false}
+              isLoading={loading}
               buttonClass="transition bg-my-accent px-14 py-3 rounded-md shadow text-my-contrast font-medium text-lg hover:bg-my-accent-mono"
               onClick={submitRatingForCurrent}
             >
