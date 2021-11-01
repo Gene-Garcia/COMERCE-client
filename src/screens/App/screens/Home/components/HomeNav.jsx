@@ -26,12 +26,6 @@ function HomeNav() {
           {/* search & catalogue link */}
           <div className="flex-grow flex flex-col">
             <Search bgType="accent" />
-            <Link
-              to="/catalogue"
-              className="self-end transition duration-100 mt-0.5 font-sans text-base font-semibold text-gray-100"
-            >
-              Product Catalogue
-            </Link>
           </div>
 
           {/* account */}
