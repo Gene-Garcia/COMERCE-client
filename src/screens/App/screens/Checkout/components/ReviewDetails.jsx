@@ -1,13 +1,13 @@
 import React from "react";
-import { useShoppingCart } from "../../../../../../../hooks/useCart";
-import useCheckout from "../../../../../../../hooks/useCheckout";
-import { formatDate } from "../../../../../../../shared/utils/date";
+import { useShoppingCart } from "../../../../../hooks/useCart";
+import useCheckout from "../../../../../hooks/useCheckout";
+import { formatDate } from "../../../../../shared/utils/date";
 import {
   displayPaymentInfo,
   methods,
-} from "../../../../../../../shared/utils/payment";
-import { formatPrice } from "../../../../../../../shared/utils/price";
-import { getShipmentETAs } from "../../../../../../../shared/utils/shipping";
+} from "../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../shared/utils/price";
+import { getShipmentETAs } from "../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
 
 function ReviewDetails({ placeOrder }) {

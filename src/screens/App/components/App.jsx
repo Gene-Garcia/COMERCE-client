@@ -37,10 +37,11 @@ const AppContent = memo(
           <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
           <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
+          <Route {...route.CHECKOUT} />
+
           <Route {...route.USER} />
 
           <Route {...route.USER.subroutes.CART} />
-          <Route {...route.USER.subroutes.CHECKOUT} />
           <Route {...route.USER.subroutes.ORDERS} />
           <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
 

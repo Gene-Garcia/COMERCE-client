@@ -44,6 +44,11 @@ const routes = {
     },
   },
 
+  CHECKOUT: {
+    path: "/checkout",
+    name: "Checkout",
+  },
+
   USER: {
     path: "/user",
     name: "Index User",
@@ -66,11 +71,6 @@ const routes = {
       CART: {
         path: "/user/cart",
         name: "Shopping Cart",
-      },
-
-      CHECKOUT: {
-        path: "/user/checkout",
-        name: "Checkout",
       },
 
       ORDERS: {

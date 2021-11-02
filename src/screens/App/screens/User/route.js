@@ -4,7 +4,6 @@ import UserIndex from "./index";
 // subroute
 import ChangePasswordRoute from "./screens/ChangePassword/route";
 import CartRoute from "./screens/Cart/route";
-import CheckoutRoute from "./screens/Checkout/route";
 import OrdersRoute from "./screens/Orders/route";
 
 const route = {
@@ -14,7 +13,6 @@ const route = {
   subroutes: {
     CHANGE_PASSWORD: ChangePasswordRoute,
     CART: CartRoute,
-    CHECKOUT: CheckoutRoute,
     ORDERS: OrdersRoute,
   },
 };

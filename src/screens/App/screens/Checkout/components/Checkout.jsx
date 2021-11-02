@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import { useShoppingCart } from "../../../../../../../hooks/useCart";
-import axios from "../../../../../../../shared/caller";
-import Title from "../../../../../../../shared/Components/pages/Title";
-import useQuery from "../../../../../../../hooks/useQuery";
-import useAlert from "../../../../../../../hooks/useAlert";
-import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
-import Container from "../../../../../../../shared/Components/pages/Container";
-import useCheckout from "../../../../../../../hooks/useCheckout";
+import { useShoppingCart } from "../../../../../hooks/useCart";
+import axios from "../../../../../shared/caller";
+import Title from "../../../../../shared/Components/pages/Title";
+import useQuery from "../../../../../hooks/useQuery";
+import useAlert from "../../../../../hooks/useAlert";
+import CartCheckout from "../../../../../shared/Components/purchase/CartCheckout";
+import Container from "../../../../../shared/Components/pages/Container";
+import useCheckout from "../../../../../hooks/useCheckout";
 import StepIndicators from "./utils/StepIndicators";
 import ShippingDetails from "./ShippingDetails";
 import PaymentDetails from "./PaymentDetails";
 import ReviewDetails from "./ReviewDetails";
-import { parseUrlForProducts } from "../../../../../../../shared/Route/urlParser";
-import Loading from "../../../../../../../shared/Loading/Loading";
+import { parseUrlForProducts } from "../../../../../shared/Route/urlParser";
+import Loading from "../../../../../shared/Loading/Loading";
 
 /*
  * The checkout method is able to receive checkouted product through the url parameter.

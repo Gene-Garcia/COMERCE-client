@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../../../../../../../../shared/Components/button/Button";
+import Button from "../../../../../../shared/Components/button/Button";
 
 function ReturnToCart() {
   return (

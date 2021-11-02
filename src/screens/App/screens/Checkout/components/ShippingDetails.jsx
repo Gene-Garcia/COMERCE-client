@@ -1,6 +1,6 @@
 import React from "react";
-import useCheckout from "../../../../../../../hooks/useCheckout";
-import { useForm } from "../../../../../../../hooks/useForm";
+import useCheckout from "../../../../../hooks/useCheckout";
+import { useForm } from "../../../../../hooks/useForm";
 import { ShippingCTA } from "./utils/CallToAction";
 import CheckoutInput from "./utils/CheckoutInput";
 
