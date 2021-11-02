@@ -56,14 +56,14 @@ function Authenticated({ bgType }) {
   // const color = "text-my-contrast";
 
   const themes = {
-    accent: "text-my-contrast",
+    accent: "text-gray-50",
     contrast: "text-my-accent",
   };
 
   return (
     <div className="self-center group ropdown inline-block relative px-3">
       <button
-        className={`${themes[bgType]} font-semibold inline-flex items-center`}
+        className={`${themes[bgType]} font-medium inline-flex items-center`}
       >
         <span className="mr-1">
           {cookies.get(process.env.REACT_APP_LS_USERNAME_KEY)}
@@ -77,12 +77,12 @@ function Authenticated({ bgType }) {
         </svg>
       </button>
 
-      <ul className="dropdown-menu  absolute right-0 z-50  hidden text-gray-500 group-hover:block">
-        <div className="mt-3 bg-my-contrast shadow-xl  rounded border border-gray-200">
+      <ul className="dropdown-menu absolute right-0 z-50 hidden text-gray-600 group-hover:block">
+        <div className="mt-3 bg-my-contrast shadow-xl rounded border border-gray-200">
           <li className="px-4 pt-2">
-            <p className="text-sm font-semibold w-full">Signed in as</p>
+            <p className="text-sm font-regular w-full">Signed in as</p>
 
-            <p className="text-base font-semibold text-gray-600">
+            <p className="text-base font-medium text-gray-500">
               {cookies.get(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
           </li>
@@ -90,10 +90,7 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
-            <Link
-              className="flex items-center font-semi-bold py-1 font-semibold"
-              to="/user/me"
-            >
+            <Link className="flex items-center py-1 font-medium" to="/user/me">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 mr-3"
@@ -116,7 +113,7 @@ function Authenticated({ bgType }) {
 
           <li className="px-4 pt-2 hover:text-gray-800 transition">
             <Link
-              className="flex items-center font-semi-bold py-1 font-semibold"
+              className="flex items-center py-1 font-medium"
               to="/user/purchases"
             >
               <svg
@@ -139,7 +136,7 @@ function Authenticated({ bgType }) {
 
           <li className="px-4 pt-1 hover:text-gray-800 transition">
             <Link
-              className="flex items-center font-semi-bold py-1 font-semibold"
+              className="flex items-center py-1 font-medium"
               to="/user/orders"
             >
               <svg
@@ -164,10 +161,7 @@ function Authenticated({ bgType }) {
           <li className="px-4 pt-2 border-b border-gray-200"></li>
 
           <li className="px-4 pt-2 pb-2 hover:text-gray-800 transition">
-            <Link
-              to="/sign-out"
-              className="flex items-center font-semi-bold py-1 font-semibold"
-            >
+            <Link to="/sign-out" className="flex items-center py-1 font-medium">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 mr-3"

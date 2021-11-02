@@ -47,7 +47,7 @@ function Showcase(props) {
   ) : (
     <>
       <div className="h-3/5 2xl:h-auto bg-gradient-to-b from-my-accent">
-        <h1 className="text-4xl font-semibold text-white text-center font-sans py-20 2xl:pb-36 px-2">
+        <h1 className="text-4xl font-medium text-white text-center font-sans py-20 2xl:pb-36 px-2">
           {showcased.item}
         </h1>
       </div>

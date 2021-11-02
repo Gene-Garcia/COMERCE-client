@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 function Search({ bgType }) {
   const themes = {
     accent: {
-      root: "bg-transparent border border-gray-300 focus-within:border focus-within:border-my-contrast",
+      root: "bg-transparent border border-gray-300 focus-within:border focus-within:border-gray-50",
       input: "bg-transparent text-white ",
-      button: "bg-transparent text-my-contrast active:text-my-black",
-      catalog: "text-my-contrast hover:text-gray-800",
+      button: "bg-transparent text-gray-50 active:text-my-black",
+      catalog: "text-gray-50 hover:text-gray-800",
     },
     contrast: {
       root: "bg-my-contrast border border-gray-300 focus-within:border focus-within:border-my-accent ",
@@ -56,7 +56,7 @@ function Search({ bgType }) {
           to="/catalogue"
           className={`transition duration-200 mt-0.5 font-sans text-sm font-medium ${themes[bgType].catalog}`}
         >
-          Product Catalogue
+          Catalogue
         </Link>
       </div>
     </div>
