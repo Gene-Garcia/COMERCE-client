@@ -55,7 +55,7 @@ function CartCheckout({ editable }) {
         {/* Checkout Button */}
         {checkoutable ? (
           <Link
-            to={`/user/checkout?products=${prepareUrlForProducts(items)}`}
+            to={`/checkout?products=${prepareUrlForProducts(items)}`}
             className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-md lg:text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
           >
             PROCEED TO CHECKOUT
