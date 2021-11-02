@@ -4,7 +4,7 @@ import ProductSmall from "../../../../../shared/Components/product/ProductSmall"
 import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
-import FilterButton from "./FilterButton";
+import FilterButton, { FilterHeader } from "./FilterButton";
 import useProductPagination from "../../../../../hooks/useProductPagination";
 import Pagination from "../../../../../shared/Components/pagination/Pagination";
 
@@ -82,38 +82,35 @@ function Catalogue() {
       <div className="flex flex-wrap sm:flex-nowrap my-12 mx-3 lg:mx-10 xl:mx-16 2xl:mx-28 gap-y-5 sm:gap-y-0 pb-12">
         <div className="w-full sm:w-52 flex flex-wrap flex-row sm:flex-col gap-y-10 justify-center sm:justify-start">
           <div className="flex flex-col gap-y-1">
-            <span className="text-sm font-semibold text-gray-400">
-              Product View
-            </span>
+            <FilterHeader name="Product View" />
+
             <FilterButton name="Grid View" />
             <FilterButton name="Board View" />
           </div>
 
           <div className="flex flex-col gap-y-1">
-            <span className="text-sm font-semibold text-gray-400">Sort By</span>
+            <FilterHeader name="Sort By" />
+
             <FilterButton name="All-time Sales" />
             <FilterButton name="Product Rating" />
           </div>
 
           <div className="flex flex-col gap-y-1">
-            <span className="text-sm font-semibold text-gray-400">
-              Order by
-            </span>
+            <FilterHeader name="Order by" />
+
             <FilterButton name="Highest Price" />
             <FilterButton name="Lowest Price" />
           </div>
 
           <div className="flex flex-col gap-y-1">
-            <span className="text-sm font-semibold text-gray-400">
-              Price Range
-            </span>
+            <FilterHeader name="Price Range" />
+
             <FilterButton name="Coming Soon..." />
           </div>
 
           <div className="flex flex-col gap-y-1">
-            <span className="text-sm font-semibold text-gray-400">
-              Product Category
-            </span>
+            <FilterHeader name="Product Category" />
+
             <FilterButton name="Coming Soon..." />
           </div>
         </div>
