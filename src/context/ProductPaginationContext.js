@@ -14,11 +14,15 @@ const initial = {
   maxPageOption: 1,
 
   // const values
+  // range of the pages option box shown
   range: 5,
+  // the number of products to be displayed per page
   productCountPerPage: 4,
 
-  searchFilter: "", // append to some regex
-  maxPagesPossible: 1, // to be changed on first load
+  // append to some regex
+  searchFilter: "",
+  // to be changed on first load through computation in the computeMaxPagesPossible
+  maxPagesPossible: 1,
 };
 
 function ProductPaginationProvider({ children }) {
