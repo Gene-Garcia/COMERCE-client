@@ -1,5 +1,12 @@
 function CheckoutReducer(state, action) {
   switch (action.type) {
+    /*
+     * changes the toggled step to the next step, SD (shippingdetails) --> (paymentdetails) --> (reviewdetails)
+     * changes the visited step, which means that this step has been finished and be revisited later
+     *
+     * toggled step is the variable that determines which component will be displayed
+     * visited step is crucial for determining which step is finished and can be clicked
+     */
     case "NEXT_STEP":
       if (!action.payload.finalStep)
         return {
@@ -7,8 +14,12 @@ function CheckoutReducer(state, action) {
           toggledStep: action.payload.nextStepId,
           visitedStep: action.payload.nextStepNumber,
         };
-      break;
+      else return { ...state };
 
+    /*
+     * changes the current toggled step that chanes the rendered component through
+     * changing the toggled step variable
+     */
     case "TOGGLE_STEP":
       return {
         ...state,
@@ -18,16 +29,25 @@ function CheckoutReducer(state, action) {
             : state.toggledStep,
       };
 
+    /*
+     * in the payment details component, there are also 3 more renderable components - COD, Credit Card, and PayPal
+     * this function changes the current rendered payment option in the payment details component.
+     */
     case "TOGGLE_PAYMENT":
       return { ...state, toggledPayment: action.payload };
+
+    // the submit function in shipping details component to load the form data to this context's state variables
 
     case "LOAD_SHIPPING_DETAILS":
       return { ...state, shippingDetails: { ...action.payload } };
 
-    // load payment details
+    /* the following load functions are triggered by only one method in this context, but are called based on paramter */
+
+    // tells that the payment method is COD. there are needed details, because it only needs the shipping details
     case "LOAD_COD_PAYMENT":
       return { ...state, paymentMethod: "COD" };
 
+    // payment method is credit card, and loads the payment details from the form data in the credit card component (card num, name, cvv, date)
     case "LOAD_CC_PAYMENT":
       return {
         ...state,
@@ -35,6 +55,7 @@ function CheckoutReducer(state, action) {
         paymentDetails: { ...action.payload },
       };
 
+    // payment method is paypal, and loads the payment details from the form data in the paypal component (email)
     case "LOAD_PP_PAYMENT":
       return {
         ...state,
@@ -42,9 +63,7 @@ function CheckoutReducer(state, action) {
         paymentDetails: { ...action.payload },
       };
 
-    case "PLACE_ORDER":
-      return { ...state };
-
+    // resets all the state variables of the checkout context, so that every details is empty
     case "RESET_TO_DEFAULT":
       return {
         toggledStep: "SD",
@@ -103,12 +122,6 @@ function actions(dispatch) {
     });
   };
 
-  const placeOrder = () => {
-    dispatch({
-      type: "PLACE_ORDER",
-    });
-  };
-
   const resetToDefault = () => {
     dispatch({
       type: "RESET_TO_DEFAULT",
@@ -121,7 +134,6 @@ function actions(dispatch) {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   };
 }

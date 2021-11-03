@@ -28,7 +28,6 @@ function CheckoutProvider({ children }) {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   } = actions(dispatch);
 
@@ -43,7 +42,6 @@ function CheckoutProvider({ children }) {
         togglePaymentOption,
         loadShippingDetails,
         loadPaymentDetails,
-        placeOrder,
         resetToDefault,
       }}
     >

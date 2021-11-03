@@ -17,7 +17,6 @@ function useCheckout() {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   } = useContext(CheckoutContext);
 
@@ -34,7 +33,6 @@ function useCheckout() {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   };
 }

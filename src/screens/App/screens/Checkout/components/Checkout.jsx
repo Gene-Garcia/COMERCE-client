@@ -117,6 +117,9 @@ function Checkout({ history }) {
               <StepIndicators />
             </div>
 
+            {/* we render all step components and just set them as hidden, even though we can use 
+            function that only renders a specific step. We do this so that when we progress to step
+            and choose to view finished step, the data there is still present */}
             <div className={toggledStep === "SD" ? "block" : "hidden"}>
               <ShippingDetails />
             </div>
