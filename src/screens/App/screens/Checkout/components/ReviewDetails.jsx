@@ -1,4 +1,5 @@
 import React from "react";
+import useAlert from "../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../hooks/useCart";
 import useCheckout from "../../../../../hooks/useCheckout";
 import { formatDate } from "../../../../../shared/utils/date";
@@ -9,17 +10,64 @@ import {
 import { formatPrice } from "../../../../../shared/utils/price";
 import { getShipmentETAs } from "../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
+import axios from "../../../../../shared/caller";
+import { useHistory } from "react-router";
 
-function ReviewDetails({ placeOrder }) {
+function ReviewDetails() {
+  // history
+  const history = useHistory();
+
+  // checkout context
   const {
-    shippingDetails: sd,
     toggledPayment,
-    paymentDetails,
-    loading,
-  } = useCheckout();
-  const { shippingFee, subTotal, grandTotal } = useShoppingCart();
 
+    shippingDetails,
+    paymentDetails,
+    paymentMethod,
+
+    loading,
+    setLoading,
+  } = useCheckout();
+
+  // shopping cart context
+  const { shippingFee, subTotal, grandTotal, items } = useShoppingCart();
+
+  // alert context
+  const { setMessage, setSeverity } = useAlert();
+
+  // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
+
+  // API request to current checkout
+  async function placeOrder() {
+    // when we place order place order button will be loading and unclickable
+    setLoading(true);
+
+    // data needed: items, shippingDetails, paymentMethod, paymentDetails
+    await axios
+      .post("/api/order/place", {
+        items,
+        shippingFee,
+        shippingDetails,
+        paymentMethod,
+        paymentDetails,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setSeverity("success");
+          setMessage(res.data.message);
+          // no need to setLoading to false because we will redirect
+          history.push("/user/orders");
+        }
+      })
+      .catch((err) => {
+        setSeverity("error");
+        if (err.response) {
+          if (err.response.data === 403) history.push("/login");
+          else setMessage(err.response.data.error);
+        } else setMessage("Unable to process your order. Try again later");
+      });
+  }
 
   return (
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
@@ -33,12 +81,12 @@ function ReviewDetails({ placeOrder }) {
       </ReviewBody>
 
       <ReviewBody title="Shipping Address">
-        <p>{`Ship to ${sd.firstName} ${sd.lastName}`}</p>
-        <p>{sd.streetAddress}</p>
+        <p>{`Ship to ${shippingDetails.firstName} ${shippingDetails.lastName}`}</p>
+        <p>{shippingDetails.streetAddress}</p>
         <p>
-          {sd.barangay}, {sd.cityMunicipality}
+          {shippingDetails.barangay}, {shippingDetails.cityMunicipality}
         </p>
-        <p>{sd.province}, Philippines</p>
+        <p>{shippingDetails.province}, Philippines</p>
         <p>Zip Code</p>
       </ReviewBody>
 

@@ -22,11 +22,15 @@ import Loading from "../../../../../shared/Loading/Loading";
  * the 'BUY NOW.'
  * However, now, we will persist the URL params to send the data. Because, we will now implement
  * useEffect cleanup on items. Hence, we will also cleanup the stored items.
+ * (This cleanup is referring to the cleanup in cart page)
  *
  * format would be products={id}+{quantity}|{id}+{quantity}|{id}+{quantity};
+ *
  */
 function Checkout({ history }) {
+  // alert context
   const { setMessage, setSeverity } = useAlert();
+
   // shopping cart context is empty
   const {
     loading,
@@ -34,20 +38,13 @@ function Checkout({ history }) {
     loadCartItems,
     addToCheckout,
     resetToDefault: resetCartToDefault,
-    items,
-    shippingFee,
   } = useShoppingCart();
-  // URL stored in product id
+
+  // to get URL stored in product id
   const query = useQuery();
+
   // checkout context, mainly uses the toggled step for this component
-  const {
-    toggledStep,
-    shippingDetails,
-    paymentMethod,
-    paymentDetails,
-    resetToDefault: resetCheckoutToDefault,
-    setLoading: setLoadingCheckout,
-  } = useCheckout();
+  const { toggledStep, resetToDefault: resetCheckoutToDefault } = useCheckout();
 
   // populate the checkouted products from url value
   useEffect(() => {
@@ -83,36 +80,6 @@ function Checkout({ history }) {
       setLoading(true);
     };
   }, []);
-
-  // For now, it is located here and just drilled down to <ReviewDetails />
-  // The API caller to place the checkouted order.
-  async function placeOrder() {
-    setLoadingCheckout(true);
-    // data needed: items, shippingDetails, paymentMethod, paymentDetails
-    await axios
-      .post("/api/order/place", {
-        items,
-        shippingFee,
-        shippingDetails,
-        paymentMethod,
-        paymentDetails,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setSeverity("success");
-          setMessage(res.data.message);
-          // no need to setLoading to false because we will redirect
-          history.push("/user/orders");
-        }
-      })
-      .catch((err) => {
-        setSeverity("error");
-        if (err.response) {
-          if (err.response.data === 403) history.push("/login");
-          else setMessage(err.response.data.error);
-        } else setMessage("Unable to process your order. Try again later");
-      });
-  }
 
   return (
     <>
@@ -159,7 +126,7 @@ function Checkout({ history }) {
             </div>
 
             <div className={toggledStep === "RD" ? "block" : "hidden"}>
-              <ReviewDetails placeOrder={placeOrder} />
+              <ReviewDetails />
             </div>
           </div>
 
