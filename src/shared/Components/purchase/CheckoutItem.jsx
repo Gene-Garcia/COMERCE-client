@@ -2,6 +2,14 @@ import React from "react";
 import { useShoppingCart } from "../../../hooks/useCart";
 import { formatPrice } from "../../utils/price";
 
+/*
+ * The checkout item is the product that is part of the checkouted items. In other words
+ * items that have been added for checkout.
+ *
+ * If the editable props is true, then hovering an item will show a gradient indicating
+ * that by clicking will remove the product from being checkouted. Otherwise, no hover effect
+ * an cannot be removed
+ */
 function CheckoutItem({ data, editable }) {
   const { productId, item, retailPrice, quantity, image } = data;
   const { removeFromCheckout } = useShoppingCart();

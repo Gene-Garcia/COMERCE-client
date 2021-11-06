@@ -1,5 +1,19 @@
 import React from "react";
 
+/*
+ * This a template for button that is capable of displaying a loading image and disabling
+ * the button. The state is based on the isLoading state.
+ *
+ * The styling of this button is stil dependent on the buttonClass paramater.
+ *
+ * Note, do not update the isLoading state variable when the page using this component
+ * will be redirected to another page. The reason for this is that react will raise a
+ * warning on updating an unmounted component.
+ * In other words
+ *  -. The consumer component after clicking the button will redirect to another page
+ *  -. That consumer component will update isLoading after history.push
+ *
+ */
 function Button({ isLoading, buttonClass, svgClass, onClick, children }) {
   return (
     <button

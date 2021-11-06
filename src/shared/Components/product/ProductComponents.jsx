@@ -35,6 +35,15 @@ function ProductPrice({ price, size }) {
  * 'rating' is an array that contains numbers which are the
  * rating of the product
  *
+ * Each star is logically assigned with a range of numbers. If the rating of the product falls within the range
+ * of that star, then it will be set as an accented start.
+ *
+ * from left to right
+ * Star 1 is to 1 - 1.99
+ * Star 2 is to 1.99 - 2.99
+ * Star 3 is to 2.99 - 3.99
+ * Star 4 is to 3.99 - 4.99
+ * Star 5 is to 4.99 - 5.99
  */
 function ProductRating({ size, rating }) {
   const Star = ({ color, size }) => {
@@ -77,18 +86,21 @@ function ProductRating({ size, rating }) {
             size={size}
           />
         </div>
+
         <div>
           <Star
             color={score >= 2.99 ? "text-my-accent" : "text-gray-600"}
             size={size}
           />
         </div>
+
         <div>
           <Star
             color={score >= 3.99 ? "text-my-accent" : "text-gray-600"}
             size={size}
           />
         </div>
+
         <div>
           <Star
             color={score >= 4.99 ? "text-my-accent" : "text-gray-600"}

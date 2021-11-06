@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useProductPagination from "../../../hooks/useProductPagination";
+
+/*
+ * This pagination component renders two arrow button, and number pages in the center of it.
+ * The number of pages renderd between the arrows depends on the PaginationContext's minPageOption and maxPageOption
+ *
+ * The current logic of the pagination pages is that the active button will move to the next page number and change the
+ * button's accent to blue. Now if, the next page is invisible or not yet shown (becaue there is a limit of minPageOption & maxPageOption),
+ * the component will re-render with new minPageOption and maxPageOption with the pages not shown before.
+ *
+ * For this component to work, the ProductPaginationContext is needed to be used.
+ */
 
 function Pagination() {
   const {

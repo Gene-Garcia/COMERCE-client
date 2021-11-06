@@ -5,6 +5,19 @@ import { prepareUrlForProducts } from "../../Route/urlParser";
 import { formatPrice } from "../../utils/price";
 import CheckoutItem from "./CheckoutItem";
 
+/*
+ * The CartCheckout component will hold the current checkouted product which can be
+ * done in the cart page. It also happen on clicking the buy now button of a product card.
+ *
+ * In the cart page, the CartCheckout component is capable if removing a checkouted item through hover then click.
+ * However, since this component is also used the Checkout page, the Checkout page disable
+ * that feature to setting editable={false}
+ *
+ * Also if the editable is false, then the component is probably used in the CheckoutPage, hence
+ * the button to redirect to the component page is also hidden.
+ *
+ * The product item container is the CheckoutItem.
+ */
 function CartCheckout({ editable }) {
   const { items, subTotal, grandTotal, shippingFee, checkoutable } =
     useShoppingCart();

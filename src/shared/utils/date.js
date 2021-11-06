@@ -1,6 +1,10 @@
 /*
+ * this helper utility function will convert the mm-dd-yyyy format
+ * into a format that is easily read by the user, specifically, easily
+ * determine the month.
  *
- *
+ * The full prop tells on whether which type of month string to use.
+ * If full is true or 1, then the fullMonth variable will be used, otherwise the shortcutMonth
  */
 function formatDate(d, full) {
   const fullMonth = [
