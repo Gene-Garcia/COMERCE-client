@@ -37,12 +37,10 @@ function CheckoutReducer(state, action) {
       return { ...state, toggledPayment: action.payload };
 
     // the submit function in shipping details component to load the form data to this context's state variables
-
     case "LOAD_SHIPPING_DETAILS":
       return { ...state, shippingDetails: { ...action.payload } };
 
     /* the following load functions are triggered by only one method in this context, but are called based on paramter */
-
     // tells that the payment method is COD. there are needed details, because it only needs the shipping details
     case "LOAD_COD_PAYMENT":
       return { ...state, paymentMethod: "COD" };
@@ -63,7 +61,8 @@ function CheckoutReducer(state, action) {
         paymentDetails: { ...action.payload },
       };
 
-    // resets all the state variables of the checkout context, so that every details is empty
+    // resets all the state variables of the checkout context, so that every details is empty.
+    // all information component will have empty values and default selected
     case "RESET_TO_DEFAULT":
       return {
         toggledStep: "SD",
@@ -109,6 +108,7 @@ function actions(dispatch) {
     });
   };
 
+  // depending on the selected type of payment, this function will trigger its designated load function
   const loadPaymentDetails = (paymentType, details) => {
     let type;
 

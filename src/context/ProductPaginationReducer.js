@@ -66,8 +66,13 @@ function ProductPaginationReducer(state, action) {
     case "SET_TOTAL_PRODUCT_COUNT":
       return { ...state, productCount: action.payload };
 
+    /*
+     * computes the requires number of pages for all the product to be displayed
+     * formula used is productCount/productCountPerPage rounded up. The formula only states that the
+     * total number of products are being divided by pages to be displayed. It is rounded because result sometimes lead to decimal
+     * and ensure every product is taken.
+     */
     case "COMPUTE_MAX_PAGES_POSSIBLE":
-      // length / 2 - round up
       return {
         ...state,
         maxPagesPossible: Math.ceil(
@@ -75,8 +80,11 @@ function ProductPaginationReducer(state, action) {
         ),
       };
 
-    // by default min option is 1, and max option is 5. If maxPagesPossible is less than 5, maxOption should maxPagesPossible value
-    // e.g., if maxPagesPossible is 4, then max option should be 4 also. Otherwise if 5 or higher, max option should be 5.
+    /*
+     * minPageOption is always and by default is one.
+     * maxPageOption is dependent on the hard-coded definition of RANGE. range is never change on runtime. However, whenever the maxPagesPossible
+     * is less then RANGE, then maxPageOption will be maxPagesPossible.
+     */
     case "INITIALIZE_MIN_MAX_PAGE_OPTIONS":
       return {
         ...state,
@@ -95,13 +103,12 @@ function ProductPaginationReducer(state, action) {
 
     case "FORWARD_BUTTON_CLICK":
       // click fwdBtn has two actions
-      // one: the active page button will move from 1 to 5,
-      // two: reaching 5 then click fwdBtn, incrementing 5 with another 5 (or to its maxvalue possible-1)
+      // one: the active page button will move from 1 to maxPageOption,
+      // two: reaching 5 then click fwdBtn, incrementing with another RANGE (or to its maxvalue possible-1)
 
       /*
        * The conditions of the return implements isolated if statements, meaning each variable will modify
-       * it value alone and not within an if () else statement. I think its a much understandble
-       *
+       * its value alone and not within an if () else statement. I think its a much understandble approach
        */
 
       return {
@@ -172,10 +179,8 @@ function ProductPaginationReducer(state, action) {
 }
 export default ProductPaginationReducer;
 
-function alwaysOne(v) {
-  return v >= 1 ? v : 1;
-}
-
+// a simple function that checks if value (usually a value recently performed with addition) is greater than the limit, if it will return and retain
+// the set value, otherwsie, the recently added value will be returned
 function addMustNotExceed(value, limiter, retain) {
   return value > limiter ? retain : value;
 }

@@ -1,13 +1,13 @@
 /*
  * The reducer that will carry out the actions that modifies
  * the state variables used in the Shopping Cart
- *
  */
 function ShoppingCartReducer(state, action) {
   switch (action.type) {
     case "LOAD_CART_ITEMS":
       return { ...state, items: [...action.payload] };
 
+    // increases the quantity of the item selected to add quantity
     case "INCREASE_QUANTITY":
       return {
         ...state,
@@ -18,6 +18,7 @@ function ShoppingCartReducer(state, action) {
         ),
       };
 
+    // decreases the quantity of the item selected to reduce quantity. However, the minimum quantity is 1; cannot be 0 or negative.
     case "DECREASE_QUANTITY":
       return {
         ...state,
@@ -28,6 +29,7 @@ function ShoppingCartReducer(state, action) {
         ),
       };
 
+    // adds the selected item to checkout by setting the item's checkout field as true
     case "ADD_TO_CHECKOUT":
       return {
         ...state,
@@ -36,12 +38,14 @@ function ShoppingCartReducer(state, action) {
         ),
       };
 
+    // sets all the item to have a checkout field as true
     case "ADD_ALL_TO_CHECKOUT":
       return {
         ...state,
         items: state.items.map((e) => ({ ...e, checkout: true })),
       };
 
+    // removes the selected item to be checkouted by setting its checkout as false
     case "REMOVE_FROM_CHECKOUT":
       return {
         ...state,
@@ -50,6 +54,7 @@ function ShoppingCartReducer(state, action) {
         ),
       };
 
+    // a function the computes the total pricings of the current items selected for checkout
     case "COMPUTE_PRICES":
       let tempSubTotal = state.items
         .map((e) => (e.checkout ? e.retailPrice * e.quantity : 0))
@@ -63,6 +68,8 @@ function ShoppingCartReducer(state, action) {
         grandTotal: tempGrandTotal,
       };
 
+    // iterates through all the items and finds for atleast one item object to have a checkoutable = true in order to set checkoutable as true
+    // being checkoutable indicates atleast one item was selected and the user can proceed to the chekout page
     case "DETERMINE_CHECKOUTABLE":
       return {
         ...state,
@@ -71,6 +78,7 @@ function ShoppingCartReducer(state, action) {
           : false,
       };
 
+    // removes the selected item from the items list, because it has been removed from the database by the server through the API request.
     case "REMOVE_CART_ITEM":
       return {
         ...state,
@@ -133,14 +141,15 @@ function actions(dispatch) {
     determineCheckoutable();
   };
 
-  /* Computes both sub total and grand total */
+  // compute prices is a function that called by other reducer action, specifically, actions that related to updating the current
+  // checkouted items. so that the pricing displayed will be based on current checkouted items on-real-time
   const computePrices = () => {
     dispatch({
       type: "COMPUTE_PRICES",
     });
   };
 
-  /* Determines if the has selected atleast one product for checkout */
+  // a function that is also called by other reducer actions so that whenever, an item is added or removed it will check on whether to set checkoutable as true or false
   const determineCheckoutable = () => {
     dispatch({
       type: "DETERMINE_CHECKOUTABLE",

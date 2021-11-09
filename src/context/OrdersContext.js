@@ -4,7 +4,6 @@ import { createContext, useState } from "react";
  * This context is used on the orders history page of the user
  *
  */
-
 const OrdersContext = createContext();
 export default OrdersContext;
 
@@ -27,6 +26,7 @@ function OrdersProvider({ children }) {
     setOrders(data);
   };
 
+  // sets the order to be rendered for rating
   const setSelectedOrder = (selected) => {
     setOrder(selected);
   };

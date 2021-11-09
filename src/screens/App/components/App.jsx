@@ -17,6 +17,12 @@ import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 
+/*
+ * the entire function is wrapped in withRouter in order to access the location object
+ * and obtain the pathname.
+ *
+ * obtaining the pathname is crucial for rendering components to have or not have a navbar and footer.
+ */
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
     const navles = ["/login", "/sign-up", "/"];
