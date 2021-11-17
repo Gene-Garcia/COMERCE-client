@@ -53,6 +53,9 @@ const AppContent = memo(
 
           <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
+          {/* seller routes */}
+          <Route {...route.SELLER.subroutes.REGISTER} />
+
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

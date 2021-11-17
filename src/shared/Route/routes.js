@@ -86,6 +86,18 @@ const routes = {
       },
     },
   },
+
+  SELLER: {
+    path: "/seller",
+    name: "Landing Page for Sellers",
+
+    subroutes: {
+      REGISTER: {
+        path: "/seller/register",
+        name: "Seller Registration",
+      },
+    },
+  },
 };
 
 // /signin
