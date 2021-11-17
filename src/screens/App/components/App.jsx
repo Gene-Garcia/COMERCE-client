@@ -25,7 +25,7 @@ import { ProductPaginationProvider } from "../../../context/ProductPaginationCon
  */
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
-    const navles = ["/login", "/sign-up", "/"];
+    const navles = ["/login", "/sign-up", "/", "/seller/register"];
 
     return (
       <>
