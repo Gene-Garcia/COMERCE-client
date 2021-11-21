@@ -36,12 +36,12 @@ function Step({ main, sub, status }) {
     <div className="group bg-white rounded-l-lg p-4 flex flex-row items-center justify-between">
       <div>
         <p
-          className={`${theme[status].main} font-medium text-xl transition duration-200 group-hover:text-my-accent`}
+          className={`${theme[status].main} font-medium text-lg transition duration-200 group-hover:text-my-accent`}
         >
           {main}
         </p>
         <p
-          className={`${theme[status].sub} text-lg font-regular transition duration-200 group-hover:text-my-accent`}
+          className={`${theme[status].sub} text-md font-regular transition duration-200 group-hover:text-my-accent`}
         >
           {sub}
         </p>
@@ -49,7 +49,7 @@ function Step({ main, sub, status }) {
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 group-hover:text-my-accent transition duration-200"
+        className="h-4 w-4 group-hover:text-my-accent transition duration-200"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
