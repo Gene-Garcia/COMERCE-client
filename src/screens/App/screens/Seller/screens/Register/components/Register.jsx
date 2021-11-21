@@ -1,4 +1,5 @@
 import React from "react";
+import RegistrationSteps from "./RegistrationSteps";
 
 const termsConditions = `Welcome to www.lorem-ipsum.info. This site is provided as a service to our visitors and may be used for informational purposes only. Because the Terms and Conditions contain legal obligations, please read them carefully.
 
@@ -54,36 +55,15 @@ contact@lorem-ipsum.info`;
 function Register() {
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
-      <div className="w-1/2 flex-shrink">
-        <p>Steps</p>
-
-        <div className="rounded shadow-xl bg-white p-5">
-          <h1 className="text-3xl font-serif text-black font-semibold">
-            Become a COMERCE seller
-          </h1>
-          <div className="border-b border-gray-700 rounded w-72"></div>
-
-          <p className="font-regular text-gray-600 mt-5 mb-2">
-            Carefully read the terms and condition of becoming a COMERCE seller.
-          </p>
-
-          <div className="h-96 rounded-md bg-gray-100 p-3 overflow-y-auto overflow-x-hidden">
-            <div className="font-regular whitespace-pre-line text-gray-700">
-              {termsConditions}
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <p className="text-sm text-gray-500 font-medium">
-              By clicking{" "}
-              <span className="underline text-my-accent">Proceed</span> you
-              agree to the terms and conditions of COMERCE.
-            </p>
-            <button className="bg-my-accent rounded px-5 py-1.5 text-white text-md font-semibold border border-transparent transition duration-200 hover:border-my-accent hover:bg-white hover:text-black">
-              Proceed
-            </button>
-          </div>
+      {/* root container - no bg color */}
+      <div className="w-1/2 flex flex-row shadow-2xl">
+        {/* steps container */}
+        <div className="w-1/4 rounded-l-lg">
+          <RegistrationSteps />
         </div>
+
+        {/* content */}
+        <div className="w-3/4 bg-white rounded-r-lg"></div>
       </div>
     </div>
   );
