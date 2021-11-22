@@ -3,12 +3,6 @@ import useSellerRegistration from "../../../../../../../hooks/useSellerRegistrat
 import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function RegistrationSteps() {
-  // seller context
-  const { activeStepId: aSI, changeActiveStep } = useSellerRegistration();
-
-  // onclick function
-  const toggle = (id) => changeActiveStep(id);
-
   return (
     <div className="flex flex-col gap-3">
       {/* COMERCE logo */}
@@ -18,33 +12,23 @@ function RegistrationSteps() {
       </div>
 
       {/* Steps */}
-      <Step
-        id={0}
-        status={aSI === 0 ? "toggled" : "idle"}
-        main="Step 1"
-        sub="Terms of Agreement"
-        onClick={toggle}
-      />
-      <Step
-        id={1}
-        status={aSI === 1 ? "toggled" : "idle"}
-        main="Step 2"
-        sub="Account Information"
-        onClick={toggle}
-      />
-      <Step
-        id={2}
-        status={aSI === 2 ? "toggled" : "idle"}
-        main="Step 3"
-        sub="Business Information"
-        onClick={toggle}
-      />
+      <Step id={0} main="Step 1" sub="Terms of Agreement" />
+      <Step id={1} main="Step 2" sub="Account Information" />
+      <Step id={2} main="Step 3" sub="Business Information" />
     </div>
   );
 }
 export default RegistrationSteps;
 
-function Step({ main, sub, status, id, onClick }) {
+function Step({ main, sub, id }) {
+  const { activeStepId, visitedStep, changeActiveStep } =
+    useSellerRegistration();
+
+  let status;
+  if (activeStepId === id) status = "toggled";
+  else if (activeStepId !== id && id <= visitedStep) status = "visited";
+  else status = "idle";
+
   const theme = {
     toggled: {
       main: "text-my-accent",
@@ -52,6 +36,11 @@ function Step({ main, sub, status, id, onClick }) {
     },
 
     idle: {
+      main: "text-gray-400",
+      sub: "text-gray-300",
+    },
+
+    visited: {
       main: "text-gray-800 ",
       sub: "text-gray-700 ",
     },
@@ -59,7 +48,7 @@ function Step({ main, sub, status, id, onClick }) {
 
   return (
     <div
-      onClick={() => onClick(id)}
+      onClick={() => changeActiveStep(id)}
       className="group bg-white rounded-l-lg p-4 flex flex-row items-center justify-between cursor-pointer"
     >
       <div>
