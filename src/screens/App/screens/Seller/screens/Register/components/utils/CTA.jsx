@@ -8,9 +8,13 @@ function DesignedButton({ value, onClick }) {
   );
 }
 
+function Body({ children }) {
+  return <div className="flex flex-row gap-8 items-center">{children}</div>;
+}
+
 function TOACTA() {
   return (
-    <div className="flex flex-row gap-8 items-center">
+    <Body>
       <DesignedButton value="AGREE" />
 
       <a href="#" className="text-xl font-medium text-gray-400 group">
@@ -18,8 +22,22 @@ function TOACTA() {
           Disagree
         </span>
       </a>
-    </div>
+    </Body>
   );
 }
 
-export { TOACTA };
+function AccountInfoCTA() {
+  return (
+    <Body>
+      <DesignedButton value="SUBMIT" />
+
+      <a href="#" className="text-xl font-medium text-gray-400 group">
+        <span className="border-b border-transparent rounded transition duration-200 group-hover:border-gray-900 ">
+          Cancel
+        </span>
+      </a>
+    </Body>
+  );
+}
+
+export { TOACTA, AccountInfoCTA };

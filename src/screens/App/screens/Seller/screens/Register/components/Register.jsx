@@ -1,6 +1,7 @@
 import React from "react";
 import RegistrationSteps from "./RegistrationSteps";
-import TermsOfAgreement from "./TOA";
+import AccountInfo from "./steps/AccountInfo";
+import TermsOfAgreement from "./steps/TOA";
 
 function Register() {
   return (
@@ -14,7 +15,8 @@ function Register() {
 
         {/* content */}
         <div className="w-3/4  bg-white rounded-r-lg p-8">
-          <TermsOfAgreement />
+          {/* <TermsOfAgreement /> */}
+          <AccountInfo />
         </div>
       </div>
     </div>
