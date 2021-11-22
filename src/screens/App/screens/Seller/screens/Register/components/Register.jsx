@@ -1,6 +1,7 @@
 import React from "react";
 import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
+import BusinessInfo from "./steps/BusinessInfo";
 import TermsOfAgreement from "./steps/TOA";
 
 function Register() {
@@ -16,7 +17,8 @@ function Register() {
         {/* content */}
         <div className="w-3/4  bg-white rounded-r-lg p-8">
           {/* <TermsOfAgreement /> */}
-          <AccountInfo />
+          {/* <AccountInfo /> */}
+          <BusinessInfo />
         </div>
       </div>
     </div>

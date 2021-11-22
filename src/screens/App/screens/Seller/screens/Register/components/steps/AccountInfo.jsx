@@ -1,5 +1,7 @@
 import React from "react";
-import InputField from "../../../../../../../../shared/Components/seller/InputField";
+import InputField, {
+  FileInput,
+} from "../../../../../../../../shared/Components/seller/InputField";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
