@@ -1,11 +1,22 @@
 import React from "react";
-import InputField, {
-  FileInput,
-} from "../../../../../../../../shared/Components/seller/InputField";
+import useAlert from "../../../../../../../../hooks/useAlert";
+import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
+import InputField from "../../../../../../../../shared/Components/seller/InputField";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
 function AccountInfo() {
+  // alert message
+  const { setMessage, setSeverity } = useAlert();
+
+  // seller context
+  const { proceedToNextStep } = useSellerRegistration();
+
+  // submit function
+  const createAccountOnSubmit = () => {
+    proceedToNextStep(2);
+  };
+
   return (
     <div className="flex flex-col justify-between gap-10">
       <Title name="Account Information" />
@@ -62,7 +73,7 @@ function AccountInfo() {
         />
       </div>
 
-      <AccountInfoCTA />
+      <AccountInfoCTA onClick={createAccountOnSubmit} />
     </div>
   );
 }

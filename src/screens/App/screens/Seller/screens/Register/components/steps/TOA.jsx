@@ -1,4 +1,6 @@
 import React from "react";
+import useAlert from "../../../../../../../../hooks/useAlert";
+import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
 import { TOACTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
@@ -54,6 +56,17 @@ These Terms and Conditions shall be governed by and construed in accordance with
 Our Support Address: http://www.astudioofourown.com`;
 
 function TermsOfAgreement() {
+  // alert message
+  const { setMessage, setSeverity } = useAlert();
+
+  // seller context
+  const { proceedToNextStep } = useSellerRegistration();
+
+  // submit button
+  const agreeTOA = () => {
+    proceedToNextStep(1);
+  };
+
   return (
     <div className="flex flex-col justify-between gap-10">
       <Title name="Terms of Agreement" />
@@ -62,7 +75,7 @@ function TermsOfAgreement() {
         <p className="text-base text-black">{data}</p>
       </div>
 
-      <TOACTA />
+      <TOACTA onClick={agreeTOA} />
     </div>
   );
 }

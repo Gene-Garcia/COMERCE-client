@@ -2,7 +2,10 @@ import React from "react";
 
 function DesignedButton({ value, onClick }) {
   return (
-    <button className="bg-my-accent rounded text-white px-10 py-3 text-lg font-medium shadow-lg transition duration-200 hover:bg-my-accent-mono">
+    <button
+      onClick={onClick}
+      className="bg-my-accent rounded text-white px-10 py-3 text-lg font-medium shadow-lg transition duration-200 hover:bg-my-accent-mono"
+    >
       {value}
     </button>
   );
@@ -12,10 +15,10 @@ function Body({ children }) {
   return <div className="flex flex-row gap-8 items-center">{children}</div>;
 }
 
-function TOACTA() {
+function TOACTA({ onClick }) {
   return (
     <Body>
-      <DesignedButton value="AGREE" />
+      <DesignedButton value="AGREE" onClick={onClick} />
 
       <a href="#" className="text-lg font-medium text-gray-400 group">
         <span className="border-b border-transparent rounded transition duration-200 group-hover:border-gray-900 ">
@@ -26,10 +29,10 @@ function TOACTA() {
   );
 }
 
-function AccountInfoCTA() {
+function AccountInfoCTA({ onClick }) {
   return (
     <Body>
-      <DesignedButton value="SUBMIT" />
+      <DesignedButton value="SUBMIT" onClick={onClick} />
 
       <a href="#" className="text-lg font-medium text-gray-400 group">
         <span className="border-b border-transparent rounded transition duration-200 group-hover:border-gray-900 ">
@@ -40,10 +43,10 @@ function AccountInfoCTA() {
   );
 }
 
-function BusinessInfoCTA() {
+function BusinessInfoCTA({ onClick }) {
   return (
     <Body>
-      <DesignedButton value="CREATE ACCOUNT" />
+      <DesignedButton value="CREATE ACCOUNT" onClick={onClick} />
 
       <a href="#" className="text-lg font-medium text-gray-400 group">
         <span className="border-b border-transparent rounded transition duration-200 group-hover:border-gray-900 ">

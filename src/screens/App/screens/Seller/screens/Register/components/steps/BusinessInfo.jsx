@@ -1,4 +1,6 @@
 import React from "react";
+import useAlert from "../../../../../../../../hooks/useAlert";
+import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
 import InputField, {
   FileInput,
 } from "../../../../../../../../shared/Components/seller/InputField";
@@ -6,6 +8,18 @@ import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
 function BusinessInfo() {
+  // alert message
+  const { setMessage, setSeverity } = useAlert();
+
+  // seller context
+  // const {} = useSellerRegistration()
+
+  // submit function
+  const createBusiness = () => {
+    setSeverity("success");
+    setMessage("Accounted created succesfully");
+  };
+
   return (
     <div className="flex flex-col justify-between gap-10">
       <Title name="Business Information" />
@@ -44,7 +58,7 @@ function BusinessInfo() {
         />
       </div>
 
-      <BusinessInfoCTA />
+      <BusinessInfoCTA onClick={createBusiness} />
     </div>
   );
 }
