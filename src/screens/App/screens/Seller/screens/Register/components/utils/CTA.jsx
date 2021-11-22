@@ -2,7 +2,7 @@ import React from "react";
 
 function DesignedButton({ value, onClick }) {
   return (
-    <button className="bg-my-accent rounded text-white px-10 py-3 text-xl font-medium transition duration-200 hover:bg-my-accent-mono">
+    <button className="bg-my-accent rounded text-white px-10 py-3 text-xl font-medium shadow-lg transition duration-200 hover:bg-my-accent-mono">
       {value}
     </button>
   );

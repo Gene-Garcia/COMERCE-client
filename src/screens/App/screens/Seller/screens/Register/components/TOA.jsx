@@ -55,7 +55,7 @@ Our Support Address: http://www.astudioofourown.com`;
 
 function TermsOfAgreement() {
   return (
-    <div className="space-y-10">
+    <div className="flex flex-col justify-between gap-10">
       <Title name="Terms of Agreement" />
 
       <div className="h-96 whitespace-pre-line overflow-y-scroll">

@@ -13,7 +13,7 @@ function Register() {
         </div>
 
         {/* content */}
-        <div className="w-3/4 bg-white rounded-r-lg p-8">
+        <div className="w-3/4  bg-white rounded-r-lg p-8">
           <TermsOfAgreement />
         </div>
       </div>
