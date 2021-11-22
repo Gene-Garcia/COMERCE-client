@@ -15,7 +15,7 @@ function SellerRegistrationReducer(state, action) {
         activeStepId:
           action.payload <= state.visitedStep
             ? action.payload
-            : state.visitedStep,
+            : state.activeStepId,
       };
 
     case "PROCEDD_TO_NEXT_STEP":
