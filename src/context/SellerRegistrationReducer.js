@@ -22,7 +22,7 @@ function SellerRegistrationReducer(state, action) {
       return {
         ...state,
         visitedStep: action.payload,
-        activeStepId: activeStepId.payload,
+        activeStepId: action.payload,
       };
 
     case "RESET_TO_DEFAULT":

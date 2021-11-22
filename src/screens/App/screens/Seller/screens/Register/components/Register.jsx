@@ -1,10 +1,14 @@
 import React from "react";
+import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
 import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
 import BusinessInfo from "./steps/BusinessInfo";
 import TermsOfAgreement from "./steps/TOA";
 
 function Register() {
+  // seller registration context
+  const { activeStepId } = useSellerRegistration();
+
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
       {/* root container - no bg color */}
@@ -16,9 +20,17 @@ function Register() {
 
         {/* content */}
         <div className="w-3/4  bg-white rounded-r-lg p-8">
-          {/* <TermsOfAgreement /> */}
-          {/* <AccountInfo /> */}
-          <BusinessInfo />
+          <div className={`${activeStepId === 0 ? "block" : "hidden"}`}>
+            <TermsOfAgreement />
+          </div>
+
+          <div className={`${activeStepId === 1 ? "block" : "hidden"}`}>
+            <AccountInfo />
+          </div>
+
+          <div className={`${activeStepId === 2 ? "block" : "hidden"}`}>
+            <BusinessInfo />
+          </div>
         </div>
       </div>
     </div>

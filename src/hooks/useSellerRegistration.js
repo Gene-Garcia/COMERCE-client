@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import { useContext } from "react";
 import SellerRegistrationContext from "../context/SellerRegistrationContext";
 
 function useSellerRegistration() {
@@ -17,7 +17,7 @@ function useSellerRegistration() {
       accountInformation,
       businessInformation,
     },
-  } = useReducer(SellerRegistrationContext);
+  } = useContext(SellerRegistrationContext);
 
   return {
     updateTOA,

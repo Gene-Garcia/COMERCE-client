@@ -16,6 +16,7 @@ import { CheckoutProvider } from "../../../context/CheckoutContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
+import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 
 /*
  * the entire function is wrapped in withRouter in order to access the location object
@@ -107,7 +108,9 @@ function App() {
               <CheckoutProvider>
                 <OrdersProvider>
                   <RateProvider>
-                    <AppContent />
+                    <SellerRegistrationProvider>
+                      <AppContent />
+                    </SellerRegistrationProvider>
                   </RateProvider>
                 </OrdersProvider>
               </CheckoutProvider>

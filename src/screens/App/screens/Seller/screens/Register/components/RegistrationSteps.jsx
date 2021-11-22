@@ -1,7 +1,14 @@
 import React from "react";
+import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
 import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function RegistrationSteps() {
+  // seller context
+  const { activeStepId: aSI, changeActiveStep } = useSellerRegistration();
+
+  // onclick function
+  const toggle = (id) => changeActiveStep(id);
+
   return (
     <div className="flex flex-col gap-3">
       {/* COMERCE logo */}
@@ -11,15 +18,33 @@ function RegistrationSteps() {
       </div>
 
       {/* Steps */}
-      <Step status="toggled" main="Step 1" sub="Terms of Agreement" />
-      <Step status="idle" main="Step 2" sub="Account Information" />
-      <Step status="idle" main="Step 3" sub="Business Information" />
+      <Step
+        id={0}
+        status={aSI === 0 ? "toggled" : "idle"}
+        main="Step 1"
+        sub="Terms of Agreement"
+        onClick={toggle}
+      />
+      <Step
+        id={1}
+        status={aSI === 1 ? "toggled" : "idle"}
+        main="Step 2"
+        sub="Account Information"
+        onClick={toggle}
+      />
+      <Step
+        id={2}
+        status={aSI === 2 ? "toggled" : "idle"}
+        main="Step 3"
+        sub="Business Information"
+        onClick={toggle}
+      />
     </div>
   );
 }
 export default RegistrationSteps;
 
-function Step({ main, sub, status }) {
+function Step({ main, sub, status, id, onClick }) {
   const theme = {
     toggled: {
       main: "text-my-accent",
@@ -33,7 +58,10 @@ function Step({ main, sub, status }) {
   };
 
   return (
-    <div className="group bg-white rounded-l-lg p-4 flex flex-row items-center justify-between">
+    <div
+      onClick={() => onClick(id)}
+      className="group bg-white rounded-l-lg p-4 flex flex-row items-center justify-between cursor-pointer"
+    >
       <div>
         <p
           className={`${theme[status].main} font-medium text-lg transition duration-200 group-hover:text-my-accent`}
