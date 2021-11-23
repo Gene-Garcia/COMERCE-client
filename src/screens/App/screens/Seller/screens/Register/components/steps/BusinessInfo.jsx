@@ -71,7 +71,7 @@ function BusinessInfo() {
             onChange={handleInput}
             label="BUSINESS NAME"
             placeholder="name of your business"
-            className="w-5/12"
+            className="w-1/2"
           />
 
           <InputField
@@ -82,7 +82,7 @@ function BusinessInfo() {
             onChange={handleInput}
             label="ESTABLISHMENT DATE"
             placeholder="date of launching"
-            className="w-5/12"
+            className="w-1/2"
           />
         </div>
 
