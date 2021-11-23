@@ -60,10 +60,13 @@ function TermsOfAgreement() {
   const { setMessage, setSeverity } = useAlert();
 
   // seller context
-  const { proceedToNextStep } = useSellerRegistration();
+  const { proceedToNextStep, updateTOA } = useSellerRegistration();
 
   // submit button
   const agreeTOA = () => {
+    updateTOA(true);
+    setSeverity("information");
+    setMessage("You have agreed with COMERCE terms of agreement.");
     proceedToNextStep(1);
   };
 

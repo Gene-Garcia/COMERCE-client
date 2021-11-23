@@ -11,10 +11,13 @@ function AccountInfo() {
   const { setMessage, setSeverity } = useAlert();
 
   // seller context
-  const { proceedToNextStep } = useSellerRegistration();
+  const { proceedToNextStep, loadAccountInformation } = useSellerRegistration();
 
   // submit function
   const createAccountOnSubmit = () => {
+    loadAccountInformation(values);
+    setSeverity("information");
+    setMessage("We are now creating your seller account.");
     proceedToNextStep(2);
   };
 

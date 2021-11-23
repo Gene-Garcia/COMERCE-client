@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
@@ -7,13 +7,14 @@ import InputField, {
 } from "../../../../../../../../shared/Components/seller/InputField";
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
+import axios from "../../../../../../../../shared/caller";
 
 function BusinessInfo() {
   // alert message
   const { setMessage, setSeverity } = useAlert();
 
   // seller context
-  // const {} = useSellerRegistration()
+  const { loadBusinesssInformation } = useSellerRegistration();
 
   // file input on change
   const fileOnChange = (e) => {
@@ -21,9 +22,25 @@ function BusinessInfo() {
   };
 
   // submit function
-  const createBusiness = () => {
-    setSeverity("success");
-    setMessage("Accounted created succesfully");
+  const createBusiness = async () => {
+    // start the loading because axios call will start
+    setIsLoading(true);
+
+    loadBusinesssInformation(values);
+
+    // api call
+    await axios
+      .post("/api/seller/register", values)
+      .then((res) => {
+        if (res.status === 200) {
+          setSeverity("success");
+          setMessage("Accounted created succesfully");
+        }
+      })
+      .catch((err) => {
+        setSeverity("error");
+        setMessage("Something went wrong");
+      });
   };
 
   const init = { businessName: "", established: "", tagline: "" };
@@ -43,12 +60,14 @@ function BusinessInfo() {
     setErrors(temp);
   };
 
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
-    init,
-    init,
-    validate,
-    createBusiness
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    isLoading,
+    setIsLoading,
+  } = useForm(init, init, validate, createBusiness);
 
   return (
     <div className="flex flex-col justify-between gap-10">
