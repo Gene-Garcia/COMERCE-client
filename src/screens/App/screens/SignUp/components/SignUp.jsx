@@ -10,7 +10,7 @@ import Button from "../../../../../shared/Components/button/Button";
 function SignUp({ history }) {
   async function SignUpAPI() {
     await axios
-      .post("/api/signup", values)
+      .post("/api/signup", { ...values, userType: "CUSTOMER" })
       .then((res) => {
         if (res.status === 200) {
           resetForms();
