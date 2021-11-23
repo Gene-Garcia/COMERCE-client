@@ -22,6 +22,7 @@ function SignUp({ history }) {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         setSeverity("error");
 
         if (err.response) setMessage(err.response.data.error);
@@ -77,6 +78,7 @@ function SignUp({ history }) {
     handleFormSubmit,
     resetForms,
     isLoading,
+    setIsLoading,
   } = useForm(initialState, initialState, validate, SignUpAPI);
 
   // Request error message
