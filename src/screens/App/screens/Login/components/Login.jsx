@@ -13,7 +13,7 @@ function Login({ history }) {
 
   async function LoginApi() {
     await axios
-      .post("/api/signin", values)
+      .post("/api/signin", { ...values, expectedUserType: "CUSTOMER" })
       .then((res) => {
         if (res.status === 200) {
           setUserPersistData(res.data.user.email, res.data.user.username);
@@ -26,6 +26,7 @@ function Login({ history }) {
         setSeverity("error");
         if (err.response) setMessage(err.response.data.error);
         else setMessage("Something went wrong. Try again.");
+        setIsLoading(false);
       });
   }
 
@@ -48,12 +49,14 @@ function Login({ history }) {
   }
 
   const initialState = { email: "", password: "" };
-  const { values, errors, handleInput, handleFormSubmit, isLoading } = useForm(
-    initialState,
-    initialState,
-    validate,
-    LoginApi
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    isLoading,
+    setIsLoading,
+  } = useForm(initialState, initialState, validate, LoginApi);
 
   return (
     <div className="flex flex-col lg:flex-row h-full">
