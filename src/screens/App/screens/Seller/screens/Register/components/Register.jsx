@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
 import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
@@ -7,7 +7,12 @@ import TermsOfAgreement from "./steps/TOA";
 
 function Register() {
   // seller registration context
-  const { activeStepId } = useSellerRegistration();
+  const { activeStepId, resetToDefault } = useSellerRegistration();
+
+  // clean up once user leaves page
+  useEffect(() => {
+    return () => resetToDefault();
+  }, []);
 
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
