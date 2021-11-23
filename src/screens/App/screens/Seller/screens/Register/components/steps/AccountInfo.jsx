@@ -45,6 +45,10 @@ function AccountInfo() {
     if ("confirmEmail" in data)
       temp.confirmEmail = data.confirmEmail ? "" : "Confirm email is required";
 
+    if ("confirmEmail" in data && values.ownerEmail !== data.confirmEmail)
+      // omg this was the fix FUCK
+      temp.confirmEmail = "Email does not match with owner email";
+
     if ("password" in data)
       temp.password = data.password ? "" : "Password is required";
 
