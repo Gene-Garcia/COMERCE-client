@@ -27,6 +27,7 @@ function InputField({
 
       <input
         type={type}
+        name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
@@ -65,7 +66,7 @@ function FileInput({ name, label, helper, onChange }) {
           />
         </svg>
         <span className="text-md">Upload Logo</span>
-        <input type="file" className="hidden" onChange={onChange} />
+        <input type="file" className="hidden" name={name} onChange={onChange} />
       </label>
 
       <i className="text-sm text-gray-600">{helper}</i>

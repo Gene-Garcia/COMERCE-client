@@ -1,5 +1,6 @@
 import React from "react";
 import useAlert from "../../../../../../../../hooks/useAlert";
+import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
 import InputField, {
   FileInput,
@@ -14,11 +15,40 @@ function BusinessInfo() {
   // seller context
   // const {} = useSellerRegistration()
 
+  // file input on change
+  const fileOnChange = (e) => {
+    console.log(e);
+  };
+
   // submit function
   const createBusiness = () => {
     setSeverity("success");
     setMessage("Accounted created succesfully");
   };
+
+  const init = { businessName: "", established: "", tagline: "" };
+
+  const validate = (data, setErrors) => {
+    let temp = { ...errors };
+
+    if ("businessName" in data)
+      temp.businessName = data.businessName ? "" : "Business name is required";
+
+    if ("established" in data)
+      temp.established = data.established ? "" : "Date is required";
+
+    if ("tagline" in data)
+      temp.tagline = data.tagline ? "" : "Put N/A if unavailable";
+
+    setErrors(temp);
+  };
+
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    createBusiness
+  );
 
   return (
     <div className="flex flex-col justify-between gap-10">
@@ -27,6 +57,7 @@ function BusinessInfo() {
       <div className="flex flex-col gap-8">
         <FileInput
           name="logo"
+          onChange={fileOnChange}
           label="BUSINESS LOGO"
           helper="JPEG and PNG files only"
         />
@@ -35,6 +66,9 @@ function BusinessInfo() {
           <InputField
             type="text"
             name="businessName"
+            value={values.businessName}
+            error={errors.businessName}
+            onChange={handleInput}
             label="BUSINESS NAME"
             placeholder="name of your business"
             className="w-5/12"
@@ -43,6 +77,9 @@ function BusinessInfo() {
           <InputField
             type="date"
             name="established"
+            value={values.established}
+            error={errors.established}
+            onChange={handleInput}
             label="ESTABLISHMENT DATE"
             placeholder="date of launching"
             className="w-5/12"
@@ -52,13 +89,16 @@ function BusinessInfo() {
         <InputField
           type="text"
           name="tagline"
+          value={values.tagline}
+          error={errors.tagline}
+          onChange={handleInput}
           label="TAGLINE"
           placeholder="a tagline to catch customers' attention"
           className="w-full"
         />
       </div>
 
-      <BusinessInfoCTA onClick={createBusiness} />
+      <BusinessInfoCTA onClick={handleFormSubmit} />
     </div>
   );
 }
