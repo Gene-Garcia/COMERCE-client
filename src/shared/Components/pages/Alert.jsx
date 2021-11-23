@@ -16,6 +16,7 @@ function Alert() {
   let color;
   if (severity === "error") color = "bg-red-100 border-red-500";
   else if (severity === "success") color = "bg-green-100 border-green-500";
+  else if (severity === "information") color = "bg-blue-100 border-blue-500";
 
   return (
     <div className={(message ? "fixed" : "hidden") + " top-32 left-1/2 z-10"}>
