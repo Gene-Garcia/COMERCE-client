@@ -14,7 +14,8 @@ function BusinessInfo() {
   const { setMessage, setSeverity } = useAlert();
 
   // seller context
-  const { loadBusinesssInformation } = useSellerRegistration();
+  const { loadBusinesssInformation, businessInformation, accountInformation } =
+    useSellerRegistration();
 
   // file input on change
   const fileOnChange = (e) => {
@@ -28,19 +29,46 @@ function BusinessInfo() {
 
     loadBusinesssInformation(values);
 
+    // build data
+    const data = {
+      businessData: {
+        ...businessInformation,
+        // firstName: accountInformation.firstName,
+        // lastName: accountInformation.lastName,
+        businessEmail: accountInformation.businessEmail,
+      },
+
+      email: accountInformation.ownerEmail,
+      username: (
+        accountInformation.firstName + accountInformation.lastName
+      ).toLowerCase(),
+      password: accountInformation.password,
+
+      userType: "SELLER",
+    };
+
     // api call
     await axios
-      .post("/api/seller/register", values)
+      .post("/api/signup", data)
       .then((res) => {
         if (res.status === 200) {
           setSeverity("success");
           setMessage("Accounted created succesfully");
+          // history to landing page
         }
       })
       .catch((err) => {
         setSeverity("error");
-        setMessage("Something went wrong");
+
+        if (!err.response)
+          setMessage("Something went wrong. Please try again.");
+        else if (err.response.status === 403) {
+          setMessage(err.response.error);
+          //history.pushState("/forbidden");
+        } else setMessage(err.response.error);
       });
+
+    setIsLoading(false);
   };
 
   const init = { businessName: "", established: "", tagline: "" };
