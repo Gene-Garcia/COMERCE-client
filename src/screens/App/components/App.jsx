@@ -28,36 +28,43 @@ const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
     const navles = ["/login", "/sign-up", "/", "/seller/register"];
 
+    const sidebared = ["/seller/register"];
+
     return (
-      <>
+      <div className={`${sidebared.includes(pathname) ? "flex flex-row" : ""}`}>
         <>{!navles.includes(pathname) && <Navbar />}</>
 
-        <Switch>
-          <Route {...route.HOME} />
+        {sidebared.includes(pathname) && (
+          <div className="w-72 bg-gray-600 h-screen">sidebar</div>
+        )}
 
-          <Route {...route.CATALOGUE} />
-          <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
+        <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
+          <Switch>
+            <Route {...route.HOME} />
 
-          <Route {...route.SIGN_UP} />
-          <Route {...route.LOGIN} />
-          <Route {...route.SIGN_OUT} />
-          <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
-          <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
+            <Route {...route.CATALOGUE} />
+            <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
-          <Route {...route.CHECKOUT} />
+            <Route {...route.SIGN_UP} />
+            <Route {...route.LOGIN} />
+            <Route {...route.SIGN_OUT} />
+            <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
+            <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
-          <Route {...route.USER} />
+            <Route {...route.CHECKOUT} />
 
-          <Route {...route.USER.subroutes.CART} />
-          <Route {...route.USER.subroutes.ORDERS} />
-          <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
+            <Route {...route.USER} />
 
-          <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+            <Route {...route.USER.subroutes.CART} />
+            <Route {...route.USER.subroutes.ORDERS} />
+            <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
 
-          {/* seller routes */}
-          <Route {...route.SELLER.subroutes.REGISTER} />
+            <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
-          {/* <PrivateRoute
+            {/* seller routes */}
+            <Route {...route.SELLER.subroutes.REGISTER} />
+
+            {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
@@ -68,13 +75,13 @@ const AppContent = memo(
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         /> */}
 
-          <Route>
-            <h1>404</h1>
-          </Route>
-        </Switch>
-
+            <Route>
+              <h1>404</h1>
+            </Route>
+          </Switch>
+        </div>
         {/* <>{!navles.includes(pathname) && <Footer />}</> */}
-      </>
+      </div>
     );
   })
 );

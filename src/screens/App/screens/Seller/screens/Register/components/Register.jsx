@@ -15,7 +15,7 @@ function Register() {
   }, []);
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
+    <div className="h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
       {/* root container - no bg color */}
       <div className="w-1/2 flex flex-row shadow-2xl">
         {/* steps container */}
