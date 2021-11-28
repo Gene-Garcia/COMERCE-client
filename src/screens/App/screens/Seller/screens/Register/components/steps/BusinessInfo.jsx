@@ -14,7 +14,7 @@ function BusinessInfo() {
   const { setMessage, setSeverity } = useAlert();
 
   // seller context
-  const { loadBusinesssInformation, businessInformation, accountInformation } =
+  const { loadBusinesssInformation, accountInformation } =
     useSellerRegistration();
 
   // file input on change
@@ -32,7 +32,7 @@ function BusinessInfo() {
     // build data
     const data = {
       businessData: {
-        ...businessInformation,
+        ...values,
         // firstName: accountInformation.firstName,
         // lastName: accountInformation.lastName,
         businessEmail: accountInformation.businessEmail,
@@ -63,9 +63,9 @@ function BusinessInfo() {
         if (!err.response)
           setMessage("Something went wrong. Please try again.");
         else if (err.response.status === 403) {
-          setMessage(err.response.error);
+          setMessage(err.response.data.error);
           //history.pushState("/forbidden");
-        } else setMessage(err.response.error);
+        } else setMessage(err.response.data.error);
       });
 
     setIsLoading(false);
