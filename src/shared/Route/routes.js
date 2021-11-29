@@ -16,9 +16,6 @@ const routes = {
   },
 
   SIGN_UP: {
-    path: "/sign-up",
-    name: "Sign Up",
-
     subroutes: {
       USER: {
         path: "/sign-up/user",
@@ -33,9 +30,6 @@ const routes = {
   },
 
   LOGIN: {
-    path: "/login",
-    name: "Login",
-
     subroutes: {
       USER: {
         path: "/login/user",

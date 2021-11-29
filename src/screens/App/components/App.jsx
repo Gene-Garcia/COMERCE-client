@@ -26,7 +26,7 @@ import { SellerRegistrationProvider } from "../../../context/SellerRegistrationC
  */
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
-    const navles = ["/login", "/sign-up", "/", "/seller/register"];
+    const navles = ["/", "/login/user", "/sign-up/user", "/seller/register"];
 
     const sidebared = ["/seller/register"];
 
@@ -45,10 +45,8 @@ const AppContent = memo(
             <Route {...route.CATALOGUE} />
             <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
-            <Route {...route.SIGN_UP} />
             <Route {...route.SIGN_UP.subroutes.USER} />
             <Route {...route.SIGN_UP.subroutes.SELLER} />
-            <Route {...route.LOGIN} />
             <Route {...route.LOGIN.subroutes.USER} />
             <Route {...route.LOGIN.subroutes.SELLER} />
             <Route {...route.SIGN_OUT} />
