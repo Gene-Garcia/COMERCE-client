@@ -63,7 +63,7 @@ function ReviewDetails() {
       .catch((err) => {
         setSeverity("error");
         if (err.response) {
-          if (err.response.data === 403) history.push("/login");
+          if (err.response.data === 403) history.push("/login/user");
           else setMessage(err.response.data.error);
         } else setMessage("Unable to process your order. Try again later");
       });

@@ -28,7 +28,7 @@ function CartItem({ data }) {
         if (!err.response) setMessage("Something went wrong. Try again later.");
         else if (err.response.status === 403 || err.response.status === 401) {
           setMessage("You don not have access to this page.");
-          history.push("/login");
+          history.push("/login/user");
         }
       });
   }

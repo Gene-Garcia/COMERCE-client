@@ -50,7 +50,7 @@ function Orders({ history }) {
             );
             history.push("/");
           } else if (err.response.status === 401 || err.response.status === 403)
-            history.push("/login");
+            history.push("/login/user");
           else setMessage(err.response.data.error);
         });
     }

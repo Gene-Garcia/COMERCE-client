@@ -59,7 +59,7 @@ function Checkout({ history }) {
           }
         })
         .catch((err) => {
-          if (!err.response) history.push("/login");
+          if (!err.response) history.push("/user");
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
         });

@@ -23,7 +23,7 @@ function ResetPassword({ history }) {
         setSeverity("success");
         setMessage(res.data.message);
 
-        history.push("/login");
+        history.push("/login/user");
       })
       .catch((err) => {
         setSeverity("error");

@@ -20,7 +20,7 @@ function SignOut({ history }) {
           setSeverity("success");
           setMessage("Sign Out Success");
 
-          history.push("/login");
+          history.push("/login/user");
         })
         .catch((err) => {
           clearUserPersistData();

@@ -162,7 +162,7 @@ function SignUp({ history }) {
             Already have an account?
           </h2>
           <Link
-            to="/login"
+            to="/login/user"
             className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-md lg:text-xl hover:border-my-contrast px-20 py-3"
           >
             Login

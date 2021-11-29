@@ -13,7 +13,7 @@ function ChangePassword({ history }) {
   useEffect(() => {
     validateUser((status) => {
       if (status === "SUCCESS") setLoading(false);
-      else if (status === "FAILED") history.push("/login");
+      else if (status === "FAILED") history.push("/login/user");
       else if (status === "UNAUTHORIZED") history.push("/unauthorized");
       else if (status === "FORBIDDEN") history.push("/forbidden");
     });

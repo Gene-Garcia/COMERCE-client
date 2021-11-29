@@ -67,7 +67,7 @@ function Login({ history }) {
             Don't have an account?
           </h2>
           <Link
-            to="/sign-up"
+            to="/sign-up/user"
             className="transition duration-300 rounded-full border-b border-transparent text-my-contrast font-semibold text-md lg:text-xl hover:border-my-contrast px-20 py-3"
           >
             Sign Up
