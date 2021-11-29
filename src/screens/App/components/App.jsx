@@ -46,8 +46,13 @@ const AppContent = memo(
             <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
             <Route {...route.SIGN_UP} />
+            <Route {...route.SIGN_UP.subroutes.USER} />
+            <Route {...route.SIGN_UP.subroutes.SELLER} />
             <Route {...route.LOGIN} />
+            <Route {...route.LOGIN.subroutes.USER} />
+            <Route {...route.LOGIN.subroutes.SELLER} />
             <Route {...route.SIGN_OUT} />
+
             <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
             <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
