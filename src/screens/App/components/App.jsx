@@ -30,6 +30,8 @@ const AppContent = memo(
       "/",
       "/login/user",
       "/sign-up/user",
+
+      "/login/seller",
       "/sign-up/seller",
       "/seller",
     ];
