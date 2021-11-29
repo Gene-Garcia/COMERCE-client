@@ -1,14 +1,9 @@
 import routes from "../../../../shared/Route/routes";
-
-// subroutes
-import RegisterSubroute from "./screens/Register/route";
+import Dashboard from ".";
 
 const route = {
-  path: undefined,
-  component: undefined,
+  path: routes.SELLER.path,
+  component: Dashboard,
   exact: true,
-  subroutes: {
-    REGISTER: RegisterSubroute,
-  },
 };
 export default route;

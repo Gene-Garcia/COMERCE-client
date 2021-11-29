@@ -26,9 +26,15 @@ import { SellerRegistrationProvider } from "../../../context/SellerRegistrationC
  */
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
-    const navles = ["/", "/login/user", "/sign-up/user", "/seller/register"];
+    const navles = [
+      "/",
+      "/login/user",
+      "/sign-up/user",
+      "/sign-up/seller",
+      "/seller",
+    ];
 
-    const sidebared = ["/seller/register"];
+    const sidebared = ["/seller"];
 
     return (
       <div className={`${sidebared.includes(pathname) ? "flex flex-row" : ""}`}>
@@ -65,7 +71,7 @@ const AppContent = memo(
             <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
             {/* seller routes */}
-            <Route {...route.SELLER.subroutes.REGISTER} />
+            <Route {...route.SELLER} />
 
             {/* <PrivateRoute
           path={route.USER.path}
