@@ -42,8 +42,14 @@ module.exports = {
         // base color + gray
         "my-accent-tone": "#41AED8",
 
+        // base color + black
+        "my-accent-shade": "#001449",
+
         "my-contrast": "#F9FAFB",
+
         "my-black": "#082032",
+        "my-off-white": "#FDFDFD",
+
         "my-dark": "#2C394B",
         "my-dim": "#334756",
       },

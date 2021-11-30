@@ -17,6 +17,7 @@ import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
+import Sidebar from "./Sidebar";
 
 /*
  * the entire function is wrapped in withRouter in order to access the location object
@@ -43,7 +44,9 @@ const AppContent = memo(
         <>{!navles.includes(pathname) && <Navbar />}</>
 
         {sidebared.includes(pathname) && (
-          <div className="w-72 bg-gray-600 h-screen">sidebar</div>
+          <div className="w-72 bg-my-accent-shade h-screen">
+            <Sidebar />
+          </div>
         )}
 
         <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
