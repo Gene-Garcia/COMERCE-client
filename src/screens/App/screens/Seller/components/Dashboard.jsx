@@ -1,52 +1,109 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import hero from "../../../../../shared/images/dashboard-hero.svg";
+import axios from "../../../../../shared/caller";
+import useAlert from "../../../../../hooks/useAlert";
+import Loading from "../../../../../shared/Loading/Loading";
+import { getCookieByKey } from "../../../../../shared/Auth/Login";
 
-function Dashboard() {
+function Dashboard({ history }) {
+  // alert
+  const { setMessage, setSeverity } = useAlert();
+
+  // loading state
+  const [loading, setLoading] = useState(false);
+
+  // state data for dashboard data
+  const [data, setData] = useState({});
+
+  // useEffect to populate dashboard data
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      await axios
+        .get("/api/seller/dashboard")
+        .then((res) => {
+          if (res.status === 200) {
+            setData(res.data);
+            console.log(res.data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+
+          setSeverity("error");
+          if (!err.response) {
+            setMessage("Something went wrong. Please try again.");
+            history.push("/login/seller");
+          } else if (err.response.status === 401) history.push("/unathorized");
+          else if (err.response.status === 403) history.push("/forbidden");
+          else {
+            setMessage(err.response.data.error);
+            history.push("/login/seller");
+          }
+        });
+    };
+
+    getData();
+  }, []);
+
   return (
-    <div className="w-full h-screen bg-my-off-white px-10 py-8 space-y-8">
-      <div className="w-full flex items-center justify-between mb-12 p-4 border border-gray-100 shadow rounded-lg bg-white">
-        <div className="inline-flex gap-4 items-center">
-          <div className="w-12 h-12 rounded-full border border-gray-200">
-            <img
-              alt="Avatar"
-              src="https://i.ytimg.com/vi/5AwdkGKmZ0I/maxresdefault.jpg"
-              className="object-cover w-full h-full rounded-full"
-            />
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="w-full h-screen bg-my-off-white px-10 py-8 space-y-8">
+          <div className="w-full flex items-center justify-between mb-12 p-4 border border-gray-100 shadow rounded-lg bg-white">
+            <div className="inline-flex gap-4 items-center">
+              <div className="w-12 h-12 rounded-full border border-gray-200">
+                <img
+                  alt="Avatar"
+                  src="https://i.ytimg.com/vi/5AwdkGKmZ0I/maxresdefault.jpg"
+                  className="object-cover w-full h-full rounded-full"
+                />
+              </div>
+
+              <h3 className="font-serif text-2xl text-black font-semibold">
+                {data.businessName}
+              </h3>
+            </div>
+
+            <p className="text-base font-light">28 MONDAY | 9:37 PM</p>
           </div>
 
-          <h3 className="font-serif text-2xl text-black font-semibold">
-            Business Name
-          </h3>
+          <div className="flex flex-row justify-between gap-10">
+            <Card width="w-1/2" addOns="inline-flex justify-between gap-4">
+              <p className="w-full font-medium">
+                <span className="text-4xl text-gray-600">Welcome Back, </span>
+                <span className="text-3xl text-gray-500">
+                  {getCookieByKey(process.env.REACT_APP_LS_USERNAME_KEY)}!
+                </span>
+              </p>
+
+              <img
+                alt="hero"
+                className="w-2/6 ml-auto drop-shadow-xl"
+                src={hero}
+              />
+            </Card>
+
+            <Card width="w-1/2">
+              <CardTitle>Sales</CardTitle>
+            </Card>
+          </div>
+
+          <div className="flex flex-row justify-between gap-10">
+            <Card width="w-2/5">
+              <CardTitle>Notice</CardTitle>
+            </Card>
+
+            <Card width="w-3/5">
+              <CardTitle>Famous Products</CardTitle>
+            </Card>
+          </div>
         </div>
-
-        <p className="text-base font-light">28 MONDAY | 9:37 PM</p>
-      </div>
-
-      <div className="flex flex-row justify-between gap-10">
-        <Card width="w-1/2" addOns="inline-flex justify-between gap-4">
-          <p className="w-full font-medium">
-            <span className="text-4xl text-gray-600">Welcome Back, </span>
-            <span className="text-3xl text-gray-500">John Doe!</span>
-          </p>
-
-          <img alt="hero" className="w-2/6 ml-auto drop-shadow-xl" src={hero} />
-        </Card>
-
-        <Card width="w-1/2">
-          <CardTitle>Sales</CardTitle>
-        </Card>
-      </div>
-
-      <div className="flex flex-row justify-between gap-10">
-        <Card width="w-2/5">
-          <CardTitle>Notice</CardTitle>
-        </Card>
-
-        <Card width="w-3/5">
-          <CardTitle>Famous Products</CardTitle>
-        </Card>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 export default Dashboard;
