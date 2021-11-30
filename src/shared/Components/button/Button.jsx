@@ -18,7 +18,7 @@ function Button({ isLoading, buttonClass, svgClass, onClick, children }) {
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center justify-center ${buttonClass} ${
+      className={`flex flex-row items-center justify-center ${buttonClass} ${
         isLoading ? "cursor-not-allowed" : ""
       }`}
       disabled={isLoading}
