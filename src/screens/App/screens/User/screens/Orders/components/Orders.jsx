@@ -43,20 +43,18 @@ function Orders({ history }) {
         })
         .catch((err) => {
           setSeverity("error");
+          setLoading(false);
 
-          if (!err.response) {
-            setMessage(
-              "We apologise but we cannot retrieve your orders. Try again later."
-            );
-            history.push("/");
-          } else if (err.response.status === 401 || err.response.status === 403)
-            history.push("/login/user");
+          if (!err.response)
+            setMessage("Something went wrong. Please try again.");
+          else if (err.response.status === 401) history.push("/forbidden");
+          else if (err.response.status === 403) history.push("/unauthorized");
           else setMessage(err.response.data.error);
         });
     }
 
     getOrders();
-    console.log(query.get("oid"));
+    // console.log(query.get("oid"));
   }, []);
 
   return (

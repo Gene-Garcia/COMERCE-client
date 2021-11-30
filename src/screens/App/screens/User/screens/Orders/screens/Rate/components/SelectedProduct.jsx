@@ -61,13 +61,12 @@ function SelectedProduct() {
         .catch((err) => {
           setSeverity("error");
 
-          if (!err.response) {
+          if (!err.response)
             setMessage(
-              "We apologise something went wrong in saving your product rating. Try again later."
+              "We apologise something went wrong in saving your product rating. Please try again."
             );
-            history.push("/");
-          } else if (err.response.status === 401 || err.response.status === 403)
-            history.push("/login/user");
+          else if (err.response.status === 401) history.push("/forbidden");
+          else if (err.response.status === 403) history.push("/unauthorized");
           else setMessage(err.response.data.error);
         });
     }

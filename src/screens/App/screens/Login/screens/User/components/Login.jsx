@@ -23,10 +23,10 @@ function Login({ history }) {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         setSeverity("error");
         if (err.response) setMessage(err.response.data.error);
         else setMessage("Something went wrong. Try again.");
-        setIsLoading(false);
       });
   }
 

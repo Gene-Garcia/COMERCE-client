@@ -62,10 +62,12 @@ function ReviewDetails() {
       })
       .catch((err) => {
         setSeverity("error");
-        if (err.response) {
-          if (err.response.data === 403) history.push("/login/user");
-          else setMessage(err.response.data.error);
-        } else setMessage("Unable to process your order. Try again later");
+
+        if (!err.response)
+          setMessage("Unable to process your order. Try again later");
+        else if (err.response.data.status === 403) history.push("/forbidden");
+        else if (err.response.data.status === 401) history.push("/unathorized");
+        else setMessage(err.response.data.error);
       });
   }
 

@@ -25,9 +25,12 @@ function SignOut({ history }) {
         .catch((err) => {
           clearUserPersistData();
 
-          if (err.response.status === 401) history.push("/unauthorized");
+          setSeverity("error");
+          if (!err.response)
+            setMessage("Something went wrong. Please try again.");
+          else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else history.push("/error");
+          else setMessage(err.response.data.error);
         });
     }
 

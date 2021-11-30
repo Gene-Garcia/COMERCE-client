@@ -52,23 +52,20 @@ function BusinessInfo() {
       .post("/api/signup", data)
       .then((res) => {
         if (res.status === 200) {
+          setIsLoading(false);
           setSeverity("success");
           setMessage("Accounted created succesfully");
           // history to landing page
         }
       })
       .catch((err) => {
-        setSeverity("error");
+        setIsLoading(false);
 
+        setSeverity("error");
         if (!err.response)
           setMessage("Something went wrong. Please try again.");
-        else if (err.response.status === 403) {
-          setMessage(err.response.data.error);
-          //history.pushState("/forbidden");
-        } else setMessage(err.response.data.error);
+        else setMessage(err.response.data.error);
       });
-
-    setIsLoading(false);
   };
 
   const init = { businessName: "", established: "", tagline: "" };

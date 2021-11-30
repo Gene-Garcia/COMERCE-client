@@ -13,6 +13,7 @@ function CartItem({ data }) {
   const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
 
   /* API function to delete this cart */
+  // implement loading button
   async function removeFromCart(cId) {
     axios
       .delete(`/api/cart/remove/${cId}`)
@@ -26,10 +27,9 @@ function CartItem({ data }) {
       .catch((err) => {
         setSeverity("error");
         if (!err.response) setMessage("Something went wrong. Try again later.");
-        else if (err.response.status === 403 || err.response.status === 401) {
-          setMessage("You don not have access to this page.");
-          history.push("/login/user");
-        }
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else setMessage(err.response.data.error);
       });
   }
 

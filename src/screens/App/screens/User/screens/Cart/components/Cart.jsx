@@ -9,6 +9,7 @@ import Title from "../../../../../../../shared/Components/pages/Title";
 function Cart({ history }) {
   const { setLoading, loadCartItems, resetToDefault } = useShoppingCart();
 
+  // populate
   useEffect(() => {
     async function getUserCart() {
       await axios

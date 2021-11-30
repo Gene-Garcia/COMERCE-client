@@ -29,13 +29,10 @@ function Form() {
       .catch((err) => {
         setIsLoading(false);
         setSeverity("error");
+
         if (!err.response)
           setMessage("Something went wrong. Please try again later.");
-        else {
-          setMessage(err.response.data.error);
-          // if (err.response.status === 401) history.push("/unathorized");
-          // else if (err.response.status === 403) history.push("/forbidden");
-        }
+        else setMessage(err.response.data.error);
       });
   };
 

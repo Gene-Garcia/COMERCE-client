@@ -27,9 +27,7 @@ function ResetPassword({ history }) {
       })
       .catch((err) => {
         setSeverity("error");
-
-        if (err.response === undefined)
-          setMessage("Something went wrong. Try again.");
+        if (!err.response) setMessage("Something went wrong. Try again.");
         else setMessage(err.response.data.error);
       });
   }

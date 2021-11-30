@@ -19,23 +19,23 @@ function ChangePassword({ history }) {
     });
   }, []);
 
+  // implement loading button
   async function ChangePasswordAPI() {
     await axios
       .post("/api/user/password/change", values)
       .then((res) => {
-        resetForms();
-
         if (res.status === 200) {
+          resetForms();
+
           setSeverity("success");
           setMessage("Successfully changed password");
-        } else setMessage(res.data.message);
+        }
       })
       .catch((err) => {
         setSeverity("error");
 
-        if (err.response === undefined)
-          setMessage("Something went wrong. Try again.");
-        else if (err.response.status === 401) history.push("/sign-in");
+        if (!err.response) setMessage("Something went wrong. Try again.");
+        else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else setMessage(err.response.data.error);
       });

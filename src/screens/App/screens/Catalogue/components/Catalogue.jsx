@@ -44,7 +44,7 @@ function Catalogue() {
           }
         })
         .catch((err) => {
-          console.log(err.response);
+          // console.log(err.response);
           setSeverity("error");
           setMessage("Unable to load items. Refresh the page and try again.");
         });
@@ -65,7 +65,7 @@ function Catalogue() {
           }
         })
         .catch((err) => {
-          console.log(err.response);
+          // console.log(err.response);
           setSeverity("error");
           setMessage("Unable to load items. Refresh the page and try again.");
         });
