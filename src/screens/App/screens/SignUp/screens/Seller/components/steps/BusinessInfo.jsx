@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
@@ -10,6 +11,9 @@ import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
 
 function BusinessInfo() {
+  // history
+  let history = useHistory();
+
   // alert message
   const { setMessage, setSeverity } = useAlert();
 
@@ -55,7 +59,7 @@ function BusinessInfo() {
           setIsLoading(false);
           setSeverity("success");
           setMessage("Accounted created succesfully");
-          // history to landing page
+          history.push("/login/seller");
         }
       })
       .catch((err) => {
