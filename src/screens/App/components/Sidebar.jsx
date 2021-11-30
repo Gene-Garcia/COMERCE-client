@@ -74,7 +74,7 @@ const linksData = {
 
 function Sidebar() {
   return (
-    <div className="p-4 flex flex-col justify-center gap-12">
+    <div className="p-4 flex flex-col justify-center gap-6">
       <div className="inline-flex gap-4 items-center justify-center">
         <img src={comerceWhite} alt="COMERCE Logo" className="w-16" />
         <h2 className="text-2xl text-white font-mono">COMERCE</h2>
