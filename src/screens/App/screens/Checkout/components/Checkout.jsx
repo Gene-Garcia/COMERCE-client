@@ -59,6 +59,8 @@ function Checkout({ history }) {
           }
         })
         .catch((err) => {
+          // redirect if forbidden or unauthorized
+
           setLoading(false);
           setSeverity("error");
           if (!err.response)

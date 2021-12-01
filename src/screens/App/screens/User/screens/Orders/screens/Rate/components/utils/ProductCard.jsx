@@ -28,17 +28,17 @@ function ProductCardLink({
 
       <div className="flex flex-col xl:flex-row justify-between flex-grow flex-shrink px-4 py-2 gap-4">
         <div className="flex flex-col justify-between gap-2">
-          <p className="text-lg font-medium text-gray-500">{item}</p>
+          <p className="text-md font-medium text-gray-500">{item}</p>
           <p className="text-my-accent text-md font-medium">{`₱${formatPrice(
             price
           )}`}</p>
         </div>
 
-        <div className="space-y-0 text-right">
-          <p className="text-gray-400 text-sm">Order ID</p>
+        <div className="text-right">
+          <p className="text-gray-400 text-sm mb-0">Order ID</p>
           <Link
             to={`/user/orders?oid=${orderId}`}
-            className="transition duration-200 text-sm text-gray-500 hover:text-gray-900"
+            className="text-sm text-gray-500 transition duration-150 ease-linear hover:text-my-accent"
           >
             {orderId}
           </Link>
@@ -65,10 +65,12 @@ function ProductCardDisplay({
 
           <div className="flex flex-col gap-2 xl:gap-4">
             <div>
-              <p className="text-gray-400">Order ID</p>
+              <p className="text-gray-400 uppercase text-sm font-semibold">
+                Order ID
+              </p>
               <Link
-                to="/users/orders?p=dsasdfasfas"
-                className="transition duration-200 font-medium text-md text-gray-500 hover:text-gray-900"
+                to={`/user/orders?oid=${orderId}`}
+                className=" text-md text-gray-500 transition duration-150 ease-linear hover:text-my-accent"
               >
                 {orderId}
               </Link>
@@ -76,15 +78,19 @@ function ProductCardDisplay({
 
             <div className="flex flex-row lg:flex-col xl:flex-row gap-10 lg:gap-2 xl:gap-10">
               <div>
-                <p className="text-gray-400">Date Ordered</p>
-                <p className="font-medium text-md text-gray-500">
+                <p className="text-gray-400 uppercase text-sm font-semibold">
+                  Date Ordered
+                </p>
+                <p className=" text-md text-gray-500">
                   {formatDate(orderDate, 1)}
                 </p>
               </div>
 
               <div>
-                <p className="text-gray-400">Date Received</p>
-                <p className="font-medium text-md text-gray-500">
+                <p className="text-gray-400 uppercase text-sm font-semibold">
+                  Date Received
+                </p>
+                <p className=" text-md text-gray-500">
                   {formatDate(ETADate, 1)}
                 </p>
               </div>

@@ -37,10 +37,15 @@ function PayPal() {
   return (
     <div className="space-y-8">
       <div className="space-y-6">
-        <p className="font-semibold text-lg">
-          Payment through <span className="text-my-accent">PayPal</span> will
-          require you to login to your valid
-          <span className="text-my-accent"> PayPal</span> account.
+        <p className="">
+          Payment through{" "}
+          <span className="text-my-accent font-semibold text-md">PayPal</span>{" "}
+          will require you to login to your valid
+          <span className="text-my-accent font-semibold text-md">
+            {" "}
+            PayPal account
+          </span>
+          .
         </p>
 
         <CheckoutInput

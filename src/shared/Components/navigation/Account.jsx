@@ -22,7 +22,8 @@ import Cookies from "universal-cookie";
 import { checkLoggedIn } from "../../Auth/Login";
 
 function UnAuthenticated({ bgType }) {
-  const base = "transition font-sans h-9 font-semibold text-base px-4 py-1.5";
+  const base =
+    "transition duration-200 ease-linear h-9 font-semibold px-4 py-1.5 mb-0";
   const themes = {
     accent: {
       login:

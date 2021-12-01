@@ -113,35 +113,37 @@ function Login({ history }) {
             svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
           />
 
-          <InputField
-            name="password"
-            type="password"
-            label="PASSWORD"
-            error={errors.password}
-            value={values.password}
-            onChange={handleInput}
-            svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-          />
+          <div className="space-y-2">
+            <InputField
+              type="password"
+              name="password"
+              label="PASSWORD"
+              error={errors.password}
+              value={values.password}
+              onChange={handleInput}
+              svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+            />
+
+            <div className="text-right">
+              <Link
+                to="/password/forgot"
+                className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+              >
+                Forgot Password
+              </Link>
+            </div>
+          </div>
 
           <Button
             isLoading={isLoading}
-            buttonClass="transition duration-300 border border-my-accent rounded-md h-10 group hover:bg-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2"
-            svgClass="text-my-accent group-hover:text-my-contrast"
+            buttonClass="w-min px-12 py-1.5 bg-my-accent rounded shadow-md transition duration-200 ease-linear 
+            hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2 
+            active:ring active:ring-my-accent active:ring-offset-0 active:ring-opacity-40"
+            svgClass="text-white"
             onClick={handleFormSubmit}
           >
-            <span className="text-my-accenet font-semibold text-xl text-my-accent group-hover:text-my-contrast">
-              LOGIN
-            </span>
+            <span className="text-white font-semibold text-lg">LOGIN</span>
           </Button>
-
-          <div className="flex justify-end">
-            <Link
-              to="/password/forgot"
-              className="transition duration-300 text-my-accent font-medium text-md py-2 border-b border-transparent hover:border-my-accent "
-            >
-              Forgot Password?
-            </Link>
-          </div>
         </div>
       </div>
     </div>

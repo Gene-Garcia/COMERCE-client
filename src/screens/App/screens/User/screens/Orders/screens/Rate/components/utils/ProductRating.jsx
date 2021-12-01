@@ -40,7 +40,9 @@ function ProductRating() {
 
   return (
     <div>
-      <p className="text-gray-400">Product Rating</p>
+      <p className="text-gray-400 uppercase text-sm font-semibold">
+        Product Rating
+      </p>
 
       <div className="flex flex-row gap-1">
         {hoverStar.map((e, i) => (
@@ -56,7 +58,7 @@ function Star({ id, hovered, over }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-14 w-14 ${hovered ? "text-my-accent" : "text-gray-500"}`}
+      className={`h-12 w-12 ${hovered ? "text-my-accent" : "text-gray-500"}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

@@ -85,7 +85,9 @@ function SelectedProduct() {
 
             {/* Comments */}
             <div>
-              <p className="text-gray-400">Comments</p>
+              <p className="text-gray-400 uppercase text-sm font-semibold">
+                Comments
+              </p>
               <textarea
                 type="text"
                 className="transition duration-200 w-full rounded-md shadow bg-gray-100 h-2/5 p-3 focus:outline-none focus-within:shadow-lg"
@@ -99,7 +101,7 @@ function SelectedProduct() {
             {/* CTA */}
             <Button
               isLoading={loading}
-              buttonClass="transition bg-my-accent px-14 py-3 rounded-md shadow text-my-contrast font-medium text-lg hover:bg-my-accent-mono"
+              buttonClass="bg-my-accent px-8 py-2.5 rounded-md shadow text-white text-md font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
               onClick={submitRatingForCurrent}
             >
               Submit Rating

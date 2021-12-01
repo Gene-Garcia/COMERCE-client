@@ -14,7 +14,7 @@ import Button from "../button/Button";
 
 function ProductName({ name }) {
   return (
-    <h3 className={`font-sans font-regular text-xl text-gray-700`}>{name}</h3>
+    <h3 className={`font-sans font-medium text-lg text-gray-700`}>{name}</h3>
   );
 }
 
@@ -25,7 +25,7 @@ function ProductPrice({ price, size }) {
   else theme = "text-lg";
 
   return (
-    <h3 className={`text-my-accent font-sans font-medium ${theme}`}>
+    <h3 className={`text-my-accent font-semibold text-opacity-80 ${theme}`}>
       {`₱${formatPrice(price)}`}
     </h3>
   );
@@ -57,7 +57,7 @@ function ProductRating({ size, rating }) {
         xmlns="http://www.w3.org/2000/svg"
         className={`${theme} ${color}`}
         fill="none"
-        viewBox="0 0 24 24"
+        viewBox="0 0 25 25"
         stroke="currentColor"
       >
         <path
@@ -81,7 +81,7 @@ function ProductRating({ size, rating }) {
         <div>
           <Star
             color={
-              score >= 1.99 && score > 0 ? "text-my-accent" : "text-gray-600"
+              score >= 1.99 && score > 0 ? "text-my-accent" : "text-gray-500"
             }
             size={size}
           />
@@ -89,27 +89,27 @@ function ProductRating({ size, rating }) {
 
         <div>
           <Star
-            color={score >= 2.99 ? "text-my-accent" : "text-gray-600"}
+            color={score >= 2.99 ? "text-my-accent" : "text-gray-500"}
             size={size}
           />
         </div>
 
         <div>
           <Star
-            color={score >= 3.99 ? "text-my-accent" : "text-gray-600"}
+            color={score >= 3.99 ? "text-my-accent" : "text-gray-500"}
             size={size}
           />
         </div>
 
         <div>
           <Star
-            color={score >= 4.99 ? "text-my-accent" : "text-gray-600"}
+            color={score >= 4.99 ? "text-my-accent" : "text-gray-500"}
             size={size}
           />
         </div>
         <div>
           <Star
-            color={score >= 5.99 ? "text-my-accent" : "text-gray-600"}
+            color={score >= 5.99 ? "text-my-accent" : "text-gray-500"}
             size={size}
           />
         </div>
@@ -125,11 +125,11 @@ function ProductRating({ size, rating }) {
 function ProductDescription({ desc, fullText }) {
   let truncated;
   if (!fullText && desc)
-    truncated = desc.length > 30 ? desc.substring(0, 30) + "..." : desc;
+    truncated = desc.length > 35 ? desc.substring(0, 35).trim() + "..." : desc;
   else truncated = desc;
 
   return (
-    <p className="font-regular font-sans text-gray-700 text-md ">{truncated}</p>
+    <p className="font-regular font-sans text-gray-700 text ">{truncated}</p>
   );
 }
 
@@ -179,7 +179,7 @@ function ProductPurchase({ productId, size }) {
       <div className="flex flex-wrap gap-2">
         <Link
           to={`/checkout?products=${productId}+1`}
-          className={`font-medium text-my-contrast bg-my-accent ${theme} rounded-md hover:bg-my-accent-mono`}
+          className={`font-medium text-white bg-my-accent ${theme} rounded shadow transition ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-70`}
         >
           Buy Now
         </Link>

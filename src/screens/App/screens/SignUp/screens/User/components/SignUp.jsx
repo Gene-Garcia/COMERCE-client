@@ -144,13 +144,13 @@ function SignUp({ history }) {
 
           <Button
             isLoading={isLoading}
-            buttonClass="transition duration-300 border border-my-accent rounded-md h-10 group hover:bg-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2"
-            svgClass="text-my-accent group-hover:text-my-contrast"
+            buttonClass="w-max px-12 py-1.5 bg-my-accent rounded shadow-md transition duration-200 ease-linear 
+            hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2 
+            active:ring active:ring-my-accent active:ring-offset-0 active:ring-opacity-40"
+            svgClass="text-white"
             onClick={handleFormSubmit}
           >
-            <span className="text-my-accenet font-semibold text-xl text-my-accent group-hover:text-my-contrast">
-              SIGN UP
-            </span>
+            <span className="text-white font-semibold text-lg">SIGN UP</span>
           </Button>
         </div>
       </div>
