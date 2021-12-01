@@ -8,8 +8,8 @@ module.exports = {
   darkMode: false, // other values 'media' and 'class'
   theme: {
     fontFamily: {
-      sans: ["Roboto", "sans-serif"],
-      serif: ["Rokkitt", "serif"],
+      sans: ["'Open Sans'", "sans-serif"],
+      serif: ["'Roboto Slab'", "serif"],
       mono: ["'DM Sans'", "sans-serif"],
     },
     screens: {
