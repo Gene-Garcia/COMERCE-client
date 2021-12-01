@@ -23,13 +23,11 @@ function ResetPassword({ history }) {
         setSeverity("success");
         setMessage(res.data.message);
 
-        history.push("/login");
+        history.push("/login/user");
       })
       .catch((err) => {
         setSeverity("error");
-
-        if (err.response === undefined)
-          setMessage("Something went wrong. Try again.");
+        if (!err.response) setMessage("Something went wrong. Try again.");
         else setMessage(err.response.data.error);
       });
   }

@@ -9,7 +9,7 @@ function UserIndex({ history }) {
   useEffect(() => {
     validateUser((s) => {
       if (s === "SUCCESS") setLoading(false);
-      else if (s === "FAILED") history.push("/login");
+      else if (s === "FAILED") history.push("/login/user");
       else if (s === "UNAUTHORIZED") history.push("/unauthorized");
       else if (s === "FORBIDDEN") history.push("/forbidden");
     });

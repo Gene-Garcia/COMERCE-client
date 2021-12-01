@@ -6,20 +6,19 @@ import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 
 function ForgotPassword() {
+  // form hoks
   async function ForgotPasswordAPI() {
     await axios
       .post("/api/user/password/forgot", values)
       .then((res) => {
         resetForms();
-
         setSeverity("success");
         setMessage(res.data.message);
       })
       .catch((err) => {
         setSeverity("error");
 
-        if (err.response === undefined)
-          setMessage("Something went wrong. Try again");
+        if (!err.response) setMessage("Something went wrong. Try again");
         else setMessage(err.response.data.error);
       });
   }
@@ -44,6 +43,7 @@ function ForgotPassword() {
     ForgotPasswordAPI
   );
 
+  // alert context
   const { setMessage, setSeverity } = useAlert();
 
   return (

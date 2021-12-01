@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAlert from "../../../../../../../hooks/useAlert";
 import InputField from "../../../../../../../shared/Auth/InputField";
 import validateUser from "../../../../../../../shared/Auth/Validation";
@@ -6,36 +6,40 @@ import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
+import Button from "../../../../../../../shared/Components/button/Button";
 
 function ChangePassword({ history }) {
-  const [loading, setLoading] = useState(true);
+  // separate loading state. this loading is for the page loading. not form button loading.
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     validateUser((status) => {
       if (status === "SUCCESS") setLoading(false);
-      else if (status === "FAILED") history.push("/login");
+      else if (status === "FAILED") history.push("/login/user");
       else if (status === "UNAUTHORIZED") history.push("/unauthorized");
       else if (status === "FORBIDDEN") history.push("/forbidden");
     });
   }, []);
 
+  // implement loading button
   async function ChangePasswordAPI() {
     await axios
       .post("/api/user/password/change", values)
       .then((res) => {
-        resetForms();
-
         if (res.status === 200) {
+          resetForms();
+
           setSeverity("success");
           setMessage("Successfully changed password");
-        } else setMessage(res.data.message);
+          history.push("/user/me");
+        }
       })
       .catch((err) => {
-        setSeverity("error");
+        setIsLoading(false);
 
-        if (err.response === undefined)
-          setMessage("Something went wrong. Try again.");
-        else if (err.response.status === 401) history.push("/sign-in");
+        setSeverity("error");
+        if (!err.response) setMessage("Something went wrong. Try again.");
+        else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else setMessage(err.response.data.error);
       });
@@ -60,12 +64,15 @@ function ChangePassword({ history }) {
   }
 
   const initialState = { oldPassword: "", newPassword: "" };
-  const { values, errors, handleInput, resetForms, handleFormSubmit } = useForm(
-    initialState,
-    initialState,
-    validate,
-    ChangePasswordAPI
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    resetForms,
+    handleFormSubmit,
+    isLoading,
+    setIsLoading,
+  } = useForm(initialState, initialState, validate, ChangePasswordAPI);
 
   const { setMessage, setSeverity } = useAlert();
 
@@ -78,7 +85,7 @@ function ChangePassword({ history }) {
           <Title title="My Account" />
 
           <div className="w-4/5 mx-auto mt-10">
-            <h1 className="text-gray-800 text-2xl font-semibold">
+            <h1 className="text-gray-800 text-2xl font-medium">
               Change Password
             </h1>
 
@@ -101,12 +108,14 @@ function ChangePassword({ history }) {
                 onChange={handleInput}
               />
 
-              <button
+              <Button
+                isLoading={isLoading}
                 onClick={handleFormSubmit}
-                className="transition bg-my-accent text-my-contrast font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+                svgClass="text-white"
+                buttonClass="transition bg-my-accent text-white font-medium rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
               >
-                Save New Password
-              </button>
+                <span>Save New Password</span>
+              </Button>
             </div>
           </div>
         </div>

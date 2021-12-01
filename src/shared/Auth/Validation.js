@@ -23,7 +23,7 @@ async function validateUser(cb) {
     })
     .catch((err) => {
       clearUserPersistData();
-      if (err.response === undefined) status = "FAILED";
+      if (!err.response) status = "FAILED";
       else if (err.response.status === 401) status = "UNAUTHORIZED";
       else if (err.response.status === 403) status = "FORBIDDEN";
       else status = "FAILED";

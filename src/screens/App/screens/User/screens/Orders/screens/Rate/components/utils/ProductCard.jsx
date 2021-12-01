@@ -37,7 +37,7 @@ function ProductCardLink({
         <div className="space-y-0 text-right">
           <p className="text-gray-400 text-sm">Order ID</p>
           <Link
-            to={`/users/orders?oid=${orderId}`}
+            to={`/user/orders?oid=${orderId}`}
             className="transition duration-200 text-sm text-gray-500 hover:text-gray-900"
           >
             {orderId}

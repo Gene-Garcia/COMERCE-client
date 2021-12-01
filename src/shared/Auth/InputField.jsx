@@ -9,10 +9,10 @@ function InputField({ type, name, label, error, value, onChange, svgD }) {
   const errorValues = error ? "border-red-500" : "border-gray-100";
 
   return (
-    <div className="flex flex-col space-y-1">
+    <div className="flex flex-col space-y-0.5">
       <div className="flex justify-between">
-        <label className="font-semibold text-md text-gray-500">{label}</label>
-        <label className="text-red-400 font-semibold ">{error}</label>
+        <label className="font-medium text-md text-gray-500">{label}</label>
+        <label className="text-red-400 font-regular">{error}</label>
       </div>
 
       <div

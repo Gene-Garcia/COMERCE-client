@@ -3,6 +3,8 @@ import CheckoutContext from "../context/CheckoutContext";
 
 function useCheckout() {
   const {
+    loading,
+    setLoading,
     state: {
       toggledStep,
       toggledPayment,
@@ -15,11 +17,12 @@ function useCheckout() {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   } = useContext(CheckoutContext);
 
   return {
+    loading,
+    setLoading,
     toggledStep,
     toggledPayment,
     shippingDetails,
@@ -30,7 +33,6 @@ function useCheckout() {
     togglePaymentOption,
     loadShippingDetails,
     loadPaymentDetails,
-    placeOrder,
     resetToDefault,
   };
 }

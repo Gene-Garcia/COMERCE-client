@@ -16,13 +16,31 @@ const routes = {
   },
 
   SIGN_UP: {
-    path: "/sign-up",
-    name: "Sign Up",
+    subroutes: {
+      USER: {
+        path: "/sign-up/user",
+        name: "User Sign Up",
+      },
+
+      SELLER: {
+        path: "/sign-up/seller",
+        name: "Seller Sign Up",
+      },
+    },
   },
 
   LOGIN: {
-    path: "/login",
-    name: "Login",
+    subroutes: {
+      USER: {
+        path: "/login/user",
+        name: "User Login",
+      },
+
+      SELLER: {
+        path: "/login/seller",
+        name: "Seller Login",
+      },
+    },
   },
 
   SIGN_OUT: {
@@ -42,6 +60,11 @@ const routes = {
         name: "Reset Password",
       },
     },
+  },
+
+  CHECKOUT: {
+    path: "/checkout",
+    name: "Checkout",
   },
 
   USER: {
@@ -68,11 +91,6 @@ const routes = {
         name: "Shopping Cart",
       },
 
-      CHECKOUT: {
-        path: "/user/checkout",
-        name: "Checkout",
-      },
-
       ORDERS: {
         path: "/user/orders",
         name: "Orders",
@@ -85,6 +103,11 @@ const routes = {
         },
       },
     },
+  },
+
+  SELLER: {
+    path: "/seller",
+    name: "Dashboard",
   },
 };
 

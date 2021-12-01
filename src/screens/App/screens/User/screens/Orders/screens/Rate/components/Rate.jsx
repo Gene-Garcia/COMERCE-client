@@ -33,14 +33,14 @@ function Rate({ history }) {
         })
         .catch((err) => {
           setSeverity("error");
+          setLoading(false);
           if (!err.response)
             setMessage(
-              "Something went wrong in fetching the products to rate. Try again."
+              "Something went wrong in fetching the products to rate. Please try again."
             );
-          else if (err.response.status === 403 || err.response.status === 401) {
-            setMessage(err.response.data.error);
-            history.push("/user/orders");
-          } else setMessage(err.response.data.error);
+          else if (err.response.status === 401) history.push("/forbidden");
+          else if (err.response.status === 403) history.push("/unauthorized");
+          else setMessage(err.response.data.error);
         });
     }
 

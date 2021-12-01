@@ -20,6 +20,8 @@ function SelectedProduct() {
     resetRateValuesToDefault,
     setProductToRated,
     nextProductToRate,
+    loading,
+    setLoading,
   } = useRate();
 
   // alert context
@@ -27,6 +29,7 @@ function SelectedProduct() {
 
   // onClick submit function
   async function submitRatingForCurrent() {
+    setLoading(true);
     if (rating === -1) {
       setSeverity("error");
       setMessage(
@@ -52,18 +55,18 @@ function SelectedProduct() {
             setProductToRated(selected.productId, selected.orderId);
             resetRateValuesToDefault();
             nextProductToRate();
+            setLoading(false);
           }
         })
         .catch((err) => {
           setSeverity("error");
 
-          if (!err.response) {
+          if (!err.response)
             setMessage(
-              "We apologise something went wrong in saving your product rating. Try again later."
+              "We apologise something went wrong in saving your product rating. Please try again."
             );
-            history.push("/");
-          } else if (err.response.status === 401 || err.response.status === 403)
-            history.push("/login");
+          else if (err.response.status === 401) history.push("/forbidden");
+          else if (err.response.status === 403) history.push("/unauthorized");
           else setMessage(err.response.data.error);
         });
     }
@@ -95,7 +98,7 @@ function SelectedProduct() {
 
             {/* CTA */}
             <Button
-              isLoading={false}
+              isLoading={loading}
               buttonClass="transition bg-my-accent px-14 py-3 rounded-md shadow text-my-contrast font-medium text-lg hover:bg-my-accent-mono"
               onClick={submitRatingForCurrent}
             >
