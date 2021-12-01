@@ -16,37 +16,69 @@ import { CheckoutProvider } from "../../../context/CheckoutContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
+import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
+import Sidebar from "./Sidebar";
 
+/*
+ * the entire function is wrapped in withRouter in order to access the location object
+ * and obtain the pathname.
+ *
+ * obtaining the pathname is crucial for rendering components to have or not have a navbar and footer.
+ */
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
-    const navles = ["/login", "/sign-up", "/"];
+    const navles = [
+      "/",
+      "/login/user",
+      "/sign-up/user",
+
+      "/login/seller",
+      "/sign-up/seller",
+      "/seller",
+    ];
+
+    const sidebared = ["/seller"];
 
     return (
-      <>
+      <div className={`${sidebared.includes(pathname) ? "flex flex-row" : ""}`}>
         <>{!navles.includes(pathname) && <Navbar />}</>
 
-        <Switch>
-          <Route {...route.HOME} />
+        {sidebared.includes(pathname) && (
+          <div className="w-72 bg-my-accent-shade h-screen">
+            <Sidebar />
+          </div>
+        )}
 
-          <Route {...route.CATALOGUE} />
-          <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
+        <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
+          <Switch>
+            <Route {...route.HOME} />
 
-          <Route {...route.SIGN_UP} />
-          <Route {...route.LOGIN} />
-          <Route {...route.SIGN_OUT} />
-          <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
-          <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
+            <Route {...route.CATALOGUE} />
+            <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
-          <Route {...route.USER} />
+            <Route {...route.SIGN_UP.subroutes.USER} />
+            <Route {...route.SIGN_UP.subroutes.SELLER} />
+            <Route {...route.LOGIN.subroutes.USER} />
+            <Route {...route.LOGIN.subroutes.SELLER} />
+            <Route {...route.SIGN_OUT} />
 
-          <Route {...route.USER.subroutes.CART} />
-          <Route {...route.USER.subroutes.CHECKOUT} />
-          <Route {...route.USER.subroutes.ORDERS} />
-          <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
+            <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
+            <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
-          <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+            <Route {...route.CHECKOUT} />
 
-          {/* <PrivateRoute
+            <Route {...route.USER} />
+
+            <Route {...route.USER.subroutes.CART} />
+            <Route {...route.USER.subroutes.ORDERS} />
+            <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
+
+            <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
+
+            {/* seller routes */}
+            <Route {...route.SELLER} />
+
+            {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
@@ -57,13 +89,13 @@ const AppContent = memo(
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         /> */}
 
-          <Route>
-            <h1>404</h1>
-          </Route>
-        </Switch>
-
+            <Route>
+              <h1>404</h1>
+            </Route>
+          </Switch>
+        </div>
         {/* <>{!navles.includes(pathname) && <Footer />}</> */}
-      </>
+      </div>
     );
   })
 );
@@ -97,7 +129,9 @@ function App() {
               <CheckoutProvider>
                 <OrdersProvider>
                   <RateProvider>
-                    <AppContent />
+                    <SellerRegistrationProvider>
+                      <AppContent />
+                    </SellerRegistrationProvider>
                   </RateProvider>
                 </OrdersProvider>
               </CheckoutProvider>

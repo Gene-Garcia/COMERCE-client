@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useProductPagination from "../../../hooks/useProductPagination";
+
+/*
+ * This pagination component renders two arrow button, and number pages in the center of it.
+ * The number of pages renderd between the arrows depends on the PaginationContext's minPageOption and maxPageOption
+ *
+ * The current logic of the pagination pages is that the active button will move to the next page number and change the
+ * button's accent to blue. Now if, the next page is invisible or not yet shown (becaue there is a limit of minPageOption & maxPageOption),
+ * the component will re-render with new minPageOption and maxPageOption with the pages not shown before.
+ *
+ * For this component to work, the ProductPaginationContext is needed to be used.
+ */
 
 function Pagination() {
   const {
@@ -83,12 +94,15 @@ function Page({ id, pageNum, onClick }) {
   const { currentPage } = useProductPagination();
 
   // changes bg color if active
-  const stateStyle = currentPage == id ? "bg-my-accent text-my-contrast" : "";
+  const stateStyle =
+    currentPage == id
+      ? "bg-my-accent bg-opacity-50 text-white"
+      : "text-gray-800";
 
   return (
     <button
       onClick={onClick}
-      className={`${stateStyle} transition duration-300 rounded bg-gray-200 text-gray-800 w-8 h-8 font-bold hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
+      className={`${stateStyle} transition duration-300 rounded bg-gray-200 text-xl  w-8 h-8 font-semibold font-serif hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
     >
       {pageNum}
     </button>

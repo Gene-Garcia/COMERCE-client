@@ -10,7 +10,7 @@ function OrderedProducts() {
       {loading || !order ? (
         <></>
       ) : (
-        <div className="flex flex-row gap-x-6 overflow-x-auto pb-5">
+        <div className="inline-flex gap-x-6 pb-5 overflow-auto w-full">
           {order.orderedProducts.map((e) => (
             <ProductCard key={e._id} data={e} />
           ))}
@@ -24,11 +24,11 @@ export default OrderedProducts;
 function ProductCard({ data }) {
   return (
     <div className="border border-gray-100 rounded-md">
-      <div className="w-44 bg-gray-100 rounded-md mb-1">
+      <div className="w-44 bg-gray-100 rounded-md mb-1 w-48 h-48 ">
         <img
           src={data._product.imageAddress}
           alt="ordered-product"
-          className="w-full object-contain p-2"
+          className="w-full h-full object-contain p-2"
         />
       </div>
 

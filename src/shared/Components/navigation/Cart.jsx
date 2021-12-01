@@ -15,12 +15,12 @@ import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";
 function Cart({ bgType }) {
   const themes = {
     accent: {
-      svg: "text-my-contrast group-hover:text-my-dim",
-      text: "text-my-contrast",
+      svg: "text-gray-50 group-hover:text-gray-800",
+      text: "text-gray-50",
     },
     contrast: {
-      svg: "text-my-dim group-hover:text-my-accent",
-      text: "text-my-dim",
+      svg: "text-gray-500 group-hover:text-my-accent",
+      text: "text-gray-600",
     },
   };
 
@@ -36,7 +36,7 @@ function Cart({ bgType }) {
       to="/user/cart"
       className="inline-flex place-self-center self-center items-center group"
     >
-      <div className={`${themes[bgType].svg} font-semibold`}>
+      <div className={`${themes[bgType].svg} transition duration-200`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -52,7 +52,7 @@ function Cart({ bgType }) {
           />
         </svg>
       </div>
-      <div className={`ml-1.5 text-lg ${themes[bgType].text} font-semibold`}>
+      <div className={`ml-1.5 text-lg ${themes[bgType].text} font-medium`}>
         {cartCount}
       </div>
     </Link>

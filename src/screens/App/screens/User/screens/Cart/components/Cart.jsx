@@ -9,6 +9,7 @@ import Title from "../../../../../../../shared/Components/pages/Title";
 function Cart({ history }) {
   const { setLoading, loadCartItems, resetToDefault } = useShoppingCart();
 
+  // populate
   useEffect(() => {
     async function getUserCart() {
       await axios
@@ -16,12 +17,12 @@ function Cart({ history }) {
         .then((res) => {
           if (res.status === 200) {
             loadCartItems(res.data.cart);
-            console.log(res.data.cart);
+            // console.log(res.data.cart);
             setLoading(false);
           }
         })
         .catch((err) => {
-          if (!err.response) history.push("/login");
+          if (!err.response) history.push("/login/user");
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
         });

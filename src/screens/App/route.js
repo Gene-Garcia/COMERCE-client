@@ -7,7 +7,11 @@ import LoginRoute from "./screens/Login/route";
 import SignOutRoute from "./screens/SignOut/route";
 import PasswordRoute from "./screens/Password/route";
 
+import CheckoutRoute from "./screens/Checkout/route";
+
 import UserIndexRoute from "./screens/User/route";
+
+import SellerRoute from "./screens/Seller/route";
 
 const route = {
   HOME: HomeRoute,
@@ -18,6 +22,8 @@ const route = {
   USER: UserIndexRoute,
   PASSWORD: PasswordRoute,
   SIGN_OUT: SignOutRoute,
+  CHECKOUT: CheckoutRoute,
+  SELLER: SellerRoute,
 };
 
 export default route;

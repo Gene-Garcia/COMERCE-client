@@ -14,7 +14,8 @@ const initial = {
 function RateProvider({ children }) {
   const [state, dispatch] = useReducer(RateReducer, initial);
 
-  // loading state variable so that products will not be displayed until it has been populated
+  // loading state variable so that products will not be displayed until it has been populated,
+  // and for posting the rate
   const [loading, setLoading] = useState(true);
 
   const {

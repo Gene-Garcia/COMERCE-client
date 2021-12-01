@@ -1,10 +1,10 @@
 /*
- * This component is only instantiated or called once, however, it is capable of 
- * appearing (when an error message is set) and disappearing (when the user clicks the x button). 
+ * This component is only instantiated or called once, however, it is capable of
+ * appearing (when an error message is set) and disappearing (when the user clicks the x button).
  *
  * The value used by this component is provided by the AlertContext, and using it
  * must go through the useAlert which creates the AlertContext and returns the state variables
- * 
+ *
  */
 
 import React from "react";
@@ -16,11 +16,10 @@ function Alert() {
   let color;
   if (severity === "error") color = "bg-red-100 border-red-500";
   else if (severity === "success") color = "bg-green-100 border-green-500";
+  else if (severity === "information") color = "bg-blue-100 border-blue-500";
 
   return (
-    <div
-      className={(message ? "absolute" : "hidden") + " top-32 left-1/2 z-10"}
-    >
+    <div className={(message ? "fixed" : "hidden") + " top-32 left-1/2 z-10"}>
       <div
         className={
           (message ? "relative" : "hidden") +
@@ -28,7 +27,7 @@ function Alert() {
           color
         }
       >
-        <div className="text-gray-600 font-semibold pr-4">{message}</div>
+        <div className="text-gray-800 font-medium pr-6">{message}</div>
 
         <button
           onClick={() => {

@@ -5,20 +5,25 @@ const ProductPaginationContext = createContext();
 export default ProductPaginationContext;
 
 const initial = {
+  // set after the initial onMount state. the total count of items in the database
   productCount: 0,
   products: [],
   currentPage: 1,
 
-  // these 2 variables is responsible for limiting only 5 pages buttons to be displayed
+  // these 2 variables is responsible for limiting only {RANGE} pages buttons to be displayed
   minPageOption: 1,
   maxPageOption: 1,
 
   // const values
+  // range of the pages option box shown
   range: 5,
+  // the number of products to be displayed per page
   productCountPerPage: 4,
 
-  searchFilter: "", // append to some regex
-  maxPagesPossible: 1, // to be changed on first load
+  // append to some regex
+  searchFilter: "",
+  // to be changed on first load through computation in the computeMaxPagesPossible
+  maxPagesPossible: 1,
 };
 
 function ProductPaginationProvider({ children }) {

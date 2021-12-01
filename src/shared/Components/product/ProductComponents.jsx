@@ -14,7 +14,7 @@ import Button from "../button/Button";
 
 function ProductName({ name }) {
   return (
-    <h3 className={`text-my-dark font-sans font-semibold text-xl`}>{name}</h3>
+    <h3 className={`font-sans font-regular text-xl text-gray-700`}>{name}</h3>
   );
 }
 
@@ -25,7 +25,7 @@ function ProductPrice({ price, size }) {
   else theme = "text-lg";
 
   return (
-    <h3 className={`text-my-accent font-sans font-semibold ${theme}`}>
+    <h3 className={`text-my-accent font-sans font-medium ${theme}`}>
       {`₱${formatPrice(price)}`}
     </h3>
   );
@@ -35,9 +35,18 @@ function ProductPrice({ price, size }) {
  * 'rating' is an array that contains numbers which are the
  * rating of the product
  *
+ * Each star is logically assigned with a range of numbers. If the rating of the product falls within the range
+ * of that star, then it will be set as an accented start.
+ *
+ * from left to right
+ * Star 1 is to 1 - 1.99
+ * Star 2 is to 1.99 - 2.99
+ * Star 3 is to 2.99 - 3.99
+ * Star 4 is to 3.99 - 4.99
+ * Star 5 is to 4.99 - 5.99
  */
 function ProductRating({ size, rating }) {
-  function Star({ color, size }) {
+  const Star = ({ color, size }) => {
     let theme;
     if (size === "large") theme = "h-6 w-6";
     else if (size === "extralarge") theme = "h-7 w-7";
@@ -59,7 +68,7 @@ function ProductRating({ size, rating }) {
         />
       </svg>
     );
-  }
+  };
 
   let score =
     rating.length > 0
@@ -71,26 +80,43 @@ function ProductRating({ size, rating }) {
       <div className="flex flex-shrink-0">
         <div>
           <Star
-            color={score >= 1.99 && score > 0 ? "text-my-accent" : ""}
+            color={
+              score >= 1.99 && score > 0 ? "text-my-accent" : "text-gray-600"
+            }
+            size={size}
+          />
+        </div>
+
+        <div>
+          <Star
+            color={score >= 2.99 ? "text-my-accent" : "text-gray-600"}
+            size={size}
+          />
+        </div>
+
+        <div>
+          <Star
+            color={score >= 3.99 ? "text-my-accent" : "text-gray-600"}
+            size={size}
+          />
+        </div>
+
+        <div>
+          <Star
+            color={score >= 4.99 ? "text-my-accent" : "text-gray-600"}
             size={size}
           />
         </div>
         <div>
-          <Star color={score >= 2.99 ? "text-my-accent" : ""} size={size} />
-        </div>
-        <div>
-          <Star color={score >= 3.99 ? "text-my-accent" : ""} size={size} />
-        </div>
-        <div>
-          <Star color={score >= 4.99 ? "text-my-accent" : ""} size={size} />
-        </div>
-        <div>
-          <Star color={score >= 5.99 ? "text-my-accent" : ""} size={size} />
+          <Star
+            color={score >= 5.99 ? "text-my-accent" : "text-gray-600"}
+            size={size}
+          />
         </div>
       </div>
 
       <div className="">
-        <p className="text-gray-500 text-xs font-medium">{`${rating.length} Ratings`}</p>
+        <p className="text-gray-500 text-xs font-medium">{`${rating.length} ratings`}</p>
       </div>
     </div>
   );
@@ -99,10 +125,12 @@ function ProductRating({ size, rating }) {
 function ProductDescription({ desc, fullText }) {
   let truncated;
   if (!fullText && desc)
-    truncated = desc.length > 20 ? desc.substring(0, 20) + "..." : desc;
+    truncated = desc.length > 30 ? desc.substring(0, 30) + "..." : desc;
   else truncated = desc;
 
-  return <p className="font-medium text-gray-700 text-md ">{truncated}</p>;
+  return (
+    <p className="font-regular font-sans text-gray-700 text-md ">{truncated}</p>
+  );
 }
 
 /*
@@ -142,15 +170,15 @@ function ProductPurchase({ productId, size }) {
   const { setMessage, setSeverity } = useAlert();
 
   let theme;
-  if (size === "large") theme = "text-md py-1.5 px-6";
-  else if (size === "extralarge") theme = "text-md py-1.5 px-5";
-  else theme = "text-sm py-1 px-3";
+  if (size === "large") theme = "text-md pt-2 px-6";
+  else if (size === "extralarge") theme = "text-md pt-2.5 pb-1 px-5";
+  else theme = "text-sm pt-1.5 px-3";
 
   return (
     <>
-      <div className="flex flex-wrap gap-y-3 gap-x-4">
+      <div className="flex flex-wrap gap-2">
         <Link
-          to={`/user/checkout?products=${productId}+1`}
+          to={`/checkout?products=${productId}+1`}
           className={`font-medium text-my-contrast bg-my-accent ${theme} rounded-md hover:bg-my-accent-mono`}
         >
           Buy Now

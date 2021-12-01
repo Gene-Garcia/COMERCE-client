@@ -7,6 +7,11 @@ module.exports = {
   ],
   darkMode: false, // other values 'media' and 'class'
   theme: {
+    fontFamily: {
+      sans: ["Roboto", "sans-serif"],
+      serif: ["Rokkitt", "serif"],
+      mono: ["'DM Sans'", "sans-serif"],
+    },
     screens: {
       xs: "453px",
       sm: "570px",
@@ -30,8 +35,21 @@ module.exports = {
       colors: {
         "my-accent": "#0092CA",
         "my-accent-mono": "#4085CB",
+
+        // base color + white
+        "my-accent-tint": "#66BEDF",
+
+        // base color + gray
+        "my-accent-tone": "#41AED8",
+
+        // base color + black
+        "my-accent-shade": "#001449",
+
         "my-contrast": "#F9FAFB",
+
         "my-black": "#082032",
+        "my-off-white": "#FDFDFD",
+
         "my-dark": "#2C394B",
         "my-dim": "#334756",
       },

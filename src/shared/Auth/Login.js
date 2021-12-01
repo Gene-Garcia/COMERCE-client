@@ -51,4 +51,15 @@ function getExpiration() {
   return date;
 }
 
-export { clearUserPersistData, setUserPersistData, checkLoggedIn };
+function getCookieByKey(key) {
+  const cookies = new Cookies();
+
+  return cookies.get(key);
+}
+
+export {
+  clearUserPersistData,
+  setUserPersistData,
+  checkLoggedIn,
+  getCookieByKey,
+};

@@ -1,3 +1,5 @@
+import { createContext, useState } from "react";
+
 /*
  * The CartContext is holds the data to the number of cart items displayed in the
  * navbars.
@@ -7,11 +9,7 @@
  *
  * To use the state variable of this CartContext, components needs to use
  * the hook useGetCartCount
- *
  */
-
-import { createContext, useState } from "react";
-
 const CartCountContext = createContext();
 export default CartCountContext;
 
