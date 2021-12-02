@@ -15,9 +15,9 @@ function SignUp() {
   }, []);
 
   return (
-    <div className="h-screen bg-gradient-to-br from-my-accent to-my-accent-mono flex items-center justify-center">
+    <div className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint flex items-center justify-center">
       {/* root container - no bg color */}
-      <div className="w-1/2 flex flex-row shadow-2xl">
+      <div className="w-1/2 flex flex-row shadow-2xl bg-transparent rounded-lg">
         {/* steps container */}
         <div className="w-1/4 rounded-l-lg">
           <RegistrationSteps />
