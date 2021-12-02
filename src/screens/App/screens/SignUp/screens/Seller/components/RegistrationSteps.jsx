@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
 import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
@@ -6,11 +7,12 @@ function RegistrationSteps() {
   return (
     <div className="flex flex-row md:flex-col gap-1 xs:gap-2 sm:gap-3">
       {/* COMERCE logo */}
-      <div className="bg-white rounded-l-lg p-4 hidden md:flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
-        <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
-        <span className="text-black text-2xl font-mono">COMERCE</span>
-      </div>
-
+      <Link to="/">
+        <div className="bg-white rounded-l-lg p-4 hidden md:flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
+          <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
+          <span className="text-black text-2xl font-mono">COMERCE</span>
+        </div>
+      </Link>
       {/* Steps */}
       <Step id={0} main="Step 1" sub="Terms of Agreement" />
       <Step id={1} main="Step 2" sub="Account Information" />
