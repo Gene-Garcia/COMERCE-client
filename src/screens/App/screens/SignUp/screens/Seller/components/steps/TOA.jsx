@@ -71,7 +71,7 @@ function TermsOfAgreement() {
   };
 
   return (
-    <div className="flex flex-col justify-between gap-10">
+    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
       <Title name="Terms of Agreement" />
 
       <div className="h-96 whitespace-pre-line overflow-y-scroll">

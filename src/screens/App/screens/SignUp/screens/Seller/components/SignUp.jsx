@@ -17,14 +17,14 @@ function SignUp() {
   return (
     <div className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint flex items-center justify-center">
       {/* root container - no bg color */}
-      <div className="w-1/2 flex flex-row shadow-2xl bg-transparent rounded-lg">
+      <div className="w-11/12  md:w-11/12 lg:w-4/5 xl:w-3/4 2xl:w-1/2 flex flex-col md:flex-row shadow-2xl bg-transparent rounded-lg">
         {/* steps container */}
-        <div className="w-1/4 rounded-l-lg">
+        <div className="md:w-1/4 rounded-l-lg">
           <RegistrationSteps />
         </div>
 
         {/* content */}
-        <div className="w-3/4  bg-white rounded-r-lg p-8">
+        <div className="md:w-3/4 bg-white rounded-b-lg md:rounded-r-lg p-5 md:p-8">
           <div className={`${activeStepId === 0 ? "block" : "hidden"}`}>
             <TermsOfAgreement />
           </div>
