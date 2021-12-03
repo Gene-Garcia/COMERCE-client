@@ -9,7 +9,6 @@ import InputField, {
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
-import ToLogin from "../utils/ToLogin";
 
 function BusinessInfo() {
   // history
@@ -148,8 +147,6 @@ function BusinessInfo() {
       </div>
 
       <BusinessInfoCTA onClick={handleFormSubmit} />
-
-      <ToLogin />
     </div>
   );
 }

@@ -7,8 +7,8 @@ function RegistrationSteps() {
   return (
     <div className="flex flex-row md:flex-col gap-1 xs:gap-2 sm:gap-3">
       {/* COMERCE logo */}
-      <Link to="/">
-        <div className="bg-white rounded-l-lg p-4 hidden md:flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
+      <Link to="/" className=" hidden md:block">
+        <div className="bg-white rounded-l-lg p-4 flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
           <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
           <span className="text-black text-2xl font-mono">COMERCE</span>
         </div>
