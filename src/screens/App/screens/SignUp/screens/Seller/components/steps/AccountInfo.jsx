@@ -5,6 +5,7 @@ import useSellerRegistration from "../../../../../../../../hooks/useSellerRegist
 import InputField from "../../../../../../../../shared/Components/seller/InputField";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
+import ToLogin from "../utils/ToLogin";
 
 function AccountInfo() {
   // alert message
@@ -140,6 +141,8 @@ function AccountInfo() {
       </div>
 
       <AccountInfoCTA onClick={handleFormSubmit} />
+
+      <ToLogin />
     </div>
   );
 }
