@@ -29,6 +29,10 @@ module.exports = {
       full: "100%",
     },
     extend: {
+      width: {
+        thirty: "30%",
+        seventy: "70%",
+      },
       spacing: {
         106: "28rem",
       },
