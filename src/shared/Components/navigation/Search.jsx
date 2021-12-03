@@ -6,13 +6,13 @@ function Search({ bgType }) {
     accent: {
       root: "bg-transparent border border-gray-300 focus-within:border focus-within:border-gray-50",
       input: "bg-transparent text-white ",
-      button: "bg-transparent text-gray-50 active:text-my-black",
+      button: "bg-transparent text-gray-50 active:text-black",
       texts: "text-gray-50 hover:border-white",
     },
     contrast: {
       root: "bg-white border border-gray-300 focus-within:border focus-within:border-my-accent ",
       input: "bg-white text-gray-700 ",
-      button: "bg-white text-my-accent active:text-my-dim",
+      button: "bg-white text-my-accent active:text-black",
       texts: "text-gray-600 hover:text-my-accent",
     },
   };

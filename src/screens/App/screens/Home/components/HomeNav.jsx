@@ -14,7 +14,7 @@ function HomeNav() {
           <div className="w-1/5 md:w-1/3 lg:w-2/4 xl:3/4 2xl:w-full ">
             <img src={iconLogo} alt="comerce-logo" className="" />
           </div>
-          <div className="self-center font-mono font-bold text-2xl sm:text-4xl tracking-wider text-my-contrast">
+          <div className="self-center font-mono font-bold text-2xl sm:text-4xl tracking-wider text-white">
             COMERCE
           </div>
         </div>

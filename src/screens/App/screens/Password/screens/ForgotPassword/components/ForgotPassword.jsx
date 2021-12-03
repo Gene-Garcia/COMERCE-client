@@ -88,7 +88,7 @@ function ForgotPassword() {
 
           <button
             onClick={handleFormSubmit}
-            className="transition bg-my-accent text-my-contrast font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+            className="transition bg-my-accent text-white font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
           >
             Send Email
           </button>
