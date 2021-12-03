@@ -1,16 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
 import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function RegistrationSteps() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-row md:flex-col gap-1 xs:gap-2 sm:gap-3">
       {/* COMERCE logo */}
-      <div className="bg-white rounded-l-lg p-4 flex flex-row items-center gap-3">
-        <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
-        <span className="text-black text-2xl font-mono">COMERCE</span>
-      </div>
-
+      <Link to="/" className=" hidden md:block">
+        <div className="bg-white rounded-l-lg p-4 flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
+          <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
+          <span className="text-black text-2xl font-mono">COMERCE</span>
+        </div>
+      </Link>
       {/* Steps */}
       <Step id={0} main="Step 1" sub="Terms of Agreement" />
       <Step id={1} main="Step 2" sub="Account Information" />
@@ -49,16 +51,16 @@ function Step({ main, sub, id }) {
   return (
     <div
       onClick={() => changeActiveStep(id)}
-      className="group bg-white rounded-l-lg p-4 flex flex-row items-center justify-between cursor-pointer"
+      className="group bg-white rounded-t-lg md:rounded-t-none md:rounded-l-lg p-2 sm:p-3 md:p-4 flex flex-row items-center justify-between cursor-pointer"
     >
       <div>
         <p
-          className={`${theme[status].main} font-medium text-lg transition duration-200 group-hover:text-my-accent`}
+          className={`${theme[status].main} font-medium text-md  md:text-lg transition duration-200 group-hover:text-my-accent`}
         >
           {main}
         </p>
         <p
-          className={`${theme[status].sub} text-md font-regular transition duration-200 group-hover:text-my-accent`}
+          className={`${theme[status].sub} text-sm md:text-md font-regular transition duration-200 group-hover:text-my-accent`}
         >
           {sub}
         </p>
@@ -66,7 +68,7 @@ function Step({ main, sub, id }) {
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4 group-hover:text-my-accent transition duration-200"
+        className="hidden md:block h-4 w-4 group-hover:text-my-accent transition duration-200"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"

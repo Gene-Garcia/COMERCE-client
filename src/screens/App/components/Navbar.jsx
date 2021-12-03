@@ -7,7 +7,7 @@ import Account from "../../../shared/Components/navigation/Account";
 
 function Navbar() {
   return (
-    <div className="w-full bg-my-contrast flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg gap-x-10 md:gap-x-0">
+    <div className="w-full bg-gray-50 flex flex-col xs:flex-row items-center justify-between gap-y-5 py-5 px-3 sm:px-5 shadow-lg gap-x-10 md:gap-x-0">
       {/* logo */}
       <Link
         to="/"
@@ -18,14 +18,14 @@ function Navbar() {
         </div>
 
         <div className="ml-3 xs:ml-0 sm:ml-3 ">
-          <p className="font-mono text-2xl font-bold tracking-widest text-my-dim text-opacity-80">
+          <p className="font-mono text-2xl font-bold tracking-widest text-black text-opacity-80">
             COMERCE
           </p>
         </div>
       </Link>
 
       {/* links */}
-      <div className="w-full sm:w-3/4 items-center text-my-dim flex flex-row justify-end">
+      <div className="w-full sm:w-3/4 items-center text-black flex flex-row justify-end">
         <div className="w-full flex justify-end flex-col md:flex-row gap-x-6 lg:gap-x-10 gap-y-4">
           {/* search */}
           <div className="flex-grow">

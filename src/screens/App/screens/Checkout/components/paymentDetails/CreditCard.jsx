@@ -42,7 +42,7 @@ function CreditCard() {
     if ("cardExpiration" in data) {
       tempErrs["cardExpiration"] = data["cardExpiration"]
         ? ""
-        : "Card's expiration is required";
+        : "Expiration is required";
 
       //add regex
     }
@@ -50,7 +50,7 @@ function CreditCard() {
     if ("securityCode" in data) {
       tempErrs["securityCode"] = data["securityCode"]
         ? ""
-        : "Security code is required";
+        : "Sec code is required";
 
       // check for numeric value
       if (!tempErrs["securityCode"])
@@ -118,7 +118,7 @@ function CreditCard() {
           />
 
           <CheckoutInput
-            label="Card Security Number"
+            label="Sec Number"
             type="number"
             placeholder="CVV"
             name="securityCode"

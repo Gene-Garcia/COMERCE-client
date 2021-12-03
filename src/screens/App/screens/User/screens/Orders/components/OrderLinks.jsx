@@ -8,9 +8,9 @@ function OrderLinks() {
 
   return (
     <div className="p-8 ">
-      <div className="flex flex-row items-center gap-6 mb-8">
-        <p className="font-medium text-lg text-gray-600">Orders</p>
-        <p className="font-base text-gray-400">Select to view details</p>
+      <div className="flex flex-row justify-between flex-wrap items-center gap-6 mb-8">
+        <p className="font-medium text-lg text-gray-600 mb-0">Orders</p>
+        <p className="text-sm text-gray-500 mb-0">Select to view details</p>
       </div>
 
       {/* link buttons */}
@@ -45,21 +45,21 @@ function OrderLink({ id, date, status }) {
     >
       {/* id and date */}
       <div>
-        <p className="transition duration-200 font-medium text-md text-gray-700 group-hover:text-my-accent">
+        <p className="transition duration-200 font-medium text-md text-gray-600 group-hover:text-my-accent">
           {id}
         </p>
 
         <div className="flex flex-wrap flex-row justify-between">
-          <p className="font-regular text-md text-gray-400">
+          <p className="font-regular text-sm text-gray-400">
             {formatDate(date)}
           </p>
 
           {status.toLowerCase() === "review" ? (
             <button
-              className="transition duration-200 bg-gray-200 px-1.5 rounded-md font-medium text-gray-500 hover:bg-blue-100"
+              className="bg-gray-200 px-2.5 rounded-md font-medium text-gray-600 transition duration-200 ease-linear hover:bg-blue-200"
               onClick={() => history.push("/user/orders/rate")}
             >
-              Rate Order
+              Rate
             </button>
           ) : (
             <></>

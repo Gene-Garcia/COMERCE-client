@@ -22,19 +22,20 @@ import Cookies from "universal-cookie";
 import { checkLoggedIn } from "../../Auth/Login";
 
 function UnAuthenticated({ bgType }) {
-  const base = "transition font-sans h-9 font-semibold text-base px-4 py-1.5";
+  const base =
+    "transition duration-200 ease-linear h-9 font-semibold px-4 py-1.5 mb-0";
   const themes = {
     accent: {
       login:
-        "text-my-contrast rounded-full border border-transparent hover:border hover:border-my-contrast",
+        "text-white rounded-full border border-transparent hover:border hover:border-white",
       signUp:
-        "text-my-accent bg-my-contrast rounded-full border border-my-contrast hover:bg-transparent hover:text-my-contrast",
+        "text-my-accent bg-white rounded-full border border-white hover:bg-transparent hover:text-white",
     },
     contrast: {
       login:
-        "text-my-accent rounded-md border border-my-accent hover:bg-my-accent hover:text-my-contrast",
+        "text-my-accent rounded-md border border-my-accent hover:bg-my-accent hover:text-white",
       signUp:
-        "text-my-contrast bg-my-accent rounded-md border border-my-accent hover:bg-my-accent-mono",
+        "text-white bg-my-accent rounded-md border border-my-accent hover:bg-my-accent-mono",
     },
   };
 
@@ -53,7 +54,7 @@ function UnAuthenticated({ bgType }) {
 function Authenticated({ bgType }) {
   const cookies = new Cookies();
 
-  // const color = "text-my-contrast";
+  // const color = "text-white";
 
   const themes = {
     accent: "text-gray-50",
@@ -78,7 +79,7 @@ function Authenticated({ bgType }) {
       </button>
 
       <ul className="dropdown-menu absolute right-0 z-50 hidden text-gray-600 group-hover:block">
-        <div className="mt-3 bg-my-contrast shadow-xl rounded border border-gray-200">
+        <div className="mt-3 bg-white shadow-xl rounded border border-gray-200">
           <li className="px-4 pt-2">
             <p className="text-sm font-regular w-full">Signed in as</p>
 

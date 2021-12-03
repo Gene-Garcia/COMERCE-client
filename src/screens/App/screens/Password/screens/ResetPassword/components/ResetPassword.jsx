@@ -111,14 +111,14 @@ function ResetPassword({ history }) {
 
           <div className="flex flex-row gap-x-6">
             <button
-              className="transition bg-my-accent text-my-contrast font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              className="transition bg-my-accent text-white font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
               onClick={handleFormSubmit}
             >
               Submit New Password
             </button>
 
             <Link
-              className="transition bg-transparent text-my-black font-semibold rounded-md px-4 py-1.5 border border-my-black hover:text-my-accent hover:border-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              className="transition bg-transparent text-black font-semibold rounded-md px-4 py-1.5 border border-black hover:text-my-accent hover:border-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
               to="/password/forgot"
             >
               Resend Token

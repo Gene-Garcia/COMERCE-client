@@ -39,15 +39,19 @@ function CartCheckout({ editable }) {
       <div className="my-7 border-b border-3 border-gray-300"></div>
       <div className="">
         {/* sub total */}
-        <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
-          <p className="">Sub Total</p>
-          <p className="">{`₱${formatPrice(subTotal)}`}</p>
+        <div className="flex flex-row justify-between items-center text-base">
+          <p className="text-gray-400 font-regular">Sub Total</p>
+          <p className="text-gray-500 font-medium">{`₱${formatPrice(
+            subTotal
+          )}`}</p>
         </div>
 
         {/* shipping fee */}
-        <div className="flex flex-row justify-between items-center font-medium text-gray-400 text-base">
-          <p className="">Shipping Fee (?)</p>
-          <p className="">{`₱${formatPrice(shippingFee)}`}</p>
+        <div className="flex flex-row justify-between items-center text-base">
+          <p className="text-gray-400 font-regular">Shipping Fee (?)</p>
+          <p className="text-gray-500 font-medium">{`₱${formatPrice(
+            shippingFee
+          )}`}</p>
         </div>
       </div>
       <div className="my-7 border-b border-3 border-gray-300"></div>
@@ -69,12 +73,12 @@ function CartCheckout({ editable }) {
         {checkoutable ? (
           <Link
             to={`/checkout?products=${prepareUrlForProducts(items)}`}
-            className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-md lg:text-lg rounded-md p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20"
+            className="w-full text-center bg-my-accent text-white font-semibold tracking-wide lg:text-md rounded shadow p-3 transition duration-250 ease-linear hover:bg-my-accent-mono active:ring-4 active:ring-my-accent-mono active:ring-opacity-30"
           >
-            PROCEED TO CHECKOUT
+            Checkout Products
           </Link>
         ) : (
-          <p className="transition duration-300 w-full text-center bg-my-accent text-white font-medium text-md lg:text-lg rounded-md p-1 md:p-2 lg:p-3 hover:bg-my-accent-mono active:ring-8 active:ring-my-accent-mono active:ring-opacity-20">
+          <p className=" cursor-not-allowed w-full text-center bg-my-accent text-white font-medium lg:text-md rounded-md p-1 md:p-2 lg:p-3 transition duration-250 ease-linear hover:bg-my-accent-mono">
             No Product(s) Selected
           </p>
         )}

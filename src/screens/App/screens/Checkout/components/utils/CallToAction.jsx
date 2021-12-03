@@ -6,9 +6,9 @@ function ReturnToCart() {
   return (
     <Link
       to="/user/cart"
-      className="transition duration-200 border border-transparent text-gray-400 rounded-md text-center text-base sm:text-lg font-semibold px-4 py-3 hover:border-gray-300"
+      className="px-5 py-2.5 text-gray-400 rounded text-center font-semibold border border-transparent transition duration-200 ease-linear hover:border-gray-300"
     >
-      Return To Cart
+      Return to Cart
     </Link>
   );
 }
@@ -17,7 +17,7 @@ function DesignedButton({ onClick, name }) {
   return (
     <button
       onClick={onClick}
-      className="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-base sm:text-lg font-semibold px-4 py-0 sm:px-10 sm:py-3 hover:bg-my-accent-mono"
+      className="px-5 py-2.5 bg-my-accent rounded shadow text-white text-center font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
     >
       {name}
     </button>
@@ -47,7 +47,7 @@ function PaymentCTA({ submit, type }) {
       display = "Pay with Credit Card";
       break;
     case "PP":
-      display = "Pay through PayPal";
+      display = "Pay by PayPal";
       break;
     default:
       throw Error;
@@ -67,7 +67,7 @@ function ReviewCTA({ submit, loading }) {
       {/* <DesignedButton onClick={submit} name="Place Order" /> */}
       <Button
         isLoading={loading}
-        buttonClass="transition duration-200 bg-my-accent border border-transparent text-white rounded-md text-center text-base sm:text-lg font-semibold px-4 py-0 sm:px-10 sm:py-3 hover:bg-my-accent-mono"
+        buttonClass="px-6 py-2.5 bg-my-accent text-white rounded-md text-center font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
         onClick={submit}
       >
         Place Order

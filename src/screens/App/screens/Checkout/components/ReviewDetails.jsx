@@ -106,12 +106,12 @@ function ReviewDetails() {
 
       <ReviewBody title="Summary">
         <div className="flex flex-row justify-between font-medium">
-          <p>Subtotal before shipping fee</p>
+          <p className="text-gray-500">Subtotal before shipping fee</p>
           <p>{`₱${formatPrice(subTotal)}`}</p>
         </div>
 
         <div className="flex flex-row justify-between font-medium">
-          <p>Shipping Fee</p>
+          <p className="text-gray-500">Shipping Fee</p>
           <p>{`₱${formatPrice(shippingFee)}`}</p>
         </div>
         <br />
