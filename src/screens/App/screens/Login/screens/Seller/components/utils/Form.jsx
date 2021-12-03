@@ -6,6 +6,7 @@ import Button from "../../../../../../../../shared/Components/button/Button";
 import axios from "../../../../../../../../shared/caller";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { setUserPersistData } from "../../../../../../../../shared/Auth/Login";
+import comerceAccent from "../../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function Form() {
   //history
@@ -58,10 +59,20 @@ function Form() {
   } = useForm(init, init, validation, LoginAPI);
 
   return (
-    <div className="w-1/2 h-full p-10 flex flex-col justify-center gap-16">
+    <div className="w-full xs:w-4/5 sm:w-seventy md:w-3/5 xl:w-1/2 h-full p-7 md:p-10 flex flex-col justify-center gap-12 xs:gap-16">
+      {/* COMERCE logo, but shows only on devices smaller than xs */}
+      <Link to="/" className="block xs:hidden">
+        <div className="flex flex-row items-center gap-4">
+          <img alt="COMERCE Logo" src={comerceAccent} className="w-14" />
+          <h2 className="text-2xl font-mono">COMERCE</h2>
+        </div>
+      </Link>
+
       <div className="">
-        <h1 className="text-3xl text-black font-medium">Seller Login</h1>
-        <p className="text-xl text-gray-600 font-medium">Welcome Back!</p>
+        <h1 className="text-3xl text-gray-800 font-semibold font-serif">
+          Seller Login
+        </h1>
+        <p className=" xs:text-xl text-gray-500 font-medium">Welcome Back!</p>
       </div>
 
       <div className="space-y-9">
@@ -98,18 +109,20 @@ function Form() {
 
         <Button
           isLoading={isLoading}
-          buttonClass="bg-my-accent rounded w-full py-1.5 shadow-md transition duration-200 ease-linear hover:bg-my-accent-mono"
+          buttonClass="bg-my-accent rounded w-full py-2 shadow-md transition duration-200 ease-linear hover:bg-my-accent-mono"
           svgClass="text-white"
           onClick={handleFormSubmit}
         >
-          <span className="text-white font-medium text-lg">LOGIN</span>
+          <span className="text-white font-semibold text-md">LOGIN</span>
         </Button>
 
         <div className="flex flex-row items-center justify-center gap-2">
-          <p className="text-gray-400 mb-0">don't have an account?</p>
+          <p className="text-gray-400 mb-0 text-sm lg:text-base">
+            don't have an account?
+          </p>
           <Link
             to="/sign-up/seller"
-            className="px-0.5 text-my-accent font-medium text-lg border-b border-transparent transition ease-linear hover:border-my-accent "
+            className="px-0.5 text-my-accent font-medium xs:text-md lg:text-lg border-b border-transparent transition ease-linear hover:border-my-accent "
           >
             Sign Up
           </Link>

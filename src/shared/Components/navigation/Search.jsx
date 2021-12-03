@@ -6,14 +6,14 @@ function Search({ bgType }) {
     accent: {
       root: "bg-transparent border border-gray-300 focus-within:border focus-within:border-gray-50",
       input: "bg-transparent text-white ",
-      button: "bg-transparent text-gray-50 active:text-my-black",
-      catalog: "text-gray-50 hover:text-gray-800",
+      button: "bg-transparent text-gray-50 active:text-black",
+      texts: "text-gray-50 hover:border-white",
     },
     contrast: {
-      root: "bg-my-contrast border border-gray-300 focus-within:border focus-within:border-my-accent ",
-      input: "bg-my-contrast text-gray-700 ",
-      button: "bg-my-contrast text-my-accent active:text-my-dim",
-      catalog: "text-gray-600 hover:text-my-accent",
+      root: "bg-white border border-gray-300 focus-within:border focus-within:border-my-accent ",
+      input: "bg-white text-gray-700 ",
+      button: "bg-white text-my-accent active:text-black",
+      texts: "text-gray-600 hover:text-my-accent",
     },
   };
 
@@ -51,10 +51,17 @@ function Search({ bgType }) {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-6">
+        <Link
+          to="/sign-up/seller"
+          className={`transition duration-250 ease-linear mt-0.5 px-1 font-sans text-sm font-medium border-b border-transparent ${themes[bgType].texts}`}
+        >
+          Sell on COMERCE
+        </Link>
+
         <Link
           to="/catalogue"
-          className={`transition duration-200 mt-0.5 font-sans text-sm font-medium ${themes[bgType].catalog}`}
+          className={`transition duration-250 ease-linear mt-0.5 font-sans text-sm font-medium border-b border-transparent ${themes[bgType].texts}`}
         >
           Catalogue
         </Link>

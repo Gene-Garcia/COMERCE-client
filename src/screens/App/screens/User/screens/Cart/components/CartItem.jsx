@@ -44,8 +44,8 @@ function CartItem({ data }) {
       {/* image */}
       <div className="flex-grow-0 rounded-lg shadow-sm bg-gray-100">
         <img
-          className="object-contain w-40 h-40 sm:w-56 sm:h-56 p-2 mx-auto"
-          alt="cart-item"
+          className="object-contain w-32 h-32 sm:w-52 sm:h-52 p-2 mx-auto"
+          alt={item}
           src={image}
         />
       </div>
@@ -55,92 +55,94 @@ function CartItem({ data }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-y-0.5">
           <p className="font-medium text-gray-700 text-xl">{item}</p>
 
-          <p className="text-gray-500 font-medium text-lg">
+          <p className="text-gray-600 font-medium text-lg">
             {`₱${formatPrice(retailPrice)}`}
           </p>
         </div>
 
-        <div>
-          <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
-          <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
-            <button
-              onClick={() => modifyQuantity(false, productId)}
-              className="transition w-full h-full flex justify-center items-center group hover:bg-gray-200"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-600 group-hover:text-my-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        <div className="space-y-6">
+          <div>
+            <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
+            <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
+              <button
+                onClick={() => modifyQuantity(false, productId)}
+                className="transition w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20 12H4"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-my-accent"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M20 12H4"
+                  />
+                </svg>
+              </button>
 
-            <div className="w-full h-full flex justify-center items-center text-lg font-bold text-gray-500">
-              {quantity}
+              <div className="w-full h-full flex justify-center items-center text-lg font-semibold text-gray-500">
+                {quantity}
+              </div>
+
+              <button
+                onClick={() => modifyQuantity(true, productId)}
+                className="w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-my-accent"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
             </div>
-
-            <button
-              onClick={() => modifyQuantity(true, productId)}
-              className="w-full h-full flex justify-center items-center group hover:bg-gray-200"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-600 group-hover:text-my-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-            </button>
           </div>
-        </div>
 
-        <div className="flex flex-row flex-wrap gap-x-3 gap-y-1 ">
-          <button
-            onClick={() => addToCheckout(true, productId)}
-            className="border border-my-accent font-medium text-my-accent text-md rounded-md px-4 py-1 transition duration-200 ease-linear hover:text-white hover:bg-my-accent"
-          >
-            Add to Checkout
-          </button>
+          <div className="flex flex-row flex-wrap gap-x-3 gap-y-1 ">
+            <button
+              onClick={() => addToCheckout(true, productId)}
+              className="border border-my-accent font-semibold text-sm text-my-accent rounded-md px-4 py-1 transition duration-200 ease-linear hover:text-white hover:bg-my-accent"
+            >
+              Add to Checkout
+            </button>
 
-          <Button
-            isLoading={loading}
-            onClick={() => removeFromCart(cartId)}
-            svgClass="text-gray-500"
-            buttonClass="group border border-transparent rounded-md px-2 py-1 font-medium text-gray-500 transition duration-150 ease-linear hover:text-my-accent"
-          >
-            <div className="flex flex-row gap-x-1.5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-500 group-hover:text-my-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-              <span>Remove From Cart</span>
-            </div>
-          </Button>
+            <Button
+              isLoading={loading}
+              onClick={() => removeFromCart(cartId)}
+              svgClass="text-gray-500"
+              buttonClass="group border border-transparent rounded-md px-2 py-1 font-semibold text-sm text-gray-500"
+            >
+              <div className="flex flex-row gap-x-1 items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-500 transition duration-200 ease-linear group-hover:text-my-accent"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                <span>Remove From Cart</span>
+              </div>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

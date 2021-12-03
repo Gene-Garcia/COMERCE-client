@@ -15,7 +15,7 @@ import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";
 function Cart({ bgType }) {
   const themes = {
     accent: {
-      svg: "text-gray-50 group-hover:text-gray-800",
+      svg: "text-gray-50 group-hover:text-my-accent-shade",
       text: "text-gray-50",
     },
     contrast: {

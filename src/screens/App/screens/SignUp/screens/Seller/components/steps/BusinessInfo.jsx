@@ -99,10 +99,10 @@ function BusinessInfo() {
   } = useForm(init, init, validate, createBusiness);
 
   return (
-    <div className="flex flex-col justify-between gap-10">
+    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
       <Title name="Business Information" />
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
         <FileInput
           name="logo"
           onChange={fileOnChange}
@@ -110,7 +110,7 @@ function BusinessInfo() {
           helper="JPEG and PNG files only"
         />
 
-        <div className="flex flex-row gap-10">
+        <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">
           <InputField
             type="text"
             name="businessName"
@@ -119,7 +119,7 @@ function BusinessInfo() {
             onChange={handleInput}
             label="BUSINESS NAME"
             placeholder="name of your business"
-            className="w-1/2"
+            className="xs:w-4/5 sm:w-1/2"
           />
 
           <InputField
@@ -130,7 +130,7 @@ function BusinessInfo() {
             onChange={handleInput}
             label="ESTABLISHMENT DATE"
             placeholder="date of launching"
-            className="w-1/2"
+            className="xs:w-4/5 sm:w-1/2"
           />
         </div>
 

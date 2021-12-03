@@ -66,11 +66,11 @@ function AccountInfo() {
   );
 
   return (
-    <div className="flex flex-col justify-between gap-10">
+    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
       <Title name="Account Information" />
 
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-row justify-start gap-10">
+      <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-start gap-3 xs:gap-x-4 sm:gap-x-5 gap-x-10">
           <InputField
             type="text"
             name="firstName"
@@ -79,7 +79,7 @@ function AccountInfo() {
             onChange={handleInput}
             label="FIRST NAME"
             placeholder="owner's first name"
-            className="w-5/12"
+            className="xs:w-3/5 sm:w-5/12"
           />
           <InputField
             type="text"
@@ -89,7 +89,7 @@ function AccountInfo() {
             onChange={handleInput}
             label="LAST NAME"
             placeholder="owner's last name"
-            className="w-5/12"
+            className="xs:w-3/5 sm:w-5/12"
           />
         </div>
 
@@ -101,7 +101,7 @@ function AccountInfo() {
           onChange={handleInput}
           label="BUSINESS EMAIL"
           placeholder="email of the business"
-          className="w-3/5"
+          className="xs:w-4/5 sm:w-3/5"
         />
 
         <InputField
@@ -113,7 +113,7 @@ function AccountInfo() {
           label="OWNER'S EMAIL"
           placeholder="email of the business owner"
           helper="Email is used to log in to your seller account"
-          className="w-3/5"
+          className="xs:w-4/5 sm:w-3/5"
         />
 
         <InputField
@@ -124,7 +124,7 @@ function AccountInfo() {
           onChange={handleInput}
           label="CONFIRM EMAIL"
           placeholder="re-enter the owner's email"
-          className="w-3/5"
+          className="xs:w-4/5 sm:w-3/5"
         />
 
         <InputField
@@ -135,7 +135,7 @@ function AccountInfo() {
           onChange={handleInput}
           label="PASSWORD"
           placeholder="account password"
-          className="w-3/5"
+          className="xs:w-4/5 sm:w-3/5"
         />
       </div>
 

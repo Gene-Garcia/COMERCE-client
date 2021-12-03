@@ -20,11 +20,11 @@ function CheckoutItem({ data, editable }) {
   return (
     <div className="relative group">
       <div
-        className={`${removerPosition} z-20 w-full transition duration-300 bg-gradient-to-b from-gray-200 to-gray-100 rounded-md opacity-0 group-hover:opacity-100 group-hover:bg-opacity-50`}
+        className={`${removerPosition} z-20 w-full rounded bg-gradient-to-br from-my-accent via-my-accent-tone to-my-accent-tint opacity-0 transition duration-200 ease-linear group-hover:opacity-100 group-hover:bg-opacity-50`}
       >
         <button
           onClick={() => removeFromCheckout(productId)}
-          className="w-full h-12  font-medium text-base text-my-accent"
+          className="w-full h-12 font-medium text-base text-white"
         >
           Remove from checkout
         </button>
@@ -32,7 +32,7 @@ function CheckoutItem({ data, editable }) {
 
       <div className="w-full top-0 z-10 transition duration-300 ">
         <div className="flex flex-row items-center gap-x-2">
-          <div className="transition duration-300 shadow-md group-hover:shadow-none rounded-md bg-gray-100 flex-shrink-0">
+          <div className="transition duration-300 shadow group-hover:shadow-none rounded-md bg-gray-100 flex-shrink-0">
             <img
               className="object-contain w-12 h-12 p-1"
               alt="for-checkout-item"
@@ -41,12 +41,14 @@ function CheckoutItem({ data, editable }) {
           </div>
 
           <div className="flex-grow flex-shrink -space-y-2">
-            <p className="text-md font-medium text-gray-600">{item}</p>
-            <p className="text-gray-500 text-base">x{quantity}</p>
+            <p className="text-md font-semibold text-gray-600">{item}</p>
+            <p className="text-gray-500 text-base font-light italic">
+              x{quantity}
+            </p>
           </div>
 
           <div className="justify-self-end">
-            <p className="text-gray-700 font-semibold text-lg">
+            <p className="text-gray-600 font-medium text-md">
               {`₱${formatPrice(retailPrice)}`}
             </p>
           </div>

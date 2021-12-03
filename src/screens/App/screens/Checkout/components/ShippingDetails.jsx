@@ -98,6 +98,7 @@ function ShippingDetails() {
             value={values.firstName}
             error={errors.firstName}
           />
+          
           <CheckoutInput
             label="Last Name"
             type="text"
