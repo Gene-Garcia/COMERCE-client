@@ -21,6 +21,8 @@ function Search({ bgType }) {
       <input
         className={`bg-transparent text-sm w-full py-1.5 px-3 focus:outline-none ${themes[bgType].input} `}
         type="text"
+        name="search"
+        autoComplete="new-search"
         placeholder=""
       />
 

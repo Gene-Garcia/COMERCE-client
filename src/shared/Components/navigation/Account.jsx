@@ -151,7 +151,7 @@ function AuthenticatedLink({ to, name, svg }) {
 
 function Account({ bgType }) {
   return checkLoggedIn() ? (
-    <div className="inline-flex items-center justify-center gap-2">
+    <div className="inline-flex items-center justify-center gap-1">
       <Authenticated bgType={bgType} />
       <Cart bgType={bgType} />
     </div>
