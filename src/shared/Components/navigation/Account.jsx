@@ -20,10 +20,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { checkLoggedIn } from "../../Auth/Login";
+import Cart from "./Cart";
 
 function UnAuthenticated({ bgType }) {
   const base =
-    "transition duration-200 ease-linear h-9 font-semibold px-4 py-1.5 mb-0";
+    "transition duration-200 ease-linear px-4 h-9 font-semibold text-sm flex items-center tracking-wide";
   const themes = {
     accent: {
       login:
@@ -33,19 +34,20 @@ function UnAuthenticated({ bgType }) {
     },
     contrast: {
       login:
-        "text-my-accent rounded-md border border-my-accent hover:bg-my-accent hover:text-white",
+        "text-my-accent border border-transparent hover:border-my-accent hover:shadow",
       signUp:
-        "text-white bg-my-accent rounded-md border border-my-accent hover:bg-my-accent-mono",
+        "text-my-accent shadow border border-my-accent hover:bg-my-accent hover:text-white",
     },
   };
 
   return (
-    <div className="flex flex-row gap-x-3">
-      <Link to="/login/user" className={`${base} ${themes[bgType].login}`}>
-        Login
-      </Link>
+    <div className="flex flex-row gap-x-2">
       <Link to="/sign-up/user" className={`${base} ${themes[bgType].signUp}`}>
         Sign Up
+      </Link>
+
+      <Link to="/login/user" className={`${base} ${themes[bgType].login}`}>
+        Login
       </Link>
     </div>
   );
@@ -63,29 +65,25 @@ function Authenticated({ bgType }) {
   return (
     <div className="self-center group dropdown inline-block relative px-3">
       {/* username and the arrow */}
-      <button
-        className={`${themes[bgType]} font-medium inline-flex items-center`}
-      >
-        <span className="mr-1">
+      <button className={`${themes[bgType]} inline-flex items-center gap-0.5`}>
+        <span className="font-semibold text-sm">
           {cookies.get(process.env.REACT_APP_LS_USERNAME_KEY)}
         </span>
         <svg
-          className="fill-current h-4 w-4 font-bold"
+          className="fill-current h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
         >
-          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
         </svg>
       </button>
 
       {/* the menu */}
       <ul className="w-64 dropdown-menu absolute -right-6 xs:right-0 z-50 hidden transition duration-300 ease-linear group-hover:block">
-        <div className="w-full mt-3 bg-white shadow-lg rounded px-2 py-4 space-y-1.5">
+        <div className="w-full mt-1 bg-white shadow-lg rounded border border-gray-200 px-2 py-4 space-y-1.5">
           <li className="px-2">
-            <p className="text-sm font-regular -mb-1 text-gray-400">
-              Signed in as
-            </p>
-            <p className="text-base font-semibold text-gray-500">
+            <p className="text-xs font-regular text-gray-300">Signed in as</p>
+            <p className="text-sm font-semibold text-gray-500">
               {cookies.get(process.env.REACT_APP_LS_EMAIL_KEY)}
             </p>
           </li>
@@ -126,8 +124,11 @@ function Authenticated({ bgType }) {
 // a component to render the link for the user dropdown menu
 function AuthenticatedLink({ to, name, svg }) {
   return (
-    <li className="rounded transition ease-linear hover:bg-gray-200 px-2 py-1">
-      <Link className="flex flex-row items-center gap-3 font-medium" to={to}>
+    <li className="rounded transition ease-linear hover:bg-gray-100 px-2 py-1">
+      <Link
+        className="flex flex-row items-center gap-3 font-medium text-gray-500"
+        to={to}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -150,7 +151,10 @@ function AuthenticatedLink({ to, name, svg }) {
 
 function Account({ bgType }) {
   return checkLoggedIn() ? (
-    <Authenticated bgType={bgType} />
+    <div className="inline-flex items-center justify-center gap-2">
+      <Authenticated bgType={bgType} />
+      <Cart bgType={bgType} />
+    </div>
   ) : (
     <UnAuthenticated bgType={bgType} />
   );

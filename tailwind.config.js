@@ -47,7 +47,7 @@ module.exports = {
     extend: {
       backgroundColor: ["active"],
       borderWidth: ["hover"],
-      boxShadow: ["active"],
+      boxShadow: ["active", "hover"],
       display: ["group-hover"],
       grayscale: ["hover"],
       ringWidth: ["active", "hover"],
