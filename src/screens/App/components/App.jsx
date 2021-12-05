@@ -28,7 +28,6 @@ import Sidebar from "./Sidebar";
 const AppContent = memo(
   withRouter(({ location: { pathname } }) => {
     const navles = [
-      "/",
       "/login/user",
       "/sign-up/user",
 
