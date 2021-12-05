@@ -21,22 +21,23 @@ function ProductSmall({ data }) {
   const productLink = `/catalogue/item/${productId}`;
 
   return (
-    <div className="flex flex-col w-full max-w-xs h-full rounded-md shadow-lg">
+    <div className="flex flex-col w-72 xl:w-80 max-w-xs h-rr28 rounded-md shadow-lg">
       {/* image */}
-      <div className="w-full overflow-hidden bg-gray-100">
-        <Link to={productLink}>
-          <img
-            src={imageAddress}
-            alt="smart-watch"
-            className="w-full h-56 object-contain transition duration-300 ease-linear transform hover:scale-110 bg-gray-100"
-          />
-        </Link>
-      </div>
+      <Link
+        to={productLink}
+        className="h-52 w-full overflow-hidden bg-gray-100 flex items-center justify-center"
+      >
+        <img
+          src={imageAddress}
+          alt="smart-watch"
+          className="p-2 w-4/5 h-full object-contain transition duration-300 ease-linear transform hover:scale-110 bg-gray-100"
+        />
+      </Link>
 
       {/* details and desc */}
       <div className="p-4 flex flex-col justify-between gap-7">
         <div className="space-y-2">
-          <div className="flex flex-wrap justify-between">
+          <div className="flex flex-wrap gap-x-2 justify-between">
             <ProductName name={productName} />
             <ProductPrice price={`${retailPrice}`} />
           </div>

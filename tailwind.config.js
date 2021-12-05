@@ -23,6 +23,10 @@ module.exports = {
     },
 
     extend: {
+      height: {
+        rr28: "28rem",
+      },
+
       width: {
         thirty: "30%",
         seventy: "70%",

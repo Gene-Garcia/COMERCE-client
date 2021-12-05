@@ -141,12 +141,10 @@ function ProductRating({ size, rating, style }) {
 function ProductDescription({ desc, fullText }) {
   let truncated;
   if (!fullText && desc)
-    truncated = desc.length > 35 ? desc.substring(0, 35).trim() + "..." : desc;
+    truncated = desc.length > 32 ? desc.substring(0, 32).trim() + "..." : desc;
   else truncated = desc;
 
-  return (
-    <p className="font-regular font-sans text-gray-900 text ">{truncated}</p>
-  );
+  return <p className="font-regular font-sans text-gray-900">{truncated}</p>;
 }
 
 /*
