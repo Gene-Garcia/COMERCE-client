@@ -29,7 +29,6 @@ function SelectedProduct() {
 
   // onClick submit function
   async function submitRatingForCurrent() {
-    setLoading(true);
     if (rating === -1) {
       setSeverity("error");
       setMessage(
@@ -45,6 +44,7 @@ function SelectedProduct() {
         comment,
       };
 
+      setLoading(true);
       // API request
       await axios
         .patch("/api/rate/save", bodyData)
@@ -77,36 +77,34 @@ function SelectedProduct() {
       {!selected ? (
         <></>
       ) : (
-        <div className="space-y-6 lg:space-y-8">
+        <div className="space-y-6 xl:space-y-8 2xl:space-y-10">
           <ProductCardDisplay data={selected} />
 
-          <div className="space-y-6 lg:space-y-8">
-            <ProductRating />
+          <ProductRating />
 
-            {/* Comments */}
-            <div>
-              <p className="text-gray-400 uppercase text-sm font-semibold">
-                Comments
-              </p>
-              <textarea
-                type="text"
-                className="transition duration-200 w-full rounded-md shadow bg-gray-100 h-2/5 p-3 focus:outline-none focus-within:shadow-lg"
-                placeholder="Share us your thoughts about this product"
-                rows="7"
-                value={comment}
-                onChange={onCommentChange}
-              ></textarea>
-            </div>
-
-            {/* CTA */}
-            <Button
-              isLoading={loading}
-              buttonClass="bg-my-accent px-8 py-2.5 rounded-md shadow text-white text-md font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
-              onClick={submitRatingForCurrent}
-            >
-              Submit Rating
-            </Button>
+          {/* Comments */}
+          <div>
+            <p className="text-gray-300 uppercase text-sm font-semibold">
+              Comments
+            </p>
+            <textarea
+              type="text"
+              className="w-full rounded-md shadow-sm bg-gray-50 h-2/5 p-3 transition duration-200 ease-linear  focus:outline-none focus-within:shadow-lg"
+              placeholder="Share us your thoughts about this product"
+              rows="7"
+              value={comment}
+              onChange={onCommentChange}
+            ></textarea>
           </div>
+
+          {/* CTA */}
+          <Button
+            isLoading={loading}
+            buttonClass="bg-my-accent px-8 py-2.5 shadow text-white text-md font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
+            onClick={submitRatingForCurrent}
+          >
+            Submit Rating
+          </Button>
         </div>
       )}
     </>

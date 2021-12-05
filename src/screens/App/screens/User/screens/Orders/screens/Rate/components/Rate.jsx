@@ -51,11 +51,11 @@ function Rate({ history }) {
     <>
       <Title title="Rate Orders" />
 
-      <Container>
-        <div className="flex flex-row gap-10">
-          <div className="w-2/5">
-            <div className="rounded-lg shadow-lg p-7">
-              <p className="font-medium text-lg text-gray-600 mb-6">
+      <Container xSpacing="px-4 md:px-8 lg:px-10 xl:px-16">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-7 xl:gap-10">
+          <div className="w-full md:w-2/5">
+            <div className="rounded-lg shadow-lg py-5 xs:py-7 md:py-5 lg:py-7">
+              <p className="font-medium text-lg text-gray-600 mb-4 xl:mb-6 font-serif px-5 xs:px-7 md:px-5 lg:px-7">
                 Products To Rate
               </p>
 
@@ -63,9 +63,9 @@ function Rate({ history }) {
             </div>
           </div>
 
-          <div className="w-3/5">
-            <div className="rounded-lg shadow-lg p-7">
-              <p className="font-medium text-lg text-gray-600 mb-6">
+          <div className="w-full md:w-3/5">
+            <div className="rounded-lg shadow-lg p-5 xs:p-7 md:p-5 lg:p-7">
+              <p className="font-medium text-lg text-gray-600 mb-4 xl:mb-6 font-serif">
                 Selected Product
               </p>
 

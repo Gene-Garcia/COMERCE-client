@@ -40,7 +40,7 @@ function ProductRating() {
 
   return (
     <div>
-      <p className="text-gray-400 uppercase text-sm font-semibold">
+      <p className="text-gray-300 uppercase text-sm font-semibold">
         Product Rating
       </p>
 

@@ -4,7 +4,7 @@ import HomeNav from "./HomeNav";
 function Home() {
   return (
     <>
-      <HomeNav />
+      <h1>Home</h1>
     </>
   );
 }

@@ -61,21 +61,19 @@ function Orders({ history }) {
     <>
       <Title title="User Orders" />
 
-      <Container>
+      <Container xSpacing="p-4 sm:px-8 lg:px-14 xl:px-16">
         {loading ? (
           <Loading />
         ) : (
-          <>
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="w-1/4 rounded-lg shadow-md md:shadow-lg md:place-self-start flex-shrink-0">
-                <OrderLinks />
-              </div>
-
-              <div className="w-3/4 flex-grow-0 flex-shrink">
-                <OrderDetails />
-              </div>
+          <div className="flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-10 w-full">
+            <div className="w-full md:w-2/5 lg:w-thirty xl:w-1/4 rounded-lg shadow-md md:shadow-lg">
+              <OrderLinks />
             </div>
-          </>
+
+            <div className="w-full md:w-3/5 lg:w-seventy xl:w-3/4">
+              <OrderDetails />
+            </div>
+          </div>
         )}
       </Container>
     </>

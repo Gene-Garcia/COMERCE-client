@@ -11,7 +11,7 @@ function OrderInformation() {
       {loading || !order ? (
         <></>
       ) : (
-        <div className="flex flex-col xl:flex-row gap-4 xl:gap-24">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-24">
           {/* date ordered */}
           <div>
             <InformationBody
