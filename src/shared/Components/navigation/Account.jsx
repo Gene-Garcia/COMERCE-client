@@ -24,7 +24,7 @@ import Cart from "./Cart";
 
 function UnAuthenticated({ bgType }) {
   const base =
-    "transition duration-200 ease-linear px-4 h-9 font-semibold text-sm flex items-center tracking-wide";
+    "transition duration-200 ease-linear px-3 sm:px-4 h-8 sm:h-9 font-semibold text-sm flex items-center tracking-wide";
   const themes = {
     accent: {
       login:
@@ -41,7 +41,7 @@ function UnAuthenticated({ bgType }) {
   };
 
   return (
-    <div className="flex flex-row gap-x-2">
+    <div className="flex flex-row gap-x-1.5 sm:gap-x-2">
       <Link to="/sign-up/user" className={`${base} ${themes[bgType].signUp}`}>
         Sign Up
       </Link>
