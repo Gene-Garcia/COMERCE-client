@@ -79,8 +79,8 @@ function Catalogue() {
     <>
       <Title title="Product Catalogue" />
 
-      <div className="flex flex-wrap sm:flex-nowrap my-12 mx-3 lg:mx-10 xl:mx-16 2xl:mx-28 gap-y-5 sm:gap-y-0 pb-12">
-        <div className="w-full sm:w-52 flex flex-wrap flex-row sm:flex-col gap-y-10 justify-center sm:justify-start">
+      <div className="flex flex-col md:flex-row my-12 mx-3 lg:mx-10 xl:mx-16 2xl:mx-28 gap-y-5 md:gap-y-0 pb-12">
+        <div className="flex flex-wrap flex-row md:flex-col gap-y-8 justify-center sm:justify-start">
           <div className="flex flex-col gap-y-1">
             <FilterHeader name="Product View" />
 
@@ -122,7 +122,7 @@ function Catalogue() {
             </div>
           ) : (
             <>
-              <div className="flex flex-col items-center  sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-14">
+              <div className="flex flex-wrap flex-row gap-x-4 md:gap-x-2 lg:gap-x-10 gap-y-4 sm:gap-y-8 md:gap-y-4 justify-center ">
                 {items.map((item) => (
                   <ProductSmall data={item} key={item._id} />
                 ))}

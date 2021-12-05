@@ -23,6 +23,10 @@ module.exports = {
     },
 
     extend: {
+      height: {
+        rr28: "28rem",
+      },
+
       width: {
         thirty: "30%",
         seventy: "70%",
@@ -47,7 +51,7 @@ module.exports = {
     extend: {
       backgroundColor: ["active"],
       borderWidth: ["hover"],
-      boxShadow: ["active"],
+      boxShadow: ["active", "hover"],
       display: ["group-hover"],
       grayscale: ["hover"],
       ringWidth: ["active", "hover"],

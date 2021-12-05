@@ -34,7 +34,7 @@ function Pagination() {
         svg={
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="h-4 w-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -60,7 +60,7 @@ function Pagination() {
         svg={
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="h-4 w-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -97,12 +97,12 @@ function Page({ id, pageNum, onClick }) {
   const stateStyle =
     currentPage == id
       ? "bg-my-accent bg-opacity-50 text-white"
-      : "text-gray-800";
+      : "text-gray-700";
 
   return (
     <button
       onClick={onClick}
-      className={`${stateStyle} transition duration-300 rounded bg-gray-200 text-xl  w-8 h-8 font-semibold font-serif hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
+      className={`${stateStyle} transition duration-300 ease-linear rounded bg-gray-200 text-md  w-8 h-8 font-semibold font-serif hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
     >
       {pageNum}
     </button>
