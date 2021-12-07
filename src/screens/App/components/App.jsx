@@ -18,6 +18,7 @@ import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 import Sidebar from "./Sidebar";
+import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 
 /*
  * the entire function is wrapped in withRouter in order to access the location object
@@ -49,6 +50,12 @@ const AppContent = memo(
         )}
 
         <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
+          {sidebared.includes(pathname) && (
+            <>
+              <BusinessHeader />
+            </>
+          )}
+
           <Switch>
             <Route {...route.HOME} />
 
