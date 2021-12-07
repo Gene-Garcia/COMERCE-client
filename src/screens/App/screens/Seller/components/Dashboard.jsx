@@ -23,7 +23,7 @@ function Dashboard({ history }) {
         .get("/api/seller/dashboard")
         .then((res) => {
           if (res.status === 200) {
-            setData(res.data);
+            // setData(res.data);
             console.log(res.data);
             setLoading(false);
           }
@@ -53,24 +53,6 @@ function Dashboard({ history }) {
         <Loading />
       ) : (
         <div className="w-full h-screen bg-my-off-white px-10 py-8 space-y-8">
-          <div className="w-full flex items-center justify-between mb-12 p-4 border border-gray-100 shadow rounded-lg bg-white">
-            <div className="inline-flex gap-4 items-center">
-              <div className="w-12 h-12 rounded-full border border-gray-200">
-                <img
-                  alt="Avatar"
-                  src="https://i.ytimg.com/vi/5AwdkGKmZ0I/maxresdefault.jpg"
-                  className="object-cover w-full h-full rounded-full"
-                />
-              </div>
-
-              <h3 className="font-serif text-2xl text-black font-semibold">
-                {data.businessName}
-              </h3>
-            </div>
-
-            <p className="text-base font-light">28 MONDAY | 9:37 PM</p>
-          </div>
-
           <div className="flex flex-row justify-between gap-10">
             <Card width="w-1/2" addOns="inline-flex justify-between gap-4">
               <p className="w-full font-medium">
