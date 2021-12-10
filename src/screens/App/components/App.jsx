@@ -73,8 +73,9 @@ const AppContent = memo(() => {
     "/login/seller",
     "/sign-up/seller",
     "/seller",
+    "/seller/manage/products",
   ];
-  const withSidebar = ["/seller"];
+  const withSidebar = ["/seller", "/seller/manage/products"];
 
   return (
     <div
