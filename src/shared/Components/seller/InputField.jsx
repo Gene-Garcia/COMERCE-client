@@ -34,7 +34,7 @@ function InputField({
         className={`border-b-2 ${
           error ? inputTheme.invalid : inputTheme.valid
         } font-regular text-black focus:outline-none transition duration-200 focus:border-my-accent`}
-        autoComplete={false}
+        autoComplete={`new-${name}`}
       />
 
       <i className="text-sm text-gray-600">{helper}</i>
