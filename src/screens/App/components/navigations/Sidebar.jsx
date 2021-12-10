@@ -6,14 +6,16 @@ import { SidebarLink, SidebarGroup } from "./utils/SidebarLinks";
 function Sidebar() {
   return (
     <div className="w-72 bg-my-accent-shade h-screen">
-      <div className="p-4 flex flex-col justify-center gap-6">
-        <div className="inline-flex gap-4 items-center justify-center">
-          <img src={comerceWhite} alt="COMERCE Logo" className="w-16" />
-          <h2 className="text-2xl text-white font-mono">COMERCE</h2>
+      <div className="px-4 py-10 flex flex-col justify-center gap-6">
+        <div className="inline-flex gap-3 items-center justify-center">
+          <img src={comerceWhite} alt="COMERCE Logo" className="w-11" />
+          <h2 className="text-2xl text-gray-50 text-opacity-90 font-mono">
+            COMERCE
+          </h2>
         </div>
 
         {/* links */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-500">
           {Object.entries(sidebarLinks).map(([k, v]) => (
             <SidebarGroup key={k} groupName={v.name} links={v.links} />
           ))}
