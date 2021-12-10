@@ -16,7 +16,7 @@ function BusinessHeader() {
   useEffect(() => {
     const cookies = new Cookies();
 
-    setBusinessName(cookies.get(REACT_APP_BS_NAME));
+    setBusinessName(cookies.get(process.REACT_APP_BS_NAME));
   }, []);
 
   return (

@@ -25,11 +25,13 @@ function Form() {
             res.data.user.email,
             res.data.user.username,
             res.data.business.businessName,
-            res.data.business.logo,
-            res.data.business.businessemail
+            res.data.business.businessLogoAddress,
+            res.data.business.businessEmail
           );
+
           setSeverity("success");
           setMessage("Succesfully logged in. Welcome back!");
+
           history.push("/seller");
         }
       })
