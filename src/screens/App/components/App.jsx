@@ -6,7 +6,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import route from "../route";
-import Navbar from "./Navbar";
 import axios from "../../../shared/caller";
 import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
@@ -17,8 +16,49 @@ import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
-import Sidebar from "./Sidebar";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
+import Navbar from "./navigations/Navbar";
+import Sidebar from "./navigations/Sidebar";
+
+const App = () => {
+  // call server function to set XSRF-TOKEN in the cookie
+  useEffect(() => {
+    const fetchCookieProtection = async () => {
+      await axios.get("/api/cs").catch((err) => {
+        console.error(err);
+        console.log("Unable to contact our server. Please try again.");
+      });
+    };
+
+    fetchCookieProtection();
+  }, []);
+
+  return (
+    <Router>
+      <AlertProvider>
+        {/* Global message notification */}
+        <Alert />
+
+        <ProductPaginationProvider>
+          <CartCountProvider>
+            <ShoppingCartProvider>
+              <CheckoutProvider>
+                <OrdersProvider>
+                  <RateProvider>
+                    <SellerRegistrationProvider>
+                      <AppContent />
+                    </SellerRegistrationProvider>
+                  </RateProvider>
+                </OrdersProvider>
+              </CheckoutProvider>
+            </ShoppingCartProvider>
+          </CartCountProvider>
+        </ProductPaginationProvider>
+      </AlertProvider>
+    </Router>
+  );
+};
+export default App;
 
 /*
  * obtaining the pathname is crucial for rendering components to have or not have
@@ -97,44 +137,3 @@ const AppContent = memo(() => {
     </div>
   );
 });
-
-function App() {
-  // call server function to set XSRF-TOKEN in the cookie
-  useEffect(() => {
-    async function fetchCookieProtection() {
-      await axios.get("/api/cs").catch((err) => {
-        console.error(err);
-        console.log("Unable to contact our server. Please try again.");
-      });
-    }
-
-    fetchCookieProtection();
-  }, []);
-
-  return (
-    <Router>
-      <AlertProvider>
-        {/* Global message notification */}
-        <Alert />
-
-        <ProductPaginationProvider>
-          <CartCountProvider>
-            <ShoppingCartProvider>
-              <CheckoutProvider>
-                <OrdersProvider>
-                  <RateProvider>
-                    <SellerRegistrationProvider>
-                      <AppContent />
-                    </SellerRegistrationProvider>
-                  </RateProvider>
-                </OrdersProvider>
-              </CheckoutProvider>
-            </ShoppingCartProvider>
-          </CartCountProvider>
-        </ProductPaginationProvider>
-      </AlertProvider>
-    </Router>
-  );
-}
-
-export default App;

@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import comerceWhite from "../../../shared/images/comerce-logo-white.webp";
+const navbarLinks = [
+    { name: "Home", to: "/" },
+    { name: "Catalogue", to: "/catalogue" },
+    { name: "be a Seller", to: "/sign-up/seller" },
+  ];
 
-const linksData = {
+const sidebarLinks = {
   MANAGE: {
     name: "Manage",
 
@@ -72,74 +74,4 @@ const linksData = {
   },
 };
 
-function Sidebar() {
-  return (
-    <div className="w-72 bg-my-accent-shade h-screen">
-      <div className="p-4 flex flex-col justify-center gap-6">
-        <div className="inline-flex gap-4 items-center justify-center">
-          <img src={comerceWhite} alt="COMERCE Logo" className="w-16" />
-          <h2 className="text-2xl text-white font-mono">COMERCE</h2>
-        </div>
-
-        {/* links */}
-        <div className="divide-y">
-          {Object.entries(linksData).map(([k, v]) => (
-            <LinksGroup key={k} groupName={v.name} links={v.links} />
-          ))}
-
-          <div className="py-4">
-            <ButtonLink
-              svgD="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-              name="LOG OUT"
-              to="#"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-export default Sidebar;
-
-function LinksGroup({ groupName, links }) {
-  return (
-    <div className="space-y-4 py-7">
-      <div>
-        <p className=" text-gray-300 text-sm font-medium mb-1.5 uppercase">
-          {groupName}
-        </p>
-
-        <div className="space-y-1.5">
-          {Object.entries(links).map(([k, v]) => (
-            <ButtonLink key={k} {...v} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ButtonLink({ svgD, name, to }) {
-  return (
-    <Link
-      to={to}
-      className="w-full py-2 px-3 inline-flex text-white gap-2.5 transition duration-150 ease-linear hover:bg-my-accent rounded"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d={svgD}
-        />
-      </svg>
-      {name}
-    </Link>
-  );
-}
+export { navbarLinks, sidebarLinks };
