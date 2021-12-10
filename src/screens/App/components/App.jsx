@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  withRouter,
+  useLocation,
 } from "react-router-dom";
 import route from "../route";
 import Navbar from "./Navbar";
@@ -21,76 +21,64 @@ import Sidebar from "./Sidebar";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 
 /*
- * the entire function is wrapped in withRouter in order to access the location object
- * and obtain the pathname.
- *
- * obtaining the pathname is crucial for rendering components to have or not have a navbar and footer.
+ * obtaining the pathname is crucial for rendering components to have or not have
+ * a navbar, footer, sidebar, different bg color.
  */
-const AppContent = memo(
-  withRouter(({ location: { pathname } }) => {
-    const navles = [
-      "/login/user",
-      "/sign-up/user",
+const AppContent = memo(() => {
+  const { pathname } = useLocation();
 
-      "/login/seller",
-      "/sign-up/seller",
-      "/seller",
-    ];
+  const navless = [
+    "/login/user",
+    "/sign-up/user",
+    "/login/seller",
+    "/sign-up/seller",
+    "/seller",
+  ];
+  const withSidebar = ["/seller"];
 
-    const sidebared = ["/seller"];
+  return (
+    <div
+      className={`${
+        withSidebar.includes(pathname)
+          ? "flex flex-row bg-my-white-tone"
+          : "bg-white"
+      }`}
+    >
+      {!navless.includes(pathname) && <Navbar />}
+      {withSidebar.includes(pathname) && <Sidebar />}
 
-    return (
-      <div
-        className={`${
-          sidebared.includes(pathname)
-            ? "flex flex-row bg-my-white-tone"
-            : "bg-white"
-        }`}
-      >
-        <>{!navles.includes(pathname) && <Navbar />}</>
+      <div className="w-full">
+        {withSidebar.includes(pathname) && <BusinessHeader />}
 
-        {sidebared.includes(pathname) && (
-          <div className="w-72 bg-my-accent-shade h-screen">
-            <Sidebar />
-          </div>
-        )}
+        <Switch>
+          <Route {...route.HOME} />
 
-        <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
-          {sidebared.includes(pathname) && (
-            <div className="px-8 py-6">
-              <BusinessHeader />
-            </div>
-          )}
+          <Route {...route.CATALOGUE} />
+          <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
 
-          <Switch>
-            <Route {...route.HOME} />
+          <Route {...route.SIGN_UP.subroutes.USER} />
+          <Route {...route.SIGN_UP.subroutes.SELLER} />
+          <Route {...route.LOGIN.subroutes.USER} />
+          <Route {...route.LOGIN.subroutes.SELLER} />
+          <Route {...route.SIGN_OUT} />
 
-            <Route {...route.CATALOGUE} />
-            <Route {...route.CATALOGUE.subroutes.PRODUCT_SHOWCASE} />
+          <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
+          <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
 
-            <Route {...route.SIGN_UP.subroutes.USER} />
-            <Route {...route.SIGN_UP.subroutes.SELLER} />
-            <Route {...route.LOGIN.subroutes.USER} />
-            <Route {...route.LOGIN.subroutes.SELLER} />
-            <Route {...route.SIGN_OUT} />
+          <Route {...route.CHECKOUT} />
 
-            <Route {...route.PASSWORD.subroutes.FORGOT_PASSWORD} />
-            <Route {...route.PASSWORD.subroutes.RESET_PASSWORD} />
+          <Route {...route.USER} />
 
-            <Route {...route.CHECKOUT} />
+          <Route {...route.USER.subroutes.CART} />
+          <Route {...route.USER.subroutes.ORDERS} />
+          <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
 
-            <Route {...route.USER} />
+          <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
 
-            <Route {...route.USER.subroutes.CART} />
-            <Route {...route.USER.subroutes.ORDERS} />
-            <Route {...route.USER.subroutes.ORDERS.subroutes.RATE} />
+          {/* seller routes */}
+          <Route {...route.SELLER} />
 
-            <Route {...route.USER.subroutes.CHANGE_PASSWORD} />
-
-            {/* seller routes */}
-            <Route {...route.SELLER} />
-
-            {/* <PrivateRoute
+          {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
           exact={route.USER.exact}
@@ -101,29 +89,23 @@ const AppContent = memo(
           exact={route.USER.subroutes.CHANGE_PASSWORD.exact}
         /> */}
 
-            <Route>
-              <h1>404</h1>
-            </Route>
-          </Switch>
-        </div>
-        {/* <>{!navles.includes(pathname) && <Footer />}</> */}
+          <Route>
+            <h1>404</h1>
+          </Route>
+        </Switch>
       </div>
-    );
-  })
-);
+    </div>
+  );
+});
 
 function App() {
   // call server function to set XSRF-TOKEN in the cookie
   useEffect(() => {
     async function fetchCookieProtection() {
-      await axios
-        .get("/api/cs")
-        .then()
-        .catch((err) => {
-          console.log(
-            "Unable to contact our server. Please try again. CREATED A FALLBACK PAGE FOR THIS ERRROR"
-          );
-        });
+      await axios.get("/api/cs").catch((err) => {
+        console.error(err);
+        console.log("Unable to contact our server. Please try again.");
+      });
     }
 
     fetchCookieProtection();

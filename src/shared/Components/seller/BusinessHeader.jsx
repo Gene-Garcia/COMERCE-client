@@ -22,28 +22,32 @@ function BusinessHeader() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
-      {loading ? (
-        <>
-          <div className="inline-flex gap-4 items-center">
-            <div className="w-10 h-10 rounded-full border border-gray-200">
-              <img
-                alt="Avatar"
-                src={businessLogo}
-                className="object-cover w-full h-full rounded-full"
-              />
+    <div className="px-8 py-6">
+      <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
+        {loading ? (
+          <>
+            <div className="inline-flex gap-4 items-center">
+              <div className="w-10 h-10 rounded-full border border-gray-200">
+                <img
+                  alt="Avatar"
+                  src={businessLogo}
+                  className="object-cover w-full h-full rounded-full"
+                />
+              </div>
+
+              <h3 className="font-serif text-xl text-black font-semibold">
+                {businessName}
+              </h3>
             </div>
 
-            <h3 className="font-serif text-xl text-black font-semibold">
-              {businessName}
-            </h3>
-          </div>
-
-          <p className="text-sm font-regular text-black">28 MONDAY | 9:37 PM</p>
-        </>
-      ) : (
-        <p>:Loading</p>
-      )}
+            <p className="text-sm font-regular text-black">
+              28 MONDAY | 9:37 PM
+            </p>
+          </>
+        ) : (
+          <p>:Loading</p>
+        )}
+      </div>
     </div>
   );
 }

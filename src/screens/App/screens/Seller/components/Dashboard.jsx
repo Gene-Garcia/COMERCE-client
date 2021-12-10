@@ -29,8 +29,8 @@ function Dashboard({ history }) {
         })
         .catch((err) => {
           setLoading(false);
-
           setSeverity("error");
+          
           if (!err.response) {
             setMessage("Something went wrong. Please try again.");
             history.push("/login/seller");
