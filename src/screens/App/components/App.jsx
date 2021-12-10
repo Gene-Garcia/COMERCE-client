@@ -40,7 +40,13 @@ const AppContent = memo(
     const sidebared = ["/seller"];
 
     return (
-      <div className={`${sidebared.includes(pathname) ? "flex flex-row" : ""}`}>
+      <div
+        className={`${
+          sidebared.includes(pathname)
+            ? "flex flex-row bg-my-white-tone"
+            : "bg-white"
+        }`}
+      >
         <>{!navles.includes(pathname) && <Navbar />}</>
 
         {sidebared.includes(pathname) && (

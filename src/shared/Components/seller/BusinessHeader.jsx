@@ -22,7 +22,7 @@ function BusinessHeader() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between mb-3 p-3 border border-gray-50 shadow rounded-lg bg-white">
+    <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
       {loading ? (
         <>
           <div className="inline-flex gap-4 items-center">

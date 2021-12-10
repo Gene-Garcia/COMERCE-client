@@ -42,6 +42,13 @@ module.exports = {
         // base color + black
         "my-accent-shade": "#001449",
         "my-off-white": "#FDFDFD",
+
+        // seller pages white pallette
+        // white + white
+        "my-white-tint": "#F8F9FD",
+        // white + gray
+        "my-white-tone": "#EDF0F4",
+
         // overrided tailwind black
         black: "#082032",
       },
