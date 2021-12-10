@@ -117,7 +117,7 @@ const AppContent = memo(() => {
 
           {/* seller routes */}
           <Route {...route.SELLER} />
-
+          <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

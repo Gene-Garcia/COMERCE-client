@@ -108,6 +108,20 @@ const routes = {
   SELLER: {
     path: "/seller",
     name: "Dashboard",
+
+    subroutes: {
+      MANAGE: {
+        path: "/seller/manage",
+        name: "Manage",
+
+        subroutes: {
+          PRODUCT: {
+            path: "/seller/manage/products",
+            name: "Manage Products",
+          },
+        },
+      },
+    },
   },
 };
 
