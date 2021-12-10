@@ -51,9 +51,9 @@ const AppContent = memo(
 
         <div className={`${sidebared.includes(pathname) && "w-screen"}`}>
           {sidebared.includes(pathname) && (
-            <>
+            <div className="px-8 py-6">
               <BusinessHeader />
-            </>
+            </div>
           )}
 
           <Switch>

@@ -24,7 +24,6 @@ function Dashboard({ history }) {
         .then((res) => {
           if (res.status === 200) {
             // setData(res.data);
-            console.log(res.data);
             setLoading(false);
           }
         })
@@ -48,11 +47,11 @@ function Dashboard({ history }) {
   }, []);
 
   return (
-    <>
+    <div className="px-8 py-6">
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full h-screen bg-my-off-white px-10 py-8 space-y-8">
+        <div className="w-full bg-my-off-white space-y-8">
           <div className="flex flex-row justify-between gap-10">
             <Card width="w-1/2" addOns="inline-flex justify-between gap-4">
               <p className="w-full font-medium">
@@ -85,7 +84,7 @@ function Dashboard({ history }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 export default Dashboard;
