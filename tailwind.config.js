@@ -28,6 +28,10 @@ module.exports = {
       },
 
       width: {
+        five: "5%",
+        ten: "10%",
+        fifteen: "15%",
+
         thirty: "30%",
         seventy: "70%",
       },
@@ -57,6 +61,7 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ["active"],
+      borderColor: ["active"],
       borderWidth: ["hover"],
       boxShadow: ["active", "hover"],
       display: ["group-hover"],
@@ -65,6 +70,7 @@ module.exports = {
       ringColor: ["active", "hover"],
       ringOpacity: ["active", "hover"],
       ringOffsetWidth: ["active", "hover"],
+      ringOffsetColor: ["active"],
       textColor: ["active"],
     },
   },
