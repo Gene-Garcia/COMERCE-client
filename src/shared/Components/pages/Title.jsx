@@ -10,3 +10,8 @@ function Title({ title }) {
   );
 }
 export default Title;
+
+function SellerTitle({ title }) {
+  return <h3>{title}</h3>;
+}
+export { SellerTitle };

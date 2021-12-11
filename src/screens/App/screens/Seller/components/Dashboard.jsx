@@ -4,6 +4,7 @@ import axios from "../../../../../shared/caller";
 import useAlert from "../../../../../hooks/useAlert";
 import Loading from "../../../../../shared/Loading/Loading";
 import { getCookieByKey } from "../../../../../shared/Auth/Login";
+import { SellerContainer } from "../../../../../shared/Components/pages/Container";
 
 function Dashboard({ history }) {
   // alert
@@ -30,7 +31,7 @@ function Dashboard({ history }) {
         .catch((err) => {
           setLoading(false);
           setSeverity("error");
-          
+
           if (!err.response) {
             setMessage("Something went wrong. Please try again.");
             history.push("/login/seller");
@@ -47,7 +48,7 @@ function Dashboard({ history }) {
   }, []);
 
   return (
-    <div className="px-8 py-6">
+    <SellerContainer>
       {loading ? (
         <Loading />
       ) : (
@@ -88,7 +89,7 @@ function Dashboard({ history }) {
           </div>
         </div>
       )}
-    </div>
+    </SellerContainer>
   );
 }
 export default Dashboard;

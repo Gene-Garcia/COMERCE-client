@@ -14,3 +14,8 @@ function Container({ children, xSpacing }) {
   );
 }
 export default Container;
+
+function SellerContainer({ children }) {
+  return <div className="px-8 py-6">{children}</div>;
+}
+export { SellerContainer };
