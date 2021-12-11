@@ -12,6 +12,8 @@ function Title({ title }) {
 export default Title;
 
 function SellerTitle({ title }) {
-  return <h3>{title}</h3>;
+  return (
+    <h3 className="font-serif font-semibold text-2xl text-gray-700">{title}</h3>
+  );
 }
 export { SellerTitle };
