@@ -63,6 +63,7 @@ module.exports = {
       backgroundColor: ["active"],
       borderColor: ["active"],
       borderWidth: ["hover"],
+      borderRadius: ["hover", "active"],
       boxShadow: ["active", "hover"],
       display: ["group-hover"],
       grayscale: ["hover"],

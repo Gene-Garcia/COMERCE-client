@@ -2,7 +2,7 @@ import React from "react";
 
 function Navigation() {
   const base =
-    "pt-3 pb-1 px-2 text-sm font-semibold text-gray-500 border-b-2 rounded-t-xl transition duration-200 ease-linear hover:text-my-accent active:shadow-lg active:border-my-accent";
+    "py-2 px-2 text-sm font-semibold text-gray-700 border-b-2 transition duration-250 ease-linear hover:text-my-accent active:shadow-lg active:border-my-accent active:rounded-xl active:bg-gray-100";
   const theme = {
     active: "border-my-accent-shade",
     default: "border-gray-300",

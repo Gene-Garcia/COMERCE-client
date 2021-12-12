@@ -1,11 +1,11 @@
 import React from "react";
 
 function ProductHeadings() {
-  const theme = "font-semibold text-gray-400 text-sm";
+  const theme = "font-medium text-gray-400 text-sm";
   return (
     <tr className="px-20 w-full flex flex-row justify-between items-center">
       <td className="w-five flex justify-center">
-        <button className="h-4 w-4 bg-gray-400"></button>
+        <button className="h-4 w-4 bg-gray-300"></button>
       </td>
 
       <td className={`w-fifteen flex justify-center ${theme}`}>
