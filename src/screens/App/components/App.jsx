@@ -89,7 +89,7 @@ const AppContent = memo(() => {
       {withSidebar.includes(pathname) && <Sidebar />}
 
       {/* 72 is also the width of the sidebar */}
-      <div className="w-full ml-72 h-max">
+      <div className={`w-full ${withSidebar.includes(pathname) && "ml-72"}`}>
         {withSidebar.includes(pathname) && <BusinessHeader />}
 
         <Switch>
