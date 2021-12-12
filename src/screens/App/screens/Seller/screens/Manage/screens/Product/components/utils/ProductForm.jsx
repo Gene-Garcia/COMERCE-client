@@ -59,7 +59,7 @@ function PriceInput({ name, value, error, onChange, placeholder }) {
   );
 }
 
-function DataListInput({ name, value, error, onChange }) {
+function DataListInput({ name, value, error, onChange, placeholder }) {
   return (
     <div className="flex flex-col w-1/2">
       <div className="flex flex-row justify-between">
@@ -75,6 +75,7 @@ function DataListInput({ name, value, error, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
         list="category-list"
         className={`rounded bg-my-white-tint px-2 py-1.5 text-base shadow 
         border ${error ? "border-red-500" : "border-transparent"}
@@ -133,13 +134,23 @@ function GalleryInput({ name, value, error, onChange }) {
           error={error}
           onChange={onChange}
           width="w-full"
+          placeholder="Image address"
         />
       </div>
     </div>
   );
 }
 
-function DefaultInput({ label, helper, width, name, value, error, onChange }) {
+function DefaultInput({
+  label,
+  helper,
+  width,
+  name,
+  value,
+  error,
+  onChange,
+  placeholder,
+}) {
   return (
     <div className={`flex flex-col ${width}`}>
       <div className="flex flex-row justify-between">
@@ -155,6 +166,7 @@ function DefaultInput({ label, helper, width, name, value, error, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
         className={`px-2 py-1.5 text-base shadow rounded 
         border ${error ? "border-red-500" : "border-transparent"}
         transition ease-linear 
@@ -165,7 +177,7 @@ function DefaultInput({ label, helper, width, name, value, error, onChange }) {
   );
 }
 
-function AreaInput({ label, name, value, error, onChange }) {
+function AreaInput({ label, name, value, error, onChange, placeholder }) {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
@@ -181,6 +193,7 @@ function AreaInput({ label, name, value, error, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
         className={`px-2 py-1.5 text-base rounded shadow 
         border ${error ? "border-red-500" : "border-transparent"}
         transition ease-linear 
@@ -190,10 +203,11 @@ function AreaInput({ label, name, value, error, onChange }) {
   );
 }
 
-function SubmitCTA() {
+function SubmitCTA({ onClick }) {
   return (
     <Button
       isLoading={false}
+      onClick={onClick}
       buttonClass="bg-my-accent text-white px-14 py-4 font-semibold text-sm uppercase 
       transition duration-200 ease-linear rounded
       hover:ring hover:ring-my-accent hover:ring-opacity-30 
@@ -214,5 +228,3 @@ export {
   AreaInput,
   SubmitCTA,
 };
-
-function Input({ type, name, value, error, placeholder }) {}
