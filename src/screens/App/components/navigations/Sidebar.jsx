@@ -5,7 +5,7 @@ import { SidebarLink, SidebarGroup } from "./utils/SidebarLinks";
 
 function Sidebar() {
   return (
-    <div className="w-72 bg-my-accent-shade h-screen">
+    <div className="fixed w-72 bg-my-accent-shade h-screen">
       <div className="px-4 py-10 flex flex-col justify-center gap-6">
         <div className="inline-flex gap-3 items-center justify-center">
           <img src={comerceWhite} alt="COMERCE Logo" className="w-11" />

@@ -79,7 +79,7 @@ const AppContent = memo(() => {
 
   return (
     <div
-      className={`${
+      className={`h-full ${
         withSidebar.includes(pathname)
           ? "flex flex-row bg-my-white-tone"
           : "bg-white"
@@ -88,7 +88,8 @@ const AppContent = memo(() => {
       {!navless.includes(pathname) && <Navbar />}
       {withSidebar.includes(pathname) && <Sidebar />}
 
-      <div className="w-full">
+      {/* 72 is also the width of the sidebar */}
+      <div className="w-full ml-72 h-max">
         {withSidebar.includes(pathname) && <BusinessHeader />}
 
         <Switch>
