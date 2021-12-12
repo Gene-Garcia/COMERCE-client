@@ -1,7 +1,7 @@
 import React from "react";
 
 function ProductHeadings() {
-  const theme = "font-medium text-gray-400 text-base";
+  const theme = "font-semibold text-gray-400 text-sm";
   return (
     <tr className="px-20 w-full flex flex-row justify-between items-center">
       <td className="w-five flex justify-center">
@@ -16,9 +16,9 @@ function ProductHeadings() {
 
       <td className={`w-1/4 flex justify-center ${theme}`}>Product Name</td>
 
-      <td className={`w-fifteen flex justify-center ${theme}`}>Price</td>
+      <td className={`w-fifteen flex justify-center ${theme}`}>Price (PHP)</td>
 
-      <td className={`w-ten flex justify-center ${theme}`}>Total Stock</td>
+      <td className={`w-ten flex justify-center ${theme}`}>Onhand</td>
 
       <td className={`w-1/5 flex justify-center ${theme}`}>Actions</td>
     </tr>
