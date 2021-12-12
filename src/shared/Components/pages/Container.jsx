@@ -16,6 +16,6 @@ function Container({ children, xSpacing }) {
 export default Container;
 
 function SellerContainer({ children }) {
-  return <div className="px-8 py-6">{children}</div>;
+  return <div className="px-8 py-6 bg-my-white-tone">{children}</div>;
 }
 export { SellerContainer };
