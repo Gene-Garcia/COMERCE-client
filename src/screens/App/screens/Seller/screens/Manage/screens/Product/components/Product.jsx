@@ -7,7 +7,7 @@ import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
 
 const Product = () => {
-  const [toggled, s] = useState("OVERVIEW");
+  const [toggled, s] = useState("ADD_PRODUCT");
 
   return (
     <SellerContainer>
