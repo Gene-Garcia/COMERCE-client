@@ -10,33 +10,28 @@ function NameInput({ name, value, error, onChange, placeholder }) {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`px-2 py-1.5 w-full text-lg bg-transparent shadow rounded 
-        border-b-2 
+        className={`px-2 py-1.5 w-full text-lg bg-transparent rounded-t-md
+        border-b-2
         ${error ? "border-red-500" : "border-gray-300"}
         transition duration-200 ease-linear 
-        focus:border-my-accent focus:outline-none`}
+        focus:shadow-md focus:border-my-accent focus:outline-none`}
       />
 
       <div className="flex flex-row justify-between">
-        <label for="" className="uppercase font-semibold text-gray-400 text-sm">
-          Product Name
-        </label>
+        <Label label="Product Name" />
 
-        <span className="text-red-500 font-regular">{error}</span>
+        <Error error={error} />
       </div>
     </div>
   );
 }
 
-function PriceInput({ name, value, error, onChange, placeholder }) {
+function PriceInput({ label, name, value, error, onChange, placeholder }) {
   return (
     <div className="flex flex-col w-2/5">
       <div className="flex flex-row justify-between">
-        <label for="" className="uppercase font-semibold text-gray-400 text-sm">
-          PRICE
-        </label>
-
-        <span className="text-red-500 font-regular">{error}</span>
+        <Label label={label} />
+        <Error error={error} />
       </div>
 
       <div className="inline-flex gap-2">
@@ -63,11 +58,8 @@ function DataListInput({ name, value, error, onChange, placeholder }) {
   return (
     <div className="flex flex-col w-1/2">
       <div className="flex flex-row justify-between">
-        <label className="uppercase font-semibold text-gray-400 text-sm">
-          CATEGORY
-        </label>
-
-        <span className="text-red-500 font-regular">{error}</span>
+        <Label label="Category" />
+        <Error error={error} />
       </div>
 
       <input
@@ -142,6 +134,7 @@ function GalleryInput({ name, value, error, onChange }) {
 }
 
 function DefaultInput({
+  type = "text",
   label,
   helper,
   width,
@@ -154,15 +147,12 @@ function DefaultInput({
   return (
     <div className={`flex flex-col ${width}`}>
       <div className="flex flex-row justify-between">
-        <label for="" className="uppercase font-semibold text-gray-400 text-sm">
-          {label}
-        </label>
-
-        <span className="text-red-500 font-regular">{error}</span>
+        <Label label={label} />
+        <Error error={error} />
       </div>
 
       <input
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}
@@ -181,11 +171,8 @@ function AreaInput({ label, name, value, error, onChange, placeholder }) {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
-        <label className="uppercase font-semibold text-gray-400 text-sm">
-          {label}
-        </label>
-
-        <span className="text-red-500 font-regular">{error}</span>
+        <Label label={label} />
+        <Error error={error} />
       </div>
 
       <textarea
@@ -216,6 +203,18 @@ function SubmitCTA({ onClick }) {
     >
       Upload Product
     </Button>
+  );
+}
+
+function Error({ error }) {
+  return <span className="text-red-500 font-regular text-sm">{error}</span>;
+}
+
+function Label({ label }) {
+  return (
+    <label className="uppercase font-medium text-gray-500 text-sm">
+      {label}
+    </label>
   );
 }
 
