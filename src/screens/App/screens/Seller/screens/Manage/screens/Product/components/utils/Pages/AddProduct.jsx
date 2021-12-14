@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "../../../../../../../../../../../hooks/useForm";
 import {
   AreaInput,
@@ -9,10 +9,38 @@ import {
   PriceInput,
   SubmitCTA,
 } from "../ProductForm";
+import axios from "../../../../../../../../../../../shared/caller";
+import useAlert from "../../../../../../../../../../../hooks/useAlert";
+import { useHistory } from "react-router-dom";
 
 function AddProduct() {
+  const history = useHistory();
+  const { setMessage, setSeverity } = useAlert();
+
   // api call
-  const submitProductAPI = () => {};
+  const submitProductAPI = async () => {
+    await axios
+      .post("/api/product/upload", { data: values })
+      .then((res) => {
+        setIsLoading(false);
+        setSeverity("success");
+        if (res.status === 201) {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setSeverity("error");
+
+        if (!err.response)
+          setMessage(
+            "Something went wrong. Please refresh your browser and try again"
+          );
+        else if (err.response.data.status === 403) history.push("/forbidden");
+        else if (err.response.data.status == 401) history.push("/unathorized");
+        else setMessage(err.response.data.error);
+      });
+  };
 
   const validate = (data, setErrors) => {
     let temp = { ...errors };
@@ -41,7 +69,7 @@ function AddProduct() {
 
       if (!temp.description)
         temp.description =
-          data.description >= 30 ? "" : "Atleast 30 characters";
+          data.description.length >= 30 ? "" : "Atleast 30 characters";
     }
 
     if ("keywords" in data)
@@ -111,7 +139,13 @@ function AddProduct() {
     setIsLoading,
     handleInput,
     handleFormSubmit,
+    resetForms,
   } = useForm(init, init, validate, submitProductAPI);
+
+  // useEffect cleanup
+  useEffect(() => {
+    return () => resetForms();
+  }, []);
 
   return (
     <div>
@@ -218,7 +252,7 @@ function AddProduct() {
 
           <div className="border-b border-gray-300 rounded"></div>
 
-          <SubmitCTA onClick={handleFormSubmit} />
+          <SubmitCTA isLoading={isLoading} onClick={handleFormSubmit} />
         </div>
       </div>
     </div>

@@ -195,10 +195,10 @@ function AreaInput({ label, name, value, error, onChange, placeholder }) {
   );
 }
 
-function SubmitCTA({ onClick }) {
+function SubmitCTA({ isLoading, onClick }) {
   return (
     <Button
-      isLoading={false}
+      isLoading={isLoading}
       onClick={onClick}
       buttonClass="bg-my-accent text-white px-14 py-4 font-semibold text-sm uppercase 
       transition duration-200 ease-linear rounded
