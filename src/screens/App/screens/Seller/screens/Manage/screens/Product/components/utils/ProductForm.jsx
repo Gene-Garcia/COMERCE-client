@@ -14,7 +14,8 @@ function NameInput({ name, value, error, onChange, placeholder }) {
         border-b-2
         ${error ? "border-red-500" : "border-gray-300"}
         transition duration-200 ease-linear 
-        focus:shadow-md focus:border-my-accent focus:outline-none`}
+        focus:shadow-md focus:border-my-accent focus:outline-none
+        placeholder-gray-300`}
       />
 
       <div className="flex flex-row justify-between">
@@ -47,7 +48,8 @@ function PriceInput({ label, name, value, error, onChange, placeholder }) {
           className={`rounded bg-my-white-tint rounded w-full px-2 py-1.5 shadow 
           border ${error ? "border-red-500" : "border-transparent"}
           transition ease-linear 
-          focus:border-my-accent focus:outline-none `}
+          focus:border-my-accent focus:outline-none
+          placeholder-gray-300`}
         />
       </div>
     </div>
@@ -72,7 +74,8 @@ function DataListInput({ name, value, error, onChange, placeholder }) {
         className={`rounded bg-my-white-tint px-2 py-1.5 text-base shadow 
         border ${error ? "border-red-500" : "border-transparent"}
         transition ease-linear 
-        focus:border-my-accent focus:outline-none`}
+        focus:border-my-accent focus:outline-none
+        placeholder-gray-300`}
       />
 
       <datalist id="category-list">
@@ -93,7 +96,7 @@ function GalleryInput({ name, value, error, onChange }) {
       </div>
 
       <div className="flex flex-row gap-4">
-        <label class="h-16 w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
+        <label className="h-16 w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
@@ -160,7 +163,8 @@ function DefaultInput({
         className={`px-2 py-1.5 text-base shadow rounded 
         border ${error ? "border-red-500" : "border-transparent"}
         transition ease-linear 
-        focus:outline-none focus:border-my-accent`}
+        focus:outline-none focus:border-my-accent
+        placeholder-gray-300`}
       />
       <i className="text-sm text-gray-500">{helper}</i>
     </div>
@@ -184,7 +188,8 @@ function AreaInput({ label, name, value, error, onChange, placeholder }) {
         className={`px-2 py-1.5 text-base rounded shadow 
         border ${error ? "border-red-500" : "border-transparent"}
         transition ease-linear 
-        focus:outline-none focus:border-my-accent`}
+        focus:outline-none focus:border-my-accent
+        placeholder-gray-300`}
       ></textarea>
     </div>
   );

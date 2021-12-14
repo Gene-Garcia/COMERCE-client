@@ -17,10 +17,18 @@ function AddProduct() {
   const validate = (data, setErrors) => {
     let temp = { ...errors };
 
-    if ("productName" in data)
-      temp.productName = data.productName ? "" : "Product name is required";
+    if ("item" in data) temp.item = data.item ? "" : "Product name is required";
 
-    if ("price" in data) temp.price = data.price ? "" : "Price is required";
+    if ("retailPrice" in data) {
+      temp.retailPrice = data.retailPrice ? "" : "Retail price is required";
+
+      if (!temp.retailPrice)
+        temp.retailPrice = isNaN(data.retailPrice) ? "Numerical value" : "";
+
+      const tempRetailPrice = parseInt(data.retailPrice);
+      if (!temp.retailPrice)
+        temp.retailPrice = tempRetailPrice > 0 ? "" : "Cannot be 0";
+    }
 
     if ("category" in data)
       temp.category = data.category ? "" : "Category is required";
@@ -28,26 +36,73 @@ function AddProduct() {
     if ("brand" in data)
       temp.brand = data.brand ? "" : "Brand name is required";
 
-    if ("description" in data)
+    if ("description" in data) {
       temp.description = data.description ? "" : "Description is required";
+
+      if (!temp.description)
+        temp.description =
+          data.description >= 30 ? "" : "Atleast 30 characters";
+    }
 
     if ("keywords" in data)
       temp.keywords = data.keywords ? "" : "Atleast 1 keyword is required";
 
-    if ("images" in data)
-      temp.images = data.images ? "" : "Image address is required";
+    if ("imageAddress" in data)
+      temp.imageAddress = data.imageAddress ? "" : "Image address is required";
+
+    if ("inventory" in data) {
+      temp.inventory = data.inventory ? "" : "Atleast 0 inventory";
+
+      if (!temp.inventory)
+        temp.inventory = isNaN(data.inventory) ? "Numerical value" : "";
+
+      const tempInventory = parseInt(data.inventory);
+      if (!temp.inventory)
+        temp.inventory = tempInventory >= 0 ? "" : "Cannot be negative";
+    }
+
+    if ("wholesalePrice" in data) {
+      temp.wholesalePrice = data.wholesalePrice ? "" : "Wholesale is required";
+
+      if (!temp.wholesalePrice)
+        temp.wholesalePrice = data.wholesalePrice > 0 ? "" : "Cannot be 0";
+
+      if (!temp.wholesalePrice)
+        temp.wholesalePrice = isNaN(data.wholesalePrice)
+          ? "Numerical value"
+          : "";
+
+      const tempWholesalePrice = parseInt(data.wholesalePrice);
+      const tempRetailPrice = parseInt(values.retailPrice);
+      if (!temp.wholesalePrice)
+        temp.wholesalePrice =
+          tempWholesalePrice < tempRetailPrice ? "" : "Only lower than retail";
+    }
+
+    if ("wholesaleCap" in data) {
+      temp.wholesaleCap = data.wholesaleCap ? "" : "Cap is required";
+
+      if (!temp.wholesaleCap)
+        temp.wholesaleCap = data.wholesaleCap > 0 ? "" : "Cannot be 0";
+
+      if (!temp.wholesaleCap)
+        temp.wholesaleCap = isNaN(data.wholesaleCap) ? "Numerical value" : "";
+    }
 
     setErrors(temp);
   };
 
   const init = {
-    productName: "",
-    price: "",
+    item: "",
+    retailPrice: "",
+    inventory: "",
+    wholesalePrice: "",
+    wholesaleCap: "",
     category: "",
     brand: "",
     description: "",
     keywords: "",
-    images: "",
+    imageAddress: "",
   };
   const {
     values,
@@ -63,37 +118,75 @@ function AddProduct() {
       <div className="flex flex-row gap-20 justify-between">
         <div className="w-1/2 space-y-8">
           <NameInput
-            name="productName"
-            value={values.productName}
-            error={errors.productName}
+            name="item"
+            value={values.item}
+            error={errors.item}
             onChange={handleInput}
             placeholder="Name of your new product"
           />
 
-          <PriceInput
-            name="price"
-            value={values.price}
-            error={errors.price}
-            onChange={handleInput}
-            placeholder="Price of the product in peso"
-          />
+          <div className="inline-flex gap-6 w-full">
+            <PriceInput
+              label="Retail Price"
+              name="retailPrice"
+              value={values.retailPrice}
+              error={errors.retailPrice}
+              onChange={handleInput}
+              placeholder="Retail price in peso"
+            />
 
-          <DataListInput
-            name="category"
-            value={values.category}
-            error={errors.category}
-            onChange={handleInput}
-            placeholder="Select a category from the list"
-          />
+            <DefaultInput
+              type="number"
+              label="Stock Onhand"
+              name="inventory"
+              value={values.inventory}
+              error={errors.inventory}
+              onChange={handleInput}
+              width="w-2/6"
+            />
+          </div>
 
-          <DefaultInput
-            label="Brand"
-            name="brand"
-            value={values.brand}
-            error={errors.brand}
-            onChange={handleInput}
-            placeholder="The brand name of your product"
-          />
+          {/* wholesale details */}
+          <div className="inline-flex gap-6 w-full">
+            <PriceInput
+              label="Wholesale Price"
+              name="wholesalePrice"
+              value={values.wholesalePrice}
+              error={errors.wholesalePrice}
+              onChange={handleInput}
+              placeholder="Wholesale price in peso"
+            />
+
+            <DefaultInput
+              type="number"
+              label="Wholesale Cap"
+              name="wholesaleCap"
+              value={values.wholesaleCap}
+              error={errors.wholesaleCap}
+              onChange={handleInput}
+              width="w-2/6"
+            />
+          </div>
+
+          <div className="inline-flex gap-6 w-full">
+            <DataListInput
+              name="category"
+              value={values.category}
+              error={errors.category}
+              onChange={handleInput}
+              placeholder="Select a category from the list"
+            />
+
+            <DefaultInput
+              label="Brand"
+              name="brand"
+              value={values.brand}
+              error={errors.brand}
+              onChange={handleInput}
+              placeholder="The brand name of your product"
+              width="w-1/2"
+            />
+          </div>
 
           <AreaInput
             label="Product Description"
@@ -117,9 +210,9 @@ function AddProduct() {
 
         <div className="w-1/2 space-y-6">
           <GalleryInput
-            name="images"
-            value={values.images}
-            error={errors.images}
+            name="imageAddress"
+            value={values.imageAddress}
+            error={errors.imageAddress}
             onChange={handleInput}
           />
 
