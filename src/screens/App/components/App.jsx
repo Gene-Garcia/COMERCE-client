@@ -19,6 +19,7 @@ import { SellerRegistrationProvider } from "../../../context/SellerRegistrationC
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import Navbar from "./navigations/Navbar";
 import Sidebar from "./navigations/Sidebar";
+import { ManageProductProvider } from "../../../context/ManageProductContext";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -46,7 +47,9 @@ const App = () => {
                 <OrdersProvider>
                   <RateProvider>
                     <SellerRegistrationProvider>
-                      <AppContent />
+                      <ManageProductProvider>
+                        <AppContent />
+                      </ManageProductProvider>
                     </SellerRegistrationProvider>
                   </RateProvider>
                 </OrdersProvider>
