@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useManageProduct } from "../../../../../../../../../hooks/useManage";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import { PageButton } from "./utils/PageButtons";
@@ -7,7 +8,7 @@ import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
 
 const Product = () => {
-  const [toggled, s] = useState("ADD_PRODUCT");
+  const { toggled } = useManageProduct();
 
   return (
     <SellerContainer>

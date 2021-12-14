@@ -118,8 +118,8 @@ function BusinessInfo() {
           onChange={handleInput}
           label="BUSINESS LOGO"
           helper="JPEG and PNG files only"
-          value={values.logoAddress}
-          error={errors.logoAddress}
+          value={values.businessLogoAddress}
+          error={errors.businessLogoAddress}
         />
 
         <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">
