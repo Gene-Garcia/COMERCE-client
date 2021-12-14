@@ -1,7 +1,18 @@
 import React from "react";
+import { formatPrice } from "../../../../../../../../../../../shared/utils/price";
 import ProductAction from "./ProductActions";
 
 function ProductRow({ data }) {
+  console.log(data);
+  const {
+    imageAddress,
+    inventory,
+    item,
+    retailPrice,
+    wholesalePrice,
+    _id: productId,
+  } = data;
+
   const theme = "flex justify-center items-center";
 
   return (
@@ -16,23 +27,27 @@ function ProductRow({ data }) {
 
       <td className={`w-fifteen ${theme}`}>
         <img
-          src="https://cellucity.com/wp-content/uploads/2021/04/iPhone-XS-Max-Silver.png"
+          src={imageAddress}
           alt="product"
           className="w-16 filter drop-shadow-md"
         />
       </td>
 
-      <td className={`w-ten ${theme} text-xs text-black`}>
-        SMRTPHN-IPXS-256GB
+      <td className={`w-ten ${theme} text-xs text-black break-all`}>
+        {productId}
       </td>
 
-      <td className={`w-1/4 ${theme} font-medium text-md`}>iPhone XS 256GB</td>
+      <td className={`w-1/4 ${theme} font-medium text-md break-words`}>
+        {item}
+      </td>
 
       <td className={`w-fifteen ${theme} text-my-accent font-medium text-md`}>
-        ₱20,000.00
+        {formatPrice(retailPrice)}
       </td>
 
-      <td className={`w-ten ${theme} text-red-600 font-medium text-md`}>55</td>
+      <td className={`w-ten ${theme} text-red-600 font-medium text-md`}>
+        {inventory}
+      </td>
 
       <td className={`w-1/5 ${theme} flex-col gap-y-2`}>
         <ProductAction
