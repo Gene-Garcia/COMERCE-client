@@ -20,14 +20,23 @@ function ManageProductProvider({ children }) {
 
   // modal
   const [toggledModal, setToggledModal] = useState(false);
+  const [productId, setProductId] = useState("");
 
   // wrapped functions
   const updateToggled = (id) => setToggled(id);
   const updateToggledModal = (b) => setToggledModal(b);
+  const updateProductId = (id) => setProductId(id);
 
   return (
     <ManageProductContext.Provider
-      value={{ toggled, updateToggled, toggledModal, updateToggledModal }}
+      value={{
+        toggled,
+        updateToggled,
+        toggledModal,
+        updateToggledModal,
+        productId,
+        updateProductId,
+      }}
     >
       {children}
     </ManageProductContext.Provider>
