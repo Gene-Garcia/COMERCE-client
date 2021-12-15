@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import axios from "../../../../../../../../../../../shared/caller";
 
@@ -9,11 +9,15 @@ import axios from "../../../../../../../../../../../shared/caller";
  */
 
 function InformationModal() {
-  const { toggledModal, updateToggledModal } = useManageProduct();
+  const { updateToggledModal, productId } = useManageProduct();
 
   const closeModal = () => updateToggledModal(false);
 
-  return toggledModal ? (
+  useEffect(() => {
+    console.log(productId);
+  }, []);
+
+  return (
     <div className="fixed z-20 inset-0 overflow-auto">
       <div className="mx-auto w-min h-screen flex items-center">
         {/* conten */}
@@ -62,8 +66,6 @@ function InformationModal() {
         </div>
       </div>
     </div>
-  ) : (
-    <></>
   );
 }
 export default InformationModal;

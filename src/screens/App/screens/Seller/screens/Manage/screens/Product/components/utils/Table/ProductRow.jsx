@@ -16,8 +16,11 @@ function ProductRow({ data }) {
   const theme = "flex justify-center items-center";
 
   // to open the modal and set the data need
-  const { updateToggledModal } = useManageProduct();
-  const openThisModal = () => updateToggledModal(true);
+  const { updateToggledModal, updateProductId } = useManageProduct();
+  const openThisModal = () => {
+    updateProductId(productId);
+    updateToggledModal(true);
+  };
 
   return (
     <tr className="px-20 py-4 bg-my-white-tint rounded-2xl flex flex-row justify-between">
