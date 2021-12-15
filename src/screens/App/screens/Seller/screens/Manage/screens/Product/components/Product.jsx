@@ -9,11 +9,11 @@ import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
 
 const Product = () => {
-  const { toggled } = useManageProduct();
+  const { toggled, toggledModal } = useManageProduct();
 
   return (
     <>
-      <InformationModal />
+      {toggledModal && <InformationModal />}
 
       <SellerContainer>
         <div className="flex flex-row justify-between">
