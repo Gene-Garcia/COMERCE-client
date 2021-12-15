@@ -25,6 +25,8 @@ module.exports = {
     extend: {
       height: {
         rr28: "28rem",
+        min: "min-content",
+        max: "max-content",
       },
 
       width: {
