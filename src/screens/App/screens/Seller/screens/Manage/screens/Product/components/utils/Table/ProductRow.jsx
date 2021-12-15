@@ -1,9 +1,9 @@
 import React from "react";
+import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import { formatPrice } from "../../../../../../../../../../../shared/utils/price";
 import ProductAction from "./ProductActions";
 
 function ProductRow({ data }) {
-  console.log(data);
   const {
     imageAddress,
     inventory,
@@ -14,6 +14,10 @@ function ProductRow({ data }) {
   } = data;
 
   const theme = "flex justify-center items-center";
+
+  // to open the modal and set the data need
+  const { updateToggledModal } = useManageProduct();
+  const openThisModal = () => updateToggledModal(true);
 
   return (
     <tr className="px-20 py-4 bg-my-white-tint rounded-2xl flex flex-row justify-between">
@@ -51,6 +55,7 @@ function ProductRow({ data }) {
 
       <td className={`w-1/5 ${theme} flex-col gap-y-2`}>
         <ProductAction
+          onClick={openThisModal}
           title="INFO"
           svgD="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           color="text-black bg-my-white-tone"

@@ -1,4 +1,5 @@
 import React from "react";
+import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import axios from "../../../../../../../../../../../shared/caller";
 
 /*
@@ -7,8 +8,12 @@ import axios from "../../../../../../../../../../../shared/caller";
  * unlike bootstrap's modal that closes the model when background is clicked
  */
 
-function InformationModal({ active, productId }) {
-  return active ? (
+function InformationModal() {
+  const { toggledModal, updateToggledModal } = useManageProduct();
+
+  const closeModal = () => updateToggledModal(false);
+
+  return toggledModal ? (
     <div className="fixed z-20 inset-0 overflow-auto">
       <div className="mx-auto w-min h-screen flex items-center">
         {/* conten */}
@@ -16,6 +21,7 @@ function InformationModal({ active, productId }) {
           {/* close button */}
           <div className="flex justify-end p-2.5 ">
             <button
+              onClick={closeModal}
               className="py-1 px-1.5 bg-gray-100 rounded 
             inline-flex gap-1 items-center 
             text-sm font-semibold text-black
