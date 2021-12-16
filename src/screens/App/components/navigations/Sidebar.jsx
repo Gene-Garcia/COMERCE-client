@@ -5,11 +5,21 @@ import { SidebarLink, SidebarGroup } from "./utils/SidebarLinks";
 
 function Sidebar() {
   return (
-    <div className="fixed w-72 bg-my-accent-shade h-screen">
-      <div className="px-4 py-10 flex flex-col justify-center gap-6">
-        <div className="inline-flex gap-3 items-center justify-center">
-          <img src={comerceWhite} alt="COMERCE Logo" className="w-11" />
-          <h2 className="text-2xl text-gray-50 text-opacity-90 font-mono">
+    <div
+      className="fixed h-screen bg-my-accent-shade
+     md:w-44 lg:w-56 2xl:w-60"
+    >
+      <div
+        className="md:px-2 lg:px-4 md:py-6 lg:py-10 
+      flex flex-col justify-center md:gap-1 lg:gap-6"
+      >
+        <div className="flex md:flex-col lg:flex-row md:gap-1 lg:gap-3 items-center justify-center">
+          <img
+            src={comerceWhite}
+            alt="COMERCE Logo"
+            className="md:w-9 lg:w-11"
+          />
+          <h2 className="md:text-lg lg:text-2xl text-gray-50 text-opacity-90 font-mono">
             COMERCE
           </h2>
         </div>
