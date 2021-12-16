@@ -28,11 +28,11 @@ function BusinessHeader() {
         {loading ? (
           <>
             <div className="inline-flex gap-4 items-center">
-              <div className="w-10 h-10 rounded-full border border-gray-200">
+              <div className="w-11 h-11 rounded-full border border-gray-200">
                 <img
                   alt="Avatar"
                   src={businessLogo}
-                  className="object-cover w-full h-full rounded-full"
+                  className="p-1.5 object-contain w-full h-full rounded-full filter drop-shadow"
                 />
               </div>
 
