@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+import { SellerContainer } from "../pages/Container";
 
 /*
  * this component will be rendered through every authenticated pages, along with the
@@ -22,7 +23,7 @@ function BusinessHeader() {
   }, []);
 
   return (
-    <div className="px-8 py-6">
+    <SellerContainer>
       <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
         {loading ? (
           <>
@@ -48,7 +49,7 @@ function BusinessHeader() {
           <p>:Loading</p>
         )}
       </div>
-    </div>
+    </SellerContainer>
   );
 }
 export default BusinessHeader;
