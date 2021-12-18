@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Account from "../../../../shared/Components/navigation/Account";
 import { navbarLinks } from "../data/linkData";
 
-function Navbar() {
+function Navigation() {
   return (
     <>
       {/* logo and cta */}
@@ -47,4 +47,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navigation;

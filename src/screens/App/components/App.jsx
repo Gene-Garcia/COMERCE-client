@@ -17,8 +17,8 @@ import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
-import Navbar from "./navigations/Navbar";
-import Sidebar from "./navigations/Sidebar";
+import UserNavigation from "./userNavigation/Navigation";
+import SellerNavigation from "./sellerNavigation/Navigation";
 import { ManageProductProvider } from "../../../context/ManageProductContext";
 
 const App = () => {
@@ -88,8 +88,8 @@ const AppContent = memo(() => {
           : "bg-white"
       }`}
     >
-      {!navless.includes(pathname) && <Navbar />}
-      {withSidebar.includes(pathname) && <Sidebar />}
+      {!navless.includes(pathname) && <UserNavigation />}
+      {withSidebar.includes(pathname) && <SellerNavigation />}
 
       {/* 72 is also the width of the sidebar */}
       <div
