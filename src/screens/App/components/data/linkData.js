@@ -1,10 +1,10 @@
-const navbarLinks = [
+const userNavLinks = [
   { name: "Home", to: "/" },
   { name: "Catalogue", to: "/catalogue" },
   { name: "be a Seller", to: "/sign-up/seller" },
 ];
 
-const sidebarLinks = {
+const sellerNavLinks = {
   MANAGE: {
     name: "Manage",
 
@@ -74,4 +74,4 @@ const sidebarLinks = {
   },
 };
 
-export { navbarLinks, sidebarLinks };
+export { userNavLinks, sellerNavLinks };

@@ -1,6 +1,6 @@
 import React from "react";
 import comerceWhite from "../../../../shared/images/comerce-logo-white.webp";
-import { sidebarLinks } from "../data/linkData";
+import { sellerNavLinks } from "../data/linkData";
 import { SidebarLink, SidebarGroup } from "./SidebarLinks";
 import useWindow from "../../../../hooks/useWindow";
 import NavbarLink from "./NavbarLink";
@@ -31,7 +31,7 @@ function Sidebar() {
 
         {/* links */}
         <div className="divide-y divide-gray-500">
-          {Object.entries(sidebarLinks).map(([k, v]) => (
+          {Object.entries(sellerNavLinks).map(([k, v]) => (
             <SidebarGroup key={k} groupName={v.name} links={v.links} />
           ))}
 
@@ -55,7 +55,7 @@ function Navbar() {
 
       {/* link */}
       <div className="flex flex-row flex-wrap justify-end gap-x-3 sm:gap-x-5 gap-y-2 ">
-        {Object.entries(sidebarLinks).map(([k, v]) => (
+        {Object.entries(sellerNavLinks).map(([k, v]) => (
           <NavbarLink key={k} data={v} />
         ))}
       </div>

@@ -3,7 +3,7 @@ import comerceLogo from "../../../../shared/images/comerce-logo-blue.webp";
 import Search from "../../../../shared/Components/navigation/Search";
 import { Link } from "react-router-dom";
 import Account from "../../../../shared/Components/navigation/Account";
-import { navbarLinks } from "../data/linkData";
+import { userNavLinks } from "../data/linkData";
 
 function Navigation() {
   return (
@@ -28,7 +28,7 @@ function Navigation() {
       <div className="py-1.5 sm:py-0 px-4 md:px-7 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-8 md:gap-12 lg:gap-24 bg-gray-50">
         {/* link */}
         <div className="h-6 sm:h-12 inline-flex items-stretch gap-4 md:gap-6 lg:gap-8">
-          {navbarLinks.map((e, i) => (
+          {userNavLinks.map((e, i) => (
             <Link
               key={i}
               to={e.to}
