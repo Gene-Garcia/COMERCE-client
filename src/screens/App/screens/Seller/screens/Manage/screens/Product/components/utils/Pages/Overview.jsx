@@ -49,7 +49,7 @@ function Overview() {
   useEffect(() => () => setProducts([]), []);
 
   return (
-    <div className="space-y-10">
+    <div className="md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
       <ProductHeadings />
       <div className="flex flex-col gap-y-5">
         {products.map((e, i) => (

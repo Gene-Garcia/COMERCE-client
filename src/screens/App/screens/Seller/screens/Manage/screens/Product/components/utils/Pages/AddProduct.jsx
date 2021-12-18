@@ -149,8 +149,8 @@ function AddProduct() {
 
   return (
     <div>
-      <div className="flex flex-row gap-20 justify-between">
-        <div className="w-1/2 space-y-8">
+      <div className="flex flex-row gap-6 lg:gap-8 xl:gap-10 2xl:gap-20 justify-between">
+        <div className="w-3/5 lg:w-1/2 space-y-5 lg:space-y-7 xl:space-y-8">
           <NameInput
             name="item"
             value={values.item}
@@ -159,14 +159,15 @@ function AddProduct() {
             placeholder="Name of your new product"
           />
 
-          <div className="inline-flex gap-6 w-full">
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-4 xl:gap-6 w-full">
             <PriceInput
               label="Retail Price"
               name="retailPrice"
               value={values.retailPrice}
               error={errors.retailPrice}
               onChange={handleInput}
-              placeholder="Retail price in peso"
+              placeholder="Price in peso"
+              width="w-full lg:w-3/5 xl:w-1/2 2xl:w-2/5"
             />
 
             <DefaultInput
@@ -176,19 +177,20 @@ function AddProduct() {
               value={values.inventory}
               error={errors.inventory}
               onChange={handleInput}
-              width="w-2/6"
+              width="w-1/2 lg:w-2/5 xl:w-1/4"
             />
           </div>
 
           {/* wholesale details */}
-          <div className="inline-flex gap-6 w-full">
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-4 xl:gap-6 w-full">
             <PriceInput
               label="Wholesale Price"
               name="wholesalePrice"
               value={values.wholesalePrice}
               error={errors.wholesalePrice}
               onChange={handleInput}
-              placeholder="Wholesale price in peso"
+              placeholder="Price in peso"
+              width="w-full lg:w-3/5 xl:w-1/2 2xl:w-2/5"
             />
 
             <DefaultInput
@@ -198,17 +200,18 @@ function AddProduct() {
               value={values.wholesaleCap}
               error={errors.wholesaleCap}
               onChange={handleInput}
-              width="w-2/6"
+              width="w-1/2 lg:w-2/5 xl:w-1/4"
             />
           </div>
 
-          <div className="inline-flex gap-6 w-full">
+          <div className="flex flex-col xl:flex-row gap-5 lg:gap-7 xl:gap-6 w-full">
             <DataListInput
               name="category"
               value={values.category}
               error={errors.category}
               onChange={handleInput}
               placeholder="Select a category from the list"
+              width="w-full lg:w-9/12 xl:w-1/2"
             />
 
             <DefaultInput
@@ -218,7 +221,7 @@ function AddProduct() {
               error={errors.brand}
               onChange={handleInput}
               placeholder="The brand name of your product"
-              width="w-1/2"
+              width="w-full lg:w-9/12 xl:w-1/2"
             />
           </div>
 
@@ -242,7 +245,7 @@ function AddProduct() {
           />
         </div>
 
-        <div className="w-1/2 space-y-6">
+        <div className="w-2/5 lg:w-1/2 space-y-6">
           <GalleryInput
             name="imageAddress"
             value={values.imageAddress}

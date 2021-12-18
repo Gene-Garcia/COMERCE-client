@@ -27,7 +27,7 @@ function BusinessHeader() {
       <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
         {loading ? (
           <>
-            <div className="inline-flex gap-4 items-center">
+            <div className="inline-flex gap-2.5 items-center">
               <div className="w-11 h-11 rounded-full border border-gray-200">
                 <img
                   alt="Avatar"

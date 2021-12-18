@@ -29,7 +29,7 @@ function SidebarLink({ svgD, name, to }) {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="md:w-4 lg:h-5 md:w-4 lg:w-5"
+        className="w-4 lg:h-5 w-4 lg:w-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"

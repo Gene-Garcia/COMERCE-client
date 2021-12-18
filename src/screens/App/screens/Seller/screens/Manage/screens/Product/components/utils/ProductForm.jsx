@@ -27,9 +27,17 @@ function NameInput({ name, value, error, onChange, placeholder }) {
   );
 }
 
-function PriceInput({ label, name, value, error, onChange, placeholder }) {
+function PriceInput({
+  label,
+  name,
+  value,
+  error,
+  onChange,
+  placeholder,
+  width,
+}) {
   return (
-    <div className="flex flex-col w-2/5">
+    <div className={`flex flex-col ${width}`}>
       <div className="flex flex-row justify-between">
         <Label label={label} />
         <Error error={error} />
@@ -56,9 +64,9 @@ function PriceInput({ label, name, value, error, onChange, placeholder }) {
   );
 }
 
-function DataListInput({ name, value, error, onChange, placeholder }) {
+function DataListInput({ name, value, error, onChange, placeholder, width }) {
   return (
-    <div className="flex flex-col w-1/2">
+    <div className={`flex flex-col ${width}`}>
       <div className="flex flex-row justify-between">
         <Label label="Category" />
         <Error error={error} />
@@ -89,17 +97,17 @@ function GalleryInput({ name, value, error, onChange }) {
   return (
     <div className="space-y-2">
       {/* preview of image */}
-      <div className="h-40 bg-my-white-tint rounded flex items-center px-3">
+      <div className="h-28 lg:h-36 xl:h-40 bg-my-white-tint rounded flex items-center px-3">
         <span className="font-medium text-base text-gray-500">
           Preview of the image
         </span>
       </div>
 
-      <div className="flex flex-row gap-4">
-        <label className="h-16 w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <label className="h-14 lg:h-16 w-14 lg:w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
+            className="h-7 lg:h-8 w-7 lg:w-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -123,12 +131,12 @@ function GalleryInput({ name, value, error, onChange }) {
         </label>
 
         <DefaultInput
-          label="Temporary File Input"
+          label="Temporary"
           name={name}
           value={value}
           error={error}
           onChange={onChange}
-          width="w-full"
+          width="flex-grow"
           placeholder="Image address"
         />
       </div>
@@ -200,7 +208,7 @@ function SubmitCTA({ isLoading, onClick }) {
     <Button
       isLoading={isLoading}
       onClick={onClick}
-      buttonClass="bg-my-accent text-white px-14 py-4 font-semibold text-sm uppercase 
+      buttonClass="bg-my-accent text-white px-6 lg:px-12 xl:px-14 py-4 font-semibold text-sm uppercase 
       transition duration-200 ease-linear rounded
       hover:ring hover:ring-my-accent hover:ring-opacity-30 
       active:ring-2 active:ring-my-accent active:ring-opacity-70 active:ring-offset-2"
@@ -212,7 +220,11 @@ function SubmitCTA({ isLoading, onClick }) {
 }
 
 function Error({ error }) {
-  return <span className="text-red-500 font-regular text-sm">{error}</span>;
+  return (
+    <span className="text-red-500 font-regular text-sm text-right">
+      {error}
+    </span>
+  );
 }
 
 function Label({ label }) {

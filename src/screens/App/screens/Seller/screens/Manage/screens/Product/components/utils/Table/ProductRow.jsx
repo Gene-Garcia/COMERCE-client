@@ -13,7 +13,7 @@ function ProductRow({ data }) {
     _id: productId,
   } = data;
 
-  const theme = "flex justify-center items-center";
+  const theme = "flex justify-center items-center text-center";
 
   // to open the modal and set the data need
   const { updateToggledModal, updateProductId } = useManageProduct();
@@ -23,7 +23,7 @@ function ProductRow({ data }) {
   };
 
   return (
-    <tr className="px-20 py-4 bg-my-white-tint rounded-2xl flex flex-row justify-between">
+    <tr className="md:px-0.5 lg:px-8 xl:px-12 2xl:px-20 py-4 bg-my-white-tint rounded-2xl flex flex-row justify-between">
       <td className={`w-five ${theme}`}>
         <input
           type="checkbox"
@@ -36,7 +36,7 @@ function ProductRow({ data }) {
         <img
           src={imageAddress}
           alt="product"
-          className="w-16 filter drop-shadow-md"
+          className="w-12 lg:w-16 filter drop-shadow-md"
         />
       </td>
 
@@ -44,19 +44,25 @@ function ProductRow({ data }) {
         {productId}
       </td>
 
-      <td className={`w-1/4 ${theme} font-medium text-md break-words`}>
+      <td
+        className={`w-1/4 ${theme} font-medium text-base lg:text-md break-words`}
+      >
         {item}
       </td>
 
-      <td className={`w-fifteen ${theme} text-my-accent font-medium text-md`}>
+      <td
+        className={`w-fifteen ${theme} text-my-accent font-medium text-sm lg:text-md`}
+      >
         {formatPrice(retailPrice)}
       </td>
 
-      <td className={`w-ten ${theme} text-red-600 font-medium text-md`}>
+      <td
+        className={`w-ten ${theme} text-red-600 font-medium text-sm lg:text-md`}
+      >
         {inventory}
       </td>
 
-      <td className={`w-1/5 ${theme} flex-col gap-y-2`}>
+      <td className={`w-1/5 ${theme} flex-col gap-y-1 lg:gap-y-2`}>
         <ProductAction
           onClick={openThisModal}
           title="INFO"

@@ -4,7 +4,7 @@ function ProductAction({ title, onClick, svgD, color, effect }) {
   return (
     <button
       onClick={onClick}
-      className={`${color} transition ease-linear ${effect} inline-flex gap-1 items-center justify-center rounded-full w-20 h-7`}
+      className={`${color} transition ease-linear ${effect} inline-flex gap-0.5 lg:gap-1 items-center justify-center rounded-full w-16 lg:w-20 h-7`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
