@@ -72,8 +72,12 @@ function BusinessInfo() {
       });
   };
 
-  const init = { businessName: "", established: "", tagline: "" };
-
+  const init = {
+    businessLogoAddress: "",
+    businessName: "",
+    established: "",
+    tagline: "",
+  };
   const validate = (data, setErrors) => {
     let temp = { ...errors };
 
@@ -85,6 +89,11 @@ function BusinessInfo() {
 
     if ("tagline" in data)
       temp.tagline = data.tagline ? "" : "Put N/A if unavailable";
+
+    if ("businessLogoAddress" in data)
+      temp.businessLogoAddress = data.businessLogoAddress
+        ? ""
+        : "Logo address is required";
 
     setErrors(temp);
   };
@@ -104,10 +113,13 @@ function BusinessInfo() {
 
       <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
         <FileInput
-          name="logo"
-          onChange={fileOnChange}
+          name="businessLogoAddress"
+          // onChange={fileOnChange}
+          onChange={handleInput}
           label="BUSINESS LOGO"
           helper="JPEG and PNG files only"
+          value={values.businessLogoAddress}
+          error={errors.businessLogoAddress}
         />
 
         <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">

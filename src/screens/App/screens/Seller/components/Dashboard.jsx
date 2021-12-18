@@ -4,6 +4,7 @@ import axios from "../../../../../shared/caller";
 import useAlert from "../../../../../hooks/useAlert";
 import Loading from "../../../../../shared/Loading/Loading";
 import { getCookieByKey } from "../../../../../shared/Auth/Login";
+import { SellerContainer } from "../../../../../shared/Components/pages/Container";
 
 function Dashboard({ history }) {
   // alert
@@ -23,15 +24,14 @@ function Dashboard({ history }) {
         .get("/api/seller/dashboard")
         .then((res) => {
           if (res.status === 200) {
-            setData(res.data);
-            console.log(res.data);
+            // setData(res.data);
             setLoading(false);
           }
         })
         .catch((err) => {
           setLoading(false);
-
           setSeverity("error");
+
           if (!err.response) {
             setMessage("Something went wrong. Please try again.");
             history.push("/login/seller");
@@ -48,34 +48,20 @@ function Dashboard({ history }) {
   }, []);
 
   return (
-    <>
+    <SellerContainer>
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full h-screen bg-my-off-white px-10 py-8 space-y-8">
-          <div className="w-full flex items-center justify-between mb-12 p-4 border border-gray-100 shadow rounded-lg bg-white">
-            <div className="inline-flex gap-4 items-center">
-              <div className="w-12 h-12 rounded-full border border-gray-200">
-                <img
-                  alt="Avatar"
-                  src="https://i.ytimg.com/vi/5AwdkGKmZ0I/maxresdefault.jpg"
-                  className="object-cover w-full h-full rounded-full"
-                />
-              </div>
-
-              <h3 className="font-serif text-2xl text-black font-semibold">
-                {data.businessName}
-              </h3>
-            </div>
-
-            <p className="text-base font-light">28 MONDAY | 9:37 PM</p>
-          </div>
-
+        <div className="w-full space-y-8">
           <div className="flex flex-row justify-between gap-10">
-            <Card width="w-1/2" addOns="inline-flex justify-between gap-4">
-              <p className="w-full font-medium">
-                <span className="text-4xl text-gray-600">Welcome Back, </span>
-                <span className="text-3xl text-gray-500">
+            <Card
+              width="w-1/2"
+              addOns="inline-flex justify-between gap-4"
+              bgColor="bg-transparent"
+            >
+              <p className="w-full font-semibold">
+                <span className="text-3xl text-gray-600">Welcome Back, </span>
+                <span className="text-2xl text-gray-500">
                   {getCookieByKey(process.env.REACT_APP_LS_USERNAME_KEY)}!
                 </span>
               </p>
@@ -103,14 +89,18 @@ function Dashboard({ history }) {
           </div>
         </div>
       )}
-    </>
+    </SellerContainer>
   );
 }
 export default Dashboard;
 
-function Card({ children, width, addOns }) {
+function Card({ children, width, addOns, bgColor }) {
   return (
-    <div className={`${width} p-9 shadow-lg rounded-lg bg-white ${addOns}`}>
+    <div
+      className={`${width} p-6 rounded-md ${
+        bgColor ? bgColor : "bg-my-white-tint"
+      } ${addOns}`}
+    >
       {children}
     </div>
   );

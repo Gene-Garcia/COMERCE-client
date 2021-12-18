@@ -9,11 +9,15 @@ function FilterButton({ name }) {
 }
 export default FilterButton;
 
-function FilterHeader({ name }) {
+const FilterBody = ({ children, name }) => {
   return (
-    <span className="text-sm font-semibold text-my-accent text-opacity-50">
-      {name}
-    </span>
+    <div className="flex flex-col gap-y-1">
+      <span className="text-sm font-semibold text-my-accent text-opacity-60">
+        {name}
+      </span>
+
+      <>{children}</>
+    </div>
   );
-}
-export { FilterHeader };
+};
+export { FilterBody };
