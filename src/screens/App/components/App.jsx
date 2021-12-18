@@ -78,26 +78,27 @@ const AppContent = memo(() => {
     "/seller",
     "/seller/manage/products",
   ];
-  const withSidebar = ["/seller", "/seller/manage/products"];
+  const withSellerNavigation = ["/seller", "/seller/manage/products"];
 
   return (
     <div
       className={`h-full ${
-        withSidebar.includes(pathname)
-          ? "flex flex-row bg-my-white-tone"
+        withSellerNavigation.includes(pathname)
+          ? "flex flex-col md:flex-row bg-my-white-tone"
           : "bg-white"
       }`}
     >
       {!navless.includes(pathname) && <UserNavigation />}
-      {withSidebar.includes(pathname) && <SellerNavigation />}
+      {withSellerNavigation.includes(pathname) && <SellerNavigation />}
 
       {/* 72 is also the width of the sidebar */}
       <div
         className={`w-full ${
-          withSidebar.includes(pathname) && "md:ml-44 lg:ml-56 2xl:ml-60"
+          withSellerNavigation.includes(pathname) &&
+          "md:ml-44 lg:ml-56 2xl:ml-60"
         }`}
       >
-        {withSidebar.includes(pathname) && <BusinessHeader />}
+        {withSellerNavigation.includes(pathname) && <BusinessHeader />}
 
         <Switch>
           <Route {...route.HOME} />

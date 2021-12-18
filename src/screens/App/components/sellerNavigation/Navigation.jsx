@@ -2,9 +2,13 @@ import React from "react";
 import comerceWhite from "../../../../shared/images/comerce-logo-white.webp";
 import { sidebarLinks } from "../data/linkData";
 import { SidebarLink, SidebarGroup } from "./SidebarLinks";
+import useWindow from "../../../../hooks/useWindow";
+import { Link } from "react-router-dom";
 
 function Navigation() {
-  return <Sidebar />;
+  const { width } = useWindow();
+
+  return width >= 768 ? <Sidebar /> : <Navbar />;
 }
 export default Navigation;
 
@@ -45,5 +49,40 @@ function Sidebar() {
 }
 
 function Navbar() {
-  return <>nav</>;
+  return (
+    <div className="bg-my-accent-shade p-3 sm:p-6 gap-2 flex flex-row justify-between items-center">
+      <img src={comerceWhite} alt="COMERCE logo" className="w-10" />
+
+      {/* link */}
+      <div className="flex flex-row flex-wrap justify-end gap-x-3 sm:gap-x-5 gap-y-2 ">
+        <NavbarLink name="Manage" data="" />
+        <NavbarLink name="Shipment" data="" />
+        <NavbarLink name="Orders" data="" />
+        <NavbarLink name="Settings" data="" />
+      </div>
+    </div>
+  );
+}
+
+function NavbarLink({ name, data }) {
+  return (
+    <Link className="inline-flex text-white items-center gap-0.5">
+      <span className="font-semibold uppercase text-sm">{name}</span>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </Link>
+  );
 }
