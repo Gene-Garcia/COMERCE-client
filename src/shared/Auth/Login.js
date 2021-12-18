@@ -20,9 +20,20 @@ function clearUserPersistData() {
 
   cookies.remove(process.env.REACT_APP_LS_EMAIL_KEY);
   cookies.remove(process.env.REACT_APP_LS_USERNAME_KEY);
+
+  // business related keys
+  cookies.remove(process.env.REACT_APP_BS_NAME);
+  cookies.remove(process.env.REACT_APP_BS_LOGO);
+  cookies.remove(process.env.REACT_APP_BS_EMAIL);
 }
 
-function setUserPersistData(email, username) {
+function setUserPersistData(
+  email,
+  username,
+  businessName,
+  businessLogo,
+  businessEmail
+) {
   const cookies = new Cookies();
 
   const options = {
@@ -32,6 +43,13 @@ function setUserPersistData(email, username) {
 
   cookies.set(process.env.REACT_APP_LS_EMAIL_KEY, email, options);
   cookies.set(process.env.REACT_APP_LS_USERNAME_KEY, username, options);
+
+  // if businessName, businessLogo, and businessEmail is defined, then the session is for seller
+  if (businessName && businessLogo && businessEmail) {
+    cookies.set(process.env.REACT_APP_BS_NAME, businessName, options);
+    cookies.set(process.env.REACT_APP_BS_LOGO, businessLogo, options);
+    cookies.set(process.env.REACT_APP_BS_EMAIL, businessEmail, options);
+  }
 }
 
 function checkLoggedIn() {

@@ -33,7 +33,7 @@ function Showcase(props) {
             setLoading(false);
           }
         })
-        .catch((err) => {
+        .catch(() => {
           setSeverity("error");
           setMessage("Product cannot be found.");
           history.push("/catalogue");

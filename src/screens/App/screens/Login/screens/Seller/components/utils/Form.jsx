@@ -21,9 +21,17 @@ function Form() {
       .post("/api/signin", { ...values, expectedUserType: "SELLER" })
       .then((res) => {
         if (res.status === 200) {
-          setUserPersistData(res.data.user.email, res.data.user.username);
+          setUserPersistData(
+            res.data.user.email,
+            res.data.user.username,
+            res.data.business.businessName,
+            res.data.business.businessLogoAddress,
+            res.data.business.businessEmail
+          );
+
           setSeverity("success");
           setMessage("Succesfully logged in. Welcome back!");
+
           history.push("/seller");
         }
       })

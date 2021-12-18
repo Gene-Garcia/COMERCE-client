@@ -25,9 +25,15 @@ module.exports = {
     extend: {
       height: {
         rr28: "28rem",
+        min: "min-content",
+        max: "max-content",
       },
 
       width: {
+        five: "5%",
+        ten: "10%",
+        fifteen: "15%",
+
         thirty: "30%",
         seventy: "70%",
       },
@@ -42,6 +48,13 @@ module.exports = {
         // base color + black
         "my-accent-shade": "#001449",
         "my-off-white": "#FDFDFD",
+
+        // seller pages white pallette
+        // white + white
+        "my-white-tint": "#F8F9FD",
+        // white + gray
+        "my-white-tone": "#EDF0F4",
+
         // overrided tailwind black
         black: "#082032",
       },
@@ -50,14 +63,17 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ["active"],
+      borderColor: ["active"],
       borderWidth: ["hover"],
-      boxShadow: ["active", "hover"],
+      borderRadius: ["hover", "active"],
+      boxShadow: ["active", "hover", "focus"],
       display: ["group-hover"],
       grayscale: ["hover"],
       ringWidth: ["active", "hover"],
       ringColor: ["active", "hover"],
       ringOpacity: ["active", "hover"],
       ringOffsetWidth: ["active", "hover"],
+      ringOffsetColor: ["active"],
       textColor: ["active"],
     },
   },
