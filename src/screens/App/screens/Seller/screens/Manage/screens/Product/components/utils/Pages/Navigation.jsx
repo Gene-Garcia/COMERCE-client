@@ -4,32 +4,42 @@ import { useManageProduct } from "../../../../../../../../../../../hooks/useMana
 function Navigation() {
   const { updateToggled, toggled } = useManageProduct();
 
-  const base =
-    "py-2 px-2 text-sm font-semibold text-gray-700 border-b-2 transition duration-250 ease-linear hover:text-my-accent active:shadow-lg active:border-my-accent active:rounded-xl active:bg-gray-100";
-  const theme = {
-    active: "border-my-accent-shade",
-    default: "border-gray-300",
-  };
   return (
-    <div className="flex flex-row items-stretch gap-5">
-      <button
-        className={`${base} ${
-          toggled === "OVERVIEW" ? theme.active : theme.base
-        }`}
+    <div className="px-2 inline-flex border-b border-gray-300 w-full gap-5">
+      <Button
+        text="Overview"
+        state={toggled === "OVERVIEW" ? "active" : "default"}
         onClick={() => updateToggled("OVERVIEW")}
-      >
-        Overview
-      </button>
-      <button
-        className={`${base} ${
-          toggled === "ADD_PRODUCT" ? theme.active : theme.base
-        }`}
+      />
+
+      <Button
+        text="Add Product"
+        state={toggled === "ADD_PRODUCT" ? "active" : "default"}
         onClick={() => updateToggled("ADD_PRODUCT")}
-      >
-        Add Product
-      </button>
-      <div className="flex-grow border-b-2 border-gray-300"></div>
+      />
     </div>
   );
 }
 export default Navigation;
+
+function Button({ text, state, onClick }) {
+  const theme = {
+    active: "border-gray-900",
+    default: "border-transparent",
+  };
+  return (
+    <div className="space-y-1">
+      <button
+        className="text-sm font-semibold text-gray-700 
+      rounded px-2 py-1 
+      transition duration-150 ease-linear 
+      hover:bg-gray-200 hover:shadow-sm
+      active:text-my-accent"
+        onClick={onClick}
+      >
+        {text}
+      </button>
+      <div className={`mx-3 border-b-2 ${theme[state]}`}></div>
+    </div>
+  );
+}
