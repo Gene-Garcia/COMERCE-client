@@ -23,8 +23,7 @@ function Overview() {
             setProducts(res.data.products);
 
             setSeverity("information");
-            if (res.data.products) setMessage("Products loaded successfully");
-            else setMessage("No products was found.");
+            if (!res.data.products) setMessage("No products was found.");
           }
         })
         .catch((err) => {
