@@ -16,7 +16,7 @@ function Sidebar() {
   return (
     <div
       className="fixed h-screen bg-my-accent-shade
- md:w-44 lg:w-56 2xl:w-60"
+ md:w-52 lg:w-56 2xl:w-60"
     >
       <div
         className="px-2 lg:px-4 py-6 lg:py-10 
@@ -42,7 +42,7 @@ function Sidebar() {
 
 function Navbar() {
   return (
-    <div className="bg-my-accent-shade p-3 sm:p-6 gap-6 sm:gap-2 flex flex-row justify-between items-center">
+    <div className="bg-my-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
       <img src={comerceWhite} alt="COMERCE logo" className="w-10" />
 
       {/* link */}

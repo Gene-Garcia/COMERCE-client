@@ -95,7 +95,7 @@ const AppContent = memo(() => {
       <div
         className={`w-full ${
           withSellerNavigation.includes(pathname) &&
-          "md:ml-44 lg:ml-56 2xl:ml-60"
+          "md:ml-52 lg:ml-56 2xl:ml-60"
         }`}
       >
         {withSellerNavigation.includes(pathname) && <BusinessHeader />}
