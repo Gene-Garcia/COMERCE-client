@@ -16,16 +16,16 @@ const Product = () => {
       {toggledModal && <InformationModal />}
 
       <SellerContainer>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
           <SellerTitle title="Products" />
 
-          <div className="space-x-4">
+          <div className="space-x-4 flex flex-row justify-center items-center">
             <PageButton type="BUTTON" title="Out-of-Stock" />
             <PageButton type="BUTTON" title="Some Button" />
           </div>
         </div>
 
-        <div className="my-10">
+        <div className="my-6 xs:my-10">
           <Navigation />
         </div>
 

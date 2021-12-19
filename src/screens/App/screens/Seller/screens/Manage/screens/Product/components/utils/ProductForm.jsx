@@ -103,7 +103,7 @@ function GalleryInput({ name, value, error, onChange }) {
         </span>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col xs:flex-row gap-4">
         <label className="h-14 lg:h-16 w-14 lg:w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
           <svg
             xmlns="http://www.w3.org/2000/svg"

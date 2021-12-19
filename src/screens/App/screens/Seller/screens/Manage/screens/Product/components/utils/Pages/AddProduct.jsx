@@ -148,115 +148,119 @@ function AddProduct() {
   }, []);
 
   return (
-    <div>
-      <div className="flex flex-row gap-6 lg:gap-8 xl:gap-10 2xl:gap-20 justify-between">
-        <div className="w-3/5 lg:w-1/2 space-y-5 lg:space-y-7 xl:space-y-8">
-          <NameInput
-            name="item"
-            value={values.item}
-            error={errors.item}
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 xl:gap-10 2xl:gap-20 justify-between">
+      <div className=" w-full xl:w-3/5 lg:w-1/2 space-y-5 lg:space-y-7 xl:space-y-8">
+        <NameInput
+          name="item"
+          value={values.item}
+          error={errors.item}
+          onChange={handleInput}
+          placeholder="Name of your new product"
+        />
+
+        <div
+          className="flex w-full 
+          flex-col xs:flex-row gap-4 xl:gap-6 "
+        >
+          <PriceInput
+            label="Retail Price"
+            name="retailPrice"
+            value={values.retailPrice}
+            error={errors.retailPrice}
             onChange={handleInput}
-            placeholder="Name of your new product"
-          />
-
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-4 xl:gap-6 w-full">
-            <PriceInput
-              label="Retail Price"
-              name="retailPrice"
-              value={values.retailPrice}
-              error={errors.retailPrice}
-              onChange={handleInput}
-              placeholder="Price in peso"
-              width="w-full lg:w-3/5 xl:w-1/2 2xl:w-2/5"
-            />
-
-            <DefaultInput
-              type="number"
-              label="Stock Onhand"
-              name="inventory"
-              value={values.inventory}
-              error={errors.inventory}
-              onChange={handleInput}
-              width="w-1/2 lg:w-2/5 xl:w-1/4"
-            />
-          </div>
-
-          {/* wholesale details */}
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-4 xl:gap-6 w-full">
-            <PriceInput
-              label="Wholesale Price"
-              name="wholesalePrice"
-              value={values.wholesalePrice}
-              error={errors.wholesalePrice}
-              onChange={handleInput}
-              placeholder="Price in peso"
-              width="w-full lg:w-3/5 xl:w-1/2 2xl:w-2/5"
-            />
-
-            <DefaultInput
-              type="number"
-              label="Wholesale Cap"
-              name="wholesaleCap"
-              value={values.wholesaleCap}
-              error={errors.wholesaleCap}
-              onChange={handleInput}
-              width="w-1/2 lg:w-2/5 xl:w-1/4"
-            />
-          </div>
-
-          <div className="flex flex-col xl:flex-row gap-5 lg:gap-7 xl:gap-6 w-full">
-            <DataListInput
-              name="category"
-              value={values.category}
-              error={errors.category}
-              onChange={handleInput}
-              placeholder="Select a category from the list"
-              width="w-full lg:w-9/12 xl:w-1/2"
-            />
-
-            <DefaultInput
-              label="Brand"
-              name="brand"
-              value={values.brand}
-              error={errors.brand}
-              onChange={handleInput}
-              placeholder="The brand name of your product"
-              width="w-full lg:w-9/12 xl:w-1/2"
-            />
-          </div>
-
-          <AreaInput
-            label="Product Description"
-            name="description"
-            value={values.description}
-            error={errors.description}
-            onChange={handleInput}
-            placeholder="Description of the product"
+            placeholder="Price in peso"
+            width="w-4/6 xs:w-1/2 sm:w-5/12 lg:w-3/5 xl:w-5/12"
           />
 
           <DefaultInput
-            label="Keywords"
-            helper="seperate tags using a coma ',' "
-            name="keywords"
-            value={values.keywords}
-            error={errors.keywords}
+            type="number"
+            label="Stock Onhand"
+            name="inventory"
+            value={values.inventory}
+            error={errors.inventory}
             onChange={handleInput}
-            placeholder="Keywords to easily search your product"
+            width="w-2/5 xs:w-1/2 sm:w-2/6 lg:w-2/5 xl:w-1/4"
           />
         </div>
 
-        <div className="w-2/5 lg:w-1/2 space-y-6">
-          <GalleryInput
-            name="imageAddress"
-            value={values.imageAddress}
-            error={errors.imageAddress}
+        {/* wholesale details */}
+        <div
+          className="flex w-full 
+          flex-col xs:flex-row gap-4 xl:gap-6 "
+        >
+          <PriceInput
+            label="Wholesale Price"
+            name="wholesalePrice"
+            value={values.wholesalePrice}
+            error={errors.wholesalePrice}
             onChange={handleInput}
+            placeholder="Price in peso"
+            width="w-4/6 xs:w-1/2 sm:w-5/12 lg:w-3/5 xl:w-5/12"
           />
 
-          <div className="border-b border-gray-300 rounded"></div>
-
-          <SubmitCTA isLoading={isLoading} onClick={handleFormSubmit} />
+          <DefaultInput
+            type="number"
+            label="Wholesale Cap"
+            name="wholesaleCap"
+            value={values.wholesaleCap}
+            error={errors.wholesaleCap}
+            onChange={handleInput}
+            width="w-2/5 xs:w-1/2 sm:w-2/6 lg:w-2/5 xl:w-1/4"
+          />
         </div>
+
+        <div className="flex flex-col xs:flex-row md:flex-col xl:flex-row gap-4 xl:gap-6 w-full">
+          <DataListInput
+            name="category"
+            value={values.category}
+            error={errors.category}
+            onChange={handleInput}
+            placeholder="Category of product"
+            width="w-full xs:w-3/5 lg:w-full"
+          />
+
+          <DefaultInput
+            label="Brand"
+            name="brand"
+            value={values.brand}
+            error={errors.brand}
+            onChange={handleInput}
+            placeholder="Brand of product"
+            width="w-full xs:w-3/5 lg:w-full"
+          />
+        </div>
+
+        <AreaInput
+          label="Product Description"
+          name="description"
+          value={values.description}
+          error={errors.description}
+          onChange={handleInput}
+          placeholder="Description of the product"
+        />
+
+        <DefaultInput
+          label="Keywords"
+          helper="seperate tags using a coma ',' "
+          name="keywords"
+          value={values.keywords}
+          error={errors.keywords}
+          onChange={handleInput}
+          placeholder="Keywords to easily search your product"
+        />
+      </div>
+
+      <div className="w-full xl:w-2/5 lg:w-1/2 space-y-6">
+        <GalleryInput
+          name="imageAddress"
+          value={values.imageAddress}
+          error={errors.imageAddress}
+          onChange={handleInput}
+        />
+
+        <div className="border-b border-gray-300 rounded"></div>
+
+        <SubmitCTA isLoading={isLoading} onClick={handleFormSubmit} />
       </div>
     </div>
   );
