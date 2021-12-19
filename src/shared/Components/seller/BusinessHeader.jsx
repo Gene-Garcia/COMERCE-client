@@ -41,7 +41,7 @@ function BusinessHeader() {
               </h3>
             </div>
 
-            <p className="text-sm font-regular text-black">
+            <p className="hidden xs:block text-sm font-regular text-black">
               28 MONDAY | 9:37 PM
             </p>
           </>

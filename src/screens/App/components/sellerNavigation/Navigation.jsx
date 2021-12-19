@@ -42,7 +42,7 @@ function Sidebar() {
 
 function Navbar() {
   return (
-    <div className="bg-my-accent-shade p-3 sm:p-6 gap-2 flex flex-row justify-between items-center">
+    <div className="bg-my-accent-shade p-3 sm:p-6 gap-6 sm:gap-2 flex flex-row justify-between items-center">
       <img src={comerceWhite} alt="COMERCE logo" className="w-10" />
 
       {/* link */}
