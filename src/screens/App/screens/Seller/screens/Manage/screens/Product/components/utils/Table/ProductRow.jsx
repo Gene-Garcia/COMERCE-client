@@ -23,46 +23,50 @@ function ProductRow({ data }) {
   };
 
   return (
-    <tr className="md:px-0.5 lg:px-8 xl:px-12 2xl:px-20 py-4 bg-my-white-tint rounded-2xl flex flex-row justify-between">
-      <td className={`w-five ${theme}`}>
+    <div
+      className="md:px-0.5 lg:px-8 xl:px-12 2xl:px-20 py-2.5 md:py-4 
+    bg-my-white-tint rounded-2xl flex flex-row justify-between
+    "
+    >
+      <div className={`w-8 md:w-five ${theme}`}>
         <input
           type="checkbox"
           name=""
           className="h-4 w-4 border-4 border-my-accent "
         />
-      </td>
+      </div>
 
-      <td className={`w-fifteen ${theme}`}>
+      <div className={`w-20 md:w-fifteen ${theme}`}>
         <img
           src={imageAddress}
           alt="product"
           className="w-12 lg:w-16 filter drop-shadow-md"
         />
-      </td>
+      </div>
 
-      <td className={`w-ten ${theme} text-xs text-black break-all`}>
+      <div className={`w-20 md:w-ten ${theme} text-xs text-black break-all`}>
         {productId}
-      </td>
+      </div>
 
-      <td
-        className={`w-1/4 ${theme} font-medium text-base lg:text-md break-words`}
+      <div
+        className={`w-32 md:w-1/4 ${theme} font-medium text-base lg:text-md break-words`}
       >
         {item}
-      </td>
+      </div>
 
-      <td
-        className={`w-fifteen ${theme} text-my-accent font-medium text-sm lg:text-md`}
+      <div
+        className={`w-20 md:w-fifteen ${theme} text-my-accent font-medium text-sm lg:text-md`}
       >
         {formatPrice(retailPrice)}
-      </td>
+      </div>
 
-      <td
-        className={`w-ten ${theme} text-red-600 font-medium text-sm lg:text-md`}
+      <div
+        className={`w-16 md:w-ten ${theme} text-red-600 font-medium text-sm lg:text-md`}
       >
         {inventory}
-      </td>
+      </div>
 
-      <td className={`w-1/5 ${theme} flex-col gap-y-1 lg:gap-y-2`}>
+      <div className={`w-28 md:w-1/5 ${theme} flex-col gap-y-1 lg:gap-y-2`}>
         <ProductAction
           onClick={openThisModal}
           title="INFO"
@@ -76,8 +80,8 @@ function ProductRow({ data }) {
           color="text-black bg-my-white-tone"
           effect="hover:bg-gray-200 active:ring-2 active:ring-gray-200 active:ring-offset-2"
         />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }
 export default ProductRow;

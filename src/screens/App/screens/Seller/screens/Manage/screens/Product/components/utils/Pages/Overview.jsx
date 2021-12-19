@@ -48,9 +48,9 @@ function Overview() {
   useEffect(() => () => setProducts([]), []);
 
   return (
-    <div className="md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
+    <div className="overflow-x-scroll md:overflow-x-auto pb-4 space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
       <ProductHeadings />
-      <div className="flex flex-col gap-y-5">
+      <div className="w-rr50 md:w-full flex flex-col gap-y-4 md:gap-y-5">
         {products.map((e, i) => (
           <ProductRow data={e} key={i} />
         ))}

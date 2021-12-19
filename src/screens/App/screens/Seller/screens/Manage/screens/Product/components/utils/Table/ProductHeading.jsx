@@ -2,25 +2,29 @@ import React from "react";
 
 function ProductHeadings() {
   const theme =
-    "font-medium text-gray-400 text-sm flex justify-center items-center";
+    "font-medium text-gray-400 text-sm text-center flex justify-center items-center";
   return (
-    <tr className="md:px-0 lg:px-8 xl:px-12 2xl:px-20 w-full flex flex-row justify-between items-center">
-      <td className="w-five flex justify-center">
+    <div
+      className="md:px-0 lg:px-8 xl:px-12 2xl:px-20
+    flex flex-row justify-between items-center
+    w-rr50 md:w-full"
+    >
+      <div className="w-8 md:w-five flex justify-center">
         <button className="h-4 w-4 bg-gray-300"></button>
-      </td>
+      </div>
 
-      <td className={`w-fifteen ${theme}`}>Image</td>
+      <div className={`w-20 md:w-fifteen ${theme}`}>Image</div>
 
-      <td className={`w-ten ${theme}`}>ID</td>
+      <div className={`w-20 md:w-ten ${theme}`}>ID</div>
 
-      <td className={`w-1/4 ${theme}`}>Product Name</td>
+      <div className={`w-32 md:w-1/4 ${theme}`}>Product Name</div>
 
-      <td className={`w-fifteen ${theme}`}>Price (PHP)</td>
+      <div className={`w-20 md:w-fifteen ${theme}`}>Price (PHP)</div>
 
-      <td className={`w-ten ${theme}`}>Onhand</td>
+      <div className={`w-16 md:w-ten ${theme}`}>Onhand</div>
 
-      <td className={`w-1/5 ${theme}`}>Actions</td>
-    </tr>
+      <div className={`w-28 md:w-1/5 ${theme}`}>Actions</div>
+    </div>
   );
 }
 export default ProductHeadings;
