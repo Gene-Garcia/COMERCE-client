@@ -17,7 +17,9 @@ export default Container;
 
 function SellerContainer({ children }) {
   return (
-    <div className="md:p-5 lg:p-6 2xl:p-8 bg-my-white-tone">{children}</div>
+    <div className="p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8 bg-my-white-tone">
+      {children}
+    </div>
   );
 }
 export { SellerContainer };
