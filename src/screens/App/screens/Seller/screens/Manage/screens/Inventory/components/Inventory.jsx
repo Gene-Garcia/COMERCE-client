@@ -4,6 +4,7 @@ import { SellerTitle } from "../../../../../../../../../shared/Components/pages/
 import axios from "../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../hooks/useManage";
 import useAlert from "../../../../../../../../../hooks/useAlert";
+import InventoryTable from "./ProductTable/InventoryTable";
 
 function Inventory({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -14,10 +15,9 @@ function Inventory({ history }) {
       axios
         .get("/api/seller/inventories")
         .then((res) => {
-          setLoading(false);
           if (res.status === 200) updateProducts(res.data.products);
 
-          console.log(res.data.products);
+          setLoading(false);
         })
         .catch((err) => {
           console.error(err);
@@ -43,6 +43,13 @@ function Inventory({ history }) {
       <SellerTitle title="Inventory" />
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
+
+      <div className="flex flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
+        <div className="w-3/5 bg-my-white-tint rounded-lg p-2">
+          <InventoryTable />
+        </div>
+        <div className="w-2/5 h-72 bg-my-white-tint rounded-lg"></div>
+      </div>
     </SellerContainer>
   );
 }
