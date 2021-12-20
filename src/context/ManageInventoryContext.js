@@ -6,6 +6,7 @@ export default ManageInventoryContext;
 function ManageInventoryProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // wrapper functions
   const updateProducts = (data) => setProducts(data);
@@ -15,11 +16,18 @@ function ManageInventoryProvider({ children }) {
   };
 
   return (
-    <ManageInventoryContext
-      values={{ products, updateProducts, selected, updateSelected }}
+    <ManageInventoryContext.Provider
+      value={{
+        loading,
+        setLoading,
+        products,
+        updateProducts,
+        selected,
+        updateSelected,
+      }}
     >
       {children}
-    </ManageInventoryContext>
+    </ManageInventoryContext.Provider>
   );
 }
 export { ManageInventoryProvider };

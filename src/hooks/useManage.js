@@ -22,11 +22,23 @@ function useManageProduct() {
 }
 
 function useManageInventory() {
-  const { products, updateProducts, selected, updateSelected } = useContext(
-    ManageInventoryContext
-  );
+  const {
+    loading,
+    setLoading,
+    products,
+    updateProducts,
+    selected,
+    updateSelected,
+  } = useContext(ManageInventoryContext);
 
-  return { products, updateProducts, selected, updateSelected };
+  return {
+    loading,
+    setLoading,
+    products,
+    updateProducts,
+    selected,
+    updateSelected,
+  };
 }
 
 export { useManageProduct, useManageInventory };
