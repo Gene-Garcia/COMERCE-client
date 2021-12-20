@@ -5,6 +5,7 @@ import axios from "../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../hooks/useManage";
 import useAlert from "../../../../../../../../../hooks/useAlert";
 import InventoryTable from "./ProductTable/InventoryTable";
+import ProductInventories from "./SelectedProduct/ProductInventories";
 
 function Inventory({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -48,7 +49,10 @@ function Inventory({ history }) {
         <div className="w-3/5 bg-my-white-tint rounded-lg p-2">
           <InventoryTable />
         </div>
-        <div className="w-2/5 h-72 bg-my-white-tint rounded-lg"></div>
+
+        <div className="w-2/5 h-72 ">
+          <ProductInventories />
+        </div>
       </div>
     </SellerContainer>
   );
