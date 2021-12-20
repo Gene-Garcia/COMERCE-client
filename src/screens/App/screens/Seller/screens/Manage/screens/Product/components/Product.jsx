@@ -2,8 +2,8 @@ import React from "react";
 import { useManageProduct } from "../../../../../../../../../hooks/useManage";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
+import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
 import InformationModal from "./utils/Modal/InformationModal";
-import { PageButton } from "./utils/PageButtons";
 import AddProduct from "./utils/Pages/AddProduct";
 import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
@@ -20,8 +20,8 @@ const Product = () => {
           <SellerTitle title="Products" />
 
           <div className="space-x-4 flex flex-row justify-center items-center">
-            <PageButton type="BUTTON" title="Out-of-Stock" />
-            <PageButton type="BUTTON" title="Some Button" />
+            <HeaderButton type="BUTTON" title="Out-of-Stock" />
+            <HeaderButton type="BUTTON" title="Some Button" />
           </div>
         </div>
 
