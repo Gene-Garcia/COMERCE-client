@@ -119,6 +119,11 @@ const routes = {
             path: "/seller/manage/products",
             name: "Manage Products",
           },
+
+          INVENTORY: {
+            path: "/seller/manage/inventory",
+            name: "Manage Inventories",
+          },
         },
       },
     },

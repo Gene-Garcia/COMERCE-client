@@ -77,8 +77,13 @@ const AppContent = memo(() => {
     "/sign-up/seller",
     "/seller",
     "/seller/manage/products",
+    "/seller/manage/inventory",
   ];
-  const withSellerNavigation = ["/seller", "/seller/manage/products"];
+  const withSellerNavigation = [
+    "/seller",
+    "/seller/manage/products",
+    "/seller/manage/inventory",
+  ];
 
   return (
     <div
@@ -128,6 +133,7 @@ const AppContent = memo(() => {
           {/* seller routes */}
           <Route {...route.SELLER} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
+          <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}
