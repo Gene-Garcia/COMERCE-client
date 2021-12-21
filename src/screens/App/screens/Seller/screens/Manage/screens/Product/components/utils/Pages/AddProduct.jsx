@@ -12,10 +12,12 @@ import {
 import axios from "../../../../../../../../../../../shared/caller";
 import useAlert from "../../../../../../../../../../../hooks/useAlert";
 import { useHistory } from "react-router-dom";
+import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 
 function AddProduct() {
   const history = useHistory();
   const { setMessage, setSeverity } = useAlert();
+  const { updateToggled } = useManageProduct();
 
   // api call
   const submitProductAPI = async () => {
@@ -26,6 +28,8 @@ function AddProduct() {
         setSeverity("success");
         if (res.status === 201) {
           setMessage(res.data.message);
+          // return to overview
+          updateToggled("OVERVIEW");
         }
       })
       .catch((err) => {

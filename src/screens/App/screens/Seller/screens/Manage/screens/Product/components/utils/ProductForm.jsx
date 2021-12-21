@@ -208,10 +208,10 @@ function SubmitCTA({ isLoading, onClick }) {
     <Button
       isLoading={isLoading}
       onClick={onClick}
-      buttonClass="bg-my-accent text-white px-6 lg:px-12 xl:px-14 py-4 font-semibold text-sm uppercase 
+      buttonClass="bg-my-accent text-white px-8 sm:px-10 md:px-12 py-3 font-semibold text-sm uppercase 
       transition duration-200 ease-linear rounded
-      hover:ring hover:ring-my-accent hover:ring-opacity-30 
-      active:ring-2 active:ring-my-accent active:ring-opacity-70 active:ring-offset-2"
+      hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2
+      active:ring active:ring-my-accent active:ring-opacity-30 "
       svgClass="text-white"
     >
       Upload Product
