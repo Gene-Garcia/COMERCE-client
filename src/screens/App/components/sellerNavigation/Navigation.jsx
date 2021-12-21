@@ -1,9 +1,10 @@
 import React from "react";
 import comerceWhite from "../../../../shared/images/comerce-logo-white.webp";
 import { sellerNavLinks } from "../data/linkData";
-import { SidebarLink, SidebarGroup } from "./SidebarLinks";
+import { SidebarGroup } from "./SidebarLinks";
 import useWindow from "../../../../hooks/useWindow";
 import NavbarLink from "./NavbarLink";
+import { Link } from "react-router-dom";
 
 function Navigation() {
   const { width } = useWindow();
@@ -22,12 +23,15 @@ function Sidebar() {
         className="px-2 lg:px-4 py-6 lg:py-10 
   flex flex-col justify-center md:gap-1 lg:gap-6"
       >
-        <div className="flex md:flex-col lg:flex-row md:gap-1 lg:gap-3 items-center justify-center">
+        <Link
+          to="/"
+          className="flex md:flex-col lg:flex-row md:gap-1 lg:gap-3 items-center justify-center"
+        >
           <img src={comerceWhite} alt="COMERCE Logo" className="w-9 lg:w-11" />
           <h2 className="md:text-lg lg:text-2xl text-gray-50 text-opacity-90 font-mono">
             COMERCE
           </h2>
-        </div>
+        </Link>
 
         {/* links */}
         <div className="divide-y divide-gray-500">
@@ -43,7 +47,13 @@ function Sidebar() {
 function Navbar() {
   return (
     <div className="bg-my-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
-      <img src={comerceWhite} alt="COMERCE logo" className="w-10" />
+      <Link className="w-10" to="/">
+        <img
+          src={comerceWhite}
+          alt="COMERCE logo"
+          className="w-full object-contain"
+        />
+      </Link>
 
       {/* link */}
       <div className="flex flex-row flex-wrap justify-end gap-x-3 sm:gap-x-5 gap-y-2 ">
