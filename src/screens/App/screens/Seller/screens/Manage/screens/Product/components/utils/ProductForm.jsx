@@ -97,10 +97,18 @@ function GalleryInput({ name, value, error, onChange }) {
   return (
     <div className="space-y-2">
       {/* preview of image */}
-      <div className="h-28 lg:h-36 xl:h-40 bg-my-white-tint rounded flex items-center px-3">
-        <span className="font-medium text-base text-gray-500">
-          Preview of the image
-        </span>
+      <div className="h-28 lg:h-36 xl:h-40 bg-my-white-tint bg-opacity-70 rounded flex items-center p-4">
+        {!value || value === "" ? (
+          <span className="font-medium text-base text-gray-500">
+            Preview of the image
+          </span>
+        ) : (
+          <img
+            alt="Image preview"
+            src={value}
+            className="object-contain h-full"
+          />
+        )}
       </div>
 
       <div className="flex flex-col xs:flex-row gap-4">
