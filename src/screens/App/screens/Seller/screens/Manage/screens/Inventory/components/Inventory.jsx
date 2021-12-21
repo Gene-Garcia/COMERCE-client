@@ -13,8 +13,6 @@ function Inventory({ history }) {
   const { updateProducts, setLoading, selected, reload } = useManageInventory();
 
   useEffect(() => {
-    setSeverity("information");
-    setMessage("triggered");
     async function getProductsInventories() {
       axios
         .get("/api/seller/inventories")

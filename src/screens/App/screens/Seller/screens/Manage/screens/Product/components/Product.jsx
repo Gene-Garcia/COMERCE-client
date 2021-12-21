@@ -19,10 +19,10 @@ const Product = () => {
         <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
           <SellerTitle title="Products" />
 
-          <div className="space-x-4 flex flex-row justify-center items-center">
+          {/* <div className="space-x-4 flex flex-row justify-center items-center">
             <HeaderButton type="BUTTON" title="Out-of-Stock" />
             <HeaderButton type="BUTTON" title="Some Button" />
-          </div>
+          </div> */}
         </div>
 
         <div className="my-6 xs:my-10">

@@ -20,7 +20,7 @@ function Overview() {
         .get("/api/seller/products")
         .then((res) => {
           if (res.status === 200) {
-            // setLoading(false);
+            setLoading(false);
             setProducts(res.data.products);
 
             setSeverity("information");

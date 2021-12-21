@@ -10,7 +10,7 @@ function ProductHeadings() {
     w-rr50 md:w-full"
     >
       <div className="w-8 md:w-five flex justify-center">
-        <button className="h-4 w-4 bg-gray-300"></button>
+        <input type="checkbox" className="h-4 w-4" />
       </div>
 
       <div className={`w-20 md:w-fifteen ${theme}`}>Image</div>
