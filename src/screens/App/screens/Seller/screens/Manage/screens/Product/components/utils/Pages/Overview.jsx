@@ -4,6 +4,7 @@ import ProductRow from "../Table/ProductRow";
 import axios from "../../../../../../../../../../../shared/caller";
 import useAlert from "../../../../../../../../../../../hooks/useAlert";
 import { useHistory } from "react-router-dom";
+import Loading from "../../../../../../../../../../../shared/Loading/Loading";
 
 function Overview() {
   const history = useHistory();
@@ -19,7 +20,7 @@ function Overview() {
         .get("/api/seller/products")
         .then((res) => {
           if (res.status === 200) {
-            setLoading(false);
+            // setLoading(false);
             setProducts(res.data.products);
 
             setSeverity("information");
@@ -50,11 +51,17 @@ function Overview() {
   return (
     <div className="overflow-x-scroll md:overflow-x-auto pb-4 space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
       <ProductHeadings />
-      <div className="w-rr50 md:w-full flex flex-col gap-y-4 md:gap-y-5">
-        {products.map((e, i) => (
-          <ProductRow data={e} key={i} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="rounded-lg bg-my-white-tint py-8 flex items-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className="w-rr50 md:w-full flex flex-col gap-y-4 md:gap-y-5">
+          {products.map((e, i) => (
+            <ProductRow data={e} key={i} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
