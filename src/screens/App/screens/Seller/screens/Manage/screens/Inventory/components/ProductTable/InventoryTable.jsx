@@ -4,7 +4,7 @@ import { useManageInventory } from "../../../../../../../../../../hooks/useManag
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 
 function InventoryTable() {
-  const { products, loading } = useManageInventory();
+  const { products, loading, updateSelected } = useManageInventory();
 
   return (
     <table className="w-full">
@@ -18,16 +18,18 @@ function InventoryTable() {
             <Loading />
           </div>
         ) : (
-          <div className="space-y-1.5 ">
+          <div className="space-y-1.5 flex flex-col">
             {products.map((e, i) => (
-              <div
-                className="mx-1 my-2 rounded-md odd:bg-gray-100
+              <button
+                key={i}
+                onClick={() => updateSelected(e)}
+                className="w-full mx-1 my-2 rounded-md odd:bg-gray-100
               cursor-pointer
               transition duration-150 ease-linear
               hover:bg-gray-200"
               >
-                <ProductData data={e} key={i} />
-              </div>
+                <ProductData data={e} />
+              </button>
             ))}
           </div>
         )}

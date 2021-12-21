@@ -10,7 +10,7 @@ import AddInventoryForm from "./SelectedProduct/AddInventoryForm";
 
 function Inventory({ history }) {
   const { setMessage, setSeverity } = useAlert();
-  const { updateProducts, setLoading } = useManageInventory();
+  const { updateProducts, setLoading, selected } = useManageInventory();
 
   useEffect(() => {
     async function getProductsInventories() {
@@ -51,12 +51,26 @@ function Inventory({ history }) {
           <InventoryTable />
         </div>
 
-        <div className="w-2/5 h-72 space-y-6">
-          <ProductInventories />
-
-          <div className="border-b border-gray-300"></div>
-
-          <AddInventoryForm />
+        <div className="w-2/5 space-y-6">
+          {selected ? (
+            <>
+              <ProductInventories />
+              <div className="border-b border-gray-300"></div>
+              <AddInventoryForm />
+            </>
+          ) : (
+            <div
+              className="h-64 rounded-md bg-my-white-tint
+            flex flex-col justify-center items-center"
+            >
+              <h1 className="font-mono text-my-accent text-2xl filter drop-shadow-md">
+                COMERCE
+              </h1>
+              <p className="font-medium text-gray-500 text-lg">
+                Select a product
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </SellerContainer>
