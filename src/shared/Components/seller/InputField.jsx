@@ -100,4 +100,56 @@ function FileInput({ name, label, helper, onChange, value, error }) {
     </div>
   );
 }
-export { FileInput };
+
+function DefaultInput({
+  type = "text",
+  label,
+  helper,
+  width,
+  name,
+  value,
+  error,
+  onChange,
+  placeholder,
+}) {
+  return (
+    <div className={`flex flex-col ${width}`}>
+      <div className="flex flex-row justify-between">
+        <Label label={label} />
+        <Error error={error} />
+      </div>
+
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={`px-2 py-1.5 text-base shadow rounded 
+        border ${error ? "border-red-500" : "border-transparent"}
+        transition ease-linear 
+        focus:outline-none focus:border-my-accent
+        placeholder-gray-300`}
+      />
+      <i className="text-sm text-gray-500">{helper}</i>
+    </div>
+  );
+}
+
+export { FileInput, DefaultInput };
+
+function Error({ error }) {
+  return (
+    <span className="text-red-500 font-regular text-sm text-right">
+      {error}
+    </span>
+  );
+}
+
+function Label({ label }) {
+  return (
+    <label className="uppercase font-medium text-gray-500 text-sm">
+      {label}
+    </label>
+  );
+}

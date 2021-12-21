@@ -6,6 +6,7 @@ import { useManageInventory } from "../../../../../../../../../hooks/useManage";
 import useAlert from "../../../../../../../../../hooks/useAlert";
 import InventoryTable from "./ProductTable/InventoryTable";
 import ProductInventories from "./SelectedProduct/ProductInventories";
+import AddInventoryForm from "./SelectedProduct/AddInventoryForm";
 
 function Inventory({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -50,8 +51,12 @@ function Inventory({ history }) {
           <InventoryTable />
         </div>
 
-        <div className="w-2/5 h-72 ">
+        <div className="w-2/5 h-72 space-y-6">
           <ProductInventories />
+
+          <div className="border-b border-gray-300"></div>
+
+          <AddInventoryForm />
         </div>
       </div>
     </SellerContainer>
