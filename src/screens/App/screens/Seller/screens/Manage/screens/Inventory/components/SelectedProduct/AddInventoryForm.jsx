@@ -10,7 +10,7 @@ import useAlert from "../../../../../../../../../../hooks/useAlert";
 function AddInventoryForm() {
   const history = useHistory();
   const { setSeverity, setMessage } = useAlert();
-  const { selected } = useManageInventory();
+  const { selected, updateSelected, setReload } = useManageInventory();
 
   // makes the value of the onHand same as the inventory
   const copyQuantity = () => {
@@ -30,7 +30,15 @@ function AddInventoryForm() {
       .then((res) => {
         setIsLoading(false);
         setSeverity("success");
-        if (res.status === 201) setMessage(res.data.message);
+        if (res.status === 201) {
+          setMessage(res.data.message);
+          // re-trigger api to get products with updated inventory
+          setReload((prev) => !prev);
+          // reset form
+          resetForms();
+          // reset selected
+          updateSelected(null);
+        }
       })
       .catch((err) => {
         setIsLoading(false);

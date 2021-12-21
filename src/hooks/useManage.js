@@ -29,6 +29,8 @@ function useManageInventory() {
     updateProducts,
     selected,
     updateSelected,
+    reload,
+    setReload,
   } = useContext(ManageInventoryContext);
 
   return {
@@ -38,6 +40,8 @@ function useManageInventory() {
     updateProducts,
     selected,
     updateSelected,
+    reload,
+    setReload,
   };
 }
 

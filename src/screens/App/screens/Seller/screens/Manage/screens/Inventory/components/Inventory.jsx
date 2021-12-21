@@ -10,9 +10,11 @@ import AddInventoryForm from "./SelectedProduct/AddInventoryForm";
 
 function Inventory({ history }) {
   const { setMessage, setSeverity } = useAlert();
-  const { updateProducts, setLoading, selected } = useManageInventory();
+  const { updateProducts, setLoading, selected, reload } = useManageInventory();
 
   useEffect(() => {
+    setSeverity("information");
+    setMessage("triggered");
     async function getProductsInventories() {
       axios
         .get("/api/seller/inventories")
@@ -38,7 +40,7 @@ function Inventory({ history }) {
 
     setLoading(true);
     getProductsInventories();
-  }, []);
+  }, [reload]);
 
   return (
     <SellerContainer>
@@ -47,7 +49,7 @@ function Inventory({ history }) {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div className="flex flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
-        <div className="w-3/5 bg-my-white-tint rounded-lg p-2">
+        <div className="h-min w-3/5 bg-my-white-tint rounded-lg p-2">
           <InventoryTable />
         </div>
 

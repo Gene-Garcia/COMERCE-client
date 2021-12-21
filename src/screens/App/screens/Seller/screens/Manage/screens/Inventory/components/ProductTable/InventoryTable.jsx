@@ -12,9 +12,9 @@ function InventoryTable() {
         <ProductHead />
       </thead>
 
-      <tbody>
+      <tbody className="">
         {loading || !products || products.length <= 0 ? (
-          <div className="w-full h-full flex justify-center items-center">
+          <div className="w-full flex justify-center items-center">
             <Loading />
           </div>
         ) : (
