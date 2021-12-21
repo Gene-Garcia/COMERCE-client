@@ -1,9 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../../../hooks/useForm";
 import Button from "../../../../../../../../../../shared/Components/button/Button";
 import { DefaultInput } from "../../../../../../../../../../shared/Components/seller/InputField";
+import axios from "../../../../../../../../../../shared/caller";
+import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
+import useAlert from "../../../../../../../../../../hooks/useAlert";
 
 function AddInventoryForm() {
+  const history = useHistory();
+  const { setSeverity, setMessage } = useAlert();
+  const { selected } = useManageInventory();
+
   // makes the value of the onHand same as the inventory
   const copyQuantity = () => {
     if (values.inventory != "" && !isNaN(values.inventory)) {
@@ -11,7 +19,32 @@ function AddInventoryForm() {
     }
   };
 
-  const SubmitNewInventory = () => {};
+  const SubmitNewInventory = async () => {
+    setIsLoading(true);
+    await axios
+      .patch("/api/product/inventory/add", {
+        productId: selected._id,
+        onHand: values.onHand,
+        inventory: values.inventory,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setSeverity("success");
+        if (res.status === 201) setMessage(res.data.message);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setSeverity("error");
+
+        if (!err.response)
+          setMessage(
+            "Something went wrong, please refresh your browser and try again"
+          );
+        else if (err.response.status === 401) history.push("/unathorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else setMessage(err.response.data.error);
+      });
+  };
 
   const validate = (data, setErrors) => {
     let tempErrs = { ...errors };
