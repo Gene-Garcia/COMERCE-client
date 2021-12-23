@@ -2,11 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../hooks/useForm";
-import InputField from "../../../../../../../shared/Auth/InputField";
 import { setUserPersistData } from "../../../../../../../shared/Auth/Login";
 import useAlert from "../../../../../../../hooks/useAlert";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
 import Button from "../../../../../../../shared/Components/button/Button";
+import {
+  CustomerAccountInput,
+  EmbossedInput,
+} from "../../../../../../../shared/Components/input/Inputs";
 
 function Login({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -103,25 +106,59 @@ function Login({ history }) {
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
-          <InputField
+          <EmbossedInput
             name="email"
-            type="text"
+            type="email"
             label="EMAIL"
             error={errors.email}
             value={values.email}
             onChange={handleInput}
-            svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+            background="bg-gray-100"
+            shadow="shadow-md"
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-my-accent mx-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                />
+              </svg>
+            }
           />
 
-          <div className="space-y-2">
-            <InputField
+          <div className="space-y-0.5">
+            <EmbossedInput
               type="password"
               name="password"
               label="PASSWORD"
               error={errors.password}
               value={values.password}
               onChange={handleInput}
-              svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+              background="bg-gray-100"
+              shadow="shadow-md"
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-my-accent mx-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+              }
             />
 
             <div className="text-right">
@@ -136,13 +173,14 @@ function Login({ history }) {
 
           <Button
             isLoading={isLoading}
-            buttonClass="w-min px-12 py-1.5 bg-my-accent rounded shadow-md transition duration-200 ease-linear 
+            buttonClass="w-min px-12 h-11 bg-my-accent rounded shadow-md 
+            transition duration-200 ease-linear 
             hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2 
             active:ring active:ring-my-accent active:ring-offset-0 active:ring-opacity-40"
             svgClass="text-white"
             onClick={handleFormSubmit}
           >
-            <span className="text-white font-semibold text-lg">LOGIN</span>
+            <span className="text-white font-semibold text-base ">LOGIN</span>
           </Button>
         </div>
       </div>

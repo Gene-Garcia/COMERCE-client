@@ -1,12 +1,15 @@
 import React from "react";
 import useAlert from "../../../../../../../hooks/useAlert";
-import InputField from "../../../../../../../shared/Auth/InputField";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
+import {
+  CustomerAccountInput,
+  EmbossedInput,
+} from "../../../../../../../shared/Components/input/Inputs";
 
 function ForgotPassword() {
-  // form hoks
+  // form hooks
   async function ForgotPasswordAPI() {
     await axios
       .post("/api/user/password/forgot", values)
@@ -76,14 +79,31 @@ function ForgotPassword() {
         </div>
 
         <div className="w-3/5 space-y-6">
-          <InputField
+          <EmbossedInput
             label="EMAIL"
             error={errors.email}
             type="email"
             name="email"
             value={values.email}
             onChange={handleInput}
-            svgD="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+            background="bg-gray-100"
+            shadow="shadow-md"
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-my-accent mx-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                />
+              </svg>
+            }
           />
 
           <button

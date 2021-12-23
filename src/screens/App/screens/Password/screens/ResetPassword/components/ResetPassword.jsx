@@ -3,9 +3,12 @@ import axios from "../../../../../../../shared/caller";
 import useQuery from "../../../../../../../hooks/useQuery";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Title from "../../../../../../../shared/Components/pages/Title";
-import InputField from "../../../../../../../shared/Auth/InputField";
 import { Link } from "react-router-dom";
 import useAlert from "../../../../../../../hooks/useAlert";
+import {
+  CustomerAccountInput,
+  EmbossedInput,
+} from "../../../../../../../shared/Components/input/Inputs";
 
 function ResetPassword({ history }) {
   const query = useQuery();
@@ -91,22 +94,26 @@ function ResetPassword({ history }) {
         </div>
 
         <div className="w-3/5 space-y-6">
-          <InputField
+          <EmbossedInput
             label="EMAIL"
             error={errors.email}
             type="email"
             name="email"
             value={values.email}
             onChange={handleInput}
+            background="bg-gray-100"
+            shadow="shadow-md"
           />
 
-          <InputField
+          <EmbossedInput
             label="NEW PASSWORD"
             error={errors.password}
             type="password"
             name="password"
             value={values.password}
             onChange={handleInput}
+            background="bg-gray-100"
+            shadow="shadow-md"
           />
 
           <div className="flex flex-row gap-x-6">

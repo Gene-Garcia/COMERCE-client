@@ -2,10 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../../../hooks/useForm";
 import Button from "../../../../../../../../../../shared/Components/button/Button";
-import { DefaultInput } from "../../../../../../../../../../shared/Components/seller/InputField";
 import axios from "../../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
 import useAlert from "../../../../../../../../../../hooks/useAlert";
+import { EmbossedInput } from "../../../../../../../../../../shared/Components/input/Inputs";
 
 function AddInventoryForm() {
   const history = useHistory();
@@ -111,7 +111,7 @@ function AddInventoryForm() {
       <p className="font-semibold text-gray-600 text-md">Add Inventory</p>
 
       <div className="inline-flex items-center gap-8">
-        <DefaultInput
+        <EmbossedInput
           type="number"
           label="Inventory"
           width="w-auto"
@@ -144,7 +144,7 @@ function AddInventoryForm() {
           </svg>
         </button>
 
-        <DefaultInput
+        <EmbossedInput
           type="number"
           label="Onhand"
           width="w-auto"

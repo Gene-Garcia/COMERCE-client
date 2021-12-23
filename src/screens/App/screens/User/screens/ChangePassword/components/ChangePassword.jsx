@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import useAlert from "../../../../../../../hooks/useAlert";
-import InputField from "../../../../../../../shared/Auth/InputField";
 import validateUser from "../../../../../../../shared/Auth/Validation";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
 import Button from "../../../../../../../shared/Components/button/Button";
+import {
+  CustomerAccountInput,
+  EmbossedInput,
+} from "../../../../../../../shared/Components/input/Inputs";
 
 function ChangePassword({ history }) {
   // separate loading state. this loading is for the page loading. not form button loading.
@@ -90,22 +93,26 @@ function ChangePassword({ history }) {
             </h1>
 
             <div className="mt-8 w-3/5 space-y-8">
-              <InputField
+              <EmbossedInput
                 label="Old Password"
                 type="password"
                 name="oldPassword"
                 value={values.oldPassword}
                 error={errors.oldPassword}
                 onChange={handleInput}
+                background="bg-gray-100"
+                shadow="shadow-md"
               />
 
-              <InputField
+              <EmbossedInput
                 label="New Password"
                 type="password"
                 name="newPassword"
                 value={values.newPassword}
                 error={errors.newPassword}
                 onChange={handleInput}
+                background="bg-gray-100"
+                shadow="shadow-md"
               />
 
               <Button
