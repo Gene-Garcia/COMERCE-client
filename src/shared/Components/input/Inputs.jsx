@@ -94,6 +94,51 @@ function BorderedInput({
   );
 }
 
+// an input that only has a bottom border
+function LinedInput({
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+
+  label,
+  error,
+
+  width,
+
+  helper,
+
+  icon,
+
+  listId,
+  listData,
+}) {
+  return (
+    <InputLast
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      icon={icon}
+      inputStyle=""
+      border="border-b-2 p-0.5"
+      focus="focus:border-my-accent"
+      focusWithin="focus-within:border-my-accent"
+      label={label}
+      error={error}
+      errorObj={{}}
+      labelObj={{}}
+      width={width}
+      helper={helper}
+      helperObj={{}}
+      listId={listId}
+      listData={listData}
+    />
+  );
+}
+
 // ---- Exports
 
-export { EmbossedInput, BorderedInput };
+export { EmbossedInput, BorderedInput, LinedInput };

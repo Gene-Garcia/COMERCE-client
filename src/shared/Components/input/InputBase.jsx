@@ -210,7 +210,8 @@ function InputLast({
       {(type === "email" ||
         type === "number" ||
         type === "text" ||
-        type === "password") && (
+        type === "password" ||
+        type === "date") && (
         <InputBase
           type={type}
           name={name}
