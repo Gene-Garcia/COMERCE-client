@@ -1,12 +1,15 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
-import InputField from "../../../../../../../../shared/Auth/InputField";
-import Button from "../../../../../../../../shared/Components/button/Button";
 import axios from "../../../../../../../../shared/caller";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { setUserPersistData } from "../../../../../../../../shared/Auth/Login";
 import comerceAccent from "../../../../../../../../shared/images/comerce-logo-blue.webp";
+import {
+  EmbossedInput,
+  SellerAccountInput,
+} from "../../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
 
 function Form() {
   //history
@@ -84,25 +87,59 @@ function Form() {
       </div>
 
       <div className="space-y-9">
-        <InputField
+        <EmbossedInput
           type="email"
           name="email"
-          label="OWNERS EMAIL"
-          error={errors.email}
           value={values.email}
           onChange={handleInput}
-          svgD="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          label="OWNERS EMAIL"
+          error={errors.email}
+          background="bg-gray-100"
+          shadow="shadow-md"
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-my-accent mx-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          }
         />
 
         <div className="space-y-2">
-          <InputField
+          <EmbossedInput
             type="password"
             name="password"
             label="PASSWORD"
             error={errors.password}
             value={values.password}
             onChange={handleInput}
-            svgD="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+            background="bg-gray-100"
+            shadow="shadow-md"
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-my-accent mx-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                />
+              </svg>
+            }
           />
 
           <div className="text-right">
@@ -115,14 +152,14 @@ function Form() {
           </div>
         </div>
 
-        <Button
+        <FormButton
+          size="REGULAR"
           isLoading={isLoading}
-          buttonClass="bg-my-accent rounded w-full py-2 shadow-md transition duration-200 ease-linear hover:bg-my-accent-mono"
-          svgClass="text-white"
           onClick={handleFormSubmit}
-        >
-          <span className="text-white font-semibold text-md">LOGIN</span>
-        </Button>
+          text="Login"
+          uppercase="uppercase"
+          textColor="text-white"
+        />
 
         <div className="flex flex-row items-center justify-center gap-2">
           <p className="text-gray-400 mb-0 text-sm lg:text-base">

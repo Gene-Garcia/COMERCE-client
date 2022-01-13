@@ -2,7 +2,7 @@ import React from "react";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
-import InputField from "../../../../../../../../shared/Components/seller/InputField";
+import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
@@ -71,7 +71,7 @@ function AccountInfo() {
 
       <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
         <div className="flex flex-col md:flex-row justify-start gap-3 xs:gap-x-4 sm:gap-x-5 gap-x-10">
-          <InputField
+          <LinedInput
             type="text"
             name="firstName"
             value={values.firstName}
@@ -79,9 +79,10 @@ function AccountInfo() {
             onChange={handleInput}
             label="FIRST NAME"
             placeholder="owner's first name"
-            className="xs:w-3/5 sm:w-5/12"
+            width="xs:w-3/5 sm:w-5/12"
           />
-          <InputField
+
+          <LinedInput
             type="text"
             name="lastName"
             value={values.lastName}
@@ -89,11 +90,11 @@ function AccountInfo() {
             onChange={handleInput}
             label="LAST NAME"
             placeholder="owner's last name"
-            className="xs:w-3/5 sm:w-5/12"
+            width="xs:w-3/5 sm:w-5/12"
           />
         </div>
 
-        <InputField
+        <LinedInput
           type="email"
           name="businessEmail"
           value={values.businessEmail}
@@ -101,10 +102,10 @@ function AccountInfo() {
           onChange={handleInput}
           label="BUSINESS EMAIL"
           placeholder="email of the business"
-          className="xs:w-4/5 sm:w-3/5"
+          width="xs:w-4/5 sm:w-3/5"
         />
 
-        <InputField
+        <LinedInput
           type="email"
           name="ownerEmail"
           value={values.ownerEmail}
@@ -113,10 +114,10 @@ function AccountInfo() {
           label="OWNER'S EMAIL"
           placeholder="email of the business owner"
           helper="Email is used to log in to your seller account"
-          className="xs:w-4/5 sm:w-3/5"
+          width="xs:w-4/5 sm:w-3/5"
         />
 
-        <InputField
+        <LinedInput
           type="email"
           name="confirmEmail"
           value={values.confirmEmail}
@@ -124,10 +125,10 @@ function AccountInfo() {
           onChange={handleInput}
           label="CONFIRM EMAIL"
           placeholder="re-enter the owner's email"
-          className="xs:w-4/5 sm:w-3/5"
+          width="xs:w-4/5 sm:w-3/5"
         />
 
-        <InputField
+        <LinedInput
           type="password"
           name="password"
           value={values.password}
@@ -135,7 +136,7 @@ function AccountInfo() {
           onChange={handleInput}
           label="PASSWORD"
           placeholder="account password"
-          className="xs:w-4/5 sm:w-3/5"
+          width="xs:w-4/5 sm:w-3/5"
         />
       </div>
 

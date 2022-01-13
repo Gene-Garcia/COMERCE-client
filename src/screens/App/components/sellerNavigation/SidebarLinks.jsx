@@ -21,11 +21,11 @@ function SidebarLink({ svgD, name, to }) {
   return (
     <Link
       to={to}
-      className="text-sm font-medium text-gray-50 text-opacity-90 
+      className="text-sm font-medium text-white
       w-full py-1.5 md:px-1 lg:px-3 rounded
       inline-flex items-center md:gap-1.5 lg:gap-2 
       transition duration-150 ease-linear 
-      hover:bg-my-accent"
+      hover:bg-my-accent-tone"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

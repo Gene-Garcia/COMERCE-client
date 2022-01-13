@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
-import InputField, {
-  FileInput,
-} from "../../../../../../../../shared/Components/seller/InputField";
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
+import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 
 function BusinessInfo() {
   // history
@@ -123,7 +121,7 @@ function BusinessInfo() {
         />
 
         <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">
-          <InputField
+          <LinedInput
             type="text"
             name="businessName"
             value={values.businessName}
@@ -131,10 +129,10 @@ function BusinessInfo() {
             onChange={handleInput}
             label="BUSINESS NAME"
             placeholder="name of your business"
-            className="xs:w-4/5 sm:w-1/2"
+            width="xs:w-4/5 sm:w-1/2"
           />
 
-          <InputField
+          <LinedInput
             type="date"
             name="established"
             value={values.established}
@@ -142,11 +140,11 @@ function BusinessInfo() {
             onChange={handleInput}
             label="ESTABLISHMENT DATE"
             placeholder="date of launching"
-            className="xs:w-4/5 sm:w-1/2"
+            width="xs:w-4/5 sm:w-1/2"
           />
         </div>
 
-        <InputField
+        <LinedInput
           type="text"
           name="tagline"
           value={values.tagline}
@@ -154,12 +152,70 @@ function BusinessInfo() {
           onChange={handleInput}
           label="TAGLINE"
           placeholder="a tagline to catch customers' attention"
-          className="w-full"
+          width="w-full"
         />
       </div>
 
-      <BusinessInfoCTA onClick={handleFormSubmit} />
+      <BusinessInfoCTA isLoading={isLoading} onClick={handleFormSubmit} />
     </div>
   );
 }
 export default BusinessInfo;
+
+function FileInput({ name, label, helper, onChange, value, error }) {
+  const inputTheme = {
+    valid: "border-gray-300",
+    invalid: "border-red-500",
+  };
+
+  return (
+    <div>
+      <label for="name" className="font-medium text-gray-400 text-sm">
+        {label}
+      </label>
+
+      <div className="flex flex-row gap-3">
+        <label class="flex flex-col items-center rounded-md shadow border border-my-accent px-8 py-2.5 w-max cursor-pointer hover:bg-my-accent hover:text-white text-gray-700 transition duration-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+            />
+          </svg>
+          <span className="text-md">Upload Logo</span>
+          <input
+            type="file"
+            className="hidden"
+            // name={name}
+            // onChange={onChange}
+          />
+        </label>
+
+        <div className="justify-self-start flex flex-col">
+          <input
+            type="text"
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder="Image Address"
+            className={`border-b-2 ${
+              error ? inputTheme.invalid : inputTheme.valid
+            } font-regular text-black focus:outline-none transition duration-200 focus:border-my-accent`}
+            autoComplete={`new-${name}`}
+          />
+          <i className="text-sm text-gray-500">Temporary file upload</i>
+        </div>
+      </div>
+
+      <i className="text-sm text-gray-500">{helper}</i>
+    </div>
+  );
+}

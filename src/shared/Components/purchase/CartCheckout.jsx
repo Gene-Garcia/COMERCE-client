@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../../hooks/useCart";
 import { prepareUrlForProducts } from "../../Route/urlParser";
 import { formatPrice } from "../../utils/price";
+import { FormButton } from "../button/ButtonBase";
 import CheckoutItem from "./CheckoutItem";
 
 /*
@@ -71,16 +72,22 @@ function CartCheckout({ editable }) {
       <div className={`${editable ? "flex" : "hidden"} mt-8`}>
         {/* Checkout Button */}
         {checkoutable ? (
-          <Link
+          <FormButton
+            size="LARGE"
             to={`/checkout?products=${prepareUrlForProducts(items)}`}
-            className="w-full text-center bg-my-accent text-white font-semibold tracking-wide lg:text-md rounded shadow p-3 transition duration-250 ease-linear hover:bg-my-accent-mono active:ring-4 active:ring-my-accent-mono active:ring-opacity-30"
-          >
-            Checkout Products
-          </Link>
+            text="Checkout Products"
+            textColor="text-white"
+            type="LINK"
+          />
         ) : (
-          <p className=" cursor-not-allowed w-full text-center bg-my-accent text-white font-medium lg:text-md rounded-md p-1 md:p-2 lg:p-3 transition duration-250 ease-linear hover:bg-my-accent-mono">
-            No Product(s) Selected
-          </p>
+          <FormButton
+            isLoading={true}
+            size="LARGE"
+            to={`/checkout?products=${prepareUrlForProducts(items)}`}
+            text="No Product(s) Selected"
+            textColor="text-white"
+            type="LINK"
+          />
         )}
       </div>
     </>
