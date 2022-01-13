@@ -71,7 +71,7 @@ function Showcase(props) {
             <ProductPurchase
               productId={showcased._id}
               size="extralarge"
-              style="showcase"
+              style="SHOWCASE"
             />
           </div>
 

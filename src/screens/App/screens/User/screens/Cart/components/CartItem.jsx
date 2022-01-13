@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import useAlert from "../../../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
-import Button from "../../../../../../../shared/Components/button/Button";
+import ButtonBase, {
+  FormButton,
+} from "../../../../../../../shared/Components/button/ButtonBase";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
@@ -111,23 +113,30 @@ function CartItem({ data }) {
           </div>
 
           <div className="flex flex-row flex-wrap gap-x-3 gap-y-1 ">
-            <button
+            <ButtonBase
               onClick={() => addToCheckout(true, productId)}
-              className="border border-my-accent font-semibold text-sm text-my-accent rounded-md px-4 py-1 transition duration-200 ease-linear hover:text-white hover:bg-my-accent"
-            >
-              Add to Checkout
-            </button>
+              text="Add to Checkout"
+              rootSpacing="py-1 px-4"
+              rootDesign="w-max
+                          inline-flex items-center justify-center flex-wrap 
+                          rounded
+                          transition duration-250 ease-linear"
+              rootAnimation="hover:ring-2 hover:ring-my-accent hover:ring-offset-2 hover:ring-opacity-70
+                          active:bg-gray-100
+                          active:ring-2 active:ring-my-accent active:ring-opacity-40 active:ring-offset-0"
+              rootBaseBgColor="border border-my-accent bg-transparent"
+              textDesign="font-sans text-sm font-medium tracking-wide leading-none"
+              textColor="text-my-accent"
+            />
 
-            <Button
+            <ButtonBase
               isLoading={loading}
               onClick={() => removeFromCart(cartId)}
-              svgClass="text-gray-500"
-              buttonClass="group border border-transparent rounded-md px-2 py-1 font-semibold text-sm text-gray-500"
-            >
-              <div className="flex flex-row gap-x-1 items-center">
+              text="Remove from Cart"
+              Icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-500 transition duration-200 ease-linear group-hover:text-my-accent"
+                  className="h-5 w-5 text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -139,9 +148,20 @@ function CartItem({ data }) {
                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                   />
                 </svg>
-                <span>Remove From Cart</span>
-              </div>
-            </Button>
+              }
+              rootSpacing="py-1 px-3"
+              rootDesign="w-max
+                          inline-flex items-center justify-center flex-wrap 
+                          rounded
+                          transition duration-250 ease-linear"
+              rootAnimation="hover:border-gray-400
+                          active:border-transparent
+                          active:ring-2 active:ring-gray-400 active:ring-opacity-40 active:ring-offset-2`"
+              rootBaseBgColor="bg-transparent border border-transparent"
+              rootLoadingState="bg-gray-200 cursor-not-allowed"
+              textDesign="font-sans text-sm font-medium tracking-wide leading-none"
+              textColor="text-gray-500"
+            />
           </div>
         </div>
       </div>

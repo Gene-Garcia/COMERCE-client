@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
 
 function PrimaryButton({ value, onClick }) {
   return (
@@ -16,7 +17,11 @@ function SecondaryButton({ title, link }) {
   return (
     <a
       href={link}
-      className="text-sm font-medium text-gray-400 lowercase px-3 h-12 border flex justify-center items-center transition duration-200 ease-linear hover:text-my-accent-tint active:ring-2 active:ring-gray-600 active:ring-opacity-20"
+      className="text-nase font-medium text-gray-400 
+      lowercase px-3 
+      flex justify-center items-center 
+      transition duration-200 ease-linear 
+      hover:text-my-accent-tint active:ring-2 active:ring-gray-600 active:ring-opacity-20"
     >
       {title}
     </a>
@@ -26,7 +31,7 @@ function SecondaryButton({ title, link }) {
 function Body({ children }) {
   return (
     <div className="flex flex-col sm:flex-row w-full justify-start sm:justify-between gap-y-5">
-      <div className="flex flex-row gap-5 md:gap-3 lg:gap-5 items-center">
+      <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center">
         {children}
       </div>
 
@@ -38,7 +43,13 @@ function Body({ children }) {
 function TOACTA({ onClick }) {
   return (
     <Body>
-      <PrimaryButton value="AGREE" onClick={onClick} />
+      <FormButton
+        size="MEDIUM"
+        textColor="text-white"
+        uppercase="uppercase"
+        text="Agree"
+        onClick={onClick}
+      />
 
       <SecondaryButton title="Disagree" link="#" />
     </Body>
@@ -48,17 +59,30 @@ function TOACTA({ onClick }) {
 function AccountInfoCTA({ onClick }) {
   return (
     <Body>
-      <PrimaryButton value="SUBMIT" onClick={onClick} />
+      <FormButton
+        size="MEDIUM"
+        textColor="text-white"
+        uppercase="uppercase"
+        text="Submit"
+        onClick={onClick}
+      />
 
       <SecondaryButton title="Cancel" link="#" />
     </Body>
   );
 }
 
-function BusinessInfoCTA({ onClick }) {
+function BusinessInfoCTA({ isLoading, onClick }) {
   return (
     <Body>
-      <PrimaryButton value="CREATE ACCOUNT" onClick={onClick} />
+      <FormButton
+        size="MEDIUM"
+        textColor="text-white"
+        uppercase="uppercase"
+        text="Create Account"
+        onClick={onClick}
+        isLoading={isLoading}
+      />
 
       <SecondaryButton title="Cancel" link="#" />
     </Body>

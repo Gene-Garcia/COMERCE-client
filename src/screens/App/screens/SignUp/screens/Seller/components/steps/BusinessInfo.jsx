@@ -156,7 +156,7 @@ function BusinessInfo() {
         />
       </div>
 
-      <BusinessInfoCTA onClick={handleFormSubmit} />
+      <BusinessInfoCTA isLoading={isLoading} onClick={handleFormSubmit} />
     </div>
   );
 }

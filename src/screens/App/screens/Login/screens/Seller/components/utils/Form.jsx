@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
-import Button from "../../../../../../../../shared/Components/button/Button";
 import axios from "../../../../../../../../shared/caller";
 import useAlert from "../../../../../../../../hooks/useAlert";
 import { setUserPersistData } from "../../../../../../../../shared/Auth/Login";
@@ -10,6 +9,7 @@ import {
   EmbossedInput,
   SellerAccountInput,
 } from "../../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
 
 function Form() {
   //history
@@ -152,14 +152,14 @@ function Form() {
           </div>
         </div>
 
-        <Button
+        <FormButton
+          size="REGULAR"
           isLoading={isLoading}
-          buttonClass="bg-my-accent rounded w-full py-2 shadow-md transition duration-200 ease-linear hover:bg-my-accent-mono"
-          svgClass="text-white"
           onClick={handleFormSubmit}
-        >
-          <span className="text-white font-semibold text-md">LOGIN</span>
-        </Button>
+          text="Login"
+          uppercase="uppercase"
+          textColor="text-white"
+        />
 
         <div className="flex flex-row items-center justify-center gap-2">
           <p className="text-gray-400 mb-0 text-sm lg:text-base">

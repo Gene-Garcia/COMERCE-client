@@ -6,11 +6,10 @@
  */
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import useAlert from "../../../hooks/useAlert";
 import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
 import { formatPrice } from "../../utils/price";
-import Button from "../button/Button";
+import { ProductButton } from "../button/ButtonBase";
 
 function ProductName({ name }) {
   return (
@@ -161,7 +160,7 @@ function ProductDescription({ desc, fullText }) {
  *     Redirects user to /checkout/[array of product ids in the format '{id|quantity; id2|5;...}']
  *
  */
-function ProductPurchase({ productId, size, style }) {
+function ProductPurchase({ productId, size, style = "DEFAULT" }) {
   const { setCartCount } = useGetCartCount();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -188,58 +187,41 @@ function ProductPurchase({ productId, size, style }) {
   else if (size === "extralarge") theme = "text-md pt-2.5 pb-1 px-5";
   else theme = "text-sm pt-1.5 px-3";
 
-  const styleKey =
-    style && style.toUpperCase() === "SHOWCASE" ? "SHOWCASE" : "DEFAULT";
-  const styles = {
-    DEFAULT: {
-      link: `font-medium text-white bg-my-accent ${theme} rounded shadow hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-70`,
-      buttonClass: `group inline-flex items-center gap-x-2 ${theme} rounded-md border border-transparent hover:border hover:border-gray-400`,
-      svgClass: "text-my-accent",
-    },
-    SHOWCASE: {
-      link: "border-2 border-my-accent px-11 py-4 text-sm font-semibold text-gray-600 uppercase hover:text-my-accent-shade active:ring-4 active:ring-my-accent active:ring-opacity-20",
-      buttonClass:
-        "px-6 font-medium text-sm text-gray-500 hover:text-gray-900 active:text-my-accent",
-      svgClass: "text-gray-800",
-    },
-  };
-
   return (
-    <div className="flex flex-wrap gap-2">
-      <Link
+    <div className="flex flex-wrap gap-2.5">
+      <ProductButton
+        text="Buy Now"
+        hierarchy="primary"
+        component="link"
         to={`/checkout?products=${productId}+1`}
-        className={`transition duration-200 ease-linear ${styles[styleKey].link}`}
-      >
-        Buy Now
-      </Link>
+        hierarchy="primary"
+        textColor="text-white"
+        isLoading={false}
+        size={style.toUpperCase() === "SHOWCASE" ? "LARGE" : "REGULAR"}
+      />
 
-      <Button
+      <ProductButton
+        component="button"
+        hierarchy="secondary"
+        text="Add to Cart"
+        textColor="text-gray-600"
         isLoading={isLoading}
-        buttonClass={`transition duration-200 ease-linear ${styles[styleKey].buttonClass}`}
-        svgClass={styles[styleKey].svgClass}
+        Icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-gray-600 group-hover:text-my-accent"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+          </svg>
+        }
         onClick={() => {
           setIsLoading(true);
           addToCartClick();
         }}
-      >
-        {styleKey === "DEFAULT" ? (
-          <div className="inline-flex items-center gap-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 text-gray-600 group-hover:text-my-accent"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-            </svg>
-            <span className="font-sans font-medium text-black">
-              Add to Cart
-            </span>
-          </div>
-        ) : (
-          <>add to cart</>
-        )}
-      </Button>
+        size={style.toUpperCase() === "SHOWCASE" ? "LARGE" : "REGULAR"}
+      />
     </div>
   );
 }

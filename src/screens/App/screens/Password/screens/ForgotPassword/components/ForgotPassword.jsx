@@ -3,10 +3,8 @@ import useAlert from "../../../../../../../hooks/useAlert";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
-import {
-  CustomerAccountInput,
-  EmbossedInput,
-} from "../../../../../../../shared/Components/input/Inputs";
+import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
 
 function ForgotPassword() {
   // form hooks
@@ -14,12 +12,14 @@ function ForgotPassword() {
     await axios
       .post("/api/user/password/forgot", values)
       .then((res) => {
+        setIsLoading(false);
         resetForms();
         setSeverity("success");
         setMessage(res.data.message);
       })
       .catch((err) => {
         setSeverity("error");
+        setIsLoading(false);
 
         if (!err.response) setMessage("Something went wrong. Try again");
         else setMessage(err.response.data.error);
@@ -39,12 +39,15 @@ function ForgotPassword() {
   }
 
   const intialState = { email: "" };
-  const { values, errors, resetForms, handleInput, handleFormSubmit } = useForm(
-    intialState,
-    intialState,
-    validate,
-    ForgotPasswordAPI
-  );
+  const {
+    values,
+    errors,
+    resetForms,
+    handleInput,
+    handleFormSubmit,
+    isLoading,
+    setIsLoading,
+  } = useForm(intialState, intialState, validate, ForgotPasswordAPI);
 
   // alert context
   const { setMessage, setSeverity } = useAlert();
@@ -106,12 +109,13 @@ function ForgotPassword() {
             }
           />
 
-          <button
+          <FormButton
+            size="regular"
+            text="Send Email"
             onClick={handleFormSubmit}
-            className="transition bg-my-accent text-white font-semibold rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
-          >
-            Send Email
-          </button>
+            isLoading={isLoading}
+            textColor="text-white"
+          ></FormButton>
         </div>
       </div>
     </div>

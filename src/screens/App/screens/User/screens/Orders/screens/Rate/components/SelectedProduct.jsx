@@ -2,10 +2,10 @@ import React from "react";
 import { useHistory } from "react-router";
 import useAlert from "../../../../../../../../../hooks/useAlert";
 import { useRate } from "../../../../../../../../../hooks/useRate";
-import Button from "../../../../../../../../../shared/Components/button/Button";
 import { ProductCardDisplay } from "./utils/ProductCard";
 import ProductRating from "./utils/ProductRating";
 import axios from "../../../../../../../../../shared/caller";
+import { FormButton } from "../../../../../../../../../shared/Components/button/ButtonBase";
 
 function SelectedProduct() {
   // history
@@ -98,13 +98,13 @@ function SelectedProduct() {
           </div>
 
           {/* CTA */}
-          <Button
+          <FormButton
+            size="MEDIUM"
             isLoading={loading}
-            buttonClass="bg-my-accent px-8 py-2.5 shadow text-white text-md font-semibold transition duration-200 ease-linear hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-opacity-40"
+            text="Submit Rating"
+            textColor="text-white"
             onClick={submitRatingForCurrent}
-          >
-            Submit Rating
-          </Button>
+          />
         </div>
       )}
     </>

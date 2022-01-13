@@ -4,8 +4,8 @@ import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../hooks/useForm";
 import useAlert from "../../../../../../../hooks/useAlert";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
-import Button from "../../../../../../../shared/Components/button/Button";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
 
 function SignUp({ history }) {
   async function SignUpAPI() {
@@ -210,17 +210,14 @@ function SignUp({ history }) {
             }
           />
 
-          <Button
+          <FormButton
+            size="medium"
+            text="SIGN UP"
+            uppercase="uppercase"
             isLoading={isLoading}
-            buttonClass="w-max px-12 h-11 bg-my-accent rounded shadow-md
-            transition duration-200 ease-linear 
-            hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2 
-            active:ring active:ring-my-accent active:ring-offset-0 active:ring-opacity-40"
-            svgClass="text-white"
             onClick={handleFormSubmit}
-          >
-            <span className="text-white font-semibold text-base">SIGN UP</span>
-          </Button>
+            textColor="text-white"
+          ></FormButton>
         </div>
       </div>
 

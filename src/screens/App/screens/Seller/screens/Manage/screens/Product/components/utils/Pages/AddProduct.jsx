@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import { InputFirst } from "../../../../../../../../../../../shared/Components/input/InputBase";
 import { EmbossedInput } from "../../../../../../../../../../../shared/Components/input/Inputs";
-import Button from "../../../../../../../../../../../shared/Components/button/Button";
+import { FormButton } from "../../../../../../../../../../../shared/Components/button/ButtonBase";
 
 function AddProduct() {
   const history = useHistory();
@@ -289,17 +289,13 @@ function AddProduct() {
 
         <div className="border-b border-gray-300 rounded"></div>
 
-        <Button
+        <FormButton
+          size="LARGE"
           isLoading={isLoading}
           onClick={handleFormSubmit}
-          buttonClass="bg-my-accent text-white px-8 sm:px-10 md:px-12 py-3 font-semibold text-sm uppercase 
-      transition duration-200 ease-linear rounded
-      hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2
-      active:ring active:ring-my-accent active:ring-opacity-30 "
-          svgClass="text-white"
-        >
-          Upload Product
-        </Button>
+          text="Upload Product"
+          textColor="text-white"
+        />
       </div>
     </div>
   );

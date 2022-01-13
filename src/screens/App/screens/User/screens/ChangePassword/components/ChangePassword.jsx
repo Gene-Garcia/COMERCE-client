@@ -5,11 +5,11 @@ import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
-import Button from "../../../../../../../shared/Components/button/Button";
 import {
   CustomerAccountInput,
   EmbossedInput,
 } from "../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
 
 function ChangePassword({ history }) {
   // separate loading state. this loading is for the page loading. not form button loading.
@@ -115,14 +115,15 @@ function ChangePassword({ history }) {
                 shadow="shadow-md"
               />
 
-              <Button
+              <FormButton
+                size="regular"
+                text="Save New Password"
                 isLoading={isLoading}
                 onClick={handleFormSubmit}
-                svgClass="text-white"
-                buttonClass="transition bg-my-accent text-white font-medium rounded-md px-4 py-1.5 border border-transparent hover:bg-my-accent-mono active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+                textColor="text-white"
               >
                 <span>Save New Password</span>
-              </Button>
+              </FormButton>
             </div>
           </div>
         </div>

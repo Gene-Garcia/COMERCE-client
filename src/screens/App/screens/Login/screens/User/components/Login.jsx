@@ -5,11 +5,8 @@ import { useForm } from "../../../../../../../hooks/useForm";
 import { setUserPersistData } from "../../../../../../../shared/Auth/Login";
 import useAlert from "../../../../../../../hooks/useAlert";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
-import Button from "../../../../../../../shared/Components/button/Button";
-import {
-  CustomerAccountInput,
-  EmbossedInput,
-} from "../../../../../../../shared/Components/input/Inputs";
+import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
 
 function Login({ history }) {
   const { setMessage, setSeverity } = useAlert();
@@ -171,17 +168,16 @@ function Login({ history }) {
             </div>
           </div>
 
-          <Button
+          <FormButton
+            size="medium"
             isLoading={isLoading}
-            buttonClass="w-min px-12 h-11 bg-my-accent rounded shadow-md 
-            transition duration-200 ease-linear 
-            hover:ring-2 hover:ring-my-accent hover:ring-opacity-70 hover:ring-offset-2 
-            active:ring active:ring-my-accent active:ring-offset-0 active:ring-opacity-40"
-            svgClass="text-white"
+            text="LOGIN"
+            uppercase="uppercase"
             onClick={handleFormSubmit}
+            textColor="text-white"
           >
             <span className="text-white font-semibold text-base ">LOGIN</span>
-          </Button>
+          </FormButton>
         </div>
       </div>
     </div>

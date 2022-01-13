@@ -1,11 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../../../hooks/useForm";
-import Button from "../../../../../../../../../../shared/Components/button/Button";
 import axios from "../../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
 import useAlert from "../../../../../../../../../../hooks/useAlert";
 import { EmbossedInput } from "../../../../../../../../../../shared/Components/input/Inputs";
+import { FormButton } from "../../../../../../../../../../shared/Components/button/ButtonBase";
 
 function AddInventoryForm() {
   const history = useHistory();
@@ -155,17 +155,13 @@ function AddInventoryForm() {
         />
       </div>
 
-      <Button
+      <FormButton
+        size="REGULAR"
         isLoading={isLoading}
         onClick={handleFormSubmit}
-        buttonClass="uppercase text-sm font-semibold text-white
-      bg-my-accent py-2.5 px-7 w-max rounded
-      transition duration-200 ease-linear
-      hover:ring-2 hover:ring-my-accent hover:ring-offset-2 hover:ring-opacity-70
-      active:bg-my-accent-mono hover:ring-my-accent-mono"
-      >
-        Save Inventory
-      </Button>
+        text="Save Inventory"
+        textColor="text-white"
+      />
     </div>
   );
 }
