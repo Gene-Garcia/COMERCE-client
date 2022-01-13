@@ -1,8 +1,8 @@
 import React from "react";
 import useCheckout from "../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../hooks/useForm";
+import { BorderedInput } from "../../../../../shared/Components/input/Inputs";
 import { ShippingCTA } from "./utils/CallToAction";
-import CheckoutInput from "./utils/CheckoutInput";
 
 function ShippingDetails() {
   const { loadShippingDetails, nextStep } = useCheckout();
@@ -88,92 +88,92 @@ function ShippingDetails() {
 
       <>
         <div className="flex flex-col sm:flex-row gap-x-4 gap-y-4 sm:gap-y-8">
-          <CheckoutInput
+          <BorderedInput
             label="First Name"
             type="text"
             placeholder="John Doe"
             name="firstName"
-            className="w-full sm:w-1/2"
+            width="w-full sm:w-1/2"
             onChange={handleInput}
             value={values.firstName}
             error={errors.firstName}
           />
-          
-          <CheckoutInput
+
+          <BorderedInput
             label="Last Name"
             type="text"
             placeholder="John Doe"
             name="lastName"
-            className="w-full sm:w-1/2"
+            width="w-full sm:w-1/2"
             onChange={handleInput}
             value={values.lastName}
             error={errors.lastName}
           />
         </div>
 
-        <CheckoutInput
+        <BorderedInput
           label="Cellphone Number"
-          type="text"
+          type="number"
           placeholder="Cellphone Number"
           name="cellphoneNumber"
-          className="w-full sm:w-1/2"
+          width="w-full sm:w-1/2"
           onChange={handleInput}
           value={values.cellphoneNumber}
           error={errors.cellphoneNumber}
         />
 
-        <CheckoutInput
+        <BorderedInput
           label="House/Unit/Flr #, Bldg Name, Blk or Lot #"
           type="text"
           placeholder="Street Address"
           name="streetAddress"
-          className="w-full sm:w-4/5"
+          width="w-full sm:w-4/5"
           onChange={handleInput}
           value={values.streetAddress}
           error={errors.streetAddress}
         />
 
         <div className="flex flex-col sm:flex-row gap-x-4 gap-y-4 sm:gap-y-8">
-          <CheckoutInput
+          <BorderedInput
             label="Province"
             type="text"
             placeholder="Enter your province"
             name="province"
-            className="w-full sm:w-4/6"
+            width="w-full sm:w-4/6"
             onChange={handleInput}
             value={values.province}
             error={errors.province}
           />
 
-          <CheckoutInput
+          <BorderedInput
             label="City or Municipality"
             type="text"
             placeholder="Enter your city or municipality"
             name="cityMunicipality"
-            className="w-full sm:w-4/6"
+            width="w-full sm:w-4/6"
             onChange={handleInput}
             value={values.cityMunicipality}
             error={errors.cityMunicipality}
           />
         </div>
 
-        <CheckoutInput
+        <BorderedInput
           label="Barangay"
           type="text"
           placeholder="Enter your barangay"
           name="barangay"
-          className="w-full sm:w-1/2"
+          width="w-full sm:w-1/2"
           onChange={handleInput}
           value={values.barangay}
           error={errors.barangay}
         />
 
-        <CheckoutInput
+        <BorderedInput
           label="Additional Notes"
           type="textarea"
           placeholder="Enter any notes you want to let the logistic courier to know when they deliver your order"
           name="additionalNotes"
-          className="w-full"
+          width="w-full"
           onChange={handleInput}
           value={values.additionalNotes}
           error={errors.additionalNotes}

@@ -30,6 +30,7 @@ module.exports = {
       },
 
       width: {
+        rr50: "50rem",
         five: "5%",
         ten: "10%",
         fifteen: "15%",
@@ -62,7 +63,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ["active"],
+      backgroundColor: ["active", "odd", "focus"],
       borderColor: ["active"],
       borderWidth: ["hover"],
       borderRadius: ["hover", "active"],

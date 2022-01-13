@@ -1,8 +1,8 @@
 import React from "react";
 import useCheckout from "../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../hooks/useForm";
+import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
 import { PaymentCTA } from "../utils/CallToAction";
-import CheckoutInput from "../utils/CheckoutInput";
 
 function PayPal() {
   const { loadPaymentDetails, nextStep } = useCheckout();
@@ -48,7 +48,7 @@ function PayPal() {
           .
         </p>
 
-        <CheckoutInput
+        <BorderedInput
           label="PayPal Email"
           type="email"
           placeholder="Enter your valid and active PayPal email"

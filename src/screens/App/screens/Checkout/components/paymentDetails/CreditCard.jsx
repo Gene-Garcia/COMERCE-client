@@ -1,8 +1,8 @@
 import React from "react";
 import useCheckout from "../../../../../../hooks/useCheckout";
 import { useForm } from "../../../../../../hooks/useForm";
+import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
 import { PaymentCTA } from "../utils/CallToAction";
-import CheckoutInput from "../utils/CheckoutInput";
 
 function CreditCard() {
   const { loadPaymentDetails, nextStep } = useCheckout();
@@ -83,7 +83,7 @@ function CreditCard() {
   return (
     <div className="space-y-8">
       <div className="space-y-6">
-        <CheckoutInput
+        <BorderedInput
           label="Name of Card Holder"
           type="text"
           placeholder="Enter your name indicated on the card"
@@ -94,7 +94,7 @@ function CreditCard() {
           onChange={handleInput}
         />
 
-        <CheckoutInput
+        <BorderedInput
           label="Card Number"
           type="number"
           placeholder="Enter your credit card number"
@@ -106,7 +106,7 @@ function CreditCard() {
         />
 
         <div className="flex flex-row gap-x-3">
-          <CheckoutInput
+          <BorderedInput
             label="Card Expiration"
             type="text"
             placeholder="MM/YYYY"
@@ -117,7 +117,7 @@ function CreditCard() {
             onChange={handleInput}
           />
 
-          <CheckoutInput
+          <BorderedInput
             label="Sec Number"
             type="number"
             placeholder="CVV"

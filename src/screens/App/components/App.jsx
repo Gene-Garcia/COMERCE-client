@@ -20,6 +20,7 @@ import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
 import { ManageProductProvider } from "../../../context/ManageProductContext";
+import { ManageInventoryProvider } from "../../../context/ManageInventoryContext";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -48,7 +49,9 @@ const App = () => {
                   <RateProvider>
                     <SellerRegistrationProvider>
                       <ManageProductProvider>
-                        <AppContent />
+                        <ManageInventoryProvider>
+                          <AppContent />
+                        </ManageInventoryProvider>
                       </ManageProductProvider>
                     </SellerRegistrationProvider>
                   </RateProvider>
@@ -77,8 +80,13 @@ const AppContent = memo(() => {
     "/sign-up/seller",
     "/seller",
     "/seller/manage/products",
+    "/seller/manage/inventory",
   ];
-  const withSellerNavigation = ["/seller", "/seller/manage/products"];
+  const withSellerNavigation = [
+    "/seller",
+    "/seller/manage/products",
+    "/seller/manage/inventory",
+  ];
 
   return (
     <div
@@ -95,7 +103,7 @@ const AppContent = memo(() => {
       <div
         className={`w-full ${
           withSellerNavigation.includes(pathname) &&
-          "md:ml-44 lg:ml-56 2xl:ml-60"
+          "md:ml-52 lg:ml-56 2xl:ml-60"
         }`}
       >
         {withSellerNavigation.includes(pathname) && <BusinessHeader />}
@@ -128,6 +136,7 @@ const AppContent = memo(() => {
           {/* seller routes */}
           <Route {...route.SELLER} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
+          <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import ManageInventoryContext from "../context/ManageInventoryContext";
 import ManageProductContext from "../context/ManageProductContext";
 
 function useManageProduct() {
@@ -19,4 +20,29 @@ function useManageProduct() {
     updateProductId,
   };
 }
-export { useManageProduct };
+
+function useManageInventory() {
+  const {
+    loading,
+    setLoading,
+    products,
+    updateProducts,
+    selected,
+    updateSelected,
+    reload,
+    setReload,
+  } = useContext(ManageInventoryContext);
+
+  return {
+    loading,
+    setLoading,
+    products,
+    updateProducts,
+    selected,
+    updateSelected,
+    reload,
+    setReload,
+  };
+}
+
+export { useManageProduct, useManageInventory };
