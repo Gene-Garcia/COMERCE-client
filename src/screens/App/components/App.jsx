@@ -81,11 +81,15 @@ const AppContent = memo(() => {
     "/seller",
     "/seller/manage/products",
     "/seller/manage/inventory",
+    "/seller/shipment/orders",
+    "/seller/shipment/fulfilled",
   ];
   const withSellerNavigation = [
     "/seller",
     "/seller/manage/products",
     "/seller/manage/inventory",
+    "/seller/shipment/orders",
+    "/seller/shipment/fulfilled",
   ];
 
   return (
@@ -108,6 +112,7 @@ const AppContent = memo(() => {
       >
         {withSellerNavigation.includes(pathname) && <BusinessHeader />}
 
+        {/* !IMPLEMENT DYNAMIC RENDERING OF ROUTE, FOR PRIVATE ROUTE JUST ADD NEW FIELD PRIVATE=TRUE IN ROUTE.JS FILES */}
         <Switch>
           <Route {...route.HOME} />
 
@@ -137,6 +142,9 @@ const AppContent = memo(() => {
           <Route {...route.SELLER} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
+          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.ORDERS} />
+          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
+
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

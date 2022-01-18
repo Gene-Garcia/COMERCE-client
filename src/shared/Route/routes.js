@@ -126,6 +126,23 @@ const routes = {
           },
         },
       },
+
+      SHIPMENT: {
+        path: "/seller/shipment",
+        name: "Shipment",
+
+        subroutes: {
+          ORDERS: {
+            path: "/seller/shipment/orders",
+            name: "Manage Order Shipment",
+          },
+
+          FULFILLED: {
+            path: "/seller/shipment/fulfilled",
+            name: "Manage Fulfilled Shipment",
+          },
+        },
+      },
     },
   },
 };
