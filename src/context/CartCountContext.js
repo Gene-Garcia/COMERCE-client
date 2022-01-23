@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 
+// maybe this should be implemented along with redux-session? with the account information
+
 /*
  * The CartContext is holds the data to the number of cart items displayed in the
  * navbars.
