@@ -28,5 +28,12 @@ const updateLoading = (isLoading) => {
 };
 
 // NEEDS COMPUTE SUB_TOTAL
+// NEEDS GET ORDER BY ID
 
-export { orderHistoryActionTypes, loadOrders, setSelectedOrder, updateLoading };
+export {
+  orderHistoryActionTypes,
+  loadOrders,
+  setSelectedOrder,
+  updateLoading,
+  getOrderById,
+};
