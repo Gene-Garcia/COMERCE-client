@@ -1,4 +1,4 @@
-import { rateOrderActionTypes as types } from "./rateOrderAction";
+import { rateOrderActionTypes as types } from "./RateOrderAction";
 
 const initial = {
   products: [],

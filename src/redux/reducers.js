@@ -5,7 +5,7 @@ import manageInventoryReducer from "./Seller/ManageInventory/ManageInventoryRedu
 import orderHistoryReducer from "./OrderHistory/OrderHistoryReducer";
 import manageProductReducer from "./Seller/ManageProduct/ManageProductReducer";
 import paginationReducer from "./Pagination/PaginationReducer";
-import rateOrderReducer from "./RateOrder/rateOrderReducer";
+import rateOrderReducer from "./RateOrder/RateOrderReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
