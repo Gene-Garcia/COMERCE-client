@@ -28,7 +28,7 @@ const paginationReducer = (state = initial, { type, payload }) => {
       return { ...state, items: payload };
 
     case types.SET_TOTAL_ITEMS_COUNT:
-      return { ...stat, itemcount: payload };
+      return { ...state, itemcount: payload };
 
     /*
      * computes the requires number of pages for all the product to be displayed
@@ -61,7 +61,7 @@ const paginationReducer = (state = initial, { type, payload }) => {
       };
 
     case types.UPDATE_ACTIVE_PAGE_NUMBER:
-      return { ...state, currentPage: action.payload };
+      return { ...state, currentPage: payload };
 
     case types.NEXT_PAGE:
       // click fwdBtn has two actions
@@ -133,7 +133,7 @@ const paginationReducer = (state = initial, { type, payload }) => {
       return { ...state };
 
     case types.UPDATE_SEARCH_FILTER:
-      return { ...state, searchFilter: action.payload };
+      return { ...state, searchFilter: payload };
 
     case types.RESET_TO_DEFAULT:
       return { ...initial };

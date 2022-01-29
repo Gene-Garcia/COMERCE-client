@@ -74,7 +74,7 @@ const checkoutReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         paymentMethod: "PP",
-        paymentDetails: { ...action.payload },
+        paymentDetails: { ...payload },
       };
 
     // Requires additional payment details for Credit Card
@@ -82,7 +82,7 @@ const checkoutReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         paymentMethod: "CC",
-        paymentDetails: { ...action.payload },
+        paymentDetails: { ...payload },
       };
 
     /*
