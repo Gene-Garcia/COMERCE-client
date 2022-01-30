@@ -7,14 +7,14 @@ const alertActionTypes = {
 // Action methods
 const setMessage = (message) => {
   return {
-    type: "",
+    type: alertActionTypes.SET_MESSAGE,
     payload: message,
   };
 };
 
 const setSeverity = (severity) => {
   return {
-    type: "",
+    type: alertActionTypes.SET_SEVERITY,
     payload: severity,
   };
 };

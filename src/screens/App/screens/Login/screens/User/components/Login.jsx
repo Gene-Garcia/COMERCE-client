@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../hooks/useForm";
 import { setUserPersistData } from "../../../../../../../shared/Auth/Login";
-import useAlert from "../../../../../../../hooks/useAlert";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
+import { useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function Login({ history }) {
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   async function LoginApi() {
     await axios
@@ -17,16 +22,16 @@ function Login({ history }) {
       .then((res) => {
         if (res.status === 200) {
           setUserPersistData(res.data.user.email, res.data.user.username);
-          setSeverity("success");
-          setMessage("Logged in Successfully!");
+          dispatch(setSeverity("success"));
+          dispatch(setMessage("Logged in Successfully!"));
           history.push("/user");
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
-        if (err.response) setMessage(err.response.data.error);
-        else setMessage("Something went wrong. Try again.");
+        dispatch(setSeverity("error"));
+        if (err.response) dispatch(setMessage(err.response.data.error));
+        else dispatch(setMessage("Something went wrong. Try again."));
       });
   }
 

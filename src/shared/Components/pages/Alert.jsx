@@ -8,10 +8,21 @@
  */
 
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useAlert from "../../../hooks/useAlert";
+import { setMessage } from "../../../redux/Alert/AlertAction";
 
 function Alert() {
-  const { message, setMessage, severity } = useAlert();
+  const {
+    message: messageOld,
+    setMessage: setMessageOld,
+    severity: severityOld,
+  } = useAlert();
+
+  // redux
+  const message = useSelector((state) => state.ALERT.message);
+  const severity = useSelector((state) => state.ALERT.severity);
+  const dispatch = useDispatch();
 
   let color;
   if (severity === "error") color = "bg-red-100 border-red-500";
@@ -29,11 +40,7 @@ function Alert() {
       >
         <div className="text-gray-800 font-medium pr-6">{message}</div>
 
-        <button
-          onClick={() => {
-            setMessage("");
-          }}
-        >
+        <button onClick={() => dispatch(setMessage(""))}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
