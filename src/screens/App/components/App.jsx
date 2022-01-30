@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import route from "../route";
 import axios from "../../../shared/caller";
-import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
 import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
@@ -37,30 +36,28 @@ const App = () => {
 
   return (
     <Router>
-      <AlertProvider>
-        {/* Global message notification */}
-        <Alert />
+      {/* Global message notification */}
+      <Alert />
 
-        <ProductPaginationProvider>
-          <CartCountProvider>
-            <ShoppingCartProvider>
-              <CheckoutProvider>
-                <OrdersProvider>
-                  <RateProvider>
-                    <SellerRegistrationProvider>
-                      <ManageProductProvider>
-                        <ManageInventoryProvider>
-                          <AppContent />
-                        </ManageInventoryProvider>
-                      </ManageProductProvider>
-                    </SellerRegistrationProvider>
-                  </RateProvider>
-                </OrdersProvider>
-              </CheckoutProvider>
-            </ShoppingCartProvider>
-          </CartCountProvider>
-        </ProductPaginationProvider>
-      </AlertProvider>
+      <ProductPaginationProvider>
+        <CartCountProvider>
+          <ShoppingCartProvider>
+            <CheckoutProvider>
+              <OrdersProvider>
+                <RateProvider>
+                  <SellerRegistrationProvider>
+                    <ManageProductProvider>
+                      <ManageInventoryProvider>
+                        <AppContent />
+                      </ManageInventoryProvider>
+                    </ManageProductProvider>
+                  </SellerRegistrationProvider>
+                </RateProvider>
+              </OrdersProvider>
+            </CheckoutProvider>
+          </ShoppingCartProvider>
+        </CartCountProvider>
+      </ProductPaginationProvider>
     </Router>
   );
 };
