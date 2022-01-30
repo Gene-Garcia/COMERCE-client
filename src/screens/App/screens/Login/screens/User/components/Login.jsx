@@ -6,7 +6,7 @@ import { setUserPersistData } from "../../../../../../../shared/Auth/Login";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
-import { useDispatch } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
   setSeverity,
@@ -22,16 +22,28 @@ function Login({ history }) {
       .then((res) => {
         if (res.status === 200) {
           setUserPersistData(res.data.user.email, res.data.user.username);
-          dispatch(setSeverity("success"));
-          dispatch(setMessage("Logged in Successfully!"));
+
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Logged in Successfully!"));
+          });
+
           history.push("/user");
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        dispatch(setSeverity("error"));
-        if (err.response) dispatch(setMessage(err.response.data.error));
-        else dispatch(setMessage("Something went wrong. Try again."));
+
+        if (err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again."));
+          });
       });
   }
 
