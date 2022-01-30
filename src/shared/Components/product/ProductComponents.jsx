@@ -6,8 +6,9 @@
  */
 
 import React, { useState } from "react";
-import useAlert from "../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
 import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
+import { setMessage, setSeverity } from "../../../redux/Alert/AlertAction";
 import { formatPrice } from "../../utils/price";
 import { ProductButton } from "../button/ButtonBase";
 
@@ -161,6 +162,9 @@ function ProductDescription({ desc, fullText }) {
  *
  */
 function ProductPurchase({ productId, size, style = "DEFAULT" }) {
+  // redux
+  const dispatch = useDispatch();
+
   const { setCartCount } = useGetCartCount();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -168,19 +172,24 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
   function success(res) {
     // manually increment by one, because we assume that the add to cart was a success
     setCartCount((p) => p + 1);
-    setSeverity("success");
-    setMessage("Item added to your cart.");
+
+    batch(() => {
+      dispatch(setSeverity("success"));
+      dispatch(setMessage("Item added to your cart."));
+    });
     setIsLoading(false);
   }
 
   function failed(err) {
-    setSeverity("error");
-    setMessage("Error encountered in adding item to your cart.");
+    batch(() => {
+      dispatch(setSeverity("error"));
+      dispatch(setMessage("Error encountered in adding item to your cart."));
+    });
+
     setIsLoading(false);
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
-  const { setMessage, setSeverity } = useAlert();
 
   let theme;
   if (size === "large") theme = "text-md pt-2 px-6";

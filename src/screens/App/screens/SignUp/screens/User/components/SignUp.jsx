@@ -2,12 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../../../../../shared/caller";
 import { useForm } from "../../../../../../../hooks/useForm";
-import useAlert from "../../../../../../../hooks/useAlert";
 import OAuths from "../../../../../../../shared/Auth/OAuths";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function SignUp({ history }) {
+  // redux
+  const dispatch = useDispatch();
+
   async function SignUpAPI() {
     await axios
       .post("/api/signup", { ...values, userType: "CUSTOMER" })
@@ -15,18 +22,28 @@ function SignUp({ history }) {
         if (res.status === 200) {
           resetForms();
 
-          setSeverity("success");
-          setMessage("Account created successfully!");
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Account created successfully!"));
+          });
 
           history.push("/login");
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
 
-        if (err.response) setMessage(err.response.data.error);
-        else setMessage("Something went wrong. Try again.");
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again."));
+          });
+        else if (err.reponse.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 
@@ -80,9 +97,6 @@ function SignUp({ history }) {
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, SignUpAPI);
-
-  // Request error message
-  const { setSeverity, setMessage } = useAlert();
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">

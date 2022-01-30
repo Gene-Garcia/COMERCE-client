@@ -1,5 +1,4 @@
 import React from "react";
-import useAlert from "../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../hooks/useCart";
 import useCheckout from "../../../../../hooks/useCheckout";
 import { formatDate } from "../../../../../shared/utils/date";
@@ -12,10 +11,18 @@ import { getShipmentETAs } from "../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
 import axios from "../../../../../shared/caller";
 import { useHistory } from "react-router";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 
 function ReviewDetails() {
   // history
   const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
 
   // checkout context
   const {
@@ -31,9 +38,6 @@ function ReviewDetails() {
 
   // shopping cart context
   const { shippingFee, subTotal, grandTotal, items } = useShoppingCart();
-
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
 
   // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
@@ -54,20 +58,30 @@ function ReviewDetails() {
       })
       .then((res) => {
         if (res.status === 200) {
-          setSeverity("success");
-          setMessage(res.data.message);
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+          });
+
           // no need to setLoading to false because we will redirect
           history.push("/user/orders");
         }
       })
       .catch((err) => {
-        setSeverity("error");
-
         if (!err.response)
-          setMessage("Unable to process your order. Try again later");
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage("Unable to process your order. Try again later")
+            );
+          });
         else if (err.response.data.status === 403) history.push("/forbidden");
         else if (err.response.data.status === 401) history.push("/unathorized");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 

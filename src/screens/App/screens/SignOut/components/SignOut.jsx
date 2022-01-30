@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
-import useAlert from "../../../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
 import { useGetCartCount } from "../../../../../hooks/useCart";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
+
   const { setCartCount } = useGetCartCount();
 
   useEffect(() => {
@@ -17,20 +23,28 @@ function SignOut({ history }) {
 
           setCartCount(0);
 
-          setSeverity("success");
-          setMessage("Sign Out Success");
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Sign Out Success"));
+          });
 
           history.push("/login/user");
         })
         .catch((err) => {
           clearUserPersistData();
 
-          setSeverity("error");
           if (!err.response)
-            setMessage("Something went wrong. Please try again.");
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

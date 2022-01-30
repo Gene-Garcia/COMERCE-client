@@ -4,11 +4,15 @@ import { SellerTitle } from "../../../../../../../../../shared/Components/pages/
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
 import OrderTable from "./utils/OrderTable";
 import axios from "../../../../../../../../../shared/caller";
-import useAlert from "../../../../../../../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../redux/Alert/AlertAction";
 
 const Orders = ({ history }) => {
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   const [temp, setTemp] = useState([]);
 
@@ -21,14 +25,22 @@ const Orders = ({ history }) => {
           if (res.status === 200) setTemp(res.data.orders);
         })
         .catch((err) => {
-          setSeverity("error");
           if (!err.response)
-            setMessage(
-              "Something went wrong. Please refresh your browser and try again."
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again."
+                )
+              );
+            });
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

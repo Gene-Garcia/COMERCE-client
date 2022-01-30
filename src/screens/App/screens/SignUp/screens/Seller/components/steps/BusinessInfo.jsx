@@ -1,19 +1,23 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import useAlert from "../../../../../../../../hooks/useAlert";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
 
 function BusinessInfo() {
   // history
   let history = useHistory();
 
-  // alert message
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // seller context
   const { loadBusinesssInformation, accountInformation } =
@@ -55,18 +59,29 @@ function BusinessInfo() {
       .then((res) => {
         if (res.status === 200) {
           setIsLoading(false);
-          setSeverity("success");
-          setMessage("Accounted created succesfully");
+
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Accounted created succesfully"));
+          });
+
           history.push("/login/seller");
         }
       })
       .catch((err) => {
         setIsLoading(false);
 
-        setSeverity("error");
         if (!err.response)
-          setMessage("Something went wrong. Please try again.");
-        else setMessage(err.response.data.error);
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Please try again."));
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   };
 

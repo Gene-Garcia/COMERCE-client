@@ -3,7 +3,6 @@ import { useShoppingCart } from "../../../../../hooks/useCart";
 import axios from "../../../../../shared/caller";
 import Title from "../../../../../shared/Components/pages/Title";
 import useQuery from "../../../../../hooks/useQuery";
-import useAlert from "../../../../../hooks/useAlert";
 import CartCheckout from "../../../../../shared/Components/purchase/CartCheckout";
 import Container from "../../../../../shared/Components/pages/Container";
 import useCheckout from "../../../../../hooks/useCheckout";
@@ -13,6 +12,11 @@ import PaymentDetails from "./PaymentDetails";
 import ReviewDetails from "./ReviewDetails";
 import { parseUrlForProducts } from "../../../../../shared/Route/urlParser";
 import Loading from "../../../../../shared/Loading/Loading";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 
 /*
  * The checkout method is able to receive checkouted product through the url parameter.
@@ -28,8 +32,8 @@ import Loading from "../../../../../shared/Loading/Loading";
  *
  */
 function Checkout({ history }) {
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // shopping cart context is empty
   const {
@@ -60,18 +64,29 @@ function Checkout({ history }) {
         })
         .catch((err) => {
           // redirect if forbidden or unauthorized
-
           setLoading(false);
-          setSeverity("error");
+
           if (!err.response)
-            setMessage("Something went wrong. Please try again.");
-          else setMessage(err.response.data.error);
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
+          else if (err.response.status === 403) history.push("/forbidden");
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 
     if (!query.get("products")) {
-      setSeverity("error");
-      setMessage("Invalid URL");
+      batch(() => {
+        dispatch(setSeverity("information"));
+        dispatch(setMessage("Invalid URL"));
+      });
+
       history.push("/user/cart");
     } else getProducts(parseUrlForProducts(query.get("products")));
   }, []);

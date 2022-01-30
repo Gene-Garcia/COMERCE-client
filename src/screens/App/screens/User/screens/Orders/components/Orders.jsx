@@ -6,14 +6,20 @@ import Loading from "../../../../../../../shared/Loading/Loading";
 import OrderDetails from "./OrderDetails";
 import OrderLinks from "./OrderLinks";
 import axios from "../../../../../../../shared/caller";
-import useAlert from "../../../../../../../hooks/useAlert";
 import useQuery from "../../../../../../../hooks/useQuery";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function Orders({ history }) {
   // query to get parameter in url
   const query = useQuery();
-  // alert context message
-  const { setMessage, setSeverity } = useAlert();
+
+  // redux
+  const dispatch = useDispatch();
+
   // orders context
   const { loading, setLoading, setOrdersWrapper, setSelectedOrder } =
     useOrders();
@@ -30,7 +36,7 @@ function Orders({ history }) {
             // determine if there is oid parameter
             if (query.get("oid"))
               setSelectedOrder(
-                res.data.orders.find((e) => e._id == query.get("oid"))
+                res.data.orders.find((order) => order._id == query.get("oid"))
               );
             // no oid so set a default
             else
@@ -42,19 +48,24 @@ function Orders({ history }) {
           }
         })
         .catch((err) => {
-          setSeverity("error");
           setLoading(false);
 
           if (!err.response)
-            setMessage("Something went wrong. Please try again.");
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
           else if (err.response.status === 401) history.push("/forbidden");
           else if (err.response.status === 403) history.push("/unauthorized");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 
     getOrders();
-    // console.log(query.get("oid"));
   }, []);
 
   return (

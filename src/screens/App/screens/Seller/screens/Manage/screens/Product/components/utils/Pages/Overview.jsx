@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import ProductHeadings from "../Table/ProductHeading";
 import ProductRow from "../Table/ProductRow";
 import axios from "../../../../../../../../../../../shared/caller";
-import useAlert from "../../../../../../../../../../../hooks/useAlert";
 import { useHistory } from "react-router-dom";
 import Loading from "../../../../../../../../../../../shared/Loading/Loading";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../redux/Alert/AlertAction";
 
 function Overview() {
   const history = useHistory();
-  const { setSeverity, setMessage } = useAlert();
+
+  // redux
+  const dispatch = useDispatch();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,21 +29,32 @@ function Overview() {
             setLoading(false);
             setProducts(res.data.products);
 
-            setSeverity("information");
-            if (!res.data.products) setMessage("No products was found.");
+            if (!res.data.products)
+              batch(() => {
+                dispatch(setSeverity("information"));
+                dispatch(setMessage("No products was found."));
+              });
           }
         })
         .catch((err) => {
           setLoading(false);
-          setSeverity(false);
 
           if (!err.response)
-            setMessage(
-              "Something went wrong. Please refresh your browser and try again"
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again"
+                )
+              );
+            });
           else if (err.response.status === 403) history.push("/forbidden");
           else if (err.response.status === 401) history.push("/unauthorized");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

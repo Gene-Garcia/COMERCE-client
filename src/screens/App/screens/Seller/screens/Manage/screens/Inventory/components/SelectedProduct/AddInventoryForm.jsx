@@ -3,13 +3,20 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../../../hooks/useForm";
 import axios from "../../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
-import useAlert from "../../../../../../../../../../hooks/useAlert";
 import { EmbossedInput } from "../../../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
 
 function AddInventoryForm() {
   const history = useHistory();
-  const { setSeverity, setMessage } = useAlert();
+
+  // redux
+  const dispatch = useDispatch();
+
   const { selected, updateSelected, setReload } = useManageInventory();
 
   // makes the value of the onHand same as the inventory
@@ -29,28 +36,41 @@ function AddInventoryForm() {
       })
       .then((res) => {
         setIsLoading(false);
-        setSeverity("success");
         if (res.status === 201) {
-          setMessage(res.data.message);
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+          });
+
           // re-trigger api to get products with updated inventory
           setReload((prev) => !prev);
+
           // reset form
           resetForms();
+
           // reset selected
           updateSelected(null);
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
 
         if (!err.response)
-          setMessage(
-            "Something went wrong, please refresh your browser and try again"
-          );
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong, please refresh your browser and try again"
+              )
+            );
+          });
         else if (err.response.status === 401) history.push("/unathorized");
         else if (err.response.status === 403) history.push("/forbidden");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   };
 

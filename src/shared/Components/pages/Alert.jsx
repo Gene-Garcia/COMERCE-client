@@ -2,23 +2,17 @@
  * This component is only instantiated or called once, however, it is capable of
  * appearing (when an error message is set) and disappearing (when the user clicks the x button).
  *
- * The value used by this component is provided by the AlertContext, and using it
- * must go through the useAlert which creates the AlertContext and returns the state variables
+ * The value used by this component is provided by the newly implemented Alert Reducer through
+ * Redux. Additionally, the setMessage and setSeverity usage of components are wrapped in a batch() function
+ * to avoid 2 different renders.
  *
  */
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useAlert from "../../../hooks/useAlert";
 import { setMessage } from "../../../redux/Alert/AlertAction";
 
 function Alert() {
-  const {
-    message: messageOld,
-    setMessage: setMessageOld,
-    severity: severityOld,
-  } = useAlert();
-
   // redux
   const message = useSelector((state) => state.ALERT.message);
   const severity = useSelector((state) => state.ALERT.severity);

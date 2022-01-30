@@ -3,13 +3,19 @@ import { SellerContainer } from "../../../../../../../../../shared/Components/pa
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import axios from "../../../../../../../../../shared/caller";
 import { useManageInventory } from "../../../../../../../../../hooks/useManage";
-import useAlert from "../../../../../../../../../hooks/useAlert";
 import InventoryTable from "./ProductTable/InventoryTable";
 import ProductInventories from "./SelectedProduct/ProductInventories";
 import AddInventoryForm from "./SelectedProduct/AddInventoryForm";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../redux/Alert/AlertAction";
 
 function Inventory({ history }) {
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
+
   const { updateProducts, setLoading, selected, reload } = useManageInventory();
 
   useEffect(() => {
@@ -22,17 +28,24 @@ function Inventory({ history }) {
           setLoading(false);
         })
         .catch((err) => {
-          console.error(err);
           setLoading(false);
-          setSeverity("error");
 
           if (!err.response)
-            setMessage(
-              "Something went wrong. Please refresh your browser and try again."
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again."
+                )
+              );
+            });
           else if (err.response.status === 401) history.push("/unathorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

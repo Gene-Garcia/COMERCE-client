@@ -1,17 +1,21 @@
 import React, { useState } from "react";
+import { batch, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import useAlert from "../../../../../../../hooks/useAlert";
 import { useShoppingCart } from "../../../../../../../hooks/useCart";
-import ButtonBase, {
-  FormButton,
-} from "../../../../../../../shared/Components/button/ButtonBase";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
+import ButtonBase from "../../../../../../../shared/Components/button/ButtonBase";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
 function CartItem({ data }) {
   const history = useHistory();
 
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
+
   const { cartId, productId, item, retailPrice, quantity, image } = data;
   const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
 
@@ -19,26 +23,38 @@ function CartItem({ data }) {
   const [loading, setLoading] = useState(false);
 
   /* API function to delete this cart */
-  // implement loading button
   async function removeFromCart(cId) {
     setLoading(true);
     await axios
       .delete(`/api/cart/remove/${cId}`)
       .then((res) => {
         if (res.status === 200) {
-          setSeverity("success");
-          setMessage(res.data.message);
+          setLoading(false);
+
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+          });
+
           removeCartItem(res.data.removedCart);
         }
       })
       .catch((err) => {
-        setSeverity("error");
-        if (!err.response) setMessage("Something went wrong. Try again later.");
+        setLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again later."));
+          });
         else if (err.response.status === 403) history.push("/forbidden");
         else if (err.response.status === 401) history.push("/unauthorized");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
-    setLoading(false);
   }
 
   return (
