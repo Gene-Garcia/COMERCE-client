@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { useShoppingCart } from "../../../../../hooks/useCart";
-import useCheckout from "../../../../../hooks/useCheckout";
 import { formatDate } from "../../../../../shared/utils/date";
 import {
   displayPaymentInfo,
@@ -11,7 +10,7 @@ import { getShipmentETAs } from "../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
 import axios from "../../../../../shared/caller";
 import { useHistory } from "react-router";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
@@ -24,23 +23,20 @@ function ReviewDetails() {
   // redux
   const dispatch = useDispatch();
 
-  // checkout context
-  const {
-    toggledPayment,
-
-    shippingDetails,
-    paymentDetails,
-    paymentMethod,
-
-    loading,
-    setLoading,
-  } = useCheckout();
+  // reduc checkout reducer states
+  const toggledPayment = useSelector((s) => s.CHECKOUT.toggledPayment);
+  const shippingDetails = useSelector((s) => s.CHECKOUT.shippingDetails);
+  const paymentDetails = useSelector((s) => s.CHECKOUT.paymentDetails);
+  const paymentMethod = useSelector((s) => s.CHECKOUT.paymentMethod);
 
   // shopping cart context
   const { shippingFee, subTotal, grandTotal, items } = useShoppingCart();
 
   // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
+
+  // loading state
+  const [loading, setLoading] = useState(false);
 
   // API request to current checkout
   async function placeOrder() {
