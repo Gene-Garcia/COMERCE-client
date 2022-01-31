@@ -10,7 +10,6 @@ import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
 import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
-import { CheckoutProvider } from "../../../context/CheckoutContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
@@ -42,19 +41,17 @@ const App = () => {
       <ProductPaginationProvider>
         <CartCountProvider>
           <ShoppingCartProvider>
-            <CheckoutProvider>
-              <OrdersProvider>
-                <RateProvider>
-                  <SellerRegistrationProvider>
-                    <ManageProductProvider>
-                      <ManageInventoryProvider>
-                        <AppContent />
-                      </ManageInventoryProvider>
-                    </ManageProductProvider>
-                  </SellerRegistrationProvider>
-                </RateProvider>
-              </OrdersProvider>
-            </CheckoutProvider>
+            <OrdersProvider>
+              <RateProvider>
+                <SellerRegistrationProvider>
+                  <ManageProductProvider>
+                    <ManageInventoryProvider>
+                      <AppContent />
+                    </ManageInventoryProvider>
+                  </ManageProductProvider>
+                </SellerRegistrationProvider>
+              </RateProvider>
+            </OrdersProvider>
           </ShoppingCartProvider>
         </CartCountProvider>
       </ProductPaginationProvider>
