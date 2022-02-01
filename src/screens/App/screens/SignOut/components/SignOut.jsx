@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
-import { useGetCartCount } from "../../../../../hooks/useCart";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../redux/Alert/AlertAction";
+import { clearCartCount } from "../../../../../redux/ShoppingCart/ShoppingCartAction";
 import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
   // redux
   const dispatch = useDispatch();
-
-  const { setCartCount } = useGetCartCount();
 
   useEffect(() => {
     async function signOut() {
@@ -21,9 +19,11 @@ function SignOut({ history }) {
         .then((res) => {
           clearUserPersistData();
 
-          setCartCount(0);
+          // setCartCount(0);
 
           batch(() => {
+            dispatch(clearCartCount());
+
             dispatch(setSeverity("success"));
             dispatch(setMessage("Sign Out Success"));
           });

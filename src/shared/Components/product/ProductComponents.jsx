@@ -7,8 +7,9 @@
 
 import React, { useState } from "react";
 import { batch, useDispatch } from "react-redux";
-import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
+import { useAddToCart } from "../../../hooks/useCart";
 import { setMessage, setSeverity } from "../../../redux/Alert/AlertAction";
+import { incrementCartCount } from "../../../redux/ShoppingCart/ShoppingCartAction";
 import { formatPrice } from "../../utils/price";
 import { ProductButton } from "../button/ButtonBase";
 
@@ -165,19 +166,18 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
   // redux
   const dispatch = useDispatch();
 
-  const { setCartCount } = useGetCartCount();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function success(res) {
-    // manually increment by one, because we assume that the add to cart was a success
-    setCartCount((p) => p + 1);
-
     batch(() => {
+      // manually increment by one, because we assume that the add to cart was a success
+      dispatch(incrementCartCount());
+
       dispatch(setSeverity("success"));
       dispatch(setMessage("Item added to your cart."));
     });
-    setIsLoading(false);
+
+    setLoading(false);
   }
 
   function failed(err) {
@@ -186,7 +186,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
       dispatch(setMessage("Error encountered in adding item to your cart."));
     });
 
-    setIsLoading(false);
+    setLoading(false);
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
@@ -214,7 +214,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
         hierarchy="secondary"
         text="Add to Cart"
         textColor="text-gray-600"
-        isLoading={isLoading}
+        isLoading={loading}
         Icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
           </svg>
         }
         onClick={() => {
-          setIsLoading(true);
+          setLoading(true);
           addToCartClick();
         }}
         size={style.toUpperCase() === "SHOWCASE" ? "LARGE" : "REGULAR"}
