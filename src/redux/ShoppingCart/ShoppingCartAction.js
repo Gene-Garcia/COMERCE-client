@@ -1,3 +1,5 @@
+import { cartCounterReducer } from "./ShoppingCartReducer";
+
 const shoppingCartActionTypes = {
   LOAD_CART_ITEMS: "LOAD_CART_ITEMS",
 
@@ -85,6 +87,20 @@ const resetToDefault = () => {
   };
 };
 
+// cart counter actions
+const updateCartCount = (cartCount) => {
+  return {
+    type: shoppingCartActionTypes.UPDATE_CART_COUNT,
+    payload: cartCounterReducer,
+  };
+};
+
+const clearCartCount = () => {
+  return {
+    type: shoppingCartActionTypes.CLEAR_CART_COUNT,
+  };
+};
+
 export {
   shoppingCartActionTypes,
   loadCartItems,
@@ -97,4 +113,6 @@ export {
   computeCheckoutPricing,
   determineCheckoutable,
   resetToDefault,
+  updateCartCount,
+  clearCartCount,
 };
