@@ -16,6 +16,8 @@ const shoppingCartActionTypes = {
   DETERMINE_CHECKOUTABLE: "DETERMINE_CHECKOUTABLE",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 
+  SET_LOADING: "SET_LOADING",
+
   // Cart count actions
   UPDATE_CART_COUNT: "UPDATE_CART_COUNT",
   INCREMENT_CART_COUNT: "INCREMENT_CART_COUNT",
@@ -88,6 +90,13 @@ const resetToDefault = () => {
   };
 };
 
+const setLoading = (isLoading) => {
+  return {
+    type: shoppingCartActionTypes.SET_LOADING,
+    payload: isLoading,
+  };
+};
+
 // cart counter actions
 const updateCartCount = (cartCount) => {
   return {
@@ -121,6 +130,7 @@ export {
   determineCheckoutable,
   resetToDefault,
   updateCartCount,
+  setLoading,
   incrementCartCount,
   clearCartCount,
 };

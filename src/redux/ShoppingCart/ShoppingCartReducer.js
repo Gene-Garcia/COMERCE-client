@@ -21,6 +21,9 @@ const initial = {
 
   // variable that tells on whether the user is able to proceed for checkout. If not, the buttton for checkout page will not be displayed
   checkoutable: false,
+
+  // loading state
+  loading: false,
 };
 
 const shoppingCartReducer = (state = initial, { type, payload }) => {
@@ -123,6 +126,9 @@ const shoppingCartReducer = (state = initial, { type, payload }) => {
 
     case types.RESET_TO_DEFAULT:
       return { ...initial };
+
+    case types.SET_LOADING:
+      return { ...state, loading: payload };
 
     default:
       return { ...state };
