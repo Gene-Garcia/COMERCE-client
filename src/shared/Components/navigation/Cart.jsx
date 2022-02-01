@@ -2,22 +2,24 @@
  * The cart component is the link going through the user's cart, and
  * displays the current logged in user's number of cart items.
  *
- * The number of cart items is determine through an API call, then the CartContext's cart count
- * state variable will be changed. It then casuses the div in this component
- * that uses that state variable to be re-rendered with the new cart count.
- *
+ * The number of cart items is determine through an API call, then the CartCounter
+ * redux cart count state variable will be changed. It then
+ * casuses the div in this component that uses that state
+ * variable to be re-rendered with the new cart count.
  */
 
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchCartCount, useGetCartCount } from "../../../hooks/useCart";
+import { fetchCartCount } from "../../../hooks/useCart";
+import { updateCartCount } from "../../../redux/ShoppingCart/ShoppingCartAction";
 
 function Cart() {
-  const { cartCount, setCartCount } = useGetCartCount();
+  // redux
+  const dispatch = useDispatch();
 
   /* Every time this component is rendered, it will always create an API call to set the number of cart items and set it to the CartContext state variable */
   useEffect(() => {
-    fetchCartCount((count) => setCartCount(count));
+    fetchCartCount((count) => dispatch(updateCartCount(count)));
   }, []);
 
   return (
@@ -40,9 +42,19 @@ function Cart() {
         />
       </svg>
 
-      <div className="font-semibold text-sm">{cartCount}</div>
+      <>
+        <CartCount />
+      </>
     </Link>
   );
 }
 
 export default Cart;
+
+// single resp. prin.
+const CartCount = () => {
+  // redux cart counter
+  const cartCount = useSelector((state) => state.CART_COUNT);
+
+  return <div className="font-semibold text-sm">{cartCount}</div>;
+};

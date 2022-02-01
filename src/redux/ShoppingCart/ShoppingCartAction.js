@@ -91,7 +91,7 @@ const resetToDefault = () => {
 const updateCartCount = (cartCount) => {
   return {
     type: shoppingCartActionTypes.UPDATE_CART_COUNT,
-    payload: cartCounterReducer,
+    payload: cartCount,
   };
 };
 
