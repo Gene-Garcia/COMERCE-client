@@ -7,12 +7,16 @@ import manageProductReducer from "./Seller/ManageProduct/ManageProductReducer";
 import paginationReducer from "./Pagination/PaginationReducer";
 import rateOrderReducer from "./RateOrder/RateOrderReducer";
 import sellerRegistrationReducer from "./Seller/SellerRegistration/SellerRegistrationReducer";
-import shoppingCartReducer from "./ShoppingCart/ShoppingCartReducer";
+import shoppingCartReducer, {
+  cartCounterReducer,
+} from "./ShoppingCart/ShoppingCartReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
 
   PAGINATION: paginationReducer,
+
+  CART_COUNT: cartCounterReducer,
 
   CHECKOUT: checkoutReducer,
   SHOPPING_CART: shoppingCartReducer,
