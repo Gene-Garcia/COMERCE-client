@@ -8,7 +8,6 @@ import {
 import route from "../route";
 import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
-import { CartCountProvider } from "../../../context/CartCountContext";
 import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
 import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
@@ -39,21 +38,19 @@ const App = () => {
       <Alert />
 
       <ProductPaginationProvider>
-        <CartCountProvider>
-          <ShoppingCartProvider>
-            <OrdersProvider>
-              <RateProvider>
-                <SellerRegistrationProvider>
-                  <ManageProductProvider>
-                    <ManageInventoryProvider>
-                      <AppContent />
-                    </ManageInventoryProvider>
-                  </ManageProductProvider>
-                </SellerRegistrationProvider>
-              </RateProvider>
-            </OrdersProvider>
-          </ShoppingCartProvider>
-        </CartCountProvider>
+        <ShoppingCartProvider>
+          <OrdersProvider>
+            <RateProvider>
+              <SellerRegistrationProvider>
+                <ManageProductProvider>
+                  <ManageInventoryProvider>
+                    <AppContent />
+                  </ManageInventoryProvider>
+                </ManageProductProvider>
+              </SellerRegistrationProvider>
+            </RateProvider>
+          </OrdersProvider>
+        </ShoppingCartProvider>
       </ProductPaginationProvider>
     </Router>
   );

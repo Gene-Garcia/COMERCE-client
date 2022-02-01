@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import CartCountContext from "../context/CartCountContext";
 import ShoppingCartContext from "../context/ShoppingCartContext";
 import axios from "../shared/caller";
 
@@ -33,21 +32,6 @@ function useAddToCart(productId, callbackSuccess, callbackFailed) {
   return {
     addToCartClick,
   };
-}
-
-/*
- * This function uses and creates the context of Cart.
- * It returns the values or state variables embedded in that context
- *
- * This achieves code cleanliness when a component will use the CartContext.
- *
- * It only needs to use this method to access the state variables, instead of
- * importing the CartContext and the useContext, and initiating it
- */
-function useGetCartCount() {
-  const { cartCount, setCartCount } = useContext(CartCountContext);
-
-  return { cartCount, setCartCount };
 }
 
 /*
@@ -99,4 +83,4 @@ function useShoppingCart() {
   };
 }
 
-export { useAddToCart, useGetCartCount, fetchCartCount, useShoppingCart };
+export { useAddToCart, fetchCartCount, useShoppingCart };

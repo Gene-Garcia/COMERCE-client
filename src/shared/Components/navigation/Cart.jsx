@@ -9,6 +9,7 @@
  */
 
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchCartCount } from "../../../hooks/useCart";
 import { updateCartCount } from "../../../redux/ShoppingCart/ShoppingCartAction";
