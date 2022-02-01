@@ -18,6 +18,7 @@ const shoppingCartActionTypes = {
 
   // Cart count actions
   UPDATE_CART_COUNT: "UPDATE_CART_COUNT",
+  INCREMENT_CART_COUNT: "INCREMENT_CART_COUNT",
   CLEAR_CART_COUNT: "CLEAR_CART_COUNT",
 };
 
@@ -95,6 +96,12 @@ const updateCartCount = (cartCount) => {
   };
 };
 
+const incrementCartCount = () => {
+  return {
+    type: shoppingCartActionTypes.INCREMENT_CART_COUNT,
+  };
+};
+
 const clearCartCount = () => {
   return {
     type: shoppingCartActionTypes.CLEAR_CART_COUNT,
@@ -114,5 +121,6 @@ export {
   determineCheckoutable,
   resetToDefault,
   updateCartCount,
+  incrementCartCount,
   clearCartCount,
 };

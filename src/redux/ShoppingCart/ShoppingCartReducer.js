@@ -146,6 +146,9 @@ const cartCounterReducer = (state = 0, { type, payload }) => {
     case types.UPDATE_CART_COUNT:
       return payload;
 
+    case types.INCREMENT_CART_COUNT:
+      return state + 1;
+
     case types.CLEAR_CART_COUNT:
       return 0;
 
