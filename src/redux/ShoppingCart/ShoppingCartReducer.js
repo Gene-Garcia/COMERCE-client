@@ -147,7 +147,7 @@ const cartCounterReducer = (state = 0, { type, payload }) => {
       return payload;
 
     case types.CLEAR_CART_COUNT:
-      return cartCount;
+      return 0;
 
     default:
       return state;
