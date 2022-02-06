@@ -19,7 +19,7 @@ import { resetToDefault as resetCheckoutToDefault } from "../../../../../redux/C
 import {
   checkoutAllCartItems,
   loadCartItems,
-  setShoppingCartLoading,
+  setLoading as setShoppingCartLoading,
   resetToDefault as resetShoppingCartToDefault,
 } from "../../../../../redux/ShoppingCart/ShoppingCartAction";
 
@@ -55,6 +55,7 @@ function Checkout({ history }) {
           if (res.status === 200) {
             batch(() => {
               dispatch(loadCartItems(res.data.products));
+              dispatch()
               dispatch(checkoutAllCartItems());
               dispatch(setShoppingCartLoading(false));
             });

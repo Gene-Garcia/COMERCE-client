@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import ShoppingCartContext from "../context/ShoppingCartContext";
 import axios from "../shared/caller";
 
 /*

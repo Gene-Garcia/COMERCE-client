@@ -25,7 +25,7 @@ function CartCheckout({ editable }) {
 
       {/* items */}
       <div className="mt-6 flex flex-col gap-y-3">
-        <RenderCheckoutItems />
+        <RenderCheckoutItems editable={editable} />
       </div>
 
       <>
@@ -42,7 +42,7 @@ export default CartCheckout;
 
 /* single responsibility principle */
 
-const RenderCheckoutItems = () => {
+const RenderCheckoutItems = ({ editable }) => {
   // redux shopping cart reducer and state
   const cartItems = useSelector((state) => state.SHOPPING_CART.cartItems);
 
