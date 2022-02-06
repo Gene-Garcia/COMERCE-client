@@ -49,38 +49,4 @@ async function fetchCartCount(cb) {
     .catch((err) => cb(0)); // raises and http error when there is no user logged in, or server-client encoutered any error
 }
 
-/*
- *
- *
- */
-function useShoppingCart() {
-  const {
-    loading,
-    setLoading,
-    state: { items, subTotal, shippingFee, grandTotal, checkoutable },
-    loadCartItems,
-    modifyQuantity,
-    addToCheckout,
-    removeFromCheckout,
-    removeCartItem,
-    resetToDefault,
-  } = useContext(ShoppingCartContext);
-
-  return {
-    loading,
-    setLoading,
-    items,
-    subTotal,
-    shippingFee,
-    grandTotal,
-    checkoutable,
-    loadCartItems,
-    modifyQuantity,
-    addToCheckout,
-    removeFromCheckout,
-    removeCartItem,
-    resetToDefault,
-  };
-}
-
-export { useAddToCart, fetchCartCount, useShoppingCart };
+export { useAddToCart, fetchCartCount };
