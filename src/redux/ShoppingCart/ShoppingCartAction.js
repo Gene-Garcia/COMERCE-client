@@ -1,5 +1,3 @@
-import { cartCounterReducer } from "./ShoppingCartReducer";
-
 const shoppingCartActionTypes = {
   LOAD_CART_ITEMS: "LOAD_CART_ITEMS",
 

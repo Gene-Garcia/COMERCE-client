@@ -1,8 +1,7 @@
 import React from "react";
-import { useShoppingCart } from "../../../../../../hooks/useCart";
 import { PaymentCTA } from "../utils/CallToAction";
 import { formatPrice } from "../../../../../../shared/utils/price";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   loadPaymentDetails,
   nextStep,
@@ -19,8 +18,8 @@ function CashOnDelivery() {
     });
   };
 
-  // cart context
-  const { grandTotal } = useShoppingCart();
+  // redux shopping cart reducer and state
+  const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
 
   return (
     <div className="space-y-8">

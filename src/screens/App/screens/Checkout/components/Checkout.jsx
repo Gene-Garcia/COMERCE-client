@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useShoppingCart } from "../../../../../hooks/useCart";
 import axios from "../../../../../shared/caller";
 import Title from "../../../../../shared/Components/pages/Title";
 import useQuery from "../../../../../hooks/useQuery";
@@ -17,6 +16,12 @@ import {
   setSeverity,
 } from "../../../../../redux/Alert/AlertAction";
 import { resetToDefault as resetCheckoutToDefault } from "../../../../../redux/Checkout/CheckoutAction";
+import {
+  checkoutAllCartItems,
+  loadCartItems,
+  setShoppingCartLoading,
+  resetToDefault as resetShoppingCartToDefault,
+} from "../../../../../redux/ShoppingCart/ShoppingCartAction";
 
 /*
  * The checkout method is able to receive checkouted product through the url parameter.
@@ -35,14 +40,8 @@ function Checkout({ history }) {
   // redux
   const dispatch = useDispatch();
 
-  // shopping cart context is empty
-  const {
-    loading,
-    setLoading,
-    loadCartItems,
-    addToCheckout,
-    resetToDefault: resetCartToDefault,
-  } = useShoppingCart();
+  // redux shopping cart reducer and states
+  const shoppingCartLoading = useSelector((s) => s.SHOPPING_CART.loading);
 
   // to get URL stored in product id
   const query = useQuery();
@@ -54,17 +53,17 @@ function Checkout({ history }) {
         .post(`/api/cart/products`, { products })
         .then((res) => {
           if (res.status === 200) {
-            loadCartItems(res.data.products);
-            addToCheckout(false); //just basically sets all found items into checkout true, also includes computation on prices
-            setLoading(false);
+            batch(() => {
+              dispatch(loadCartItems(res.data.products));
+              dispatch(checkoutAllCartItems());
+              dispatch(setShoppingCartLoading(false));
+            });
           }
         })
         .catch((err) => {
-          // redirect if forbidden or unauthorized
-          setLoading(false);
-
           if (!err.response)
             batch(() => {
+              dispatch(setShoppingCartLoading(false));
               dispatch(setSeverity("error"));
               dispatch(setMessage("Something went wrong. Please try again."));
             });
@@ -72,6 +71,7 @@ function Checkout({ history }) {
           else if (err.response.status === 401) history.push("/unauthorized");
           else
             batch(() => {
+              dispatch(setShoppingCartLoading(false));
               dispatch(setSeverity("error"));
               dispatch(setMessage(err.response.data.error));
             });
@@ -91,15 +91,11 @@ function Checkout({ history }) {
 
   // clean up onWillUnMount both checkout and shopping cart
   useEffect(() => {
-    return () => {
-      resetCartToDefault();
-
+    return () =>
       batch(() => {
         dispatch(resetCheckoutToDefault());
+        dispatch(resetShoppingCartToDefault());
       });
-
-      setLoading(true);
-    };
   }, []);
 
   return (
@@ -145,7 +141,11 @@ function Checkout({ history }) {
 
           {/* checkout summary */}
           <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
-            {loading ? <Loading /> : <CartCheckout editable={false} />}
+            {shoppingCartLoading ? (
+              <Loading />
+            ) : (
+              <CartCheckout editable={false} />
+            )}
           </div>
         </div>
       </Container>

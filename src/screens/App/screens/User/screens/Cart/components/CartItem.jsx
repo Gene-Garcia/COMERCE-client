@@ -1,32 +1,41 @@
 import React, { useState } from "react";
 import { batch, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
+import {
+  checkoutThisItem,
+  computeCheckoutPricing,
+  decreaseThisItemQuantity,
+  determineCheckoutable,
+  increaseThisItemQuantity,
+  removeThisItemFromCart,
+  uncheckoutThisItem,
+} from "../../../../../../../redux/ShoppingCart/ShoppingCartAction";
 import ButtonBase from "../../../../../../../shared/Components/button/ButtonBase";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
 function CartItem({ data }) {
+  // product data from props
+  const { cartId, productId, item, retailPrice, quantity, image } = data;
+
   const history = useHistory();
 
   // redux
   const dispatch = useDispatch();
 
-  const { cartId, productId, item, retailPrice, quantity, image } = data;
-  const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
-
   // loading state for the remove from cart button
   const [loading, setLoading] = useState(false);
 
   /* API function to delete this cart */
-  async function removeFromCart(cId) {
+  async function removeFromCart(cartId) {
     setLoading(true);
+
     await axios
-      .delete(`/api/cart/remove/${cId}`)
+      .delete(`/api/cart/remove/${cartId}`)
       .then((res) => {
         if (res.status === 200) {
           setLoading(false);
@@ -34,9 +43,13 @@ function CartItem({ data }) {
           batch(() => {
             dispatch(setSeverity("success"));
             dispatch(setMessage(res.data.message));
-          });
 
-          removeCartItem(res.data.removedCart);
+            dispatch(removeThisItemFromCart(res.data.removedCart));
+            // re-compute prices because checkout items changed
+            dispatch(computeCheckoutPricing());
+            // checkoutable re-processed because the user has checkout an item(s)
+            dispatch(determineCheckoutable());
+          });
         }
       })
       .catch((err) => {
@@ -83,7 +96,13 @@ function CartItem({ data }) {
             <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
             <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
               <button
-                onClick={() => modifyQuantity(false, productId)}
+                onClick={() =>
+                  batch(() => {
+                    dispatch(decreaseThisItemQuantity(productId));
+                    // re-compute prices because checkout items changed
+                    dispatch(computeCheckoutPricing());
+                  })
+                }
                 className="transition w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
               >
                 <svg
@@ -107,7 +126,13 @@ function CartItem({ data }) {
               </div>
 
               <button
-                onClick={() => modifyQuantity(true, productId)}
+                onClick={() =>
+                  batch(() => {
+                    dispatch(increaseThisItemQuantity(productId));
+                    // re-compute prices because checkout items changed
+                    dispatch(computeCheckoutPricing());
+                  })
+                }
                 className="w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
               >
                 <svg
@@ -130,7 +155,15 @@ function CartItem({ data }) {
 
           <div className="flex flex-row flex-wrap gap-x-3 gap-y-1 ">
             <ButtonBase
-              onClick={() => addToCheckout(true, productId)}
+              onClick={() =>
+                batch(() => {
+                  dispatch(checkoutThisItem(productId));
+                  // re-compute prices because checkout items changed
+                  dispatch(computeCheckoutPricing());
+                  // checkoutable re-processed because the user has checkout an item(s)
+                  dispatch(determineCheckoutable());
+                })
+              }
               text="Add to Checkout"
               rootSpacing="py-1 px-4"
               rootDesign="w-max

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useShoppingCart } from "../../../../../hooks/useCart";
 import { formatDate } from "../../../../../shared/utils/date";
 import {
   displayPaymentInfo,
@@ -29,8 +28,11 @@ function ReviewDetails() {
   const paymentDetails = useSelector((s) => s.CHECKOUT.paymentDetails);
   const paymentMethod = useSelector((s) => s.CHECKOUT.paymentMethod);
 
-  // shopping cart context
-  const { shippingFee, subTotal, grandTotal, items } = useShoppingCart();
+  // redux shopping cart reducer and states
+  const shippingFee = useSelector((s) => s.SHOPPING_CART.shippingDetails);
+  const subTotal = useSelector((s) => s.SHOPPING_CART.subTotal);
+  const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
+  const cartItems = useSelector((s) => s.SHOPPING_CART.cartItems);
 
   // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
@@ -46,7 +48,7 @@ function ReviewDetails() {
     // data needed: items, shippingDetails, paymentMethod, paymentDetails
     await axios
       .post("/api/order/place", {
-        items,
+        cartItems,
         shippingFee,
         shippingDetails,
         paymentMethod,

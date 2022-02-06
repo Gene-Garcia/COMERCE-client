@@ -1,5 +1,10 @@
 import React from "react";
-import { useShoppingCart } from "../../../hooks/useCart";
+import { batch, useDispatch } from "react-redux";
+import {
+  computeCheckoutPricing,
+  determineCheckoutable,
+  uncheckoutThisItem,
+} from "../../../redux/ShoppingCart/ShoppingCartAction";
 import { formatPrice } from "../../utils/price";
 
 /*
@@ -11,8 +16,11 @@ import { formatPrice } from "../../utils/price";
  * an cannot be removed
  */
 function CheckoutItem({ data, editable }) {
+  // item data from props
   const { productId, item, retailPrice, quantity, image } = data;
-  const { removeFromCheckout } = useShoppingCart();
+
+  // redux
+  const dispatch = useDispatch();
 
   /* Configuration if the checkouted items are editable. True in Cart, False in Checkout */
   const removerPosition = editable ? "absolute" : "hidden";
@@ -23,7 +31,15 @@ function CheckoutItem({ data, editable }) {
         className={`${removerPosition} z-20 w-full rounded bg-gradient-to-br from-my-accent via-my-accent-tone to-my-accent-tint opacity-0 transition duration-200 ease-linear group-hover:opacity-100 group-hover:bg-opacity-50`}
       >
         <button
-          onClick={() => removeFromCheckout(productId)}
+          onClick={() =>
+            batch(() => {
+              dispatch(uncheckoutThisItem(productId));
+              // re-compute prices because checkout items changed
+              dispatch(computeCheckoutPricing());
+              // checkoutable re-processed because the user has checkout an item(s)
+              dispatch(determineCheckoutable());
+            })
+          }
           className="w-full h-12 font-medium text-base text-white"
         >
           Remove from checkout
