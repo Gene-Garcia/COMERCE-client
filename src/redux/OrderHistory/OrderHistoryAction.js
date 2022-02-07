@@ -2,7 +2,7 @@
 const orderHistoryActionTypes = {
   LOAD_ORDERS: "LOAD_ORDERS",
   SET_SELECTED_ORDERS: "SET_SELECTED_ORDERS",
-  UPDATE_LOADING: "UPDATE_LOADING ",
+  SET_LOADING: "SET_LOADING ",
 };
 
 // Action
@@ -20,9 +20,9 @@ const setSelectedOrder = (order) => {
   };
 };
 
-const updateLoading = (isLoading) => {
+const setLoading = (isLoading) => {
   return {
-    type: orderHistoryActionTypes.UPDATE_LOADING,
+    type: orderHistoryActionTypes.SET_LOADING,
     payload: isLoading,
   };
 };
@@ -30,4 +30,4 @@ const updateLoading = (isLoading) => {
 // NEEDS COMPUTE SUB_TOTAL
 // NEEDS GET ORDER BY ID
 
-export { orderHistoryActionTypes, loadOrders, setSelectedOrder, updateLoading };
+export { orderHistoryActionTypes, loadOrders, setSelectedOrder, setLoading };

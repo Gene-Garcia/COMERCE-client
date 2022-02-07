@@ -14,7 +14,7 @@ const orderHistoryReducer = (state = initial, { type, action }) => {
     case types.SET_SELECTED_ORDERS:
       return { ...state, selectedOrder: action };
 
-    case types.UPDATE_LOADING:
+    case types.SET_LOADING:
       return { ...state, loading: action };
 
     default:
