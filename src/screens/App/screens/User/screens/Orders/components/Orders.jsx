@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import useOrders from "../../../../../../../hooks/useOrders";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import Loading from "../../../../../../../shared/Loading/Loading";
@@ -7,11 +6,16 @@ import OrderDetails from "./OrderDetails";
 import OrderLinks from "./OrderLinks";
 import axios from "../../../../../../../shared/caller";
 import useQuery from "../../../../../../../hooks/useQuery";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
+import {
+  loadOrders,
+  setLoading,
+  setSelectedOrder,
+} from "../../../../../../../redux/OrderHistory/OrderHistoryAction";
 
 function Orders({ history }) {
   // query to get parameter in url
@@ -20,9 +24,8 @@ function Orders({ history }) {
   // redux
   const dispatch = useDispatch();
 
-  // orders context
-  const { loading, setLoading, setOrdersWrapper, setSelectedOrder } =
-    useOrders();
+  // redux orders reducer & states
+  const loading = useSelector((s) => s.ORDER_HISTORY.loading);
 
   // use effect to fetch all the user's order. also includes validation if there is a logged in user
   useEffect(() => {
@@ -31,27 +34,33 @@ function Orders({ history }) {
         .get("/api/order/orders")
         .then((res) => {
           if (res.status === 200) {
-            setOrdersWrapper(res.data.orders);
+            const orders = res.data.orders;
+            const orderId = query.get("oid");
 
-            // determine if there is oid parameter
-            if (query.get("oid"))
-              setSelectedOrder(
-                res.data.orders.find((order) => order._id == query.get("oid"))
-              );
-            // no oid so set a default
-            else
-              setSelectedOrder(
-                res.data.orders.length > 0 ? res.data.orders[0] : null
-              );
+            batch(() => {
+              dispatch(loadOrders(orders));
 
-            setLoading(false);
+              // determine if there is orderId {oId} parameter
+              if (orderId)
+                dispatch(
+                  setSelectedOrder(orders.find((order) => order._id == orderId))
+                );
+              // no oid so set a default
+              else
+                dispatch(
+                  setSelectedOrder(
+                    orders.length > 0 ? res.data.orders[0] : null
+                  )
+                );
+
+              dispatch(setLoading(false));
+            });
           }
         })
         .catch((err) => {
-          setLoading(false);
-
           if (!err.response)
             batch(() => {
+              dispatch(setLoading(false));
               dispatch(setSeverity("error"));
               dispatch(setMessage("Something went wrong. Please try again."));
             });
@@ -59,6 +68,7 @@ function Orders({ history }) {
           else if (err.response.status === 403) history.push("/unauthorized");
           else
             batch(() => {
+              dispatch(setLoading(false));
               dispatch(setSeverity("error"));
               dispatch(setMessage(err.response.data.error));
             });
@@ -68,11 +78,17 @@ function Orders({ history }) {
     getOrders();
   }, []);
 
+  // IMPLEMENT CLEANUP
+  useEffect(() => {
+    return () => {};
+  });
+
   return (
     <>
       <Title title="User Orders" />
 
       <Container xSpacing="p-4 sm:px-8 lg:px-14 xl:px-16">
+        {/* RELOCATE LOADING TO THE COMPONENTS TO IMPLEMENT SINGLE RESPONSIBILITY PRINCIPLE */}
         {loading ? (
           <Loading />
         ) : (

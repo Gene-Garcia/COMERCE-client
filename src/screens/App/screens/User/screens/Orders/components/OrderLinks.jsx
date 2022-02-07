@@ -1,11 +1,10 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import useOrders from "../../../../../../../hooks/useOrders";
+import { setSelectedOrder } from "../../../../../../../redux/OrderHistory/OrderHistoryAction";
 import { formatDate } from "../../../../../../../shared/utils/date";
 
 function OrderLinks() {
-  const { orders } = useOrders();
-
   return (
     <div className="p-7 sm:p-5 lg:p-7">
       <div className="flex flex-row justify-between flex-wrap items-center gap-x-6 mb-6">
@@ -17,53 +16,42 @@ function OrderLinks() {
 
       {/* link buttons */}
       <div className="flex flex-row md:flex-col flex-wrap md:flex-wrap-none justify-between gap-2 sm:gap-5">
-        {orders.map((e) => (
-          <OrderLink
-            key={e._id}
-            id={e._id}
-            date={e.orderDate}
-            status={e.status}
-          />
-        ))}
+        <RenderOrders />
       </div>
     </div>
   );
 }
 export default OrderLinks;
 
-function OrderLink({ id, date, status }) {
+function OrderLink({ order }) {
   const history = useHistory();
-  // Orders context
-  const { getOrderById, setSelectedOrder } = useOrders();
 
-  const selectOrder = () => {
-    setSelectedOrder(getOrderById(id));
-  };
+  // redux
+  const dispatch = useDispatch();
 
   return (
     <div
       className="group flex flex-row items-center justify-between"
-      onClick={selectOrder}
+      onClick={() => dispatch(setSelectedOrder(order))}
     >
       {/* id and date */}
       <div className="flex-grow">
         <p className="transition duration-200 font-medium text-sm text-gray-700 group-hover:text-my-accent">
-          {id}
+          {order._id}
         </p>
 
         <p className="font-semibold text-sm text-gray-300">
-          {formatDate(date)}
+          {formatDate(order.orderDate)}
         </p>
 
-        {status.toLowerCase() === "review" ? (
+        {/* rate button which redirects user to rate this unrated or for review product */}
+        {order.status.toUpperCase() === "REVIEW" && (
           <button
             className="mt-1 bg-gray-200 px-2.5 py-1 rounded text-sm font-medium text-gray-800 transition duration-200 ease-linear hover:bg-blue-200"
             onClick={() => history.push("/user/orders/rate")}
           >
             Rate
           </button>
-        ) : (
-          <></>
         )}
       </div>
 
@@ -87,3 +75,18 @@ function OrderLink({ id, date, status }) {
     </div>
   );
 }
+
+/* singple responsibility principle components */
+
+const RenderOrders = () => {
+  // redux order reducer & state
+  const orders = useSelector((s) => s.ORDER_HISTORY.orders);
+
+  return (
+    <>
+      {orders.map((order) => (
+        <OrderLink key={order._id} order={order} />
+      ))}
+    </>
+  );
+};

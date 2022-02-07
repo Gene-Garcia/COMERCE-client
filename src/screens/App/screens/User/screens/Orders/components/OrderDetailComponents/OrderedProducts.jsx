@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useOrders from "../../../../../../../../hooks/useOrders";
 import { formatPrice } from "../../../../../../../../shared/utils/price";
 
 function OrderedProducts() {
-  const { order, loading } = useOrders();
+  // redux order reducer & states
+  const loading = useSelector((s = s.ORDER_HISTORY.loading));
+  const order = useSelector((s = s.ORDER_HISTORY.selectedOrder));
 
   return (
     <>
       {loading || !order ? (
-        <></>
+        <>Loading...</>
       ) : (
         <div className="inline-flex gap-x-6 pb-5 overflow-auto w-full">
           {order.orderedProducts.map((e) => (
