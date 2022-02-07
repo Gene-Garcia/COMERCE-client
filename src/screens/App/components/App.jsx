@@ -37,17 +37,15 @@ const App = () => {
       <Alert />
 
       <ProductPaginationProvider>
-        <OrdersProvider>
-          <RateProvider>
-            <SellerRegistrationProvider>
-              <ManageProductProvider>
-                <ManageInventoryProvider>
-                  <AppContent />
-                </ManageInventoryProvider>
-              </ManageProductProvider>
-            </SellerRegistrationProvider>
-          </RateProvider>
-        </OrdersProvider>
+        <RateProvider>
+          <SellerRegistrationProvider>
+            <ManageProductProvider>
+              <ManageInventoryProvider>
+                <AppContent />
+              </ManageInventoryProvider>
+            </ManageProductProvider>
+          </SellerRegistrationProvider>
+        </RateProvider>
       </ProductPaginationProvider>
     </Router>
   );
