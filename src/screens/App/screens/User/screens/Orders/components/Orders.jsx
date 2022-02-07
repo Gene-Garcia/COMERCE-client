@@ -42,17 +42,18 @@ function Orders({ history }) {
               dispatch(loadOrders(orders));
 
               // determine if there is orderId {oId} parameter
-              if (orderId)
+              if (orderId) {
                 dispatch(
                   setSelectedOrder(orders.find((order) => order._id == orderId))
                 );
-              // no oid so set a default
-              else
+              } else {
+                // no oid so set a default
                 dispatch(
                   setSelectedOrder(
                     orders.length > 0 ? res.data.orders[0] : null
                   )
                 );
+              }
 
               dispatch(setLoading(false));
             });
@@ -84,7 +85,7 @@ function Orders({ history }) {
     return () => {
       dispatch(resetOrderHistoryToDefault());
     };
-  });
+  }, []);
 
   return (
     <>
