@@ -17,6 +17,9 @@ const orderHistoryReducer = (state = initial, { type, payload }) => {
     case types.SET_LOADING:
       return { ...state, loading: payload };
 
+    case types.RESET_TO_DEFAULT:
+      return { ...initial };
+
     default:
       return { ...state };
   }

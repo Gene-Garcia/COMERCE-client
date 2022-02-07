@@ -13,6 +13,7 @@ import {
 } from "../../../../../../../redux/Alert/AlertAction";
 import {
   loadOrders,
+  resetToDefault as resetOrderHistoryToDefault,
   setLoading,
   setSelectedOrder,
 } from "../../../../../../../redux/OrderHistory/OrderHistoryAction";
@@ -80,7 +81,9 @@ function Orders({ history }) {
 
   // IMPLEMENT CLEANUP
   useEffect(() => {
-    return () => {};
+    return () => {
+      dispatch(resetOrderHistoryToDefault());
+    };
   });
 
   return (

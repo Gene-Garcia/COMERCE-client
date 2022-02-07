@@ -3,6 +3,7 @@ const orderHistoryActionTypes = {
   LOAD_ORDERS: "LOAD_ORDERS",
   SET_SELECTED_ORDERS: "SET_SELECTED_ORDERS",
   SET_LOADING: "SET_LOADING ",
+  RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
 // Action
@@ -27,7 +28,16 @@ const setLoading = (isLoading) => {
   };
 };
 
-// NEEDS COMPUTE SUB_TOTAL
-// NEEDS GET ORDER BY ID
+const resetToDefault = () => {
+  return {
+    type: orderHistoryActionTypes.RESET_TO_DEFAULT,
+  };
+};
 
-export { orderHistoryActionTypes, loadOrders, setSelectedOrder, setLoading };
+export {
+  orderHistoryActionTypes,
+  loadOrders,
+  setSelectedOrder,
+  setLoading,
+  resetToDefault,
+};
