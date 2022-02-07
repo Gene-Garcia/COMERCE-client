@@ -8,7 +8,6 @@ import {
 import route from "../route";
 import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
-import { OrdersProvider } from "../../../context/OrdersContext";
 import { RateProvider } from "../../../context/RateContext";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";

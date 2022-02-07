@@ -1,10 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import InformationBody from "./InformationBody";
 
 function ShipmentInformation() {
   // redux order reducer & states
-  const loading = useSelector((s = s.ORDER_HISTORY.loading));
-  const order = useSelector((s = s.ORDER_HISTORY.selectedOrder));
+  const loading = useSelector((s) => s.ORDER_HISTORY.loading);
+  const order = useSelector((s) => s.ORDER_HISTORY.selectedOrder);
 
   return (
     <>

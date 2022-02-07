@@ -84,9 +84,11 @@ const RenderOrders = () => {
 
   return (
     <>
-      {orders.map((order) => (
-        <OrderLink key={order._id} order={order} />
-      ))}
+      {orders.length > 0 ? (
+        orders.map((order) => <OrderLink key={order._id} order={order} />)
+      ) : (
+        <>Loading...</>
+      )}
     </>
   );
 };

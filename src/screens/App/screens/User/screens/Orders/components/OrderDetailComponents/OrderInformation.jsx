@@ -5,8 +5,8 @@ import InformationBody from "./InformationBody";
 
 function OrderInformation() {
   // redux order reducer & states
-  const loading = useSelector((s = s.ORDER_HISTORY.loading));
-  const order = useSelector((s = s.ORDER_HISTORY.selectedOrder));
+  const loading = useSelector((s) => s.ORDER_HISTORY.loading);
+  const order = useSelector((s) => s.ORDER_HISTORY.selectedOrder);
 
   return (
     <>
