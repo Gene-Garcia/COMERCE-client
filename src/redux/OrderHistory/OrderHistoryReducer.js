@@ -3,19 +3,19 @@ import { orderHistoryActionTypes as types } from "./OrderHistoryAction";
 const initial = {
   orders: [],
   selectedOrder: null,
-  loading: false,
+  loading: true,
 };
 
-const orderHistoryReducer = (state = initial, { type, action }) => {
+const orderHistoryReducer = (state = initial, { type, payload }) => {
   switch (type) {
     case types.LOAD_ORDERS:
-      return { ...state, orders: action };
+      return { ...state, orders: payload };
 
     case types.SET_SELECTED_ORDERS:
-      return { ...state, selectedOrder: action };
+      return { ...state, selectedOrder: payload };
 
     case types.SET_LOADING:
-      return { ...state, loading: action };
+      return { ...state, loading: payload };
 
     default:
       return { ...state };
