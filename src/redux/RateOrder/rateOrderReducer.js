@@ -6,6 +6,7 @@ const initial = {
   /*  */
   rating: -1,
   comment: "",
+  loading: true,
 };
 
 const rateOrderReducer = (state = initial, { type, payload }) => {
@@ -42,6 +43,9 @@ const rateOrderReducer = (state = initial, { type, payload }) => {
 
     case types.ON_COMMENT_CHANGE:
       return { ...state, comment: payload };
+
+    case types.UPDATE_LOADING:
+      return { ...state, loading: payload };
 
     case types.RESET_VALUES:
       return { ...initial };
