@@ -1,15 +1,25 @@
 import React from "react";
-import useCheckout from "../../../../../../hooks/useCheckout";
-import { useShoppingCart } from "../../../../../../hooks/useCart";
 import { PaymentCTA } from "../utils/CallToAction";
 import { formatPrice } from "../../../../../../shared/utils/price";
+import { batch, useDispatch, useSelector } from "react-redux";
+import {
+  loadPaymentDetails,
+  nextStep,
+} from "../../../../../../redux/Checkout/CheckoutAction";
 
 function CashOnDelivery() {
-  // Checkout context
-  const { loadPaymentDetails, nextStep } = useCheckout();
+  // redux
+  const dispatch = useDispatch();
 
-  // cart context
-  const { grandTotal } = useShoppingCart();
+  const loadCashOnDelivery = () => {
+    batch(() => {
+      dispatch(loadPaymentDetails("COD", null));
+      dispatch(nextStep(false, 3, "RD"));
+    });
+  };
+
+  // redux shopping cart reducer and state
+  const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
 
   return (
     <div className="space-y-8">
@@ -31,13 +41,7 @@ function CashOnDelivery() {
         </p>
       </div>
 
-      <PaymentCTA
-        submit={() => {
-          loadPaymentDetails("COD", null);
-          nextStep(false, 3, "RD");
-        }}
-        type="COD"
-      />
+      <PaymentCTA submit={loadCashOnDelivery} type="COD" />
     </div>
   );
 }

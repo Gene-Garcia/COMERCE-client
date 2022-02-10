@@ -1,6 +1,10 @@
 import React from "react";
-import useAlert from "../../../../../../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
 import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
 import { TOACTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
@@ -56,8 +60,8 @@ These Terms and Conditions shall be governed by and construed in accordance with
 Our Support Address: http://www.astudioofourown.com`;
 
 function TermsOfAgreement() {
-  // alert message
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // seller context
   const { proceedToNextStep, updateTOA } = useSellerRegistration();
@@ -65,8 +69,12 @@ function TermsOfAgreement() {
   // submit button
   const agreeTOA = () => {
     updateTOA(true);
-    setSeverity("information");
-    setMessage("You have agreed with COMERCE terms of agreement.");
+
+    batch(() => {
+      dispatch(setSeverity("information"));
+      dispatch(setMessage("You have agreed with COMERCE terms of agreement."));
+    });
+
     proceedToNextStep(1);
   };
 

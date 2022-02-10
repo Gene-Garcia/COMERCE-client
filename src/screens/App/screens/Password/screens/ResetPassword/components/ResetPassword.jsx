@@ -4,11 +4,19 @@ import useQuery from "../../../../../../../hooks/useQuery";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { Link } from "react-router-dom";
-import useAlert from "../../../../../../../hooks/useAlert";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function ResetPassword({ history }) {
+  // redux
+  const dispatch = useDispatch();
+
+  // query
   const query = useQuery();
   const token = query.get("token");
 
@@ -22,16 +30,27 @@ function ResetPassword({ history }) {
         setIsLoading(false);
         resetForms();
 
-        setSeverity("success");
-        setMessage(res.data.message);
+        batch(() => {
+          dispatch(setSeverity("success"));
+          dispatch(setMessage(res.data.message));
+        });
 
         history.push("/login/user");
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
-        if (!err.response) setMessage("Something went wrong. Try again.");
-        else setMessage(err.response.data.error);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again."));
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 
@@ -63,8 +82,6 @@ function ResetPassword({ history }) {
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, ResetPasswordAPI);
-
-  const { setMessage, setSeverity } = useAlert();
 
   return (
     <div className="">

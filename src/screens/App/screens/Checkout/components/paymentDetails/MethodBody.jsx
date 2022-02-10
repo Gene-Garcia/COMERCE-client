@@ -1,12 +1,14 @@
 import React from "react";
-import useCheckout from "../../../../../../hooks/useCheckout";
+import { useDispatch } from "react-redux";
+import { togglePaymentOption } from "../../../../../../redux/Checkout/CheckoutAction";
 
 function PaymentMethodBody({ id, children, active }) {
-  const { togglePaymentOption } = useCheckout();
+  // redux
+  const dispatch = useDispatch();
 
   return (
     <button
-      onClick={() => togglePaymentOption(id)}
+      onClick={() => dispatch(togglePaymentOption(id))}
       className={
         (active ? `border-my-accent` : `border-gray-200`) +
         ` transition duration-300 px-7 py-3 md:py-0 border-b-4 font-semibold text-gray-600 flex items-center justify-center`

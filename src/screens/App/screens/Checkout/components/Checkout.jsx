@@ -1,18 +1,27 @@
 import React, { useEffect } from "react";
-import { useShoppingCart } from "../../../../../hooks/useCart";
 import axios from "../../../../../shared/caller";
 import Title from "../../../../../shared/Components/pages/Title";
 import useQuery from "../../../../../hooks/useQuery";
-import useAlert from "../../../../../hooks/useAlert";
 import CartCheckout from "../../../../../shared/Components/purchase/CartCheckout";
 import Container from "../../../../../shared/Components/pages/Container";
-import useCheckout from "../../../../../hooks/useCheckout";
 import StepIndicators from "./utils/StepIndicators";
 import ShippingDetails from "./ShippingDetails";
 import PaymentDetails from "./PaymentDetails";
 import ReviewDetails from "./ReviewDetails";
 import { parseUrlForProducts } from "../../../../../shared/Route/urlParser";
 import Loading from "../../../../../shared/Loading/Loading";
+import { batch, useDispatch, useSelector } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
+import { resetToDefault as resetCheckoutToDefault } from "../../../../../redux/Checkout/CheckoutAction";
+import {
+  checkoutAllCartItems,
+  loadCartItems,
+  setLoading as setShoppingCartLoading,
+  resetToDefault as resetShoppingCartToDefault,
+} from "../../../../../redux/ShoppingCart/ShoppingCartAction";
 
 /*
  * The checkout method is able to receive checkouted product through the url parameter.
@@ -28,23 +37,14 @@ import Loading from "../../../../../shared/Loading/Loading";
  *
  */
 function Checkout({ history }) {
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
-  // shopping cart context is empty
-  const {
-    loading,
-    setLoading,
-    loadCartItems,
-    addToCheckout,
-    resetToDefault: resetCartToDefault,
-  } = useShoppingCart();
+  // redux shopping cart reducer and states
+  const shoppingCartLoading = useSelector((s) => s.SHOPPING_CART.loading);
 
   // to get URL stored in product id
   const query = useQuery();
-
-  // checkout context, mainly uses the toggled step for this component
-  const { toggledStep, resetToDefault: resetCheckoutToDefault } = useCheckout();
 
   // populate the checkouted products from url value
   useEffect(() => {
@@ -53,36 +53,50 @@ function Checkout({ history }) {
         .post(`/api/cart/products`, { products })
         .then((res) => {
           if (res.status === 200) {
-            loadCartItems(res.data.products);
-            addToCheckout(false); //just basically sets all found items into checkout true, also includes computation on prices
-            setLoading(false);
+            batch(() => {
+              dispatch(loadCartItems(res.data.products));
+              dispatch()
+              dispatch(checkoutAllCartItems());
+              dispatch(setShoppingCartLoading(false));
+            });
           }
         })
         .catch((err) => {
-          // redirect if forbidden or unauthorized
-
-          setLoading(false);
-          setSeverity("error");
           if (!err.response)
-            setMessage("Something went wrong. Please try again.");
-          else setMessage(err.response.data.error);
+            batch(() => {
+              dispatch(setShoppingCartLoading(false));
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
+          else if (err.response.status === 403) history.push("/forbidden");
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else
+            batch(() => {
+              dispatch(setShoppingCartLoading(false));
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 
+    // verifies if the url is valid or have the ordered products query
     if (!query.get("products")) {
-      setSeverity("error");
-      setMessage("Invalid URL");
+      batch(() => {
+        dispatch(setSeverity("information"));
+        dispatch(setMessage("Invalid URL"));
+      });
+
       history.push("/user/cart");
     } else getProducts(parseUrlForProducts(query.get("products")));
   }, []);
 
   // clean up onWillUnMount both checkout and shopping cart
   useEffect(() => {
-    return () => {
-      resetCartToDefault();
-      resetCheckoutToDefault();
-      setLoading(true);
-    };
+    return () =>
+      batch(() => {
+        dispatch(resetCheckoutToDefault());
+        dispatch(resetShoppingCartToDefault());
+      });
   }, []);
 
   return (
@@ -121,25 +135,18 @@ function Checkout({ history }) {
               <StepIndicators />
             </div>
 
-            {/* we render all step components and just set them as hidden, even though we can use 
-            function that only renders a specific step. We do this so that when we progress to step
-            and choose to view finished step, the data there is still present */}
-            <div className={toggledStep === "SD" ? "block" : "hidden"}>
-              <ShippingDetails />
-            </div>
-
-            <div className={toggledStep === "PD" ? "block" : "hidden"}>
-              <PaymentDetails />
-            </div>
-
-            <div className={toggledStep === "RD" ? "block" : "hidden"}>
-              <ReviewDetails />
+            <div>
+              <CheckoutStepsContainer />
             </div>
           </div>
 
           {/* checkout summary */}
           <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
-            {loading ? <Loading /> : <CartCheckout editable={false} />}
+            {shoppingCartLoading ? (
+              <Loading />
+            ) : (
+              <CartCheckout editable={false} />
+            )}
           </div>
         </div>
       </Container>
@@ -147,3 +154,28 @@ function Checkout({ history }) {
   );
 }
 export default Checkout;
+
+// Single Resp. Prin. - whenever toggledStep changes, only this component re-renders
+const CheckoutStepsContainer = () => {
+  // redux: checkout reducer
+  const toggledStep = useSelector((state) => state.CHECKOUT.toggledStep);
+
+  return (
+    <>
+      {/* we render all step components and just set them as hidden, even though we can use 
+    function that only renders a specific step. We do this so that when we progress to step
+    and choose to view finished step, the data there is still present */}
+      <div className={toggledStep === "SD" ? "block" : "hidden"}>
+        <ShippingDetails />
+      </div>
+
+      <div className={toggledStep === "PD" ? "block" : "hidden"}>
+        <PaymentDetails />
+      </div>
+
+      <div className={toggledStep === "RD" ? "block" : "hidden"}>
+        <ReviewDetails />
+      </div>
+    </>
+  );
+};

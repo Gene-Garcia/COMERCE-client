@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import hero from "../../../../../shared/images/dashboard-hero.svg";
 import axios from "../../../../../shared/caller";
-import useAlert from "../../../../../hooks/useAlert";
 import Loading from "../../../../../shared/Loading/Loading";
 import { getCookieByKey } from "../../../../../shared/Auth/Login";
 import { SellerContainer } from "../../../../../shared/Components/pages/Container";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 
 function Dashboard({ history }) {
-  // alert
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // loading state
   const [loading, setLoading] = useState(false);
@@ -30,17 +34,19 @@ function Dashboard({ history }) {
         })
         .catch((err) => {
           setLoading(false);
-          setSeverity("error");
 
-          if (!err.response) {
-            setMessage("Something went wrong. Please try again.");
-            history.push("/login/seller");
-          } else if (err.response.status === 401) history.push("/unathorized");
+          if (!err.response)
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
+          else if (err.response.status === 401) history.push("/unathorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else {
-            setMessage(err.response.data.error);
-            history.push("/login/seller");
-          }
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     };
 

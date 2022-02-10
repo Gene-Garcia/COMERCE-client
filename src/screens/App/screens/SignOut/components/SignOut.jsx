@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import useAlert from "../../../../../hooks/useAlert";
-import { useGetCartCount } from "../../../../../hooks/useCart";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
+import { clearCartCount } from "../../../../../redux/ShoppingCart/ShoppingCartAction";
 import { clearUserPersistData } from "../../../../../shared/Auth/Login";
 import axios from "../../../../../shared/caller";
 
 function SignOut({ history }) {
-  const { setMessage, setSeverity } = useAlert();
-  const { setCartCount } = useGetCartCount();
+  // redux
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function signOut() {
@@ -15,22 +19,32 @@ function SignOut({ history }) {
         .then((res) => {
           clearUserPersistData();
 
-          setCartCount(0);
+          // setCartCount(0);
 
-          setSeverity("success");
-          setMessage("Sign Out Success");
+          batch(() => {
+            dispatch(clearCartCount());
+
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Sign Out Success"));
+          });
 
           history.push("/login/user");
         })
         .catch((err) => {
           clearUserPersistData();
 
-          setSeverity("error");
           if (!err.response)
-            setMessage("Something went wrong. Please try again.");
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage("Something went wrong. Please try again."));
+            });
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

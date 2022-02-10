@@ -5,11 +5,16 @@ import Title from "../../../../../../../../../shared/Components/pages/Title";
 import ProductLinks from "./ProductLinks";
 import SelectedProduct from "./SelectedProduct";
 import axios from "../../../../../../../../../shared/caller";
-import useAlert from "../../../../../../../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../redux/Alert/AlertAction";
 
 function Rate({ history }) {
-  // display message
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
+
   // rate context
   const { loadProducts, setSelectedProduct, setLoading } = useRate();
 
@@ -19,28 +24,36 @@ function Rate({ history }) {
       await axios
         .get("/api/rate/unrated")
         .then((res) => {
-          setSeverity("success");
           if (res.status === 200) {
-            console.log(res.data.products);
             loadProducts(res.data.products);
 
             // set default selected
             setSelectedProduct(
               res.data.products.length > 0 ? res.data.products[0] : null
             );
+
             setLoading(false);
           }
         })
         .catch((err) => {
-          setSeverity("error");
           setLoading(false);
+
           if (!err.response)
-            setMessage(
-              "Something went wrong in fetching the products to rate. Please try again."
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong in fetching the products to rate. Please try again."
+                )
+              );
+            });
           else if (err.response.status === 401) history.push("/forbidden");
           else if (err.response.status === 403) history.push("/unauthorized");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

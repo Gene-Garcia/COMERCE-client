@@ -1,44 +1,73 @@
 import React, { useState } from "react";
+import { batch, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import useAlert from "../../../../../../../hooks/useAlert";
-import { useShoppingCart } from "../../../../../../../hooks/useCart";
-import ButtonBase, {
-  FormButton,
-} from "../../../../../../../shared/Components/button/ButtonBase";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
+import {
+  checkoutThisItem,
+  computeCheckoutPricing,
+  decreaseThisItemQuantity,
+  determineCheckoutable,
+  increaseThisItemQuantity,
+  removeThisItemFromCart,
+  uncheckoutThisItem,
+} from "../../../../../../../redux/ShoppingCart/ShoppingCartAction";
+import ButtonBase from "../../../../../../../shared/Components/button/ButtonBase";
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
 function CartItem({ data }) {
+  // product data from props
+  const { cartId, productId, item, retailPrice, quantity, image } = data;
+
   const history = useHistory();
 
-  const { setMessage, setSeverity } = useAlert();
-  const { cartId, productId, item, retailPrice, quantity, image } = data;
-  const { modifyQuantity, addToCheckout, removeCartItem } = useShoppingCart();
+  // redux
+  const dispatch = useDispatch();
 
   // loading state for the remove from cart button
   const [loading, setLoading] = useState(false);
 
   /* API function to delete this cart */
-  // implement loading button
-  async function removeFromCart(cId) {
+  async function removeFromCart(cartId) {
     setLoading(true);
+
     await axios
-      .delete(`/api/cart/remove/${cId}`)
+      .delete(`/api/cart/remove/${cartId}`)
       .then((res) => {
         if (res.status === 200) {
-          setSeverity("success");
-          setMessage(res.data.message);
-          removeCartItem(res.data.removedCart);
+          setLoading(false);
+
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+
+            dispatch(removeThisItemFromCart(res.data.removedCart));
+            // re-compute prices because checkout items changed
+            dispatch(computeCheckoutPricing());
+            // checkoutable re-processed because the user has checkout an item(s)
+            dispatch(determineCheckoutable());
+          });
         }
       })
       .catch((err) => {
-        setSeverity("error");
-        if (!err.response) setMessage("Something went wrong. Try again later.");
+        setLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again later."));
+          });
         else if (err.response.status === 403) history.push("/forbidden");
         else if (err.response.status === 401) history.push("/unauthorized");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
-    setLoading(false);
   }
 
   return (
@@ -67,7 +96,13 @@ function CartItem({ data }) {
             <p className="mb-0.5 text-sm text-gray-400">Quantity</p>
             <div className="flex flex-row items-center justify-center rounded-md border w-28 h-8 ">
               <button
-                onClick={() => modifyQuantity(false, productId)}
+                onClick={() =>
+                  batch(() => {
+                    dispatch(decreaseThisItemQuantity(productId));
+                    // re-compute prices because checkout items changed
+                    dispatch(computeCheckoutPricing());
+                  })
+                }
                 className="transition w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
               >
                 <svg
@@ -91,7 +126,13 @@ function CartItem({ data }) {
               </div>
 
               <button
-                onClick={() => modifyQuantity(true, productId)}
+                onClick={() =>
+                  batch(() => {
+                    dispatch(increaseThisItemQuantity(productId));
+                    // re-compute prices because checkout items changed
+                    dispatch(computeCheckoutPricing());
+                  })
+                }
                 className="w-full h-full flex justify-center items-center group transition duration-150 ease-linear hover:bg-gray-100"
               >
                 <svg
@@ -114,7 +155,15 @@ function CartItem({ data }) {
 
           <div className="flex flex-row flex-wrap gap-x-3 gap-y-1 ">
             <ButtonBase
-              onClick={() => addToCheckout(true, productId)}
+              onClick={() =>
+                batch(() => {
+                  dispatch(checkoutThisItem(productId));
+                  // re-compute prices because checkout items changed
+                  dispatch(computeCheckoutPricing());
+                  // checkoutable re-processed because the user has checkout an item(s)
+                  dispatch(determineCheckoutable());
+                })
+              }
               text="Add to Checkout"
               rootSpacing="py-1 px-4"
               rootDesign="w-max

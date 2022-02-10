@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
 import axios from "../../../../../../../shared/caller";
-import { useShoppingCart } from "../../../../../../../hooks/useCart";
 import CartCheckout from "../../../../../../../shared/Components/purchase/CartCheckout";
 import CartItems from "./CartItems";
 import Container from "../../../../../../../shared/Components/pages/Container";
 import Title from "../../../../../../../shared/Components/pages/Title";
+import { batch, useDispatch } from "react-redux";
+import {
+  loadCartItems,
+  resetToDefault as resetShoppingCartToDefault,
+  setLoading,
+} from "../../../../../../../redux/ShoppingCart/ShoppingCartAction";
 
 function Cart({ history }) {
-  const { setLoading, loadCartItems, resetToDefault } = useShoppingCart();
+  // redux
+  const dispatch = useDispatch();
 
   // populate
   useEffect(() => {
@@ -16,15 +22,17 @@ function Cart({ history }) {
         .get("/api/cart/user")
         .then((res) => {
           if (res.status === 200) {
-            loadCartItems(res.data.cart);
-            // console.log(res.data.cart);
-            setLoading(false);
+            batch(() => {
+              dispatch(loadCartItems(res.data.cart));
+              dispatch(setLoading(false));
+            });
           }
         })
         .catch((err) => {
           if (!err.response) history.push("/login/user");
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
+          else console.log("ADD ALERT");
         });
     }
     getUserCart();
@@ -38,8 +46,10 @@ function Cart({ history }) {
    */
   useEffect(() => {
     return () => {
-      resetToDefault();
-      setLoading(true);
+      batch(() => {
+        dispatch(resetShoppingCartToDefault());
+        dispatch(setLoading(true));
+      });
     };
   }, []);
 

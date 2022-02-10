@@ -1,15 +1,22 @@
 import React from "react";
-import useCheckout from "../../../../../../hooks/useCheckout";
+import { batch, useDispatch } from "react-redux";
 import { useForm } from "../../../../../../hooks/useForm";
+import {
+  loadPaymentDetails,
+  nextStep,
+} from "../../../../../../redux/Checkout/CheckoutAction";
 import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
 import { PaymentCTA } from "../utils/CallToAction";
 
 function PayPal() {
-  const { loadPaymentDetails, nextStep } = useCheckout();
+  // redux
+  const dispatch = useDispatch();
 
   function loadPayPal() {
-    loadPaymentDetails("PP", values);
-    nextStep(false, 3, "RD");
+    batch(() => {
+      dispatch(loadPaymentDetails("PP", values));
+      dispatch(nextStep(false, 3, "RD"));
+    });
   }
 
   function validate(data, setErrors) {

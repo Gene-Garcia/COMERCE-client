@@ -6,8 +6,10 @@
  */
 
 import React, { useState } from "react";
-import useAlert from "../../../hooks/useAlert";
-import { useAddToCart, useGetCartCount } from "../../../hooks/useCart";
+import { batch, useDispatch } from "react-redux";
+import { useAddToCart } from "../../../hooks/useCart";
+import { setMessage, setSeverity } from "../../../redux/Alert/AlertAction";
+import { incrementCartCount } from "../../../redux/ShoppingCart/ShoppingCartAction";
 import { formatPrice } from "../../utils/price";
 import { ProductButton } from "../button/ButtonBase";
 
@@ -161,26 +163,33 @@ function ProductDescription({ desc, fullText }) {
  *
  */
 function ProductPurchase({ productId, size, style = "DEFAULT" }) {
-  const { setCartCount } = useGetCartCount();
+  // redux
+  const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function success(res) {
-    // manually increment by one, because we assume that the add to cart was a success
-    setCartCount((p) => p + 1);
-    setSeverity("success");
-    setMessage("Item added to your cart.");
-    setIsLoading(false);
+    batch(() => {
+      // manually increment by one, because we assume that the add to cart was a success
+      dispatch(incrementCartCount());
+
+      dispatch(setSeverity("success"));
+      dispatch(setMessage("Item added to your cart."));
+    });
+
+    setLoading(false);
   }
 
   function failed(err) {
-    setSeverity("error");
-    setMessage("Error encountered in adding item to your cart.");
-    setIsLoading(false);
+    batch(() => {
+      dispatch(setSeverity("error"));
+      dispatch(setMessage("Error encountered in adding item to your cart."));
+    });
+
+    setLoading(false);
   }
 
   const { addToCartClick } = useAddToCart(productId, success, failed);
-  const { setMessage, setSeverity } = useAlert();
 
   let theme;
   if (size === "large") theme = "text-md pt-2 px-6";
@@ -205,7 +214,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
         hierarchy="secondary"
         text="Add to Cart"
         textColor="text-gray-600"
-        isLoading={isLoading}
+        isLoading={loading}
         Icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +226,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
           </svg>
         }
         onClick={() => {
-          setIsLoading(true);
+          setLoading(true);
           addToCartClick();
         }}
         size={style.toUpperCase() === "SHOWCASE" ? "LARGE" : "REGULAR"}

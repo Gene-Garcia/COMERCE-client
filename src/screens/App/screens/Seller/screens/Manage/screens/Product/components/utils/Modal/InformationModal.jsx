@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { batch, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import useAlert from "../../../../../../../../../../../hooks/useAlert";
+
 import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../redux/Alert/AlertAction";
 import axios from "../../../../../../../../../../../shared/caller";
 import Loading from "../../../../../../../../../../../shared/Loading/Loading";
 import { formatDate } from "../../../../../../../../../../../shared/utils/date";
@@ -14,14 +19,18 @@ import { formatPrice } from "../../../../../../../../../../../shared/utils/price
  */
 
 function InformationModal() {
-  const { setMessage, setSeverity } = useAlert();
   const history = useHistory();
 
+  // redux
+  const dispatch = useDispatch();
+
   const { updateToggledModal, productId } = useManageProduct();
+
   const closeModal = () => updateToggledModal(false);
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     async function getProduct(id) {
       await axios
@@ -31,17 +40,24 @@ function InformationModal() {
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err.response);
           setLoading(false);
-          setSeverity("error");
 
           if (!err.response)
-            setMessage(
-              "Something went wrong. Please refresh your browser and try again."
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again."
+                )
+              );
+            });
           else if (err.response.status === 403) history.push("/forbidden");
           else if (err.response.status === 401) history.push("/unauthorized");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 

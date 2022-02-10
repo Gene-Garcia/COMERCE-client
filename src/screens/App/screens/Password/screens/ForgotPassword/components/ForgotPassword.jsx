@@ -1,12 +1,19 @@
 import React from "react";
-import useAlert from "../../../../../../../hooks/useAlert";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
-function ForgotPassword() {
+function ForgotPassword({ history }) {
+  // redux
+  const dispatch = useDispatch();
+
   // form hooks
   async function ForgotPasswordAPI() {
     await axios
@@ -14,15 +21,26 @@ function ForgotPassword() {
       .then((res) => {
         setIsLoading(false);
         resetForms();
-        setSeverity("success");
-        setMessage(res.data.message);
+
+        batch(() => {
+          dispatch(setSeverity("success"));
+          dispatch(setMessage(res.data.message));
+        });
       })
       .catch((err) => {
-        setSeverity("error");
         setIsLoading(false);
 
-        if (!err.response) setMessage("Something went wrong. Try again");
-        else setMessage(err.response.data.error);
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again"));
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 
@@ -48,9 +66,6 @@ function ForgotPassword() {
     isLoading,
     setIsLoading,
   } = useForm(intialState, intialState, validate, ForgotPasswordAPI);
-
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
 
   return (
     <div>

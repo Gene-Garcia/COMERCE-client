@@ -1,15 +1,23 @@
 import React from "react";
 import { useHistory } from "react-router";
-import useAlert from "../../../../../../../../../hooks/useAlert";
 import { useRate } from "../../../../../../../../../hooks/useRate";
 import { ProductCardDisplay } from "./utils/ProductCard";
 import ProductRating from "./utils/ProductRating";
 import axios from "../../../../../../../../../shared/caller";
 import { FormButton } from "../../../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../redux/Alert/AlertAction";
 
 function SelectedProduct() {
   // history
   const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
   // rate context
   // onCommentChange is a wrapper itself that destructures the event
   const {
@@ -24,16 +32,17 @@ function SelectedProduct() {
     setLoading,
   } = useRate();
 
-  // alert context
-  const { setSeverity, setMessage } = useAlert();
-
   // onClick submit function
   async function submitRatingForCurrent() {
     if (rating === -1) {
-      setSeverity("error");
-      setMessage(
-        "Select a rating for this product. You may hover on the stars."
-      );
+      batch(() => {
+        dispatch(setSeverity("error"));
+        dispatch(
+          setMessage(
+            "Select a rating for this product. You may hover on the stars."
+          )
+        );
+      });
     } else {
       const bodyData = {
         product: {
@@ -51,23 +60,37 @@ function SelectedProduct() {
         .then((res) => {
           // success
           if (res.status === 200) {
-            setMessage(res.data.message);
+            batch(() => {
+              dispatch(setSeverity("success"));
+              dispatch(setMessage(res.data.message));
+            });
+
             setProductToRated(selected.productId, selected.orderId);
+
             resetRateValuesToDefault();
+
             nextProductToRate();
+
             setLoading(false);
           }
         })
         .catch((err) => {
-          setSeverity("error");
-
           if (!err.response)
-            setMessage(
-              "We apologise something went wrong in saving your product rating. Please try again."
-            );
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "We apologise something went wrong in saving your product rating. Please try again."
+                )
+              );
+            });
           else if (err.response.status === 401) history.push("/forbidden");
           else if (err.response.status === 403) history.push("/unauthorized");
-          else setMessage(err.response.data.error);
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
   }

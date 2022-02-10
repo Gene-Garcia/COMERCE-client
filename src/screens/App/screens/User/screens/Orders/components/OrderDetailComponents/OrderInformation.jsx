@@ -1,15 +1,17 @@
 import React from "react";
-import useOrders from "../../../../../../../../hooks/useOrders";
+import { useSelector } from "react-redux";
 import { formatDate } from "../../../../../../../../shared/utils/date";
 import InformationBody from "./InformationBody";
 
 function OrderInformation() {
-  const { order, loading } = useOrders();
+  // redux order reducer & states
+  const loading = useSelector((s) => s.ORDER_HISTORY.loading);
+  const order = useSelector((s) => s.ORDER_HISTORY.selectedOrder);
 
   return (
     <>
       {loading || !order ? (
-        <></>
+        <>Loading...</>
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-24">
           {/* date ordered */}

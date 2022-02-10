@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import CartCountContext from "../context/CartCountContext";
-import ShoppingCartContext from "../context/ShoppingCartContext";
 import axios from "../shared/caller";
 
 /*
@@ -36,21 +33,6 @@ function useAddToCart(productId, callbackSuccess, callbackFailed) {
 }
 
 /*
- * This function uses and creates the context of Cart.
- * It returns the values or state variables embedded in that context
- *
- * This achieves code cleanliness when a component will use the CartContext.
- *
- * It only needs to use this method to access the state variables, instead of
- * importing the CartContext and the useContext, and initiating it
- */
-function useGetCartCount() {
-  const { cartCount, setCartCount } = useContext(CartCountContext);
-
-  return { cartCount, setCartCount };
-}
-
-/*
  * Intendeded to be used inside a useEffect hook.
  * This function makes an API call to get the user's number of cart items, 0 if no logged in user.
  * It will then pass that integer to the callback function.
@@ -65,38 +47,4 @@ async function fetchCartCount(cb) {
     .catch((err) => cb(0)); // raises and http error when there is no user logged in, or server-client encoutered any error
 }
 
-/*
- *
- *
- */
-function useShoppingCart() {
-  const {
-    loading,
-    setLoading,
-    state: { items, subTotal, shippingFee, grandTotal, checkoutable },
-    loadCartItems,
-    modifyQuantity,
-    addToCheckout,
-    removeFromCheckout,
-    removeCartItem,
-    resetToDefault,
-  } = useContext(ShoppingCartContext);
-
-  return {
-    loading,
-    setLoading,
-    items,
-    subTotal,
-    shippingFee,
-    grandTotal,
-    checkoutable,
-    loadCartItems,
-    modifyQuantity,
-    addToCheckout,
-    removeFromCheckout,
-    removeCartItem,
-    resetToDefault,
-  };
-}
-
-export { useAddToCart, useGetCartCount, fetchCartCount, useShoppingCart };
+export { useAddToCart, fetchCartCount };

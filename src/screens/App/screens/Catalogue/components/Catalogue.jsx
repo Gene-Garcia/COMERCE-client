@@ -3,13 +3,18 @@ import Title from "../../../../../shared/Components/pages/Title";
 import ProductSmall from "../../../../../shared/Components/product/ProductSmall";
 import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
-import useAlert from "../../../../../hooks/useAlert";
 import useProductPagination from "../../../../../hooks/useProductPagination";
 import Pagination from "../../../../../shared/Components/pagination/Pagination";
 import Filters from "./Filter/Filters";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 
 function Catalogue() {
-  const { setSeverity, setMessage } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // product pagination context
   const {
@@ -40,9 +45,15 @@ function Catalogue() {
             setLoading(false);
           }
         })
-        .catch((err) => {
-          setSeverity("error");
-          setMessage("Unable to load items. Refresh the page and try again.");
+        .catch(() => {
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Unable to load items. Refresh the page and try again."
+              )
+            );
+          });
         });
     }
 
@@ -60,9 +71,15 @@ function Catalogue() {
             setLoading(false);
           }
         })
-        .catch((err) => {
-          setSeverity("error");
-          setMessage("Unable to load items. Refresh the page and try again.");
+        .catch(() => {
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Unable to load items. Refresh the page and try again."
+              )
+            );
+          });
         });
     }
 
