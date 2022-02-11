@@ -29,7 +29,7 @@ function ReviewDetails() {
   const paymentMethod = useSelector((s) => s.CHECKOUT.paymentMethod);
 
   // redux shopping cart reducer and states
-  const shippingFee = useSelector((s) => s.SHOPPING_CART.shippingDetails);
+  const shippingFee = useSelector((s) => s.SHOPPING_CART.shippingFee);
   const subTotal = useSelector((s) => s.SHOPPING_CART.subTotal);
   const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
   const cartItems = useSelector((s) => s.SHOPPING_CART.cartItems);
@@ -48,7 +48,7 @@ function ReviewDetails() {
     // data needed: items, shippingDetails, paymentMethod, paymentDetails
     await axios
       .post("/api/order/place", {
-        cartItems,
+        items: cartItems,
         shippingFee,
         shippingDetails,
         paymentMethod,
@@ -66,6 +66,8 @@ function ReviewDetails() {
         }
       })
       .catch((err) => {
+        setLoading(false);
+
         if (!err.response)
           batch(() => {
             dispatch(setSeverity("error"));
