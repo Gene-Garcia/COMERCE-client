@@ -35,7 +35,7 @@ const rateOrderReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_NEXT_PRODUCT_TO_RATE:
       return {
         ...state,
-        selected: state.products.find((e) => e.rated === false),
+        selectedProduct: state.products.find((e) => e.rated === false),
       };
 
     case types.SET_RATING:
