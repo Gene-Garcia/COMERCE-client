@@ -12,6 +12,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../../redux/Alert/AlertAction";
 
+// change implementation
 function Alert() {
   // redux
   const message = useSelector((state) => state.ALERT.message);
@@ -56,3 +57,12 @@ function Alert() {
 }
 
 export default Alert;
+
+/*
+
+so the new implementation will be also a single responsibility principle
+
+render only a <AlertContainer /> in the <Alert/> whenever message is not empty
+then in the <AlertContainer /> add the setTimeout on a useffect only on onMount
+Also, add a cleanup to clearTimeout in the AlertContainer/>
+*/
