@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useRate } from "../../../../../../../../../../hooks/useRate";
+import { useDispatch } from "react-redux";
+import { setRating } from "../../../../../../../../../../redux/RateOrder/RateOrderAction";
 
 function ProductRating() {
-  // rate context
-  const { setRating } = useRate();
+  // redux
+  const dispatch = useDispatch();
 
   const [hoverStar, setHoverStar] = useState([
     false, // 1 rating
@@ -23,7 +24,7 @@ function ProductRating() {
 
     // find the index of the last true value, iterate through the array in reverse
     const lastIndex = reverseFindLastIndex();
-    setRating(lastIndex + 1);
+    dispatch(setRating(lastIndex + 1));
   }
 
   // a function the iterates the array of star to find the first true value-in the end
