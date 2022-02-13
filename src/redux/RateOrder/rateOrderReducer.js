@@ -36,6 +36,8 @@ const rateOrderReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         selectedProduct: state.products.find((e) => e.rated === false),
+        rating: -1,
+        comment: "",
       };
 
     case types.SET_RATING:

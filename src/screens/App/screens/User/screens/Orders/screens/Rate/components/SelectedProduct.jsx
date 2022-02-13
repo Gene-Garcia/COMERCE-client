@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useHistory } from "react-router";
 import { ProductCardDisplay } from "./utils/ProductCard";
 import ProductRating from "./utils/ProductRating";
@@ -11,13 +11,12 @@ import {
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import {
   onCommentChange,
-  resetValues as resetRateOrderToDefault,
   toggleNextProductToRate,
   updateLoading,
   updateProductRatingStatus,
 } from "../../../../../../../../../redux/RateOrder/RateOrderAction";
 
-function SelectedProduct() {
+const SelectedProduct = memo(() => {
   // redux rate order reducer & states
   const loading = useSelector((s) => s.RATE_ORDER.loading);
 
@@ -41,7 +40,7 @@ function SelectedProduct() {
       )}
     </>
   );
-}
+});
 export default SelectedProduct;
 
 /* single responsibility principle */

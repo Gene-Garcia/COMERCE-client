@@ -1,15 +1,15 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { ProductCardLink } from "./utils/ProductCard";
 
-function ProductLinks() {
+const ProductLinks = memo(() => {
   // redux rate reducer & state
   const loading = useSelector((s) => s.RATE_ORDER.loading);
 
   return (
     <>
       {loading ? (
-        <div className="p-3">Loading...</div>
+        <div className="px-5 xs:px-7 md:px-5 lg:px-7">Loading...</div>
       ) : (
         <div className="flex gap-2.5 flex-col">
           <RenderProductLinks />
@@ -17,7 +17,7 @@ function ProductLinks() {
       )}
     </>
   );
-}
+});
 export default ProductLinks;
 
 // single responsibility principle
