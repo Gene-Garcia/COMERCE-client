@@ -1,16 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
-import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
+import { loadBusinessDetails } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 
 function BusinessInfo() {
   // history
@@ -19,9 +19,10 @@ function BusinessInfo() {
   // redux
   const dispatch = useDispatch();
 
-  // seller context
-  const { loadBusinesssInformation, accountInformation } =
-    useSellerRegistration();
+  // redux seller registration reducer & state
+  const accountDetails = useSelector(
+    (state) => state.SELLER_REGISTRATION.accountDetails
+  );
 
   // file input on change
   const fileOnChange = (e) => {
@@ -33,22 +34,23 @@ function BusinessInfo() {
     // start the loading because axios call will start
     setIsLoading(true);
 
-    loadBusinesssInformation(values);
+    // unecessary
+    // dispatch(loadBusinessDetails(values));
 
     // build data
     const data = {
       businessData: {
-        ...values,
+        ...values, //business details
         // firstName: accountInformation.firstName,
         // lastName: accountInformation.lastName,
-        businessEmail: accountInformation.businessEmail,
+        businessEmail: accountDetails.businessEmail,
       },
 
-      email: accountInformation.ownerEmail,
+      email: accountDetails.ownerEmail,
       username: (
-        accountInformation.firstName + accountInformation.lastName
+        accountDetails.firstName + accountDetails.lastName
       ).toLowerCase(),
-      password: accountInformation.password,
+      password: accountDetails.password,
 
       userType: "SELLER",
     };

@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
-import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
+import { useDispatch, useSelector } from "react-redux";
+import { resetToDefault as resetSellerRegistrationToDefault } from "../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
 import BusinessInfo from "./steps/BusinessInfo";
 import TermsOfAgreement from "./steps/TOA";
 
 function SignUp() {
-  // seller registration context
-  const { activeStepId, resetToDefault } = useSellerRegistration();
+  // redux
+  const dispatch = useDispatch();
 
   // clean up once user leaves page
   useEffect(() => {
-    return () => resetToDefault();
+    return () => dispatch(resetSellerRegistrationToDefault());
   }, []);
 
   return (
@@ -25,17 +26,7 @@ function SignUp() {
 
         {/* content */}
         <div className="md:w-3/4 bg-white rounded-bl-lg md:rounded-l-none rounded-r-none xs:rounded-br-lg md:rounded-tr-lg p-5 md:p-6 lg:p-8">
-          <div className={`${activeStepId === 0 ? "block" : "hidden"}`}>
-            <TermsOfAgreement />
-          </div>
-
-          <div className={`${activeStepId === 1 ? "block" : "hidden"}`}>
-            <AccountInfo />
-          </div>
-
-          <div className={`${activeStepId === 2 ? "block" : "hidden"}`}>
-            <BusinessInfo />
-          </div>
+          <RegistrationContent />
         </div>
       </div>
     </div>
@@ -43,3 +34,28 @@ function SignUp() {
 }
 
 export default SignUp;
+
+// Single Responsibility Principle
+
+const RegistrationContent = () => {
+  // redux seller registration reducer & states
+  const activeStepId = useSelector(
+    (state) => state.SELLER_REGISTRATION.activeStepId
+  );
+
+  return (
+    <>
+      <div className={`${activeStepId === 0 ? "block" : "hidden"}`}>
+        <TermsOfAgreement />
+      </div>
+
+      <div className={`${activeStepId === 1 ? "block" : "hidden"}`}>
+        <AccountInfo />
+      </div>
+
+      <div className={`${activeStepId === 2 ? "block" : "hidden"}`}>
+        <BusinessInfo />
+      </div>
+    </>
+  );
+};
