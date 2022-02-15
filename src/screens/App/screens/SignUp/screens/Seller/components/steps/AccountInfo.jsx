@@ -5,7 +5,10 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
-import { proceedToNextStep } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import {
+  loadAccountDetails,
+  proceedToNextStep,
+} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
