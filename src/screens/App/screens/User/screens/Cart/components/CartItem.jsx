@@ -17,27 +17,32 @@ import ButtonBase from "../../../../../../../shared/Components/button/ButtonBase
 import { formatPrice } from "../../../../../../../shared/utils/price";
 import axios from "../../.././../../../../shared/caller";
 
-const CartItem = memo(
-  ({ cartId, productId, item, retailPrice, quantity, image }) => {
-    return (
-      <div className="flex flex-col sm:flex-row justify-start gap-3 lg:gap-6">
-        {/* image */}
-        <ProductImageContainer item={item} image={image} />
+const CartItem = ({
+  cartId,
+  productId,
+  item,
+  retailPrice,
+  quantity,
+  image,
+}) => {
+  return (
+    <div className="flex flex-col sm:flex-row justify-start gap-3 lg:gap-6">
+      {/* image */}
+      <ProductImageContainer item={item} image={image} />
 
-        {/* info */}
-        <div className="flex-grow w-4/5 flex flex-col gap-4 justify-between">
-          <ProductInformationContainer item={item} retailPrice={retailPrice} />
+      {/* info */}
+      <div className="flex-grow w-4/5 flex flex-col gap-4 justify-between">
+        <ProductInformationContainer item={item} retailPrice={retailPrice} />
 
-          <div className="space-y-6">
-            <ProductQuantityModifer quantity={quantity} productId={productId} />
+        <div className="space-y-6">
+          <ProductQuantityModifer quantity={quantity} productId={productId} />
 
-            <CartProductActionButtons cartId={cartId} productId={productId} />
-          </div>
+          <CartProductActionButtons cartId={cartId} productId={productId} />
         </div>
       </div>
-    );
-  }
-);
+    </div>
+  );
+};
 export default CartItem;
 
 /* single responsibility principle */

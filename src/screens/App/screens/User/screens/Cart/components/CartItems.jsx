@@ -76,7 +76,7 @@ const RenderCartItems = () => {
 
   return (
     <>
-      {cartItems.map((item) => (
+      {cartItems.map((item, i) => (
         <CartItem key={item.productId} {...item} />
       ))}
     </>
