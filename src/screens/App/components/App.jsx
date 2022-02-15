@@ -9,7 +9,6 @@ import route from "../route";
 import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
 import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
-import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
@@ -35,13 +34,11 @@ const App = () => {
       <Alert />
 
       <ProductPaginationProvider>
-        <SellerRegistrationProvider>
-          <ManageProductProvider>
-            <ManageInventoryProvider>
-              <AppContent />
-            </ManageInventoryProvider>
-          </ManageProductProvider>
-        </SellerRegistrationProvider>
+        <ManageProductProvider>
+          <ManageInventoryProvider>
+            <AppContent />
+          </ManageInventoryProvider>
+        </ManageProductProvider>
       </ProductPaginationProvider>
     </Router>
   );
