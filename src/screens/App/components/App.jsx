@@ -8,7 +8,6 @@ import {
 import route from "../route";
 import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
-import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
@@ -33,13 +32,11 @@ const App = () => {
       {/* Global message notification */}
       <Alert />
 
-      <ProductPaginationProvider>
-        <ManageProductProvider>
-          <ManageInventoryProvider>
-            <AppContent />
-          </ManageInventoryProvider>
-        </ManageProductProvider>
-      </ProductPaginationProvider>
+      <ManageProductProvider>
+        <ManageInventoryProvider>
+          <AppContent />
+        </ManageInventoryProvider>
+      </ManageProductProvider>
     </Router>
   );
 };
