@@ -11,6 +11,8 @@ const paginationActionTypes = {
   UPDATE_ITEMS_ORDER: "UPDATE_DATA_ORDER",
   UPDATE_SEARCH_FILTER: "UPDATE_SEARCH_FILTER",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
+
+  UPDATE_LOADING: "UPDATE_LOADING",
 };
 
 const loadPaginatedItems = (items) => {
@@ -78,6 +80,13 @@ const resetToDefault = () => {
   };
 };
 
+const updateLoading = (isLoading) => {
+  return {
+    type: paginationActionTypes.UPDATE_LOADING,
+    payload: isLoading,
+  };
+};
+
 export {
   paginationActionTypes,
   loadPaginatedItems,
@@ -90,4 +99,5 @@ export {
   updateItemsOrder,
   updateSearchFilter,
   resetToDefault,
+  updateLoading,
 };
