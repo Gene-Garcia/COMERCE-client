@@ -9,7 +9,7 @@ const manageInventoryTypes = {
 // Actions
 const loadProducts = (products) => {
   return {
-    type: manageInventoryTypes.loadProducts,
+    type: manageInventoryTypes.LOAD_PRODUCTS,
     payload: products,
   };
 };
