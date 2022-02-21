@@ -11,7 +11,6 @@ import Alert from "../../../shared/Components/pages/Alert";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
-import { ManageInventoryProvider } from "../../../context/ManageInventoryContext";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -31,9 +30,7 @@ const App = () => {
       {/* Global message notification */}
       <Alert />
 
-      <ManageInventoryProvider>
-        <AppContent />
-      </ManageInventoryProvider>
+      <AppContent />
     </Router>
   );
 };
