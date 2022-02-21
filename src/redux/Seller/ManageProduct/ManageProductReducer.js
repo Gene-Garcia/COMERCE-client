@@ -19,6 +19,9 @@ const manageProductReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_PRODUCT_MODAL:
       return { ...state, isModalOpen: payload };
 
+    case types.RESET_TO_DEFAULT:
+      return { ...initial };
+
     default:
       return { ...state };
   }

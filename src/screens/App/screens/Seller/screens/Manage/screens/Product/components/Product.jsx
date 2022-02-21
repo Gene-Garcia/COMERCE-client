@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetToDefault as resetManageProductToDefault } from "../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
@@ -9,6 +10,14 @@ import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
 
 const Product = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // clean up
+  useEffect(() => {
+    return () => dispatch(resetManageProductToDefault());
+  }, []);
+
   return (
     <>
       <InformationModalContainer />
