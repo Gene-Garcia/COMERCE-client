@@ -1,25 +1,32 @@
 import React from "react";
-import useAlert from "../../../../../../../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
 import { useForm } from "../../../../../../../../hooks/useForm";
-import useSellerRegistration from "../../../../../../../../hooks/useSellerRegistration";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
+import {
+  loadAccountDetails,
+  proceedToNextStep,
+} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
 
 function AccountInfo() {
-  // alert message
-  const { setMessage, setSeverity } = useAlert();
-
-  // seller context
-  const { proceedToNextStep, loadAccountInformation } = useSellerRegistration();
+  // redux
+  const dispatch = useDispatch();
 
   // submit function
-  const createAccountOnSubmit = () => {
-    loadAccountInformation(values);
-    setSeverity("information");
-    setMessage("We are now creating your seller account.");
-    proceedToNextStep(2);
-  };
+  const createAccountOnSubmit = () =>
+    batch(() => {
+      dispatch(loadAccountDetails(values));
+
+      dispatch(setSeverity("information"));
+      dispatch(setMessage("We are now creating your seller account."));
+
+      dispatch(proceedToNextStep(2));
+    });
 
   const init = {
     firstName: "",
@@ -29,7 +36,6 @@ function AccountInfo() {
     confirmEmail: "",
     password: "",
   };
-
   const validate = (data, setErrors) => {
     let temp = { ...errors };
 

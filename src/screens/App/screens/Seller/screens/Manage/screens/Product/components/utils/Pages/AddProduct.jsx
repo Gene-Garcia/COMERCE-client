@@ -1,43 +1,57 @@
 import React, { useEffect } from "react";
 import { useForm } from "../../../../../../../../../../../hooks/useForm";
-
 import axios from "../../../../../../../../../../../shared/caller";
-import useAlert from "../../../../../../../../../../../hooks/useAlert";
 import { useHistory } from "react-router-dom";
-import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import { InputFirst } from "../../../../../../../../../../../shared/Components/input/InputBase";
 import { EmbossedInput } from "../../../../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../redux/Alert/AlertAction";
+import { toggleProductSubPage } from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 
 function AddProduct() {
   const history = useHistory();
-  const { setMessage, setSeverity } = useAlert();
-  const { updateToggled } = useManageProduct();
 
-  // api call
+  // redux
+  const dispatch = useDispatch();
+
+  // API call
   const submitProductAPI = async () => {
     await axios
       .post("/api/product/upload", { data: values })
       .then((res) => {
         setIsLoading(false);
-        setSeverity("success");
-        if (res.status === 201) {
-          setMessage(res.data.message);
-          // return to overview
-          updateToggled("OVERVIEW");
-        }
+
+        if (res.status === 201)
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+
+            dispatch(toggleProductSubPage("OVERVIEW"));
+          });
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
 
         if (!err.response)
-          setMessage(
-            "Something went wrong. Please refresh your browser and try again"
-          );
-        else if (err.response.data.status === 403) history.push("/forbidden");
-        else if (err.response.data.status == 401) history.push("/unathorized");
-        else setMessage(err.response.data.error);
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh your browser and try again"
+              )
+            );
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status == 401) history.push("/unathorized");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   };
 

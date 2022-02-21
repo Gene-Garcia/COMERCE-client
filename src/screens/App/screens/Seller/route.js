@@ -2,6 +2,7 @@ import routes from "../../../../shared/Route/routes";
 import Dashboard from ".";
 
 import ManageSubRoute from "./screens/Manage/route";
+import ShipmentSubRoute from "./screens/Shipment/route";
 
 const route = {
   path: routes.SELLER.path,
@@ -10,6 +11,7 @@ const route = {
 
   subroutes: {
     MANAGE: ManageSubRoute,
+    SHIPMENT: ShipmentSubRoute,
   },
 };
 export default route;

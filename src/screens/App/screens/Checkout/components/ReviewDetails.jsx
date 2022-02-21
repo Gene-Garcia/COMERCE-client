@@ -1,7 +1,4 @@
-import React from "react";
-import useAlert from "../../../../../hooks/useAlert";
-import { useShoppingCart } from "../../../../../hooks/useCart";
-import useCheckout from "../../../../../hooks/useCheckout";
+import React, { useState } from "react";
 import { formatDate } from "../../../../../shared/utils/date";
 import {
   displayPaymentInfo,
@@ -12,31 +9,36 @@ import { getShipmentETAs } from "../../../../../shared/utils/shipping";
 import { ReviewCTA } from "./utils/CallToAction";
 import axios from "../../../../../shared/caller";
 import { useHistory } from "react-router";
+import { batch, useDispatch, useSelector } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
 
 function ReviewDetails() {
   // history
   const history = useHistory();
 
-  // checkout context
-  const {
-    toggledPayment,
+  // redux
+  const dispatch = useDispatch();
 
-    shippingDetails,
-    paymentDetails,
-    paymentMethod,
+  // reduc checkout reducer states
+  const toggledPayment = useSelector((s) => s.CHECKOUT.toggledPayment);
+  const shippingDetails = useSelector((s) => s.CHECKOUT.shippingDetails);
+  const paymentDetails = useSelector((s) => s.CHECKOUT.paymentDetails);
+  const paymentMethod = useSelector((s) => s.CHECKOUT.paymentMethod);
 
-    loading,
-    setLoading,
-  } = useCheckout();
-
-  // shopping cart context
-  const { shippingFee, subTotal, grandTotal, items } = useShoppingCart();
-
-  // alert context
-  const { setMessage, setSeverity } = useAlert();
+  // redux shopping cart reducer and states
+  const shippingFee = useSelector((s) => s.SHOPPING_CART.shippingFee);
+  const subTotal = useSelector((s) => s.SHOPPING_CART.subTotal);
+  const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
+  const cartItems = useSelector((s) => s.SHOPPING_CART.cartItems);
 
   // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
+
+  // loading state
+  const [loading, setLoading] = useState(false);
 
   // API request to current checkout
   async function placeOrder() {
@@ -46,7 +48,7 @@ function ReviewDetails() {
     // data needed: items, shippingDetails, paymentMethod, paymentDetails
     await axios
       .post("/api/order/place", {
-        items,
+        items: cartItems,
         shippingFee,
         shippingDetails,
         paymentMethod,
@@ -54,20 +56,32 @@ function ReviewDetails() {
       })
       .then((res) => {
         if (res.status === 200) {
-          setSeverity("success");
-          setMessage(res.data.message);
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+          });
+
           // no need to setLoading to false because we will redirect
           history.push("/user/orders");
         }
       })
       .catch((err) => {
-        setSeverity("error");
+        setLoading(false);
 
         if (!err.response)
-          setMessage("Unable to process your order. Try again later");
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage("Unable to process your order. Try again later")
+            );
+          });
         else if (err.response.data.status === 403) history.push("/forbidden");
         else if (err.response.data.status === 401) history.push("/unathorized");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 

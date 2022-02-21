@@ -2,16 +2,22 @@
  * This component is only instantiated or called once, however, it is capable of
  * appearing (when an error message is set) and disappearing (when the user clicks the x button).
  *
- * The value used by this component is provided by the AlertContext, and using it
- * must go through the useAlert which creates the AlertContext and returns the state variables
+ * The value used by this component is provided by the newly implemented Alert Reducer through
+ * Redux. Additionally, the setMessage and setSeverity usage of components are wrapped in a batch() function
+ * to avoid 2 different renders.
  *
  */
 
 import React from "react";
-import useAlert from "../../../hooks/useAlert";
+import { useDispatch, useSelector } from "react-redux";
+import { setMessage } from "../../../redux/Alert/AlertAction";
 
+// change implementation
 function Alert() {
-  const { message, setMessage, severity } = useAlert();
+  // redux
+  const message = useSelector((state) => state.ALERT.message);
+  const severity = useSelector((state) => state.ALERT.severity);
+  const dispatch = useDispatch();
 
   let color;
   if (severity === "error") color = "bg-red-100 border-red-500";
@@ -29,11 +35,7 @@ function Alert() {
       >
         <div className="text-gray-800 font-medium pr-6">{message}</div>
 
-        <button
-          onClick={() => {
-            setMessage("");
-          }}
-        >
+        <button onClick={() => dispatch(setMessage(""))}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -55,3 +57,12 @@ function Alert() {
 }
 
 export default Alert;
+
+/*
+
+so the new implementation will be also a single responsibility principle
+
+render only a <AlertContainer /> in the <Alert/> whenever message is not empty
+then in the <AlertContainer /> add the setTimeout on a useffect only on onMount
+Also, add a cleanup to clearTimeout in the AlertContainer/>
+*/

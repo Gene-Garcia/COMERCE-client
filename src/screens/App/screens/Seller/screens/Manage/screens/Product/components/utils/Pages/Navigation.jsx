@@ -1,21 +1,28 @@
 import React from "react";
-import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleProductSubPage } from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 
 function Navigation() {
-  const { updateToggled, toggled } = useManageProduct();
+  // redux
+  const dispatch = useDispatch();
+
+  // redux manage product reducer & states
+  const toggledProductSubPage = useSelector(
+    (state) => state.toggledProductSubPage
+  );
 
   return (
     <div className="px-2 inline-flex border-b border-gray-300 w-full gap-5">
       <Button
         text="Overview"
-        state={toggled === "OVERVIEW" ? "active" : "default"}
-        onClick={() => updateToggled("OVERVIEW")}
+        state={toggledProductSubPage === "OVERVIEW" ? "active" : "default"}
+        onClick={() => dispatch(toggleProductSubPage("OVERVIEW"))}
       />
 
       <Button
         text="Add Product"
-        state={toggled === "ADD_PRODUCT" ? "active" : "default"}
-        onClick={() => updateToggled("ADD_PRODUCT")}
+        state={toggledProductSubPage === "ADD_PRODUCT" ? "active" : "default"}
+        onClick={() => dispatch(toggleProductSubPage("ADD_PRODUCT"))}
       />
     </div>
   );

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-import useAlert from "../../../../../../../hooks/useAlert";
 import validateUser from "../../../../../../../shared/Auth/Validation";
 import axios from "../../../../../../../shared/caller";
 import Title from "../../../../../../../shared/Components/pages/Title";
 import { useForm } from "../../../../../../../hooks/useForm";
 import Loading from "../../../../../../../shared/Loading/Loading";
-import {
-  CustomerAccountInput,
-  EmbossedInput,
-} from "../../../../../../../shared/Components/input/Inputs";
+import { EmbossedInput } from "../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function ChangePassword({ history }) {
+  // redux
+  const dispatch = useDispatch();
+
   // separate loading state. this loading is for the page loading. not form button loading.
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     validateUser((status) => {
       if (status === "SUCCESS") setLoading(false);
@@ -32,19 +35,34 @@ function ChangePassword({ history }) {
         if (res.status === 200) {
           resetForms();
 
-          setSeverity("success");
-          setMessage("Successfully changed password");
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Successfully changed password"));
+          });
+
           history.push("/user/me");
         }
       })
       .catch((err) => {
         setIsLoading(false);
 
-        setSeverity("error");
-        if (!err.response) setMessage("Something went wrong. Try again.");
+        batch(() => {
+          dispatch(setSeverity("error"));
+          dispatch();
+        });
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Try again."));
+          });
         else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
-        else setMessage(err.response.data.error);
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   }
 
@@ -76,8 +94,6 @@ function ChangePassword({ history }) {
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, ChangePasswordAPI);
-
-  const { setMessage, setSeverity } = useAlert();
 
   return (
     <>

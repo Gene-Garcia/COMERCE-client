@@ -2,7 +2,8 @@ import React from "react";
 import googleLogo from "../images/google.png";
 import facebookLogo from "../images/facebook.png";
 import twitterLogo from "../images/twitter.png";
-import useAlert from "../../hooks/useAlert";
+import { batch, useDispatch } from "react-redux";
+import { setMessage, setSeverity } from "../../redux/Alert/AlertAction";
 
 function Body({ children }) {
   return (
@@ -13,7 +14,8 @@ function Body({ children }) {
 }
 
 function Image({ alt, src }) {
-  const { setSeverity, setMessage } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   return (
     <img
@@ -21,8 +23,12 @@ function Image({ alt, src }) {
       src={src}
       className="transition duration-300 transform hover:rotate-12 filter grayscale hover:grayscale-0"
       onClick={() => {
-        setSeverity("error");
-        setMessage("OAuth not yet implemented. We'll keep you updated. ");
+        batch(() => {
+          dispatch(setSeverity("error"));
+          dispatch(
+            setMessage("OAuth not yet implemented. We'll keep you updated. ")
+          );
+        });
       }}
     />
   );

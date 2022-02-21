@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
+import { useSelector } from "react-redux";
 import { formatDate } from "../../../../../../../../../../shared/utils/date";
 
 function ProductInventories() {
-  const {
-    selected: { item, onHand, inventory, _inventory },
-  } = useManageInventory();
+  // redux manage inventory reducer & state
+  const { item, onHand, inventory, _inventory } = useSelector(
+    (state) => state.MANAGE_INVENTORY.selectedProduct
+  );
+
   return (
     <div className="bg-my-white-tint rounded">
       <div

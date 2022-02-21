@@ -1,8 +1,10 @@
 import React from "react";
-import useCheckout from "../../../../../../hooks/useCheckout";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleStep } from "../../../../../../redux/Checkout/CheckoutAction";
 
 function StepIndicators() {
-  const { toggledStep } = useCheckout();
+  // reduc checkout reducer
+  const toggledStep = useSelector((state) => state.CHECKOUT.toggledStep);
 
   return (
     <div className="flex flex-col sm:flex-row justify-between shadow-lg rounded-lg py-4 px-5 gap-y-4">
@@ -35,10 +37,11 @@ function StepIndicators() {
 export default StepIndicators;
 
 function Indicator({ id, number, stepName: name, active }) {
-  const { toggleStep } = useCheckout();
+  // redux
+  const dispatch = useDispatch();
   return (
     <button
-      onClick={() => toggleStep(id, number)}
+      onClick={() => dispatch(toggleStep(id, number))}
       className="flex flex-row items-center gap-x-2"
     >
       <div

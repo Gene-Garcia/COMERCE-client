@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useShoppingCart } from "../../../hooks/useCart";
+import { useSelector } from "react-redux";
 import { prepareUrlForProducts } from "../../Route/urlParser";
 import { formatPrice } from "../../utils/price";
 import { FormButton } from "../button/ButtonBase";
@@ -20,23 +19,49 @@ import CheckoutItem from "./CheckoutItem";
  * The product item container is the CheckoutItem.
  */
 function CartCheckout({ editable }) {
-  const { items, subTotal, grandTotal, shippingFee, checkoutable } =
-    useShoppingCart();
-
   return (
     <>
       <p className="text-lg text-gray-600 font-medium">Checkout Summary</p>
 
       {/* items */}
       <div className="mt-6 flex flex-col gap-y-3">
-        {items.map(
-          (e) =>
-            e.checkout && (
-              <CheckoutItem key={e.productId} data={e} editable={editable} />
-            )
-        )}
+        <RenderCheckoutItems editable={editable} />
       </div>
 
+      <>
+        <CheckoutPrices />
+      </>
+
+      <div className={`${editable ? "flex" : "hidden"} mt-8`}>
+        <CheckoutCTAContainer />
+      </div>
+    </>
+  );
+}
+export default CartCheckout;
+
+/* single responsibility principle */
+
+const RenderCheckoutItems = ({ editable }) => {
+  // redux shopping cart reducer and state
+  const cartItems = useSelector((state) => state.SHOPPING_CART.cartItems);
+
+  return cartItems.map(
+    (item) =>
+      item.checkout && (
+        <CheckoutItem key={item.productId} data={item} editable={editable} />
+      )
+  );
+};
+
+const CheckoutPrices = () => {
+  // redux shopping cart reducer and state
+  const subTotal = useSelector((state) => state.SHOPPING_CART.subTotal);
+  const grandTotal = useSelector((state) => state.SHOPPING_CART.grandTotal);
+  const shippingFee = useSelector((state) => state.SHOPPING_CART.shippingFee);
+
+  return (
+    <div>
       <div className="my-7 border-b border-3 border-gray-300"></div>
       <div className="">
         {/* sub total */}
@@ -68,29 +93,30 @@ function CartCheckout({ editable }) {
           </p>
         </div>
       </div>
-
-      <div className={`${editable ? "flex" : "hidden"} mt-8`}>
-        {/* Checkout Button */}
-        {checkoutable ? (
-          <FormButton
-            size="LARGE"
-            to={`/checkout?products=${prepareUrlForProducts(items)}`}
-            text="Checkout Products"
-            textColor="text-white"
-            type="LINK"
-          />
-        ) : (
-          <FormButton
-            isLoading={true}
-            size="LARGE"
-            to={`/checkout?products=${prepareUrlForProducts(items)}`}
-            text="No Product(s) Selected"
-            textColor="text-white"
-            type="LINK"
-          />
-        )}
-      </div>
-    </>
+    </div>
   );
-}
-export default CartCheckout;
+};
+
+const CheckoutCTAContainer = () => {
+  // redux shopping cart reducer and state
+  const items = useSelector((state) => state.SHOPPING_CART.cartItems);
+  const checkoutable = useSelector((state) => state.SHOPPING_CART.checkoutable);
+
+  return checkoutable ? (
+    <FormButton
+      size="LARGE"
+      to={`/checkout?products=${prepareUrlForProducts(items)}`}
+      text="Checkout Products"
+      textColor="text-white"
+      type="LINK"
+    />
+  ) : (
+    <FormButton
+      isLoading={true}
+      size="LARGE"
+      text="No Product(s) Selected"
+      textColor="text-white"
+      type="LINK"
+    />
+  );
+};

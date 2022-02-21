@@ -6,9 +6,13 @@ import {
   ProductRating,
 } from "../../../../../../../shared/Components/product/ProductComponents";
 import axios from "../../../../../../../shared/caller";
-import useAlert from "../../../../../../../hooks/useAlert";
 import Loading from "../../../../../../../shared/Loading/Loading";
 import { Link } from "react-router-dom";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../redux/Alert/AlertAction";
 
 function Showcase(props) {
   const {
@@ -17,10 +21,11 @@ function Showcase(props) {
     },
     history,
   } = props;
+
+  // redux
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
-
-  const { setMessage, setSeverity } = useAlert();
-
   const [showcased, setShowcased] = useState({});
 
   useEffect(() => {
@@ -34,8 +39,11 @@ function Showcase(props) {
           }
         })
         .catch(() => {
-          setSeverity("error");
-          setMessage("Product cannot be found.");
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Product cannot be found."));
+          });
+
           history.push("/catalogue");
         });
     }

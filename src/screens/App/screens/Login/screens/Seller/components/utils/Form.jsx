@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import axios from "../../../../../../../../shared/caller";
-import useAlert from "../../../../../../../../hooks/useAlert";
 import { setUserPersistData } from "../../../../../../../../shared/Auth/Login";
 import comerceAccent from "../../../../../../../../shared/images/comerce-logo-blue.webp";
 import {
@@ -10,13 +9,18 @@ import {
   SellerAccountInput,
 } from "../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
 
 function Form() {
   //history
   let history = useHistory();
 
-  // alert context and hook
-  const { setMessage, setSeverity } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
   // Form hooks
   const LoginAPI = async () => {
@@ -32,19 +36,30 @@ function Form() {
             res.data.business.businessEmail
           );
 
-          setSeverity("success");
-          setMessage("Succesfully logged in. Welcome back!");
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Succesfully logged in. Welcome back!"));
+          });
 
           history.push("/seller");
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setSeverity("error");
 
         if (!err.response)
-          setMessage("Something went wrong. Please try again later.");
-        else setMessage(err.response.data.error);
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage("Something went wrong. Please try again later.")
+            );
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
       });
   };
 

@@ -1,48 +1,62 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Title from "../../../../../shared/Components/pages/Title";
 import ProductSmall from "../../../../../shared/Components/product/ProductSmall";
 import axios from "../../../../../shared/caller";
 import Loading from "../../../../../shared/Loading/Loading";
-import useAlert from "../../../../../hooks/useAlert";
-import useProductPagination from "../../../../../hooks/useProductPagination";
 import Pagination from "../../../../../shared/Components/pagination/Pagination";
 import Filters from "./Filter/Filters";
+import { batch, useDispatch, useSelector } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../redux/Alert/AlertAction";
+import {
+  computeMaxPagesPossible,
+  initializePageRange,
+  loadPaginatedItems,
+  resetToDefault as resetPaginationToDefault,
+  setTotalItemsCount,
+  updateLoading,
+} from "../../../../../redux/Pagination/PaginationAction";
 
 function Catalogue() {
-  const { setSeverity, setMessage } = useAlert();
+  // redux
+  const dispatch = useDispatch();
 
-  // product pagination context
-  const {
-    loading,
-    products: items,
-    loadPaginationData,
-    setLoading,
-    productCountPerPage,
-    currentPage,
-    setTotalProductCount,
-    initMinMaxPageOptions,
-    computeMaxPagesPossible,
-  } = useProductPagination();
+  // redux pagination reducer & state
+  const itemCountPerPage = useSelector(
+    (state) => state.PAGINATION.itemCountPerPage
+  );
+  const currentPage = useSelector((state) => state.PAGINATION.currentPage);
 
   useEffect(() => {
     async function fetchItems() {
       await axios
-        .get(`/api/product/available/${productCountPerPage}/${currentPage}`)
+        .get(`/api/product/available/${itemCountPerPage}/${currentPage}`)
         .then((res) => {
           if (res.status === 200) {
-            // iniating methods
-            setTotalProductCount(res.data.productCount);
-            // sets the possible number of pages
-            computeMaxPagesPossible();
-            initMinMaxPageOptions();
+            batch(() => {
+              // initiating methods
+              dispatch(setTotalItemsCount(res.data.productCount));
+              // sets the possible number of pages
+              dispatch(computeMaxPagesPossible());
+              dispatch(initializePageRange());
 
-            loadPaginationData(res.data.available);
-            setLoading(false);
+              dispatch(loadPaginatedItems(res.data.available));
+
+              dispatch(updateLoading(false));
+            });
           }
         })
-        .catch((err) => {
-          setSeverity("error");
-          setMessage("Unable to load items. Refresh the page and try again.");
+        .catch(() => {
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Unable to load items. Refresh the page and try again."
+              )
+            );
+          });
         });
     }
 
@@ -53,22 +67,40 @@ function Catalogue() {
   useEffect(() => {
     async function fetchItems() {
       await axios
-        .get(`/api/product/available/${productCountPerPage}/${currentPage}`)
+        .get(`/api/product/available/${itemCountPerPage}/${currentPage}`)
         .then((res) => {
           if (res.status === 200) {
-            loadPaginationData(res.data.available);
-            setLoading(false);
+            batch(() => {
+              dispatch(loadPaginatedItems(res.data.available));
+              dispatch(updateLoading(false));
+            });
           }
         })
-        .catch((err) => {
-          setSeverity("error");
-          setMessage("Unable to load items. Refresh the page and try again.");
+        .catch(() => {
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Unable to load items. Refresh the page and try again."
+              )
+            );
+          });
         });
     }
 
-    setLoading(true);
+    dispatch(updateLoading(true));
     fetchItems();
   }, [currentPage]);
+
+  // clean up
+  useEffect(() => {
+    return () => {
+      batch(() => {
+        dispatch(updateLoading(true));
+        dispatch(resetPaginationToDefault());
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -80,22 +112,7 @@ function Catalogue() {
         </div>
 
         <div className="flex-grow">
-          {loading ? (
-            <div>
-              <Loading />
-            </div>
-          ) : (
-            <>
-              <div className="flex flex-wrap flex-row gap-x-4 md:gap-x-2 lg:gap-x-10 gap-y-4 sm:gap-y-8 md:gap-y-4 justify-center ">
-                {items.map((item) => (
-                  <ProductSmall data={item} key={item._id} />
-                ))}
-              </div>
-              <div className="my-10 flex justify-center">
-                <Pagination />
-              </div>
-            </>
-          )}
+          <ProductsContainer />
         </div>
       </div>
     </>
@@ -103,3 +120,40 @@ function Catalogue() {
 }
 
 export default Catalogue;
+
+/* single responsibility principle */
+
+const ProductsContainer = () => {
+  // redux pagination reducer & state
+  const loading = useSelector((state) => state.PAGINATION.loading);
+
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="flex flex-wrap flex-row gap-x-4 md:gap-x-2 lg:gap-x-10 gap-y-4 sm:gap-y-8 md:gap-y-4 justify-center ">
+            <RenderProducts />
+          </div>
+          <div className="my-10 flex justify-center">
+            <Pagination />
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+
+const RenderProducts = memo(() => {
+  // redux pagination reducer & state
+  const items = useSelector((state) => state.PAGINATION.items);
+
+  return (
+    <>
+      {items.map((item) => (
+        <ProductSmall data={item} key={item._id} />
+      ))}
+    </>
+  );
+});

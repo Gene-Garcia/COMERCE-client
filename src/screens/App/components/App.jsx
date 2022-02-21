@@ -7,20 +7,10 @@ import {
 } from "react-router-dom";
 import route from "../route";
 import axios from "../../../shared/caller";
-import { AlertProvider } from "../../../context/AlertContext";
 import Alert from "../../../shared/Components/pages/Alert";
-import { CartCountProvider } from "../../../context/CartCountContext";
-import { ShoppingCartProvider } from "../../../context/ShoppingCartContext";
-import { CheckoutProvider } from "../../../context/CheckoutContext";
-import { OrdersProvider } from "../../../context/OrdersContext";
-import { RateProvider } from "../../../context/RateContext";
-import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
-import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
-import { ManageProductProvider } from "../../../context/ManageProductContext";
-import { ManageInventoryProvider } from "../../../context/ManageInventoryContext";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -37,30 +27,10 @@ const App = () => {
 
   return (
     <Router>
-      <AlertProvider>
-        {/* Global message notification */}
-        <Alert />
+      {/* Global message notification */}
+      <Alert />
 
-        <ProductPaginationProvider>
-          <CartCountProvider>
-            <ShoppingCartProvider>
-              <CheckoutProvider>
-                <OrdersProvider>
-                  <RateProvider>
-                    <SellerRegistrationProvider>
-                      <ManageProductProvider>
-                        <ManageInventoryProvider>
-                          <AppContent />
-                        </ManageInventoryProvider>
-                      </ManageProductProvider>
-                    </SellerRegistrationProvider>
-                  </RateProvider>
-                </OrdersProvider>
-              </CheckoutProvider>
-            </ShoppingCartProvider>
-          </CartCountProvider>
-        </ProductPaginationProvider>
-      </AlertProvider>
+      <AppContent />
     </Router>
   );
 };
@@ -81,11 +51,15 @@ const AppContent = memo(() => {
     "/seller",
     "/seller/manage/products",
     "/seller/manage/inventory",
+    "/seller/shipment/orders",
+    "/seller/shipment/fulfilled",
   ];
   const withSellerNavigation = [
     "/seller",
     "/seller/manage/products",
     "/seller/manage/inventory",
+    "/seller/shipment/orders",
+    "/seller/shipment/fulfilled",
   ];
 
   return (
@@ -108,6 +82,7 @@ const AppContent = memo(() => {
       >
         {withSellerNavigation.includes(pathname) && <BusinessHeader />}
 
+        {/* !IMPLEMENT DYNAMIC RENDERING OF ROUTE, FOR PRIVATE ROUTE JUST ADD NEW FIELD PRIVATE=TRUE IN ROUTE.JS FILES */}
         <Switch>
           <Route {...route.HOME} />
 
@@ -137,6 +112,9 @@ const AppContent = memo(() => {
           <Route {...route.SELLER} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
+          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.ORDERS} />
+          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
+
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

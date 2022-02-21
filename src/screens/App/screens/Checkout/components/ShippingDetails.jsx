@@ -1,15 +1,23 @@
 import React from "react";
-import useCheckout from "../../../../../hooks/useCheckout";
+import { batch, useDispatch } from "react-redux";
 import { useForm } from "../../../../../hooks/useForm";
 import { BorderedInput } from "../../../../../shared/Components/input/Inputs";
 import { ShippingCTA } from "./utils/CallToAction";
+import {
+  loadShippingDetails,
+  nextStep,
+} from "../../../../../redux/Checkout/CheckoutAction";
 
 function ShippingDetails() {
-  const { loadShippingDetails, nextStep } = useCheckout();
+  // redux
+  const dispatch = useDispatch();
 
+  // Form submit
   async function saveShippingDetails() {
-    loadShippingDetails(values);
-    nextStep(false, 2, "PD");
+    batch(() => {
+      dispatch(loadShippingDetails(values));
+      dispatch(nextStep(false, 2, "PD"));
+    });
   }
 
   function validate(data, setError) {
@@ -86,6 +94,7 @@ function ShippingDetails() {
     <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-4 sm:gap-y-8">
       <p className="text-lg text-gray-600 font-medium">Shipping Details</p>
 
+      {/* form for shipping information */}
       <>
         <div className="flex flex-col sm:flex-row gap-x-4 gap-y-4 sm:gap-y-8">
           <BorderedInput
