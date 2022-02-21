@@ -1,25 +1,5 @@
 import { useContext } from "react";
 import ManageInventoryContext from "../context/ManageInventoryContext";
-import ManageProductContext from "../context/ManageProductContext";
-
-function useManageProduct() {
-  const {
-    toggled,
-    updateToggled,
-    toggledModal,
-    updateToggledModal,
-    productId,
-    updateProductId,
-  } = useContext(ManageProductContext);
-  return {
-    toggled,
-    updateToggled,
-    toggledModal,
-    updateToggledModal,
-    productId,
-    updateProductId,
-  };
-}
 
 function useManageInventory() {
   const {
@@ -45,4 +25,4 @@ function useManageInventory() {
   };
 }
 
-export { useManageProduct, useManageInventory };
+export { useManageInventory };

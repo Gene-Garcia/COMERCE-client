@@ -11,7 +11,6 @@ import Alert from "../../../shared/Components/pages/Alert";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
-import { ManageProductProvider } from "../../../context/ManageProductContext";
 import { ManageInventoryProvider } from "../../../context/ManageInventoryContext";
 
 const App = () => {
@@ -32,11 +31,9 @@ const App = () => {
       {/* Global message notification */}
       <Alert />
 
-      <ManageProductProvider>
-        <ManageInventoryProvider>
-          <AppContent />
-        </ManageInventoryProvider>
-      </ManageProductProvider>
+      <ManageInventoryProvider>
+        <AppContent />
+      </ManageInventoryProvider>
     </Router>
   );
 };
