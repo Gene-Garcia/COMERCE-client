@@ -1,7 +1,17 @@
-import React from "react";
-import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
+import React, { useCallback } from "react";
+import { batch, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../redux/Alert/AlertAction";
 import { formatPrice } from "../../../../../../../../../../../shared/utils/price";
 import ProductAction from "./ProductActions";
+import axios from "../../../../../../../../../../../shared/caller";
+import {
+  toggleProductModal,
+  updateInformationModalProduct,
+} from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 
 function ProductRow({ data }) {
   const {
@@ -13,14 +23,49 @@ function ProductRow({ data }) {
     _id: productId,
   } = data;
 
+  // history
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
   const theme = "flex justify-center items-center text-center";
 
-  // to open the modal and set the data need
-  const { updateToggledModal, updateProductId } = useManageProduct();
-  const openThisModal = () => {
-    updateProductId(productId);
-    updateToggledModal(true);
-  };
+  const referenceToInformationModal = useCallback(() => {
+    // make API call
+    async function getProductForModal() {
+      await axios
+        .get(`/api/seller/product/${productId}`)
+        .then((res) => {
+          if (res.status === 200) {
+            // dispatch to redux
+            batch(() => {
+              dispatch(updateInformationModalProduct(res.data.product));
+              dispatch(toggleProductModal(true));
+            });
+          }
+        })
+        .catch((err) => {
+          if (!err.response)
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again."
+                )
+              );
+            });
+          else if (err.response.status === 403) history.push("/forbidden");
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
+        });
+    }
+    getProductForModal();
+  }, [productId]);
 
   return (
     <div
@@ -68,7 +113,7 @@ function ProductRow({ data }) {
 
       <div className={`w-28 md:w-1/5 ${theme} flex-col gap-y-1 lg:gap-y-2`}>
         <ProductAction
-          onClick={openThisModal}
+          onClick={referenceToInformationModal}
           title="INFO"
           svgD="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           color="text-black bg-my-white-tone"

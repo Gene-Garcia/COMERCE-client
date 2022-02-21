@@ -6,6 +6,7 @@ const initial = {
   /*  */
   rating: -1,
   comment: "",
+  loading: true,
 };
 
 const rateOrderReducer = (state = initial, { type, payload }) => {
@@ -34,7 +35,9 @@ const rateOrderReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_NEXT_PRODUCT_TO_RATE:
       return {
         ...state,
-        selected: state.products.find((e) => e.rated === false),
+        selectedProduct: state.products.find((e) => e.rated === false),
+        rating: -1,
+        comment: "",
       };
 
     case types.SET_RATING:
@@ -42,6 +45,9 @@ const rateOrderReducer = (state = initial, { type, payload }) => {
 
     case types.ON_COMMENT_CHANGE:
       return { ...state, comment: payload };
+
+    case types.UPDATE_LOADING:
+      return { ...state, loading: payload };
 
     case types.RESET_VALUES:
       return { ...initial };

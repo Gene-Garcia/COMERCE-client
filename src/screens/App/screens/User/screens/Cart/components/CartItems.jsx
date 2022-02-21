@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
   checkoutAllCartItems,
@@ -74,5 +74,11 @@ const RenderCartItems = () => {
   // redux shopping cart reducer
   const cartItems = useSelector((state) => state.SHOPPING_CART.cartItems);
 
-  return cartItems.map((item) => <CartItem key={item.productId} data={item} />);
+  return (
+    <>
+      {cartItems.map((item, i) => (
+        <CartItem key={item.productId} {...item} />
+      ))}
+    </>
+  );
 };

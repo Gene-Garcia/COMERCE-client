@@ -55,13 +55,13 @@ function Checkout({ history }) {
           if (res.status === 200) {
             batch(() => {
               dispatch(loadCartItems(res.data.products));
-              dispatch()
               dispatch(checkoutAllCartItems());
               dispatch(setShoppingCartLoading(false));
             });
           }
         })
         .catch((err) => {
+          console.error(err);
           if (!err.response)
             batch(() => {
               dispatch(setShoppingCartLoading(false));

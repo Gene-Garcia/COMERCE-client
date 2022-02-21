@@ -8,14 +8,9 @@ import {
 import route from "../route";
 import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
-import { RateProvider } from "../../../context/RateContext";
-import { ProductPaginationProvider } from "../../../context/ProductPaginationContext";
-import { SellerRegistrationProvider } from "../../../context/SellerRegistrationContext";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerNavigation from "./sellerNavigation/Navigation";
-import { ManageProductProvider } from "../../../context/ManageProductContext";
-import { ManageInventoryProvider } from "../../../context/ManageInventoryContext";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -35,17 +30,7 @@ const App = () => {
       {/* Global message notification */}
       <Alert />
 
-      <ProductPaginationProvider>
-        <RateProvider>
-          <SellerRegistrationProvider>
-            <ManageProductProvider>
-              <ManageInventoryProvider>
-                <AppContent />
-              </ManageInventoryProvider>
-            </ManageProductProvider>
-          </SellerRegistrationProvider>
-        </RateProvider>
-      </ProductPaginationProvider>
+      <AppContent />
     </Router>
   );
 };

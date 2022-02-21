@@ -32,12 +32,23 @@ const shoppingCartReducer = (state = initial, { type, payload }) => {
       return { ...state, cartItems: payload };
 
     case types.INCREASE_THIS_ITEM_QUANTITY:
+      // const itemIndex = state.cartItems.findIndex(
+      //   (item) => item.productId === payload
+      // );
       return {
         ...state,
+        // cartItems: [
+        //   ...state.cartItems.slice(0, itemIndex),
+        //   {
+        //     ...state.cartItems[itemIndex],
+        //     quantity: state.cartItems[itemIndex].quantity + 1,
+        //   },
+        //   ...state.cartItems.slice(itemIndex + 1),
+        // ],
         cartItems: state.cartItems.map((item) =>
-          payload === item.productId
-            ? { ...item, quantity: item.quantity + 1 }
-            : { ...item }
+          payload !== item.productId
+            ? { ...item }
+            : { ...item, quantity: item.quantity + 1 }
         ),
       };
 

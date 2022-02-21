@@ -2,14 +2,14 @@
 const manageInventoryTypes = {
   LOAD_PRODUCTS: "LOAD_PRODUCTS",
   SET_SELECTED_PRODUCT: "SET_SELECTED_PRODUCT",
-  UPDATE_LOADING: "UPDATE_LOADING",
   TRIGGER_RELOAD: "TRIGGER_RELOAD",
+  RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
 // Actions
 const loadProducts = (products) => {
   return {
-    type: manageInventoryTypes.loadProducts,
+    type: manageInventoryTypes.LOAD_PRODUCTS,
     payload: products,
   };
 };
@@ -21,16 +21,15 @@ const setSelectedProduct = (selectedProduct) => {
   };
 };
 
-const updateLoading = (isLoading) => {
-  return {
-    type: manageInventoryTypes.updateLoading,
-    payload: isLoading,
-  };
-};
-
 const triggerReload = () => {
   return {
     type: manageInventoryTypes.TRIGGER_RELOAD,
+  };
+};
+
+const resetToDefault = () => {
+  return {
+    type: manageInventoryTypes.RESET_TO_DEFAULT,
   };
 };
 
@@ -38,6 +37,6 @@ export {
   manageInventoryTypes,
   loadProducts,
   setSelectedProduct,
-  updateLoading,
   triggerReload,
+  resetToDefault,
 };

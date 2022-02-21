@@ -1,31 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import axios from "../../../../../../../../../shared/caller";
-import { useManageInventory } from "../../../../../../../../../hooks/useManage";
 import InventoryTable from "./ProductTable/InventoryTable";
 import ProductInventories from "./SelectedProduct/ProductInventories";
 import AddInventoryForm from "./SelectedProduct/AddInventoryForm";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
+import Loading from "../../../../../../../../../shared/Loading/Loading";
+import {
+  loadProducts,
+  resetToDefault as resetManageInventoryToDefault,
+} from "../../../../../../../../../redux/Seller/ManageInventory/ManageInventoryAction";
 
 function Inventory({ history }) {
   // redux
   const dispatch = useDispatch();
 
-  const { updateProducts, setLoading, selected, reload } = useManageInventory();
+  // redux manage inventory reducer & states
+  const reload = useSelector((state) => state.MANAGE_INVENTORY.reload);
+
+  // page loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getProductsInventories() {
       axios
         .get("/api/seller/inventories")
         .then((res) => {
-          if (res.status === 200) updateProducts(res.data.products);
-
-          setLoading(false);
+          if (res.status === 200) {
+            dispatch(loadProducts(res.data.products));
+            setLoading(false);
+          }
         })
         .catch((err) => {
           setLoading(false);
@@ -53,6 +62,11 @@ function Inventory({ history }) {
     getProductsInventories();
   }, [reload]);
 
+  // clean up
+  useEffect(() => {
+    return () => dispatch(resetManageInventoryToDefault());
+  }, []);
+
   return (
     <SellerContainer>
       <SellerTitle title="Inventory" />
@@ -61,32 +75,46 @@ function Inventory({ history }) {
 
       <div className="flex flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
         <div className="h-min w-3/5 bg-my-white-tint rounded-lg p-2">
-          <InventoryTable />
+          {loading ? (
+            <div className="w-full flex justify-center items-center">
+              <Loading />
+            </div>
+          ) : (
+            <InventoryTable />
+          )}
         </div>
 
         <div className="w-2/5 space-y-6">
-          {selected ? (
-            <>
-              <ProductInventories />
-              <div className="border-b border-gray-300"></div>
-              <AddInventoryForm />
-            </>
-          ) : (
-            <div
-              className="h-64 rounded-md bg-my-white-tint
-            flex flex-col justify-center items-center"
-            >
-              <h1 className="font-mono text-my-accent text-2xl filter drop-shadow-md">
-                COMERCE
-              </h1>
-              <p className="font-medium text-gray-500 text-lg">
-                Select a product
-              </p>
-            </div>
-          )}
+          <ProductInventoryContainer />
         </div>
       </div>
     </SellerContainer>
   );
 }
 export default Inventory;
+
+// sinlge responsibility principle
+const ProductInventoryContainer = () => {
+  // redux manage inventories reducer & states
+  const selectedProduct = useSelector(
+    (state) => state.MANAGE_INVENTORY.selectedProduct
+  );
+
+  return selectedProduct ? (
+    <>
+      <ProductInventories />
+      <div className="border-b border-gray-300"></div>
+      <AddInventoryForm />
+    </>
+  ) : (
+    <div
+      className="h-64 rounded-md bg-my-white-tint
+    flex flex-col justify-center items-center"
+    >
+      <h1 className="font-mono text-my-accent text-2xl filter drop-shadow-md">
+        COMERCE
+      </h1>
+      <p className="font-medium text-gray-500 text-lg">Select a product</p>
+    </div>
+  );
+};

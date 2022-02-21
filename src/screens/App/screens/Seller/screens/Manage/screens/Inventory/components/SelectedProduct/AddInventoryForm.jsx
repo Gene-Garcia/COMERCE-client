@@ -2,14 +2,17 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../../../hooks/useForm";
 import axios from "../../../../../../../../../../shared/caller";
-import { useManageInventory } from "../../../../../../../../../../hooks/useManage";
 import { EmbossedInput } from "../../../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../../../shared/Components/button/ButtonBase";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
+import {
+  setSelectedProduct,
+  triggerReload,
+} from "../../../../../../../../../../redux/Seller/ManageInventory/ManageInventoryAction";
 
 function AddInventoryForm() {
   const history = useHistory();
@@ -17,7 +20,10 @@ function AddInventoryForm() {
   // redux
   const dispatch = useDispatch();
 
-  const { selected, updateSelected, setReload } = useManageInventory();
+  // redux manage inventory reducer & state
+  const selected = useSelector(
+    (state) => state.MANAGE_INVENTORY.selectedProduct
+  );
 
   // makes the value of the onHand same as the inventory
   const copyQuantity = () => {
@@ -40,16 +46,12 @@ function AddInventoryForm() {
           batch(() => {
             dispatch(setSeverity("success"));
             dispatch(setMessage(res.data.message));
+
+            dispatch(triggerReload());
+            dispatch(setSelectedProduct(null));
           });
-
-          // re-trigger api to get products with updated inventory
-          setReload((prev) => !prev);
-
           // reset form
           resetForms();
-
-          // reset selected
-          updateSelected(null);
         }
       })
       .catch((err) => {

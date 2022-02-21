@@ -10,11 +10,13 @@ const initial = {
   minPageOption: 1,
   maxPageOption: 1,
 
+  loading: true,
+
   // const values
   // range of the pages option box shown
   range: 5,
   // the number of products to be displayed per page
-  itemCountPerPage: 4,
+  itemCountPerPage: 8,
 
   // append to some regex
   searchFilter: "",
@@ -28,7 +30,7 @@ const paginationReducer = (state = initial, { type, payload }) => {
       return { ...state, items: payload };
 
     case types.SET_TOTAL_ITEMS_COUNT:
-      return { ...state, itemcount: payload };
+      return { ...state, itemCount: payload };
 
     /*
      * computes the requires number of pages for all the product to be displayed
@@ -137,6 +139,9 @@ const paginationReducer = (state = initial, { type, payload }) => {
 
     case types.RESET_TO_DEFAULT:
       return { ...initial };
+
+    case types.UPDATE_LOADING:
+      return { ...state, loading: payload };
 
     default:
       return { ...state };

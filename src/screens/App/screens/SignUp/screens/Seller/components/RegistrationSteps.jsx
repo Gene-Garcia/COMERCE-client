@@ -1,6 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import useSellerRegistration from "../../../../../../../hooks/useSellerRegistration";
+import { changeCurrentStep } from "../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function RegistrationSteps() {
@@ -23,8 +24,16 @@ function RegistrationSteps() {
 export default RegistrationSteps;
 
 function Step({ main, sub, id }) {
-  const { activeStepId, visitedStep, changeActiveStep } =
-    useSellerRegistration();
+  // redux
+  const dispatch = useDispatch();
+
+  // redux seller registration reducer & state
+  const activeStepId = useSelector(
+    (state) => state.SELLER_REGISTRATION.activeStepId
+  );
+  const visitedStep = useSelector(
+    (state) => state.SELLER_REGISTRATION.visitedStep
+  );
 
   let status;
   if (activeStepId === id) status = "toggled";
@@ -50,7 +59,7 @@ function Step({ main, sub, id }) {
 
   return (
     <div
-      onClick={() => changeActiveStep(id)}
+      onClick={() => dispatch(changeCurrentStep(id))}
       className="group bg-white rounded-t-lg md:rounded-t-none md:rounded-l-lg p-2 sm:p-3 md:p-4 flex flex-row items-center justify-between cursor-pointer"
     >
       <div>

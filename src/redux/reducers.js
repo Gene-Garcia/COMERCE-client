@@ -23,7 +23,7 @@ const reducers = combineReducers({
   ORDER_HISTORY: orderHistoryReducer,
   RATE_ORDER: rateOrderReducer,
 
-  SELLER_REGISTRAION: sellerRegistrationReducer,
+  SELLER_REGISTRATION: sellerRegistrationReducer,
 
   MANAGE_INVENTORY: manageInventoryReducer,
   MANAGE_PRODUCT: manageProductReducer,

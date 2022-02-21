@@ -5,6 +5,7 @@ const rateOrderActionTypes = {
   TOGGLE_NEXT_PRODUCT_TO_RATE: "TOGGLE_NEXT_PRODUCT_TO_RATE",
   SET_RATING: "SET_RATING",
   ON_COMMENT_CHANGE: "ON_COMMENT_CHANGE",
+  UPDATE_LOADING: "UPDATE_LOADING",
   RESET_VALUES: "RESET_VALUES",
 };
 
@@ -49,6 +50,13 @@ const onCommentChange = (event) => {
   };
 };
 
+const updateLoading = (isLoading) => {
+  return {
+    type: rateOrderActionTypes.UPDATE_LOADING,
+    payload: isLoading,
+  };
+};
+
 const resetValues = () => {
   return {
     type: rateOrderActionTypes.RESET_VALUES,
@@ -63,5 +71,6 @@ export {
   toggleNextProductToRate,
   setRating,
   onCommentChange,
+  updateLoading,
   resetValues,
 };
