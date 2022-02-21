@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useForm } from "../../../../../../../../../../../hooks/useForm";
 import axios from "../../../../../../../../../../../shared/caller";
 import { useHistory } from "react-router-dom";
-import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
 import { InputFirst } from "../../../../../../../../../../../shared/Components/input/InputBase";
 import { EmbossedInput } from "../../../../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../../../../shared/Components/button/ButtonBase";
@@ -11,14 +10,13 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../../../redux/Alert/AlertAction";
+import { toggleProductSubPage } from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 
 function AddProduct() {
   const history = useHistory();
 
   // redux
   const dispatch = useDispatch();
-
-  const { updateToggled } = useManageProduct();
 
   // API call
   const submitProductAPI = async () => {
@@ -27,15 +25,13 @@ function AddProduct() {
       .then((res) => {
         setIsLoading(false);
 
-        if (res.status === 201) {
+        if (res.status === 201)
           batch(() => {
             dispatch(setSeverity("success"));
             dispatch(setMessage(res.data.message));
-          });
 
-          // return to overview
-          updateToggled("OVERVIEW");
-        }
+            dispatch(toggleProductSubPage("OVERVIEW"));
+          });
       })
       .catch((err) => {
         setIsLoading(false);

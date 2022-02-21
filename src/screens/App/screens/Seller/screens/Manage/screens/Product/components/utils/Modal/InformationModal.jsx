@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { batch, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-
-import { useManageProduct } from "../../../../../../../../../../../hooks/useManage";
+import React, { useEffect } from "react";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
-  setMessage,
-  setSeverity,
-} from "../../../../../../../../../../../redux/Alert/AlertAction";
-import axios from "../../../../../../../../../../../shared/caller";
-import Loading from "../../../../../../../../../../../shared/Loading/Loading";
+  toggleProductModal,
+  updateInformationModalProduct,
+} from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
 import { formatDate } from "../../../../../../../../../../../shared/utils/date";
 import { formatPrice } from "../../../../../../../../../../../shared/utils/price";
 
@@ -19,147 +14,17 @@ import { formatPrice } from "../../../../../../../../../../../shared/utils/price
  */
 
 function InformationModal() {
-  const history = useHistory();
-
-  // redux
-  const dispatch = useDispatch();
-
-  const { updateToggledModal, productId } = useManageProduct();
-
-  const closeModal = () => updateToggledModal(false);
-
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function getProduct(id) {
-      await axios
-        .get(`/api/seller/product/${id}`)
-        .then((res) => {
-          if (res.status === 200) setProduct(res.data.product);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-
-          if (!err.response)
-            batch(() => {
-              dispatch(setSeverity("error"));
-              dispatch(
-                setMessage(
-                  "Something went wrong. Please refresh your browser and try again."
-                )
-              );
-            });
-          else if (err.response.status === 403) history.push("/forbidden");
-          else if (err.response.status === 401) history.push("/unauthorized");
-          else
-            batch(() => {
-              dispatch(setSeverity("error"));
-              dispatch(setMessage(err.response.data.error));
-            });
-        });
-    }
-
-    setLoading(true);
-    getProduct(productId);
-  }, []);
-
-  // clean up
-  useEffect(() => {
-    return () => {
-      setProduct(null);
-      setLoading(false);
-      closeModal();
-    };
-  }, []);
-
   return (
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
         <div className="bg-my-white-tint shadow-lg rounded-md border border-my-accent border-opacity-30">
           {/* close button */}
-          <CloseButton onClick={closeModal} />
+          <CloseModal />
 
-          <>
-            {loading || !product ? (
-              <div className="w-96 h-96 flex items-center justify-center">
-                <Loading />
-              </div>
-            ) : (
-              <div className="px-8 pb-8 flex flex-row gap-4">
-                <div className="flex-shrink space-y-4">
-                  <div className="bg-my-white-tone rounded-l-3xl rounded-t-3xl shadow-md w-52 h-52 overflow-hidden">
-                    <img
-                      src={product.imageAddress}
-                      className="m-auto object-contain w-min h-min"
-                      alt="product-logo"
-                    />
-                  </div>
-
-                  <div>
-                    <Label label="Brand" />
-                    <p>{product.brand}</p>
-                  </div>
-
-                  <div>
-                    <Label label="Category" />
-                    <p>{product.category}</p>
-                  </div>
-
-                  <div>
-                    <Label label="Keywords" />
-                    <p>{product.keywords}</p>
-                  </div>
-                </div>
-
-                <div className="flex-grow space-y-6">
-                  <h2 className="font-semibold text-black text-2xl">
-                    {product.item}
-                  </h2>
-
-                  <div className="inline-flex gap-16">
-                    <div>
-                      <Label label="Wholesale Price" />
-                      <p className="font-medium text-lg text-my-accent">
-                        {formatPrice(product.wholesalePrice)}
-                      </p>
-                      <i className="text-base text-gray-500">
-                        Capped at {product.wholesaleCap}
-                      </i>
-                    </div>
-
-                    <div>
-                      <Label label="Retail Price" />
-                      <p className="font-medium text-lg text-my-accent">
-                        {formatPrice(product.retailPrice)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="w-80">
-                    <Label label="Description" />
-                    <p className="leading-relaxed">{product.description}</p>
-                  </div>
-
-                  <div>
-                    <Label label="Inventory" />
-                    <p>
-                      <span className="text-red-600 text-xl font-medium">
-                        {product._inventory
-                          .map((inv) => inv.onHand)
-                          .reduce((prev, curr) => prev + curr, 0)}
-                      </span>{" "}
-                      <span className="text-sm">total inventory</span>
-                    </p>
-
-                    <InventoryTable inventory={product._inventory} />
-                  </div>
-                </div>
-              </div>
-            )}
-          </>
+          <div className="px-8 pb-8 flex flex-row gap-4">
+            <InformationContainer />
+          </div>
         </div>
       </div>
     </div>
@@ -167,11 +32,19 @@ function InformationModal() {
 }
 export default InformationModal;
 
-function CloseButton({ onClick }) {
+function CloseModal() {
+  // redux
+  const dispatch = useDispatch();
+
   return (
     <div className="flex justify-end p-3 ">
       <button
-        onClick={onClick}
+        onClick={() =>
+          batch(() => {
+            dispatch(toggleProductModal(false));
+            dispatch(updateInformationModalProduct(null));
+          })
+        }
         className="py-1 px-1.5 bg-my-white-tone rounded 
   inline-flex gap-1 items-center 
   text-sm font-semibold text-black
@@ -232,3 +105,80 @@ function InventoryTable({ inventory }) {
     </div>
   );
 }
+
+// single responsibility principle
+const InformationContainer = () => {
+  // redux manage product reducer & state
+  const product = useSelector((state) => state.MANAGE_PRODUCT.products);
+
+  return (
+    <>
+      <div className="flex-shrink space-y-4">
+        <div className="bg-my-white-tone rounded-l-3xl rounded-t-3xl shadow-md w-52 h-52 overflow-hidden">
+          <img
+            src={product.imageAddress}
+            className="m-auto object-contain w-min h-min"
+            alt="product-logo"
+          />
+        </div>
+
+        <div>
+          <Label label="Brand" />
+          <p>{product.brand}</p>
+        </div>
+
+        <div>
+          <Label label="Category" />
+          <p>{product.category}</p>
+        </div>
+
+        <div>
+          <Label label="Keywords" />
+          <p>{product.keywords}</p>
+        </div>
+      </div>
+
+      <div className="flex-grow space-y-6">
+        <h2 className="font-semibold text-black text-2xl">{product.item}</h2>
+
+        <div className="inline-flex gap-16">
+          <div>
+            <Label label="Wholesale Price" />
+            <p className="font-medium text-lg text-my-accent">
+              {formatPrice(product.wholesalePrice)}
+            </p>
+            <i className="text-base text-gray-500">
+              Capped at {product.wholesaleCap}
+            </i>
+          </div>
+
+          <div>
+            <Label label="Retail Price" />
+            <p className="font-medium text-lg text-my-accent">
+              {formatPrice(product.retailPrice)}
+            </p>
+          </div>
+        </div>
+
+        <div className="w-80">
+          <Label label="Description" />
+          <p className="leading-relaxed">{product.description}</p>
+        </div>
+
+        <div>
+          <Label label="Inventory" />
+          <p>
+            <span className="text-red-600 text-xl font-medium">
+              {product._inventory
+                .map((inv) => inv.onHand)
+                .reduce((prev, curr) => prev + curr, 0)}
+            </span>{" "}
+            <span className="text-sm">total inventory</span>
+          </p>
+
+          <InventoryTable inventory={product._inventory} />
+        </div>
+      </div>
+    </>
+  );
+};

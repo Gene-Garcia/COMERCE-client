@@ -1,5 +1,5 @@
 import React from "react";
-import { useManageProduct } from "../../../../../../../../../hooks/useManage";
+import { useSelector } from "react-redux";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
@@ -9,11 +9,9 @@ import Navigation from "./utils/Pages/Navigation";
 import Overview from "./utils/Pages/Overview";
 
 const Product = () => {
-  const { toggled, toggledModal } = useManageProduct();
-
   return (
     <>
-      {toggledModal && <InformationModal />}
+      <InformationModalContainer />
 
       <SellerContainer>
         <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
@@ -29,10 +27,31 @@ const Product = () => {
           <Navigation />
         </div>
 
-        <>{toggled === "OVERVIEW" && <Overview />}</>
-        <>{toggled === "ADD_PRODUCT" && <AddProduct />}</>
+        <div>
+          <NavigatedProductAction />
+        </div>
       </SellerContainer>
     </>
   );
 };
 export default Product;
+
+/* single responsibility principle */
+const InformationModalContainer = () => {
+  // redux manage product reducer & state
+  const isModalOpen = useSelector((state) => state.MANAGE_PRODUCT.isModalOpen);
+  return isModalOpen ? <InformationModal /> : <></>;
+};
+
+const NavigatedProductAction = () => {
+  // redux manage product reducer & state
+  const toggled = useSelector(
+    (state) => state.MANAGE_PRODUCT.toggledProductSubPage
+  );
+  return (
+    <>
+      <>{toggled === "OVERVIEW" && <Overview />}</>
+      <>{toggled === "ADD_PRODUCT" && <AddProduct />}</>
+    </>
+  );
+};
