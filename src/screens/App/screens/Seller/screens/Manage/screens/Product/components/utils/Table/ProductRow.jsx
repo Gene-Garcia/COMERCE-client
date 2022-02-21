@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { batch, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import {
   setMessage,
   setSeverity,
@@ -22,19 +23,27 @@ function ProductRow({ data }) {
     _id: productId,
   } = data;
 
+  // history
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
   const theme = "flex justify-center items-center text-center";
 
   const referenceToInformationModal = useCallback(() => {
-    let tempProducts;
     // make API call
-    const getProductForModal = async () => {
+    async function getProductForModal() {
       await axios
         .get(`/api/seller/product/${productId}`)
         .then((res) => {
-          if (res.status === 200) tempProducts = res.data.product;
+          if (res.status === 200) {
+            // dispatch to redux
+            batch(() => {
+              dispatch(updateInformationModalProduct(res.data.product));
+              dispatch(toggleProductModal(true));
+            });
+          }
         })
         .catch((err) => {
           if (!err.response)
@@ -54,14 +63,8 @@ function ProductRow({ data }) {
               dispatch(setMessage(err.response.data.error));
             });
         });
-    };
+    }
     getProductForModal();
-
-    // dispatch to redux
-    batch(() => {
-      dispatch(updateInformationModalProduct(tempProducts));
-      dispatch(toggleProductModal(true));
-    });
   }, [productId]);
 
   return (

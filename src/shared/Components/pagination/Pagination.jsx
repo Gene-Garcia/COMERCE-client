@@ -1,5 +1,4 @@
 import React from "react";
-import useProductPagination from "../../../hooks/useProductPagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
   nextPaginationPage,

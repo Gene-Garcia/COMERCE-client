@@ -109,9 +109,9 @@ function InventoryTable({ inventory }) {
 // single responsibility principle
 const InformationContainer = () => {
   // redux manage product reducer & state
-  const product = useSelector((state) => state.MANAGE_PRODUCT.products);
+  const product = useSelector((state) => state.MANAGE_PRODUCT.product);
 
-  return (
+  return product ? (
     <>
       <div className="flex-shrink space-y-4">
         <div className="bg-my-white-tone rounded-l-3xl rounded-t-3xl shadow-md w-52 h-52 overflow-hidden">
@@ -180,5 +180,7 @@ const InformationContainer = () => {
         </div>
       </div>
     </>
+  ) : (
+    <></>
   );
 };
