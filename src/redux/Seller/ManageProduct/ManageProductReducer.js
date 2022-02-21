@@ -2,6 +2,7 @@ import { manageProductActionTypes as types } from "./ManageProductAction";
 
 const initial = {
   toggledProductSubPage: "OVERVIEW",
+  product: null,
   forModalProductId: "",
   isModalOpen: false,
 };
@@ -12,8 +13,8 @@ const manageProductReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_PRODUCT_SUB_PAGE:
       return { ...state, toggledProductSubPage: payload };
 
-    case types.UPDATE_MODALABLE_PRODUCT:
-      return { ...state, forModalProductId: payload };
+    case types.UPDATE_INFORMATION_MODEL_PRODUCT:
+      return { ...state, product: payload };
 
     case types.TOGGLE_PRODUCT_MODAL:
       return { ...state, isModalOpen: payload };

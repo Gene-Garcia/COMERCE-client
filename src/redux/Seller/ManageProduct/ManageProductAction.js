@@ -1,7 +1,7 @@
 // Action types
 const manageProductActionTypes = {
   TOGGLE_PRODUCT_SUB_PAGE: "TOGGLE_PRODUCT_SUB_PAGE",
-  UPDATE_MODALABLE_PRODUCT: "UPDATE_MODALABLE_PRODUCT",
+  UPDATE_INFORMATION_MODEL_PRODUCT: "UPDATE_INFORMATION_MODEL_PRODUCT",
   TOGGLE_PRODUCT_MODAL: "TOGGLE_PRODUCT_MODAL",
 };
 
@@ -13,10 +13,10 @@ const toggleProductSubPage = (pageId) => {
   };
 };
 
-const setModalableProduct = (productId) => {
+const updateInformationModalProduct = (product) => {
   return {
-    type: manageProductActionTypes.UPDATE_MODALABLE_PRODUCT,
-    payload: productId,
+    type: manageProductActionTypes.UPDATE_INFORMATION_MODEL_PRODUCT,
+    payload: product,
   };
 };
 
@@ -30,6 +30,6 @@ const toggleProductModal = (isModalOpen) => {
 export {
   manageProductActionTypes,
   toggleProductSubPage,
-  setModalableProduct,
+  updateInformationModalProduct,
   toggleProductModal,
 };
