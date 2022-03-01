@@ -31,11 +31,16 @@ module.exports = {
 
       width: {
         rr50: "50rem",
+
+        two: "2%",
         five: "5%",
+        eight: "8%",
+        seven: "7%",
         ten: "10%",
         fifteen: "15%",
 
         thirty: "30%",
+        thirtyfive: "35%",
         seventy: "70%",
       },
 
