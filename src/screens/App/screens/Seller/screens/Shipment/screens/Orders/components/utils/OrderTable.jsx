@@ -1,13 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  checkAllOrders,
+  checkThisOrder,
+} from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
 import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 
-const OrderTable = ({ orders }) => {
+const OrderTable = () => {
   return (
     <div className="bg-my-white-tint rounded-lg shadow-sm p-3">
       <div className="flex flex-col gap-2.5">
         <HeaderRow />
-        <OrderRows orders={orders} />
+        <OrderRows />
       </div>
     </div>
   );
@@ -15,10 +20,21 @@ const OrderTable = ({ orders }) => {
 export default OrderTable;
 
 const HeaderRow = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  const onCheckboxChange = (e) => {
+    dispatch(checkAllOrders(e.target.checked));
+  };
+
   return (
     <div className="flex inline-flex justify-between w-full font-semibold text-sm text-gray-400">
       <div className="w-five flex items-center justify-center">
-        <input type="checkbox" className="h-4 w-4" />
+        <input
+          type="checkbox"
+          className="h-4 w-4"
+          onChange={onCheckboxChange}
+        />
       </div>
 
       <div className="w-eight flex items-center justify-center">Order ID</div>
@@ -48,11 +64,21 @@ const HeaderRow = () => {
   );
 };
 
-const OrderRows = ({ orders }) => {
+const OrderRows = () => {
+  // redux ship orders reducer & state
+  const orders = useSelector((state) => state.SHIP_ORDERS.pendingOrders);
+
   return orders.map((order) => <RowData key={order._id} order={order} />);
 };
 
 const RowData = ({ order }) => {
+  // redux
+  const dispatch = useDispatch();
+
+  const onCheckboxChange = (e) => {
+    dispatch(checkThisOrder(order._id, e.target.checked));
+  };
+
   return (
     <div
       className={`flex flex-row w-full
@@ -60,7 +86,11 @@ const RowData = ({ order }) => {
       odd:bg-gray-100`}
     >
       <div className="w-five flex items-center justify-center">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={order.checked}
+          onChange={onCheckboxChange}
+        />
       </div>
 
       <div className="m-auto w-eight text-sm font-light text-black break-all">

@@ -9,12 +9,15 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
+import Loading from "../../../../../../../../../shared/Loading/Loading";
+import { loadPendingOrders } from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
 
 const Orders = ({ history }) => {
   // redux
   const dispatch = useDispatch();
 
-  const [temp, setTemp] = useState([]);
+  // page loading
+  const [loading, setLoading] = useState(true);
 
   // api call to get the pending for shipment orders of this user/seller
   useEffect(() => {
@@ -22,7 +25,10 @@ const Orders = ({ history }) => {
       await axios
         .get("/api/seller/orders/pending")
         .then((res) => {
-          if (res.status === 200) setTemp(res.data.orders);
+          if (res.status === 200) {
+            setLoading(false);
+            dispatch(loadPendingOrders(res.data.orders));
+          }
         })
         .catch((err) => {
           if (!err.response)
@@ -46,6 +52,7 @@ const Orders = ({ history }) => {
 
     getPendingOrders();
   }, []);
+
   return (
     <SellerContainer>
       <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
@@ -59,7 +66,13 @@ const Orders = ({ history }) => {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div>
-        <OrderTable orders={temp} />
+        {loading ? (
+          <div className="bg-my-white-tint rounded-lg shadow-sm p-3">
+            <Loading />
+          </div>
+        ) : (
+          <OrderTable />
+        )}
       </div>
     </SellerContainer>
   );
