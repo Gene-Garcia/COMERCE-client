@@ -29,18 +29,25 @@ module.exports = {
         max: "max-content",
       },
 
+      minWidth: {
+        rr60: "60rem",
+      },
+
       width: {
         rr50: "50rem",
 
         two: "2%",
+        three: "3%",
         five: "5%",
-        eight: "8%",
         seven: "7%",
+        eight: "8%",
         ten: "10%",
+        thirteen: "13%",
         fifteen: "15%",
 
         thirty: "30%",
         thirtyfive: "35%",
+        fiftyfive: "55%",
         seventy: "70%",
       },
 

@@ -71,7 +71,9 @@ const Orders = ({ history }) => {
             <Loading />
           </div>
         ) : (
-          <OrderTable />
+          <div className="">
+            <OrderTable />
+          </div>
         )}
       </div>
     </SellerContainer>
