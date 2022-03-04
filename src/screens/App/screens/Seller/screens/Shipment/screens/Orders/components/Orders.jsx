@@ -4,13 +4,19 @@ import { SellerTitle } from "../../../../../../../../../shared/Components/pages/
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
 import OrderTable from "./utils/OrderTable";
 import axios from "../../../../../../../../../shared/caller";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import Loading from "../../../../../../../../../shared/Loading/Loading";
-import { loadPendingOrders } from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
+import {
+  loadPendingOrders,
+  triggerModalState,
+  updateModaledOrder,
+} from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
+import ModalContainer from "../../../../../../../../../shared/Modal/ModalContainer";
+import OrderModal from "./utils/OrderModal";
 
 const Orders = ({ history }) => {
   // redux
@@ -55,6 +61,8 @@ const Orders = ({ history }) => {
 
   return (
     <SellerContainer>
+      <RenderOrderModal />
+
       <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
         <SellerTitle title="Orders for Shipment" />
 
@@ -80,3 +88,27 @@ const Orders = ({ history }) => {
   );
 };
 export default Orders;
+
+// single responsibility principle
+const RenderOrderModal = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // redux ship orders reducer & state
+  const isModalOpen = useSelector((state) => state.SHIP_ORDERS.isModalOpen);
+
+  return (
+    isModalOpen && (
+      <ModalContainer
+        close={() => {
+          batch(() => {
+            dispatch(triggerModalState(false));
+            dispatch(updateModaledOrder(null));
+          });
+        }}
+      >
+        <OrderModal />
+      </ModalContainer>
+    )
+  );
+};

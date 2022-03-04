@@ -1,11 +1,19 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   checkAllOrders,
   checkThisOrder,
+  triggerModalState,
+  updateModaledOrder,
 } from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
 import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
+import axios from "../../../../../../../../../../shared/caller";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
+import { useHistory } from "react-router-dom";
 
 const OrderTable = () => {
   return (
@@ -70,12 +78,47 @@ const OrderRows = () => {
 };
 
 const RowData = ({ order }) => {
+  // history
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
   const onCheckboxChange = (e) => {
     dispatch(checkThisOrder(order._id, e.target.checked));
   };
+
+  // API to load modalOrder
+  async function getOrder() {
+    await axios
+      .get(`/api/seller/orders/order/${order._id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(triggerModalState(true));
+            dispatch(updateModaledOrder(res.data.order));
+          });
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh the page and try again."
+              )
+            );
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  }
 
   return (
     <div
@@ -95,13 +138,10 @@ const RowData = ({ order }) => {
         {order._id}
       </div>
 
-      <div className="w-1/2 p-1 flex flex-col justify-center">
+      <div className="w-1/2 p-1 ">
         {order.orderedProducts.map((product) => (
-          <>
-            <div
-              key={product._id}
-              className="inline-flex items-center text-center py-0.5"
-            >
+          <div key={product._id} className="flex flex-col justify-center">
+            <div className="inline-flex items-center text-center py-0.5">
               <div className="font-medium text-gray-600 w-1/2">
                 {product._product.item}
               </div>
@@ -112,7 +152,7 @@ const RowData = ({ order }) => {
               {/* <span>₱{formatPrice(product.quantity * product.priceAtPoint)}</span> */}
             </div>
             <div className="border-b border-gray-400 border-opacity-30 w-4/5 m-auto"></div>
-          </>
+          </div>
         ))}
       </div>
 
@@ -130,6 +170,7 @@ const RowData = ({ order }) => {
       <div className="w-fifteen p-1 m-auto">
         <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
           <button
+            onClick={getOrder}
             className={`w-min bg-gray-200 rounded-full px-4 py-1
         text-sm font-semibold text-gray-600
         transition duration-200 ease-linear
