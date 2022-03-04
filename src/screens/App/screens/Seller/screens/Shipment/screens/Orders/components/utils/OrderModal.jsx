@@ -44,6 +44,7 @@ const OrderModal = () => {
 
         <div className="">
           <Label
+            full={true}
             title="DELIVERY ADDRESS"
             value={modalOrder.shipmentDetails.streetAddress}
             accented={true}
@@ -61,6 +62,7 @@ const OrderModal = () => {
 
         <div className="">
           <Label
+            full={true}
             title="CUSTOMER NOTES"
             value={modalOrder.shipmentDetails.additionalNotes}
           />
