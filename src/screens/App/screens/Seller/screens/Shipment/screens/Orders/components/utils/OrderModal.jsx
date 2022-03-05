@@ -11,10 +11,12 @@ const OrderModal = () => {
   const products = modalOrder.orderedProducts;
 
   return (
-    <div className="px-5 pb-5 space-y-6">
+    <div className="w-rr36 overflow-hidden px-5 pb-5 space-y-6">
       {/* products scrollable */}
-      <div className="flex flex-row gap-x-2">
-        <RenderProducts products={products} />
+      <div className="flex flex-row gap-x-3 pb-3 overflow-x-auto">
+        {products.map((product) => (
+          <ProductCard key={product._id} product={product} />
+        ))}
       </div>
 
       {/* customer information */}
@@ -77,12 +79,14 @@ export default OrderModal;
 const ProductCard = ({ product }) => {
   const info = product._product;
   return (
-    <div className="w-32 flex flex-col items-center border border-gray-200 rounded">
-      <img
-        src={info.imageAddress}
-        alt={info.item}
-        className="object-contain w-full h-28"
-      />
+    <div className="w-full flex flex-col items-center border border-gray-200 rounded">
+      <div className="w-36 flex items-center justify-center">
+        <img
+          src={info.imageAddress}
+          alt={info.item}
+          className="object-contain w-full h-full"
+        />
+      </div>
 
       <div className="flex flex-col justify-between text-left w-full h-full p-1.5">
         <p className="font-medium text-gray-500">{info.item}</p>
@@ -95,11 +99,4 @@ const ProductCard = ({ product }) => {
       </div>
     </div>
   );
-};
-
-// single resp principle
-const RenderProducts = ({ products }) => {
-  return products.map((product) => (
-    <ProductCard key={product._id} product={product} />
-  ));
 };
