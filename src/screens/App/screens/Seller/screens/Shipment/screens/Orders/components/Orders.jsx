@@ -17,6 +17,7 @@ import {
 } from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
 import ModalContainer from "../../../../../../../../../shared/Modal/ModalContainer";
 import OrderModal from "./utils/OrderModal";
+import { useHistory } from "react-router-dom";
 
 const Orders = ({ history }) => {
   // redux
@@ -67,7 +68,7 @@ const Orders = ({ history }) => {
         <SellerTitle title="Orders for Shipment" />
 
         <div className="space-x-4 flex flex-row justify-center items-center">
-          <HeaderButton type="BUTTON" title="Ship Selected" />
+          <ShipSelectedButton />
         </div>
       </div>
 
@@ -110,5 +111,66 @@ const RenderOrderModal = () => {
         <OrderModal />
       </ModalContainer>
     )
+  );
+};
+
+const ShipSelectedButton = () => {
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
+  // redux ship orders reducer & state
+  const pendingOrders = useSelector((state) => state.SHIP_ORDERS.pendingOrders);
+
+  async function shipSelected() {
+    // check if there is a selected
+
+    // build data
+    // get all pendingOrders id where checked is true
+    const checkedOrders = pendingOrders.filter((order) => order.checked);
+
+    // turn orderId as the key
+    const data = checkedOrders.map((order) => {
+      return {
+        orderId: order._id,
+        productIds: order.orderedProducts.map(
+          (product) => product._product._id
+        ),
+      };
+    });
+
+    await axios
+      .patch("/api/seller/logistics/ship", { orders: data })
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setSeverity("information"));
+            dispatch(setMessage(res.data.message));
+          });
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh the page and try again."
+              )
+            );
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  }
+
+  return (
+    <HeaderButton onClick={shipSelected} type="BUTTON" title="Ship Selected" />
   );
 };

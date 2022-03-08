@@ -120,6 +120,46 @@ const RowData = ({ order }) => {
       });
   }
 
+  // API ship this order
+  async function shipOrder() {
+    // build data
+    const data = {
+      orderId: order._id,
+      productIds: order.orderedProducts.map(
+        (orderedProducts) => orderedProducts._product._id
+      ),
+    };
+
+    await axios
+      .patch("/api/seller/logistics/ship", { orders: [data] })
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setSeverity("information"));
+            dispatch(setMessage(res.data.message));
+          });
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh the page and try again."
+              )
+            );
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  }
+
   return (
     <div
       className={`flex flex-row w-full
@@ -181,6 +221,7 @@ const RowData = ({ order }) => {
           </button>
 
           <button
+            onClick={shipOrder}
             className={`w-min bg-gray-200 rounded-full px-4 py-1
         text-sm font-semibold text-gray-600
         transition duration-200 ease-linear
