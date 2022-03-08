@@ -5,6 +5,8 @@ const initial = {
 
   isModalOpen: false,
   modalOrder: null,
+
+  reload: false, // a state variable which will be used as a dependency in re-requesting pending orders
 };
 
 const shipOrdersReducer = (state = initial, { type, payload }) => {
@@ -35,6 +37,12 @@ const shipOrdersReducer = (state = initial, { type, payload }) => {
           ...order,
           checked: payload,
         })),
+      };
+
+    case types.TOGGLE_RELOAD:
+      return {
+        ...state,
+        reload: !reload,
       };
 
     case types.RESET_TO_DEFAULT:

@@ -4,6 +4,7 @@ const shopOrdersActionTypes = {
   TRIGGER_MODAL_STATE: "TRIGGER_MODAL_STATE",
   CHECK_THIS_ORDER: "CHECK_THIS_ORDER",
   CHECK_ALL_ORDERS: "CHECK_ALL_ORDERS",
+  TOGGLE_RELOAD: "TOGGLE_RELOAD",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
@@ -42,6 +43,12 @@ const checkAllOrders = (status) => {
   };
 };
 
+const toggleReload = () => {
+  return {
+    type: shopOrdersActionTypes.TOGGLE_RELOAD,
+  };
+};
+
 const resetToDefault = () => {
   return {
     type: shopOrdersActionTypes.RESET_TO_DEFAULT,
@@ -55,5 +62,6 @@ export {
   triggerModalState,
   checkThisOrder,
   checkAllOrders,
+  toggleReload,
   resetToDefault,
 };
