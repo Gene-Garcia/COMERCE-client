@@ -42,7 +42,7 @@ const shipOrdersReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_RELOAD:
       return {
         ...state,
-        reload: !reload,
+        reload: !state.reload,
       };
 
     case types.RESET_TO_DEFAULT:

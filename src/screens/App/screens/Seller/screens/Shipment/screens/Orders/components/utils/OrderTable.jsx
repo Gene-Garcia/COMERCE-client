@@ -3,6 +3,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import {
   checkAllOrders,
   checkThisOrder,
+  toggleReload,
   triggerModalState,
   updateModaledOrder,
 } from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
@@ -137,6 +138,7 @@ const RowData = ({ order }) => {
           batch(() => {
             dispatch(setSeverity("information"));
             dispatch(setMessage(res.data.message));
+            dispatch(toggleReload());
           });
         }
       })

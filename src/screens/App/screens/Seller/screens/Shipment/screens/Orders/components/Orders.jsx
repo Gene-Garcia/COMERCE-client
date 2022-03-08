@@ -12,6 +12,7 @@ import {
 import Loading from "../../../../../../../../../shared/Loading/Loading";
 import {
   loadPendingOrders,
+  toggleReload,
   triggerModalState,
   updateModaledOrder,
 } from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
@@ -23,10 +24,14 @@ const Orders = ({ history }) => {
   // redux
   const dispatch = useDispatch();
 
+  // redux ship order reducer & state
+  const reload = useSelector((state) => state.SHIP_ORDERS.reload);
+
   // page loading
   const [loading, setLoading] = useState(true);
 
   // api call to get the pending for shipment orders of this user/seller
+  // added dependency on reload, usually triggered after shipping a product
   useEffect(() => {
     async function getPendingOrders() {
       await axios
@@ -58,7 +63,7 @@ const Orders = ({ history }) => {
     }
 
     getPendingOrders();
-  }, []);
+  }, [reload]);
 
   return (
     <SellerContainer>
@@ -147,6 +152,7 @@ const ShipSelectedButton = () => {
           batch(() => {
             dispatch(setSeverity("information"));
             dispatch(setMessage(res.data.message));
+            dispatch(toggleReload());
           });
         }
       })
