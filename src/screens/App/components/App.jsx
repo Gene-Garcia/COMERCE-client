@@ -66,19 +66,24 @@ const AppContent = memo(() => {
     <div
       className={`h-full ${
         withSellerNavigation.includes(pathname)
-          ? "flex flex-col md:flex-row bg-my-white-tone"
+          ? "flex  flex-col md:flex-row bg-my-white-tone"
           : "bg-white"
       }`}
     >
       {!navless.includes(pathname) && <UserNavigation />}
-      {withSellerNavigation.includes(pathname) && <SellerNavigation />}
-
+      {withSellerNavigation.includes(pathname) && (
+        <div className="flex-grow-0">
+          <SellerNavigation />
+        </div>
+      )}
       {/* 72 is also the width of the sidebar */}
+      {/* the overflow scroll will be put here to avoid also scrolling the sidebar */}
       <div
-        className={`w-full ${
-          withSellerNavigation.includes(pathname) &&
-          "md:ml-52 lg:ml-56 2xl:ml-60"
-        }`}
+        className={`${
+          withSellerNavigation.includes(pathname)
+            ? "overflow-y-auto md:flex-grow "
+            : ""
+        }`} // "md:ml-52 lg:ml-56 2xl:ml-60 fixed"
       >
         {withSellerNavigation.includes(pathname) && <BusinessHeader />}
 
