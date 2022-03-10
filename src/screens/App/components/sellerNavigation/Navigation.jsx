@@ -16,11 +16,11 @@ export default Navigation;
 function Sidebar() {
   return (
     <div
-      className="fixed h-screen bg-my-accent-shade
+      className="sticky h-screen bg-my-accent-shade
  md:w-52 lg:w-56 2xl:w-60"
     >
       <div
-        className="px-2 lg:px-4 py-6 lg:py-10 
+        className=" px-2 lg:px-4 py-6 lg:py-10 
   flex flex-col justify-center md:gap-1 lg:gap-6"
       >
         <Link

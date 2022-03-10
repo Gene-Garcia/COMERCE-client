@@ -4,3 +4,10 @@
 @tailwind components;
 
 @tailwind utilities;
+
+/* for debugging */
+/* @layer components {
+  * {
+    border: solid #ffcccb 1px;
+  }
+} */

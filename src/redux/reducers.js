@@ -10,6 +10,7 @@ import sellerRegistrationReducer from "./Seller/SellerRegistration/SellerRegistr
 import shoppingCartReducer, {
   cartCounterReducer,
 } from "./ShoppingCart/ShoppingCartReducer";
+import shipOrdersReducer from "./Seller/ShipOrders/ShipOrdersReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -27,5 +28,7 @@ const reducers = combineReducers({
 
   MANAGE_INVENTORY: manageInventoryReducer,
   MANAGE_PRODUCT: manageProductReducer,
+
+  SHIP_ORDERS: shipOrdersReducer,
 });
 export default reducers;
