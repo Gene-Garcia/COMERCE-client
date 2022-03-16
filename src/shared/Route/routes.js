@@ -143,6 +143,18 @@ const routes = {
           },
         },
       },
+
+      ORDERS: {
+        path: "/seller/orders",
+        name: "Orders",
+
+        subroutes: {
+          MASTER: {
+            path: "/seller/orders/master",
+            name: "Orders Master Data",
+          },
+        },
+      },
     },
   },
 };
