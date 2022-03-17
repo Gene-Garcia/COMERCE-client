@@ -1,8 +1,30 @@
 import React, { useState } from "react";
+import { methods } from "../../../../../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 import CollapseRow from "./CollapseRow";
 
 const OrderRow = ({ data, stripe }) => {
+  // deconstruct
+  const {
+    _id: orderId,
+    shipmentDetails: {
+      firstName,
+      lastName,
+      province,
+      cityMunicipality,
+      barangay,
+    },
+    paymentMethod,
+    orderedProducts,
+  } = data;
+
   const [toggled, setToggled] = useState(false);
+
+  // computer order total
+  let orderTotal = 0;
+  orderedProducts.forEach((product) => {
+    orderTotal = orderTotal + (product.quantity + product.priceAtPoint);
+  });
 
   return (
     <>
@@ -13,12 +35,19 @@ const OrderRow = ({ data, stripe }) => {
       hover:bg-my-white-tone`}
       >
         <td className={`px-3 break-all text-left text-sm font-light`}>
-          zxcjaoisdjfo1000981231232412
+          {orderId}
         </td>
-        <td className="font-regular text-gray-600">Sheldon Cooper</td>
-        <td className="font-regular">Pasadena, California, America</td>
-        <td className="font-medium text-my-accent">P15,000.00</td>
-        <td className="text-gray-800 font-medium">Cash On Delivery</td>
+
+        <td className="font-regular text-gray-600">{`${firstName} ${lastName}`}</td>
+
+        <td className="font-regular">{`${barangay}, ${cityMunicipality}, ${province}`}</td>
+
+        <td className="font-medium text-my-accent">
+          ₱{formatPrice(orderTotal)}
+        </td>
+
+        <td className="text-gray-800 font-medium">{methods[paymentMethod]}</td>
+
         <td className="w-min">
           <div className="flex item-center flex-row justify-center gap-4">
             <button

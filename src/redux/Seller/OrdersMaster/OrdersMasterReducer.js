@@ -29,6 +29,18 @@ const ordersMasterReducer = (state = initial, { type, payload }) => {
         products: payload,
       };
 
+    case types.UPDATE_PAGE_LOADING:
+      return {
+        ...state,
+        pageLoading: payload,
+      };
+
+    case types.UPDATE_COLLAPSE_LOADING:
+      return {
+        ...state,
+        collapseLoading: payload,
+      };
+
     case types.RESET_TO_DEFAULT:
       return { ...initial };
 
