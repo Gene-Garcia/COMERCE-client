@@ -53,6 +53,7 @@ const AppContent = memo(() => {
     "/seller/manage/inventory",
     "/seller/shipment/orders",
     "/seller/shipment/fulfilled",
+    "/seller/orders/master",
   ];
   const withSellerNavigation = [
     "/seller",
@@ -60,6 +61,7 @@ const AppContent = memo(() => {
     "/seller/manage/inventory",
     "/seller/shipment/orders",
     "/seller/shipment/fulfilled",
+    "/seller/orders/master",
   ];
 
   return (
@@ -119,6 +121,7 @@ const AppContent = memo(() => {
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.ORDERS} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
+          <Route {...route.SELLER.subroutes.ORDERS.subroutes.MASTER} />
 
           {/* <PrivateRoute
           path={route.USER.path}

@@ -3,6 +3,7 @@ import Dashboard from ".";
 
 import ManageSubRoute from "./screens/Manage/route";
 import ShipmentSubRoute from "./screens/Shipment/route";
+import OrdersSubRoute from "./screens/Orders/route";
 
 const route = {
   path: routes.SELLER.path,
@@ -12,6 +13,7 @@ const route = {
   subroutes: {
     MANAGE: ManageSubRoute,
     SHIPMENT: ShipmentSubRoute,
+    ORDERS: OrdersSubRoute,
   },
 };
 export default route;
