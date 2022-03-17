@@ -89,6 +89,7 @@ module.exports = {
       ringOffsetWidth: ["active", "hover"],
       ringOffsetColor: ["active"],
       textColor: ["active"],
+      textOpacity: ["hover"],
     },
   },
   plugins: [],
