@@ -18,10 +18,10 @@ export default OrderTable;
 const RenderOrderRows = () => {
   return (
     <>
-      <OrderRow data="" />
-      <OrderRow data="" />
-      <OrderRow data="" />
-      <OrderRow data="" />
+      <OrderRow data="" stripe={true} />
+      <OrderRow data="" stripe={false} />
+      <OrderRow data="" stripe={true} />
+      <OrderRow data="" stripe={false} />
     </>
   );
 };
