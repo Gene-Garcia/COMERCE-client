@@ -4,6 +4,9 @@ const initial = {
   orders: [],
   status: "PLACED",
   products: [],
+
+  pageLoading: true,
+  collapseLoading: true,
 };
 
 const ordersMasterReducer = (state = initial, { type, payload }) => {
