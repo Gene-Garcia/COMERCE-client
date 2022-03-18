@@ -27,7 +27,7 @@ const CollapseRow = ({ orderId }) => {
         .get(`/api/seller/orders/master/products/${orderId}`)
         .then((res) => {
           if (res.status === 200) {
-            setOrder((prev) => res.data.order);
+            setOrder(res.data.order);
             setLoading(false);
           }
         })
@@ -110,7 +110,7 @@ const TableHeadings = () => {
 
 const RenderCollapseRow = ({ products }) => {
   return products.map((product) => (
-    <tr className="text-left text-sm">
+    <tr key={product._product._id} className="text-left text-sm">
       <td className={`w-max ${cellPadding}`}>{product._product.item}</td>
       <td className={`w-min ${cellPadding}`}>
         <span className=" px-3 text-center rounded-full py-0.5 bg-my-accent text-white font-medium text-xs">

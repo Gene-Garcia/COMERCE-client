@@ -35,7 +35,11 @@ const RenderOrderRows = () => {
   return (
     <>
       {orders.length <= 0 ? (
-        <h1>No Orders</h1>
+        <tr>
+          <td colSpan={6}>
+            <h1>No Orders</h1>
+          </td>
+        </tr>
       ) : (
         orders.map((order, i) => (
           <OrderRow key={order._id} data={order} stripe={i % 2 !== 0} />
