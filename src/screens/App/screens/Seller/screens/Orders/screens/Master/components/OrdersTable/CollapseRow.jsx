@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../../../../../../../../../shared/caller";
-import { batch, useDispatch, useSelector } from "react-redux";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
-import {
-  loadOrderedProducts,
-  updateCollapseLoading,
-} from "../../../../../../../../../../redux/Seller/OrdersMaster/OrdersMasterAction";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 
 const cellPadding = "px-4 py-2";
 
 const CollapseRow = ({ orderId }) => {
-  // redux
-  const dispatch = useDispatch();
-
-  // redux orders master reducer & state
-  const collapseLoading = useSelector(
-    (state) => state.ORDERS_MASTER.collapseLoading
-  );
+  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState(null);
 
   // triggers everytime this collapse row component is rendered
   useEffect(() => {
@@ -26,12 +16,9 @@ const CollapseRow = ({ orderId }) => {
         .get(`/api/seller/orders/master/products/${orderId}`)
         .then((res) => {
           if (res.status === 200) {
-            const tempOrder = res.data.order;
-
-            batch(() => {
-              dispatch(loadOrderedProducts(tempOrder));
-              dispatch(updateCollapseLoading(false));
-            });
+            setOrder((prev) => res.data.order);
+            setLoading(false);
+            console.log(order);
           }
         })
         .catch((err) => {
@@ -45,11 +32,12 @@ const CollapseRow = ({ orderId }) => {
   // clean up
   useEffect(() => {
     return () => {
-      dispatch(updateCollapseLoading(true));
+      setLoading(true);
+      setOrder(null);
     };
   }, []);
 
-  return collapseLoading ? (
+  return loading ? (
     <td colSpan={6}>
       <div className="p-3 opacity-50">
         <Loading />
@@ -65,13 +53,13 @@ const CollapseRow = ({ orderId }) => {
           </thead>
 
           <tbody>
-            <RenderCollapseRow />
+            <RenderCollapseRow products={order.orderedProducts} />
           </tbody>
         </table>
 
         {/* pricing */}
         <div className="w-1/5 flex-shrink-0 text-left place-self-end">
-          <Pricings />
+          <Pricings order={order} />
         </div>
       </div>
     </td>
@@ -93,12 +81,7 @@ const TableHeadings = () => {
   );
 };
 
-const RenderCollapseRow = () => {
-  // redux orders master reducer & state
-  const products = useSelector(
-    (state) => state.ORDERS_MASTER.order
-  ).orderedProducts;
-
+const RenderCollapseRow = ({ products }) => {
   return products.map((product) => (
     <tr className="text-left text-sm">
       <td className={`w-max ${cellPadding}`}>{product._product.item}</td>
@@ -116,9 +99,8 @@ const RenderCollapseRow = () => {
   ));
 };
 
-const Pricings = () => {
+const Pricings = ({ order }) => {
   // redux orders master reducer & state
-  const order = useSelector((state) => state.ORDERS_MASTER.order);
   const products = order.orderedProducts;
 
   let subTotal = 0;
@@ -138,7 +120,7 @@ const Pricings = () => {
 
       <div className="flex flex-row justify-between gap-2">
         <p className="font-medium text-gray-400 text-opacity-80">Shipping</p>
-        <p className="text-gray-400 font-medium">P70.00</p>
+        <p className="text-gray-400 font-medium">₱{formatPrice(shippingFee)}</p>
       </div>
 
       <div className="mt-4 flex flex-row justify-between gap-2">
