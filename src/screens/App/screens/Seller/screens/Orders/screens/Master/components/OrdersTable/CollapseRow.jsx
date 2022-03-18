@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { batch, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
 import axios from "../../../../../../../../../../shared/caller";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
@@ -6,6 +12,11 @@ import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 const cellPadding = "px-4 py-2";
 
 const CollapseRow = ({ orderId }) => {
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState(null);
 
@@ -18,11 +29,27 @@ const CollapseRow = ({ orderId }) => {
           if (res.status === 200) {
             setOrder((prev) => res.data.order);
             setLoading(false);
-            console.log(order);
           }
         })
         .catch((err) => {
-          console.error(err);
+          setLoading(false);
+
+          if (!err.response)
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong in retrieving your orders. Refresh your browser or try again later."
+                )
+              );
+            });
+          else if (err.response.status === 403) history.push("/forbidden");
+          else if (err.response.status === 401) history.push("unathorized");
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+            });
         });
     }
 
