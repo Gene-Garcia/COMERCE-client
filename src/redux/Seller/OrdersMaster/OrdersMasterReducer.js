@@ -3,7 +3,7 @@ import { ordersMasterActionTypes as types } from "./OrdersMasterAction";
 const initial = {
   orders: [],
   status: "PLACED",
-  products: [],
+  order: null,
 
   pageLoading: true,
   collapseLoading: true,
@@ -26,7 +26,7 @@ const ordersMasterReducer = (state = initial, { type, payload }) => {
     case types.LOAD_ORDERED_PRODUCTS:
       return {
         ...state,
-        products: payload,
+        order: payload,
       };
 
     case types.UPDATE_PAGE_LOADING:
