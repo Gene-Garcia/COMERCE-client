@@ -9,7 +9,7 @@ const OrderTable = () => {
   const loading = useSelector((state) => state.ORDERS_MASTER.pageLoading);
 
   return (
-    <table className="w-full table-fixed">
+    <table className="w-full table-fixed min-w-rr60">
       <OrderHeading />
 
       <tbody className="text-center">

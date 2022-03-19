@@ -76,7 +76,7 @@ const OrdersMaster = () => {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="bg-my-white-tint rounded">
+      <div className="bg-my-white-tint rounded overflow-x-auto">
         {/* order status */}
         <OrderStatusButton />
 

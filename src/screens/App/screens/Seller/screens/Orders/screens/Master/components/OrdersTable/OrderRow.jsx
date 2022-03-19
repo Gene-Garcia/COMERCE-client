@@ -52,13 +52,15 @@ hover:bg-my-white-tone`}
         {orderId}
       </td>
 
-      <td className="font-regular text-gray-600">{`${firstName} ${lastName}`}</td>
+      <td className="font-regular text-gray-600 break-words">{`${firstName} ${lastName}`}</td>
 
-      <td className="font-regular">{`${barangay}, ${cityMunicipality}, ${province}`}</td>
+      <td className="font-regular break-words">{`${barangay}, ${cityMunicipality}, ${province}`}</td>
 
       <td className="font-medium text-my-accent">₱{formatPrice(orderTotal)}</td>
 
-      <td className="text-gray-800 font-medium">{methods[paymentMethod]}</td>
+      <td className="text-gray-800 text-sm font-medium break-words">
+        {methods[paymentMethod]}
+      </td>
 
       <td className="w-min">
         <div className="flex item-center flex-row justify-center gap-4">

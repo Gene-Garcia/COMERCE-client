@@ -74,7 +74,7 @@ const CollapseRow = ({ orderId }) => {
     <td className="" colSpan={6}>
       <div className="flex flex-row justify-start gap-6 px-6 py-4">
         {/* table */}
-        <table className="w-4/5 table-fixed rounded shadow h-max">
+        <table className="w-3/4 xl:w-4/5 table-fixed rounded shadow h-max">
           <thead className="border-b border-opacity-75 border-my-accent">
             <TableHeadings />
           </thead>
@@ -85,7 +85,7 @@ const CollapseRow = ({ orderId }) => {
         </table>
 
         {/* pricing */}
-        <div className="w-1/5 flex-shrink-0 text-left place-self-end">
+        <div className="w-1/4 xl:w-1/5 flex-shrink-0 text-left place-self-end">
           <Pricings order={order} />
         </div>
       </div>
