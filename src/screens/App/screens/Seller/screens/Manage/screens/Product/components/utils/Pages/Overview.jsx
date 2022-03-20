@@ -59,7 +59,7 @@ function Overview() {
     }
 
     setLoading(true);
-    // getProducts();
+    getProducts();
   }, []);
 
   // cleanup
@@ -77,13 +77,8 @@ function Overview() {
             </td>
           </tr>
         ) : (
-          products.map((e, i) => (
-            <>
-              <ProductRow data={e} key={i} />
-              <tr>
-                <td colSpan={7} className="h-4"></td>
-              </tr>
-            </>
+          products.map((product) => (
+            <ProductRow data={product} key={product._id} />
           ))
         )}
       </tbody>

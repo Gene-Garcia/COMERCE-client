@@ -68,51 +68,57 @@ function ProductRow({ data }) {
   const theme = "p-3 first:rounded-l-xl last:rounded-r-xl";
 
   return (
-    <tr className="bg-my-white-tint">
-      <td className={`${theme} break-all font-light text-xs`}>{productId}</td>
+    <>
+      <tr className="bg-my-white-tint">
+        <td className={`${theme} break-all font-light text-xs`}>{productId}</td>
 
-      <td className={`${theme}`}>
-        <img
-          src={imageAddress}
-          alt="product"
-          className="w-12 lg:w-16 filter drop-shadow-md m-auto"
-        />
-      </td>
-
-      <td className={`${theme} break-words font-medium text-gray-600`}>
-        {item}
-      </td>
-
-      <td className={`${theme} text-center text-my-accent font-semibold`}>
-        ₱{formatPrice(retailPrice)}
-      </td>
-
-      <td className={`${theme} text-center text-my-accent`}>
-        ₱{formatPrice(wholesalePrice)}
-      </td>
-
-      <td className={`${theme} text-center text-red-600 text-md`}>
-        {inventory} <span className="text-sm">item(s)</span>
-      </td>
-
-      <td className={`${theme}`}>
-        <div className=" flex flex-row flex-wrap gap-2 items-center justify-center">
-          <ProductAction
-            onClick={referenceToInformationModal}
-            title="INFO"
-            svgD="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            color="text-black bg-my-white-tone"
-            effect="hover:bg-gray-200 active:ring-2 active:ring-gray-200 active:ring-offset-2"
+        <td className={`${theme}`}>
+          <img
+            src={imageAddress}
+            alt="product"
+            className="w-12 lg:w-16 filter drop-shadow-md m-auto"
           />
-          <ProductAction
-            title="EDIT"
-            svgD="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-            color="text-black bg-my-white-tone"
-            effect="hover:bg-gray-200 active:ring-2 active:ring-gray-200 active:ring-offset-2"
-          />
-        </div>
-      </td>
-    </tr>
+        </td>
+
+        <td className={`${theme} break-words font-medium text-gray-600`}>
+          {item}
+        </td>
+
+        <td className={`${theme} text-center text-my-accent font-semibold`}>
+          ₱{formatPrice(retailPrice)}
+        </td>
+
+        <td className={`${theme} text-center text-my-accent`}>
+          ₱{formatPrice(wholesalePrice)}
+        </td>
+
+        <td className={`${theme} text-center text-red-600 text-md`}>
+          {inventory} <span className="text-sm">item(s)</span>
+        </td>
+
+        <td className={`${theme}`}>
+          <div className=" flex flex-row flex-wrap gap-2 items-center justify-center">
+            <ProductAction
+              onClick={referenceToInformationModal}
+              title="INFO"
+              svgD="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              color="text-black bg-my-white-tone"
+              effect="hover:bg-gray-200 active:ring-2 active:ring-gray-200 active:ring-offset-2"
+            />
+            <ProductAction
+              title="EDIT"
+              svgD="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              color="text-black bg-my-white-tone"
+              effect="hover:bg-gray-200 active:ring-2 active:ring-gray-200 active:ring-offset-2"
+            />
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td colSpan={7} className="h-4"></td>
+      </tr>
+    </>
   );
 }
 export default ProductRow;
