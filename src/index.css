@@ -11,4 +11,9 @@
   /* * {
     border: solid #ffcccb 1px;
   } */
+
+  .spaced-table-row {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
 }
