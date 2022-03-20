@@ -59,7 +59,7 @@ function Overview() {
     }
 
     setLoading(true);
-    getProducts();
+    // getProducts();
   }, []);
 
   // cleanup
@@ -70,14 +70,22 @@ function Overview() {
       <ProductHeadings />
 
       <tbody className=" w-min-rr60">
-        {products.map((e, i) => (
-          <>
-            <ProductRow data={e} key={i} />
-            <tr>
-              <td colSpan={6} className="h-4"></td>
-            </tr>
-          </>
-        ))}
+        {loading ? (
+          <tr className="">
+            <td colSpan={7} className="py-6 bg-my-white-tint rounded-xl">
+              <Loading />
+            </td>
+          </tr>
+        ) : (
+          products.map((e, i) => (
+            <>
+              <ProductRow data={e} key={i} />
+              <tr>
+                <td colSpan={7} className="h-4"></td>
+              </tr>
+            </>
+          ))
+        )}
       </tbody>
     </table>
   );
