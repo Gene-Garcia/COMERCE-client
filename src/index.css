@@ -5,9 +5,10 @@
 
 @tailwind utilities;
 
-/* for debugging */
-/* @layer components {
-  * {
+@layer components {
+  /* for debugging */
+
+  /* * {
     border: solid #ffcccb 1px;
-  }
-} */
+  } */
+}

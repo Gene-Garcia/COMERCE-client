@@ -66,6 +66,23 @@ function Overview() {
   useEffect(() => () => setProducts([]), []);
 
   return (
+    <table className="table-fixed w-full min-w-rr60">
+      <ProductHeadings />
+
+      <tbody className=" w-min-rr60">
+        {products.map((e, i) => (
+          <>
+            <ProductRow data={e} key={i} />
+            <tr>
+              <td colSpan={6} className="h-4"></td>
+            </tr>
+          </>
+        ))}
+      </tbody>
+    </table>
+  );
+
+  return (
     <div className="overflow-x-scroll md:overflow-x-auto pb-4 space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
       <ProductHeadings />
       {loading ? (
