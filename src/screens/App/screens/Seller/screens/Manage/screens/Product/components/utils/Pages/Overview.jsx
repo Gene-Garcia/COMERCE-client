@@ -81,22 +81,5 @@ function Overview() {
       </tbody>
     </table>
   );
-
-  return (
-    <div className="overflow-x-scroll md:overflow-x-auto pb-4 space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-8 2xl:space-y-10">
-      <ProductHeadings />
-      {loading ? (
-        <div className="rounded-lg bg-my-white-tint py-8 flex items-center">
-          <Loading />
-        </div>
-      ) : (
-        <div className="w-rr50 md:w-full flex flex-col gap-y-4 md:gap-y-5">
-          {products.map((e, i) => (
-            <ProductRow data={e} key={i} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
 }
 export default Overview;
