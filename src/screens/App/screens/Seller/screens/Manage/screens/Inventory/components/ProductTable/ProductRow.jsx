@@ -1,48 +1,47 @@
 import React from "react";
 
 function ProductHead() {
-  const theme = "uppercase font-semibold text-sm text-gray-400";
+  const theme = " uppercase font-semibold text-sm text-gray-400 text-left";
   return (
-    <div
-      className="w-full flex flex-row items-center px-2 py-1
-    border-b border-gray-200"
-    >
-      <td className={`w-ten text-center`}>
-        <input type="checkbox" className="w-4 h-4" />
-      </td>
-
-      <td className={`w-1/5 ${theme} text-center`}>Image</td>
-      <td className={`w-2/5 ${theme}`}>Item</td>
-      <td className={`w-fifteen ${theme}`}>Onhand</td>
-      <td className={`w-fifteen ${theme}`}>Inventory</td>
-    </div>
+    <tr className="border-b border-gray-200">
+      <th className={`${theme}`}>Image</th>
+      <th className={`${theme}`}>Item</th>
+      <th className={`${theme}`}>Onhand</th>
+      <th className={`${theme}`}>Inventory</th>
+    </tr>
   );
 }
 
-function ProductData({ data: { imageAddress, item, onHand, inventory } }) {
-  const theme = "";
+function ProductData({
+  onClick,
+  data: { imageAddress, item, onHand, inventory },
+}) {
+  const theme = "p-2 first:rounded-l-md last:rounded-r-md";
 
   return (
-    <div className="py-1 w-full flex flex-row items-center">
-      <td className={`w-ten text-center`}>
-        <input type="checkbox" />
+    <tr
+      onClick={onClick}
+      className={`h-20 w-full odd:bg-gray-100
+      cursor-pointer
+      transition duration-150 ease-linear
+      hover:bg-gray-200`}
+    >
+      <td className={`${theme}`}>
+        <img
+          alt="product"
+          src={imageAddress}
+          className="w-14 object-contain m-auto"
+        />
       </td>
 
-      <td
-        className={`w-1/5 ${theme} flex items-center justify-center items-center`}
-      >
-        <img alt="product" src={imageAddress} className="w-14 object-contain" />
-      </td>
-      <td
-        className={`w-2/5 ${theme} break-words font-medium text-md text-black`}
-      >
+      <td className={`${theme} break-words font-medium text-md text-black`}>
         {item}
       </td>
-      <td className={`w-fifteen ${theme} font-medium text-my-accent`}>
-        {onHand}
-      </td>
-      <td className={`w-fifteen ${theme} text-gray-900`}>{inventory}</td>
-    </div>
+
+      <td className={`${theme} font-medium text-my-accent`}>{onHand}</td>
+
+      <td className={`${theme} text-gray-900`}>{inventory}</td>
+    </tr>
   );
 }
 

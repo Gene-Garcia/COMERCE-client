@@ -11,26 +11,19 @@ function InventoryTable() {
   const products = useSelector((state) => state.MANAGE_INVENTORY.products);
 
   return (
-    <table className="w-full">
+    <table className="table-fixed spaced-table-row w-full min-w-rr35">
       <thead className="">
         <ProductHead />
       </thead>
 
       <tbody className="">
-        <div className="space-y-1.5 flex flex-col">
-          {products.map((product, i) => (
-            <button
-              key={i}
-              onClick={() => dispatch(setSelectedProduct(product))}
-              className="w-full mx-1 my-2 rounded-md odd:bg-gray-100
-              cursor-pointer
-              transition duration-150 ease-linear
-              hover:bg-gray-200"
-            >
-              <ProductData data={product} />
-            </button>
-          ))}
-        </div>
+        {products.map((product) => (
+          <ProductData
+            data={product}
+            key={product._id}
+            onClick={() => dispatch(setSelectedProduct(product))}
+          />
+        ))}
       </tbody>
     </table>
   );

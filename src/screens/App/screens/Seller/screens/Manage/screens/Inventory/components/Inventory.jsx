@@ -73,8 +73,11 @@ function Inventory({ history }) {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="flex flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
-        <div className="h-min w-3/5 bg-my-white-tint rounded-lg p-2">
+      <div className="flex flex-col lg:flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
+        <div
+          className={`h-min w-full lg:w-fiftyfive 2xl:w-3/5 
+          bg-my-white-tint rounded-lg p-4 overflow-x-auto`}
+        >
           {loading ? (
             <div className="w-full flex justify-center items-center">
               <Loading />
@@ -84,7 +87,10 @@ function Inventory({ history }) {
           )}
         </div>
 
-        <div className="w-2/5 space-y-6">
+        <div
+          className={`w-full lg:w-fourtyfive 2xl:w-2/5 
+        space-y-6`}
+        >
           <ProductInventoryContainer />
         </div>
       </div>
