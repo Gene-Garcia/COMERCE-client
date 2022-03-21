@@ -26,6 +26,11 @@ const routes = {
         path: "/sign-up/seller",
         name: "Seller Sign Up",
       },
+
+      LOGISTICS: {
+        path: "/sign-up/logistics",
+        name: "Logistics Sign Up",
+      },
     },
   },
 

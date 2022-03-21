@@ -1,6 +1,7 @@
 // subroutes
 import SellerSignUp from "./screens/Seller/route";
 import UserSignUp from "./screens/User/route";
+import LogisticsSignUp from "./screens/Logistics/route";
 
 const route = {
   path: undefined,
@@ -10,6 +11,7 @@ const route = {
   subroutes: {
     SELLER: SellerSignUp,
     USER: UserSignUp,
+    LOGISTICS: LogisticsSignUp,
   },
 };
 export default route;

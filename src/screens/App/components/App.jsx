@@ -49,6 +49,7 @@ const AppContent = memo(() => {
     "/login/seller",
     "/sign-up/seller",
     "/login/logistics",
+    "/sign-up/logistics",
 
     "/seller",
     "/seller/manage/products",
@@ -100,6 +101,7 @@ const AppContent = memo(() => {
 
           <Route {...route.SIGN_UP.subroutes.USER} />
           <Route {...route.SIGN_UP.subroutes.SELLER} />
+          <Route {...route.SIGN_UP.subroutes.LOGISTICS} />
           <Route {...route.LOGIN.subroutes.USER} />
           <Route {...route.LOGIN.subroutes.SELLER} />
           <Route {...route.LOGIN.subroutes.LOGISTICS} />
