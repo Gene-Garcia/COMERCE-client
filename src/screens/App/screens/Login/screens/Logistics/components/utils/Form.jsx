@@ -1,9 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
 
 const Form = () => {
+  const SubmitLoginAPI = async () => {};
+
+  const validate = (data, setErrors) => {
+    let temp = { ...errors };
+
+    if ("email" in data) temp.email = data.email ? "" : "Email is required";
+
+    if ("password" in data)
+      temp.password = data.password ? "" : "Password is required";
+
+    setErrors(temp);
+  };
+
+  const init = {
+    email: "",
+    password: "",
+  };
+  const { values, errors, isLoading, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    SubmitLoginAPI
+  );
+
   return (
     <div className="w-3/5 h-3/4 bg-white shadow-xl rounded-l-2xl p-12">
       <div className="flex flex-col gap-6 justify-between h-full">
@@ -20,11 +45,11 @@ const Form = () => {
           <EmbossedInput
             type="email"
             name="email"
-            value={""}
-            onChange={() => {}}
+            value={values.email}
+            onChange={handleInput}
             background="bg-gray-100"
             label="EMAIL"
-            error={""}
+            error={errors.email}
             width="w-full"
             icon={
               <svg
@@ -47,11 +72,11 @@ const Form = () => {
           <EmbossedInput
             type="password"
             name="password"
-            value={""}
-            onChange={() => {}}
+            value={values.password}
+            onChange={handleInput}
             background="bg-gray-100"
             label="PASSWORD"
-            error={""}
+            error={errors.password}
             width="w-full"
             icon={
               <svg
@@ -77,8 +102,8 @@ const Form = () => {
               size="REGULAR"
               text="Login"
               uppercase="uppercase"
-              onClick={() => {}}
-              isLoading={false}
+              onClick={handleFormSubmit}
+              isLoading={isLoading}
               textColor="text-white"
               type="BUTTON"
             />
