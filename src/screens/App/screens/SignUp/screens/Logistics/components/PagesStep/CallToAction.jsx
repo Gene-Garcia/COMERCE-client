@@ -49,7 +49,21 @@ const AgreementCTA = ({ onClick }) => {
 };
 
 const VehicleCTA = ({ onClick }) => {
-  return <ButtonGroup></ButtonGroup>;
+  return (
+    <ButtonGroup>
+      <FormButton
+        size="MEDIUM"
+        text="NEXT"
+        uppercase="uppercase"
+        onClick={onClick}
+        isLoading={false}
+        textColor="text-white"
+        type="BUTTON"
+      />
+
+      <SecondaryButton to="#" name="CANCEL" />
+    </ButtonGroup>
+  );
 };
 
 const AccountCTA = ({ onClick }) => {
