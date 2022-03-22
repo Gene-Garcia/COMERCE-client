@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
  */
 
 const baseTheme = `
-  w-max
+  w-full
   inline-flex items-center justify-center flex-wrap 
   rounded
   transition duration-250 ease-linear
