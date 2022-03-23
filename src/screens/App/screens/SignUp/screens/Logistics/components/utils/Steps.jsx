@@ -27,14 +27,20 @@ const Steps = () => {
 
       <hr />
 
-      <div className="px-40 flex flex-row items-center justify-center">
-        <Step number={1} name="Agreement" active={true} />
+      <div className="px-24 flex flex-row items-center justify-center">
+        <Step number={1} name="Agreement" passed={true} />
         {/* this divider is connected to the first */}
-        <Divider active={true} />
-        <Step number={2} name="Vehicle" active={false} />
+        <Divider passed={true} />
+
+        <Step number={2} name="Vehicle" passed={false} toggled={true} />
         {/* this divider is connected to the second */}
-        <Divider active={false} />
-        <Step number={3} name="Account" active={false} />
+        <Divider passed={false} />
+
+        <Step number={3} name="Personal" passed={false} />
+        {/* this divider is connected to the third */}
+        <Divider passed={false} />
+
+        <Step number={4} name="Account" passed={false} />
       </div>
     </div>
   );
