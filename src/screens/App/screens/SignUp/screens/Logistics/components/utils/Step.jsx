@@ -19,7 +19,7 @@ const Step = ({ number, name, active }) => {
           {number}
         </span>
 
-        <span className="absolute -bottom-6 text-sm font-semibold text-gray-600">
+        <span className="absolute -bottom-6 text-sm font-semibold text-my-accent">
           {name}
         </span>
       </div>
