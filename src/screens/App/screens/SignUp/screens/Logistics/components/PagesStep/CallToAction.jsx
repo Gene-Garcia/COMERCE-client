@@ -66,6 +66,24 @@ const VehicleCTA = ({ onClick }) => {
   );
 };
 
+const PersonalCTA = ({ onClick }) => {
+  return (
+    <ButtonGroup>
+      <FormButton
+        size="MEDIUM"
+        text="NEXT"
+        uppercase="uppercase"
+        onClick={onClick}
+        isLoading={false}
+        textColor="text-white"
+        type="BUTTON"
+      />
+
+      <SecondaryButton to="#" name="CANCEL" />
+    </ButtonGroup>
+  );
+};
+
 const AccountCTA = ({ onClick, isLoading }) => {
   return (
     <ButtonGroup>
@@ -84,4 +102,4 @@ const AccountCTA = ({ onClick, isLoading }) => {
   );
 };
 
-export { AgreementCTA, VehicleCTA, AccountCTA };
+export { AgreementCTA, VehicleCTA, PersonalCTA, AccountCTA };
