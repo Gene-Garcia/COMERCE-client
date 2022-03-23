@@ -12,6 +12,7 @@ import shoppingCartReducer, {
 } from "./ShoppingCart/ShoppingCartReducer";
 import shipOrdersReducer from "./Seller/ShipOrders/ShipOrdersReducer";
 import ordersMasterReducer from "./Seller/OrdersMaster/OrdersMasterReducer";
+import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/LogisticsRegistrationReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   ORDER_HISTORY: orderHistoryReducer,
   RATE_ORDER: rateOrderReducer,
 
+  // Seller Reducers
   SELLER_REGISTRATION: sellerRegistrationReducer,
 
   MANAGE_INVENTORY: manageInventoryReducer,
@@ -33,5 +35,8 @@ const reducers = combineReducers({
   SHIP_ORDERS: shipOrdersReducer,
 
   ORDERS_MASTER: ordersMasterReducer,
+
+  // Logistics reducers
+  LOGISTICS_REGISTRATION: logisticsRegistrationReducer,
 });
 export default reducers;
