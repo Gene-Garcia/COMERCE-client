@@ -2,6 +2,7 @@ import { logisticsRegistrationTypes as types } from "./LogisticsRegistrationActi
 
 const initial = {
   activeStepNumber: 1,
+  // visited step number includes the newly active step number
   visitedStepNumber: 1,
 
   agree: false,
@@ -24,7 +25,7 @@ const logisticsRegistrationReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         activeStepNumber:
-          payload < visitedStepNumber ? payload : state.activeStepNumber,
+          payload <= state.visitedStepNumber ? payload : state.activeStepNumber,
       };
 
     case types.AGREE:

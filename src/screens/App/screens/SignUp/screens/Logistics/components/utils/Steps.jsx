@@ -1,8 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Step, { Divider } from "./Step";
 import comerceBlueLogo from "../../../../../../../../shared/images/comerce-logo-blue.webp";
+import { toggleStep } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
 
 const Steps = () => {
+  // redux
+  const dispatch = useDispatch();
+
   return (
     <div
       className={`bg-white w-full shadow-2xl rounded-t-2xl pt-4 pb-8 flex flex-col gap-4`}
@@ -28,19 +33,30 @@ const Steps = () => {
       <hr />
 
       <div className="px-24 flex flex-row items-center justify-center">
-        <Step number={1} name="Agreement" passed={true} />
-        {/* this divider is connected to the first */}
-        <Divider passed={true} />
+        <Step
+          toggle={() => dispatch(toggleStep(1))}
+          number={1}
+          name="Agreement"
+          first={true}
+        />
 
-        <Step number={2} name="Vehicle" passed={false} toggled={true} />
-        {/* this divider is connected to the second */}
-        <Divider passed={false} />
+        <Step
+          toggle={() => dispatch(toggleStep(2))}
+          number={2}
+          name="Vehicle"
+        />
 
-        <Step number={3} name="Personal" passed={false} />
-        {/* this divider is connected to the third */}
-        <Divider passed={false} />
+        <Step
+          toggle={() => dispatch(toggleStep(3))}
+          number={3}
+          name="Personal"
+        />
 
-        <Step number={4} name="Account" passed={false} />
+        <Step
+          toggle={() => dispatch(toggleStep(4))}
+          number={4}
+          name="Account"
+        />
       </div>
     </div>
   );
