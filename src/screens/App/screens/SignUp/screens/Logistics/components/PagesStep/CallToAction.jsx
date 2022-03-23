@@ -66,8 +66,22 @@ const VehicleCTA = ({ onClick }) => {
   );
 };
 
-const AccountCTA = ({ onClick }) => {
-  return <ButtonGroup></ButtonGroup>;
+const AccountCTA = ({ onClick, isLoading }) => {
+  return (
+    <ButtonGroup>
+      <FormButton
+        size="MEDIUM"
+        text="SIGN UP"
+        uppercase="uppercase"
+        onClick={onClick}
+        isLoading={isLoading}
+        textColor="text-white"
+        type="BUTTON"
+      />
+
+      <SecondaryButton to="#" name="CANCEL" />
+    </ButtonGroup>
+  );
 };
 
 export { AgreementCTA, VehicleCTA, AccountCTA };
