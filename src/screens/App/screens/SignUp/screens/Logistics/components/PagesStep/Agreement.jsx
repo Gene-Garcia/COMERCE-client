@@ -1,17 +1,30 @@
 import React from "react";
+import { batch, useDispatch } from "react-redux";
+import {
+  agree,
+  nextStep,
+} from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
 import { AgreementCTA } from "./CallToAction";
 
 const Agreement = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  const agreeToAGreement = () =>
+    batch(() => {
+      dispatch(agree(true));
+      dispatch(nextStep());
+    });
+
   return (
     <>
       {/* form */}
-
       <div className="bg-gray-100 rounded shadow-sm p-2 h-72 overflow-y-auto whitespace-pre-line">
         {agreement}
       </div>
 
       {/* button */}
-      <AgreementCTA />
+      <AgreementCTA onClick={agreeToAGreement} />
     </>
   );
 };
