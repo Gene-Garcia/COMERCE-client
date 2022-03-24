@@ -9,9 +9,10 @@ const logisticsRegistrationTypes = {
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
-const nextStep = () => {
+const nextStep = (nextStepNumber) => {
   return {
     type: logisticsRegistrationTypes.NEXT_STEP,
+    payload: nextStepNumber,
   };
 };
 
