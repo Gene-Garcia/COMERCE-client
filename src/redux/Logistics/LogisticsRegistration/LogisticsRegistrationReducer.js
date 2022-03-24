@@ -17,8 +17,8 @@ const logisticsRegistrationReducer = (state = initial, { type, payload }) => {
     case types.NEXT_STEP:
       return {
         ...state,
-        activeStepNumber: state.activeStepNumber + 1,
-        visitedStepNumber: state.visitedStepNumber + 1,
+        activeStepNumber: payload,
+        visitedStepNumber: payload,
       };
 
     case types.TOGGLE_STEP:
