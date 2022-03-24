@@ -1,8 +1,99 @@
 import React from "react";
+import { batch, useDispatch } from "react-redux";
+import {
+  loadPersonalData,
+  nextStep,
+} from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { PersonalCTA } from "./CallToAction";
+import { useForm } from "../../../../../../../../hooks/useForm";
 
 const Personal = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // form submit
+  const SubmitLogisticsRegistration = () => {
+    batch(() => {
+      dispatch(loadPersonalData(values));
+      dispatch(nextStep(4));
+    });
+  };
+
+  const validate = (data, setErrors) => {
+    const temp = { ...errors };
+
+    if ("fName" in data) temp.fName = data.fName ? "" : "Required";
+    if ("lName" in data) temp.lName = data.lName ? "" : "Required";
+
+    if ("streetAddress" in data)
+      temp.streetAddress = data.streetAddress ? "" : "Required";
+    if ("barangay" in data) temp.barangay = data.barangay ? "" : "Required";
+    if ("cityMunicipality" in data)
+      temp.cityMunicipality = data.cityMunicipality ? "" : "Required";
+    if ("province" in data) temp.province = data.province ? "" : "Required";
+
+    if ("primaryNumber" in data) {
+      temp.primaryNumber = data.primaryNumber ? "" : "Required";
+
+      if (!temp.primaryNumber)
+        temp.primaryNumber = isNaN(data.primaryNumber) ? "Must be numeric" : "";
+
+      if (!temp.primaryNumber)
+        temp.primaryNumber = data.primaryNumber.startsWith(0)
+          ? "Remove 1st 0"
+          : "";
+
+      if (!temp.primaryNumber)
+        temp.primaryNumber =
+          data.primaryNumber.length != 10 ? "Invalid phone" : "";
+    }
+    if ("secondaryNumber" in data) {
+      temp.secondaryNumber = data.secondaryNumber ? "" : "Required";
+
+      if (!temp.secondaryNumber)
+        temp.secondaryNumber = isNaN(data.secondaryNumber)
+          ? "Must be numeric"
+          : "";
+
+      if (!temp.secondaryNumber)
+        temp.secondaryNumber = data.secondaryNumber.startsWith(0)
+          ? "Remove 1st 0"
+          : "";
+
+      if (!temp.secondaryNumber)
+        temp.secondaryNumber =
+          data.secondaryNumber.length != 10 ? "Invalid phone" : "";
+
+      // check if it is the same with the primary number
+      if (!temp.secondaryNumber)
+        temp.secondaryNumber =
+          data.secondaryNumber === values.primaryNumber
+            ? "Identical to primary"
+            : "";
+    }
+
+    setErrors(temp);
+  };
+
+  // useform
+  const initial = {
+    fName: "",
+    lName: "",
+    streetAddress: "",
+    barangay: "",
+    cityMunicipality: "",
+    province: "",
+    primaryNumber: "",
+    secondaryNumber: "",
+  };
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    initial,
+    initial,
+    validate,
+    SubmitLogisticsRegistration
+  );
+
   return (
     <>
       {/* form */}
@@ -11,24 +102,24 @@ const Personal = () => {
           <EmbossedInput
             type="text"
             name="fName"
-            value=""
-            onChange={() => {}}
+            value={values.fName}
+            onChange={handleInput}
             placeholder="Your first name"
             background="bg-gray-100"
             label="First Name"
-            error=""
+            error={errors.fName}
             width="w-full"
           />
 
           <EmbossedInput
             type="text"
             name="lName"
-            value=""
-            onChange={() => {}}
+            value={values.lName}
+            onChange={handleInput}
             placeholder="Your last name"
             background="bg-gray-100"
             label="Last Name"
-            error=""
+            error={errors.lName}
             width="w-full"
           />
         </div>
@@ -36,12 +127,12 @@ const Personal = () => {
         <EmbossedInput
           type="text"
           name="streetAddress"
-          value=""
-          onChange={() => {}}
+          value={values.streetAddress}
+          onChange={handleInput}
           placeholder="Your street level address"
           background="bg-gray-100"
           label="Street Address"
-          error=""
+          error={errors.streetAddress}
           width="w-full"
         />
 
@@ -49,36 +140,36 @@ const Personal = () => {
           <EmbossedInput
             type="text"
             name="barangay"
-            value=""
-            onChange={() => {}}
+            value={values.barangay}
+            onChange={handleInput}
             placeholder="The name of your barangay"
             background="bg-gray-100"
             label="Barangay"
-            error=""
+            error={errors.barangay}
             width="w-full"
           />
 
           <EmbossedInput
             type="text"
             name="cityMunicipality"
-            value=""
-            onChange={() => {}}
+            value={values.cityMunicipality}
+            onChange={handleInput}
             placeholder="Name of your city or municipality"
             background="bg-gray-100"
             label="City/Municipality"
-            error=""
+            error={errors.cityMunicipality}
             width="w-full"
           />
 
           <EmbossedInput
             type="text"
             name="province"
-            value=""
-            onChange={() => {}}
+            value={values.province}
+            onChange={handleInput}
             placeholder="Name of your province"
             background="bg-gray-100"
             label="Province"
-            error=""
+            error={errors.province}
             width="w-full"
           />
         </div>
@@ -87,12 +178,12 @@ const Personal = () => {
           <EmbossedInput
             type="number"
             name="primaryNumber"
-            value=""
-            onChange={() => {}}
+            value={values.primaryNumber}
+            onChange={handleInput}
             placeholder="Your primary contact number"
             background="bg-gray-100"
             label="Primary Contact Number"
-            error=""
+            error={errors.primaryNumber}
             width="w-full"
             icon={
               <span className="mx-2 font-medium text-my-accent text-base">
@@ -104,12 +195,12 @@ const Personal = () => {
           <EmbossedInput
             type="number"
             name="secondaryNumber"
-            value=""
-            onChange={() => {}}
+            value={values.secondaryNumber}
+            onChange={handleInput}
             placeholder="Secondary contact number"
             background="bg-gray-100"
             label="Secondary Contact Number"
-            error=""
+            error={errors.secondaryNumber}
             width="w-full"
             icon={
               <span className="mx-2 font-medium text-my-accent text-base">
@@ -121,7 +212,7 @@ const Personal = () => {
       </div>
 
       {/* cta */}
-      <PersonalCTA onClick={() => {}} />
+      <PersonalCTA onClick={handleFormSubmit} />
     </>
   );
 };
