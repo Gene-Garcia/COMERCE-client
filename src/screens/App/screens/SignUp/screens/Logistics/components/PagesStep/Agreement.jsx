@@ -13,7 +13,7 @@ const Agreement = () => {
   const agreeToAGreement = () =>
     batch(() => {
       dispatch(agree(true));
-      dispatch(nextStep());
+      dispatch(nextStep(2));
     });
 
   return (
