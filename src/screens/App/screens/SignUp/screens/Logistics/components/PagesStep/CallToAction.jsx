@@ -4,7 +4,9 @@ import { FormButton } from "../../../../../../../../shared/Components/button/But
 
 const ButtonGroup = ({ children }) => {
   return (
-    <div className="w-full flex flex-row gap-8 items-center">{children}</div>
+    <div className="w-full flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 md:gap-8 items-center">
+      {children}
+    </div>
   );
 };
 

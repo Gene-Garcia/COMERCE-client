@@ -116,7 +116,7 @@ const Account = () => {
     <>
       {/* form */}
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row justify-between gap-5">
+        <div className="flex flex-col sm:flex-row justify-between gap-5">
           <EmbossedInput
             type="text"
             name="username"

@@ -10,7 +10,7 @@ const Steps = () => {
 
   return (
     <div
-      className={`bg-white w-full shadow-2xl rounded-t-2xl pt-4 pb-8 flex flex-col gap-4`}
+      className={`bg-white w-full shadow-2xl rounded-t-2xl py-4 flex flex-col gap-4`}
     >
       <div className="place-self-center">
         {/* logo */}
@@ -32,31 +32,33 @@ const Steps = () => {
 
       <hr />
 
-      <div className="px-24 flex flex-row items-center justify-center">
-        <Step
-          toggle={() => dispatch(toggleStep(1))}
-          number={1}
-          name="Agreement"
-          first={true}
-        />
+      <div className="overflow-x-scroll pb-7">
+        <div className="h-96 min-w-rr1 px-8 xs:px-14 sm:px-20 md:px-24 h-full flex flex-row items-center justify-center">
+          <Step
+            toggle={() => dispatch(toggleStep(1))}
+            number={1}
+            name="Agreement"
+            first={true}
+          />
 
-        <Step
-          toggle={() => dispatch(toggleStep(2))}
-          number={2}
-          name="Vehicle"
-        />
+          <Step
+            toggle={() => dispatch(toggleStep(2))}
+            number={2}
+            name="Vehicle"
+          />
 
-        <Step
-          toggle={() => dispatch(toggleStep(3))}
-          number={3}
-          name="Personal"
-        />
+          <Step
+            toggle={() => dispatch(toggleStep(3))}
+            number={3}
+            name="Personal"
+          />
 
-        <Step
-          toggle={() => dispatch(toggleStep(4))}
-          number={4}
-          name="Account"
-        />
+          <Step
+            toggle={() => dispatch(toggleStep(4))}
+            number={4}
+            name="Account"
+          />
+        </div>
       </div>
     </div>
   );

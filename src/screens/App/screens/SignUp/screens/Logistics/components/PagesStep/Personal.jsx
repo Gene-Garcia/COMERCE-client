@@ -98,7 +98,7 @@ const Personal = () => {
     <>
       {/* form */}
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row justify-between gap-5">
+        <div className="flex flex-col xs:flex-row justify-between gap-5">
           <EmbossedInput
             type="text"
             name="firstName"
@@ -136,7 +136,7 @@ const Personal = () => {
           width="w-full"
         />
 
-        <div className="flex flex-row justify-between gap-5">
+        <div className="flex flex-col md:flex-row justify-between gap-5">
           <EmbossedInput
             type="text"
             name="barangay"
@@ -174,7 +174,7 @@ const Personal = () => {
           />
         </div>
 
-        <div className="flex flex-row justify-between gap-5">
+        <div className="flex flex-col sm:flex-row justify-between gap-5">
           <EmbossedInput
             type="number"
             name="primaryNumber"
@@ -182,7 +182,7 @@ const Personal = () => {
             onChange={handleInput}
             placeholder="Your primary contact number"
             background="bg-gray-100"
-            label="Primary Contact Number"
+            label="Primary Contact #"
             error={errors.primaryNumber}
             width="w-full"
             icon={
@@ -199,7 +199,7 @@ const Personal = () => {
             onChange={handleInput}
             placeholder="Secondary contact number"
             background="bg-gray-100"
-            label="Secondary Contact Number"
+            label="Secondary Contact #"
             error={errors.secondaryNumber}
             width="w-full"
             icon={

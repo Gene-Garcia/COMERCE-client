@@ -8,7 +8,7 @@ import Vehicle from "../PagesStep/Vehicle";
 const Form = () => {
   return (
     <div
-      className={`bg-white w-full shadow-2xl rounded-b-2xl py-4 px-8
+      className={`bg-white w-full shadow-2xl rounded-b-2xl py-4 px-4 xs:px-6 sm:px-8
     flex flex-col gap-10`}
     >
       {/* title */}
