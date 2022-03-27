@@ -31,15 +31,32 @@ const RenderAppropriateStep = () => {
     (state) => state.LOGISTICS_REGISTRATION.activeStepNumber
   );
 
-  // even if we render and unrender these form, the loaded data will not be wiped
+  // we have this kind of render setup to usie block-hidden so that the loaded data will not be wiped
   // hence, when the user toggles back previous step corresponding form data loaded will still
   // be available. Only when SignUp component will be unmounted will the data of reducer be resetted.
+  // Each respective form-values object will retain their values because we have just set their parent divs to hidden
   return (
     <>
-      {activeStepNumber === 1 && <Agreement />}
-      {activeStepNumber === 2 && <Vehicle />}
-      {activeStepNumber === 3 && <Personal />}
-      {activeStepNumber === 4 && <Account />}
+      <div
+        className={`space-y-10 ${activeStepNumber === 1 ? "block" : "hidden"}`}
+      >
+        <Agreement />
+      </div>
+      <div
+        className={`space-y-10 ${activeStepNumber === 2 ? "block" : "hidden"}`}
+      >
+        <Vehicle />
+      </div>
+      <div
+        className={`space-y-10 ${activeStepNumber === 3 ? "block" : "hidden"}`}
+      >
+        <Personal />
+      </div>
+      <div
+        className={`space-y-10 ${activeStepNumber === 4 ? "block" : "hidden"}`}
+      >
+        <Account />
+      </div>
     </>
   );
 };
