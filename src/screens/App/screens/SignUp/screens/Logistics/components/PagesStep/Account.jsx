@@ -1,16 +1,91 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import { loadAccountData } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountCTA } from "./CallToAction";
+import axios from "../../../../../../../../shared/caller";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
+import { useHistory } from "react-router-dom";
 
 const Account = () => {
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
+  // redux logistics registrations reducer & state
+  const personalData = useSelector(
+    (state) => state.LOGISTICS_REGISTRATION.personalData
+  );
+  const vehicleData = useSelector(
+    (state) => state.LOGISTICS_REGISTRATION.vehicleData
+  );
+
+  // API
   const SubmitLogisticsRegistration = async () => {
-    dispatch(loadAccountData(values));
+    // build data
+    const data = {
+      ...values,
+      userType: "LOGISTICS",
+      vehicleData,
+      delivererData: {
+        firstName: personalData.firstName,
+        lastName: personalData.lastName,
+
+        contactInformation: {
+          streetAddress: personalData.streetAddress,
+          barangay: personalData.barangay,
+          cityMunicipality: personalData.cityMunicipality,
+          province: personalData.province,
+          primaryNumber: personalData.primaryNumber,
+          secondaryNumber: personalData.secondaryNumber,
+        },
+      },
+    };
+
+    await axios
+      .post("/api/signup", { ...data })
+      .then((res) => {
+        if (res.status === 201) {
+          setIsLoading(false);
+
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(
+              setMessage(
+                "Account created successfully. We have redirected to the page where you can login"
+              )
+            );
+          });
+
+          history.push("/login/logistics");
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong in your registration. Please refresh the page and try again."
+              )
+            );
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("unauthorized");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+    // dispatch(loadAccountData(values));
   };
 
   const validate = (data, setErrors) => {
