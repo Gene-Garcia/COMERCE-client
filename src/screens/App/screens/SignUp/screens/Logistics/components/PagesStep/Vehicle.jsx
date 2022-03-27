@@ -35,15 +35,18 @@ const Vehicle = () => {
 
     if ("fuel" in data) temp.fuel = data.fuel ? "" : "Required";
 
-    if ("engineCC" in data) {
-      temp.engineCC = data.engineCC ? "" : "Required";
+    if ("engineCapacity" in data) {
+      temp.engineCapacity = data.engineCapacity ? "" : "Required";
 
-      if (!temp.engineCC)
-        temp.engineCC = isNaN(data.engineCC) ? "Must be numeric" : "";
+      if (!temp.engineCapacity)
+        temp.engineCapacity = isNaN(data.engineCapacity)
+          ? "Must be numeric"
+          : "";
 
-      const engineCCParsed = parseInt(data.engineCC);
-      if (!temp.engineCC)
-        temp.engineCC = engineCCParsed <= 0 ? "Must be greater than 1" : "";
+      const engineCCParsed = parseInt(data.engineCapacity);
+      if (!temp.engineCapacity)
+        temp.engineCapacity =
+          engineCCParsed <= 0 ? "Must be greater than 1" : "";
     }
 
     if ("transmission" in data)
@@ -58,7 +61,7 @@ const Vehicle = () => {
     classification: "",
     registeredOwner: "",
     fuel: "",
-    engineCC: "",
+    engineCapacity: "",
     transmission: "",
   };
   // use form
@@ -140,13 +143,13 @@ const Vehicle = () => {
 
           <EmbossedInput
             type="number"
-            name="engineCC"
-            value={values.engineCC}
+            name="engineCapacity"
+            value={values.engineCapacity}
             onChange={handleInput}
             placeholder="Car engine CC"
             background="bg-gray-100"
             label="Engine CC"
-            error={errors.engineCC}
+            error={errors.engineCapacity}
             width="w-full"
           />
         </div>

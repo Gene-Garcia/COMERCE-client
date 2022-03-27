@@ -23,8 +23,8 @@ const Personal = () => {
   const validate = (data, setErrors) => {
     const temp = { ...errors };
 
-    if ("fName" in data) temp.fName = data.fName ? "" : "Required";
-    if ("lName" in data) temp.lName = data.lName ? "" : "Required";
+    if ("firstName" in data) temp.firstName = data.firstName ? "" : "Required";
+    if ("lastName" in data) temp.lastName = data.lastName ? "" : "Required";
 
     if ("streetAddress" in data)
       temp.streetAddress = data.streetAddress ? "" : "Required";
@@ -78,8 +78,8 @@ const Personal = () => {
 
   // useform
   const initial = {
-    fName: "",
-    lName: "",
+    firstName: "",
+    lastName: "",
     streetAddress: "",
     barangay: "",
     cityMunicipality: "",
@@ -101,25 +101,25 @@ const Personal = () => {
         <div className="flex flex-row justify-between gap-5">
           <EmbossedInput
             type="text"
-            name="fName"
-            value={values.fName}
+            name="firstName"
+            value={values.firstName}
             onChange={handleInput}
             placeholder="Your first name"
             background="bg-gray-100"
             label="First Name"
-            error={errors.fName}
+            error={errors.firstName}
             width="w-full"
           />
 
           <EmbossedInput
             type="text"
-            name="lName"
-            value={values.lName}
+            name="lastName"
+            value={values.lastName}
             onChange={handleInput}
             placeholder="Your last name"
             background="bg-gray-100"
             label="Last Name"
-            error={errors.lName}
+            error={errors.lastName}
             width="w-full"
           />
         </div>
