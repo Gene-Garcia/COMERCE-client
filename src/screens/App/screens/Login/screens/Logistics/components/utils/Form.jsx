@@ -1,11 +1,62 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { batch, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../shared/Components/button/ButtonBase";
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
+import axios from "../../../../../../../../shared/caller";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../redux/Alert/AlertAction";
 
 const Form = () => {
-  const SubmitLoginAPI = async () => {};
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
+  const SubmitLoginAPI = async () => {
+    await axios
+      .post("/api/signin", {
+        expectedUserType: "LOGISTICS",
+        ...values,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(
+              setMessage("Log in successful. Welcome back to COMERCE express.")
+            );
+          });
+
+          history.push("/logistics/track/track-search");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+
+        setIsLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Refresh the page or try again later. If errors persist please contact our support."
+              )
+            );
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  };
 
   const validate = (data, setErrors) => {
     let temp = { ...errors };
@@ -22,12 +73,14 @@ const Form = () => {
     email: "",
     password: "",
   };
-  const { values, errors, isLoading, handleInput, handleFormSubmit } = useForm(
-    init,
-    init,
-    validate,
-    SubmitLoginAPI
-  );
+  const {
+    values,
+    errors,
+    isLoading,
+    setIsLoading,
+    handleInput,
+    handleFormSubmit,
+  } = useForm(init, init, validate, SubmitLoginAPI);
 
   return (
     <div className="w-3/5 h-3/4 bg-white shadow-xl rounded-l-2xl p-12">
@@ -98,24 +151,28 @@ const Form = () => {
 
           {/* button and forgot passwords */}
           <div className="flex flex-row justify-between items-center">
-            <FormButton
-              size="REGULAR"
-              text="Login"
-              uppercase="uppercase"
-              onClick={handleFormSubmit}
-              isLoading={isLoading}
-              textColor="text-white"
-              type="BUTTON"
-            />
+            <div>
+              <FormButton
+                size="REGULAR"
+                text="Login"
+                uppercase="uppercase"
+                onClick={handleFormSubmit}
+                isLoading={isLoading}
+                textColor="text-white"
+                type="BUTTON"
+              />
+            </div>
 
-            <Link
-              to="/password/forgot"
-              className={`text-my-accent font-medium text-sm
+            <div>
+              <Link
+                to="/password/forgot"
+                className={`text-my-accent font-medium text-sm
           transition duration-150 ease-linear
           hover:text-gray-500`}
-            >
-              Forgot Password
-            </Link>
+              >
+                Forgot Password
+              </Link>
+            </div>
           </div>
         </div>
       </div>
