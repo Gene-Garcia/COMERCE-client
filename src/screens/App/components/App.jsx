@@ -128,6 +128,11 @@ const AppContent = memo(() => {
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
           <Route {...route.SELLER.subroutes.ORDERS.subroutes.MASTER} />
 
+          <Route
+            {...route.LOGISTICS.subroutes.TRACK.subroutes.TRACK_AND_SEARCH}
+          />
+          <Route {...route.LOGISTICS.subroutes.TRACK.subroutes.WITH_ME} />
+
           {/* <PrivateRoute
           path={route.USER.path}
           component={route.USER.component}

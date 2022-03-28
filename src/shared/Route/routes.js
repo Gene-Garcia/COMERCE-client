@@ -167,6 +167,34 @@ const routes = {
       },
     },
   },
+
+  LOGISTICS: {
+    path: "/logistics",
+    name: "Dashboard",
+
+    subroutes: {
+      TRACK: {
+        path: "/logistics/track",
+        name: "Track",
+
+        subroutes: {
+          WITH_ME: {
+            path: "/logistics/track/with-me",
+            name: "Logistics With Me",
+          },
+
+          TRACK_AND_SEARCH: {
+            path: "/logistics/track/track-search",
+            name: "Logistics Track & Search",
+          },
+        },
+      },
+
+      SELLER: {},
+      CUSTOMER: {},
+      SETTINGS: {},
+    },
+  },
 };
 
 // /signin
