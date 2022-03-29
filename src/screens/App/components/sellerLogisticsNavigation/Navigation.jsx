@@ -15,7 +15,7 @@ export default Navigation;
 function Sidebar({ links }) {
   return (
     <div
-      className="sticky h-screen bg-my-accent-shade
+      className="fixed h-screen bg-my-accent-shade
  md:w-52 lg:w-56 2xl:w-60"
     >
       <div
