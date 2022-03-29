@@ -23,7 +23,7 @@ function Dropdown({ name, links }) {
         <div className="border-b-2 border-gray-300"></div>
 
         {Object.entries(links).map(([k, v]) => (
-          <DropdownLink key={k} name={v.name} to={v.to} svgD={v.svgD} />
+          <DropdownLink key={k} {...v} />
         ))}
       </div>
     </div>
@@ -32,7 +32,7 @@ function Dropdown({ name, links }) {
 
 export default Dropdown;
 
-function DropdownLink({ name, to, svgD }) {
+function DropdownLink({ name, to, svg }) {
   return (
     <Link
       to={to}
@@ -43,20 +43,7 @@ function DropdownLink({ name, to, svgD }) {
         hover:bg-gray-200
         active:text-my-accent"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d={svgD}
-        />
-      </svg>
+      {svg}
 
       <span className="font-semibold text-sm">{name}</span>
     </Link>

@@ -17,7 +17,7 @@ function SidebarGroup({ groupName, links }) {
   );
 }
 
-function SidebarLink({ svgD, name, to }) {
+function SidebarLink({ svg, name, to }) {
   return (
     <Link
       to={to}
@@ -27,20 +27,8 @@ function SidebarLink({ svgD, name, to }) {
       transition duration-150 ease-linear 
       hover:bg-my-accent-tone"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-4 lg:h-5 w-4 lg:w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d={svgD}
-        />
-      </svg>
+      {svg}
+      
       {name}
     </Link>
   );
