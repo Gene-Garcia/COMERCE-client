@@ -1,19 +1,18 @@
 import React from "react";
 import comerceWhite from "../../../../shared/images/comerce-logo-white.webp";
-import { sellerNavLinks } from "../data/linkData";
 import { SidebarGroup } from "./SidebarLinks";
 import useWindow from "../../../../hooks/useWindow";
 import NavbarLink from "./NavbarLink";
 import { Link } from "react-router-dom";
 
-function Navigation() {
+function Navigation({ links }) {
   const { width } = useWindow();
 
-  return width >= 768 ? <Sidebar /> : <Navbar />;
+  return width >= 768 ? <Sidebar links={links} /> : <Navbar links={links} />;
 }
 export default Navigation;
 
-function Sidebar() {
+function Sidebar({ links }) {
   return (
     <div
       className="sticky h-screen bg-my-accent-shade
@@ -35,7 +34,7 @@ function Sidebar() {
 
         {/* links */}
         <div className="divide-y divide-gray-500">
-          {Object.entries(sellerNavLinks).map(([k, v]) => (
+          {Object.entries(links).map(([k, v]) => (
             <SidebarGroup key={k} groupName={v.name} links={v.links} />
           ))}
         </div>
@@ -44,7 +43,7 @@ function Sidebar() {
   );
 }
 
-function Navbar() {
+function Navbar({ links }) {
   return (
     <div className="bg-my-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
       <Link className="w-10" to="/">
@@ -57,7 +56,7 @@ function Navbar() {
 
       {/* link */}
       <div className="flex flex-row flex-wrap justify-end gap-x-3 sm:gap-x-5 gap-y-2 ">
-        {Object.entries(sellerNavLinks).map(([k, v]) => (
+        {Object.entries(links).map(([k, v]) => (
           <NavbarLink key={k} data={v} />
         ))}
       </div>

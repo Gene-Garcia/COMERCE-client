@@ -10,7 +10,8 @@ import axios from "../../../shared/caller";
 import Alert from "../../../shared/Components/pages/Alert";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
-import SellerNavigation from "./sellerNavigation/Navigation";
+import SellerLogisticsNavigation from "./sellerLogisticsNavigation/Navigation";
+import { logisticsNavLinks, sellerNavLinks } from "./data/linkData";
 
 const App = () => {
   // call server function to set XSRF-TOKEN in the cookie
@@ -57,6 +58,9 @@ const AppContent = memo(() => {
     "/seller/shipment/orders",
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
+
+    "/logistics/track/with-me",
+    "/logistics/track/track-search",
   ];
   const withSellerNavigation = [
     "/seller",
@@ -66,21 +70,36 @@ const AppContent = memo(() => {
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
   ];
+  const withLogisticsNavigation = [
+    "/logistics/track/with-me",
+    "/logistics/track/track-search",
+  ];
 
   return (
     <div
       className={`h-full ${
-        withSellerNavigation.includes(pathname)
+        withSellerNavigation.includes(pathname) ||
+        withLogisticsNavigation.includes(pathname)
           ? "flex  flex-col md:flex-row bg-my-white-tone"
           : "bg-white"
       }`}
     >
       {!navless.includes(pathname) && <UserNavigation />}
+
+      {/* Render sidebar navigation and pass nav links for seller */}
       {withSellerNavigation.includes(pathname) && (
         <div className="flex-grow-0">
-          <SellerNavigation />
+          <SellerLogisticsNavigation links={sellerNavLinks} />
         </div>
       )}
+
+      {/* Render sidebar navigation and pass nav links for logistics */}
+      {withLogisticsNavigation.includes(pathname) && (
+        <div className="flex-grow-0">
+          <SellerLogisticsNavigation links={logisticsNavLinks} />
+        </div>
+      )}
+
       {/* 72 is also the width of the sidebar */}
       {/* the overflow scroll will be put here to avoid also scrolling the sidebar */}
       <div
