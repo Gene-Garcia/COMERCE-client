@@ -85,4 +85,64 @@ const sellerNavLinks = {
   },
 };
 
-export { userNavLinks, sellerNavLinks };
+const logisticsNavLinks = {
+  TRACK: {
+    name: "TRACK",
+
+    links: {
+      WITH_ME: {
+        name: "With Me",
+        to: "/logistics/track/with-me",
+        svgD: "",
+      },
+
+      TRACK_AND_SEARCH: {
+        name: "Track and Search",
+        to: "/logistics/track/track-search",
+        svgD: "",
+      },
+    },
+  },
+
+  SHIPMENT: {
+    name: "Shipment",
+
+    links: {
+      PICK_UP: {
+        name: "Seller Pick Up",
+        to: "/logistics/shipment/pick-up",
+        svgD: "",
+      },
+
+      DELIVERY: {
+        name: "Customer Delivery",
+        to: "/logistics/shipment/delivery",
+        svgD: "",
+      },
+    },
+  },
+
+  SETTINGS: {
+    name: "Settings",
+
+    links: {
+      BUSINESS: {
+        name: "My Vehicle",
+        to: "/logistics/vehicle",
+        svgD: "",
+      },
+      ACCOUNT: {
+        name: "My Account Settings",
+        to: "/logistics/settings/deliverer",
+        svgD: "",
+      },
+      SIGN_OUT: {
+        name: "LOG OUT",
+        to: "/sign-out",
+        svgD: "",
+      },
+    },
+  },
+};
+
+export { userNavLinks, sellerNavLinks, logisticsNavLinks };
