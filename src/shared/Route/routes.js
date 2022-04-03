@@ -144,7 +144,12 @@ const routes = {
         subroutes: {
           ORDERS: {
             path: "/seller/shipment/orders",
-            name: "Manage Order Shipment",
+            name: "Ship Orders",
+          },
+
+          PACK: {
+            path: "/seller/shipment/pack",
+            name: "Pack Orders",
           },
 
           FULFILLED: {

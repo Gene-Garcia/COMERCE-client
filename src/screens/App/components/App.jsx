@@ -56,6 +56,7 @@ const AppContent = memo(() => {
     "/seller/manage/products",
     "/seller/manage/inventory",
     "/seller/shipment/orders",
+    "/seller/shipment/pack",
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
 
@@ -67,6 +68,7 @@ const AppContent = memo(() => {
     "/seller/manage/products",
     "/seller/manage/inventory",
     "/seller/shipment/orders",
+    "/seller/shipment/pack",
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
   ];
@@ -144,6 +146,7 @@ const AppContent = memo(() => {
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.PRODUCT} />
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.ORDERS} />
+          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.PACK} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
           <Route {...route.SELLER.subroutes.ORDERS.subroutes.MASTER} />
 
