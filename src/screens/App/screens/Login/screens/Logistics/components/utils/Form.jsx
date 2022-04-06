@@ -83,7 +83,7 @@ const Form = () => {
   } = useForm(init, init, validate, SubmitLoginAPI);
 
   return (
-    <div className="w-3/5 h-3/4 bg-white shadow-xl rounded-l-2xl p-12">
+    <div className="w-3/5 h-max bg-white shadow-xl rounded-l-2xl p-12">
       <div className="flex flex-col gap-6 justify-between h-full">
         {/* title */}
         <div className="">

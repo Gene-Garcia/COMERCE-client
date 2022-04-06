@@ -20,14 +20,12 @@ function SignUp({ history }) {
       .post("/api/signup", { ...values, userType: "CUSTOMER" })
       .then((res) => {
         if (res.status === 200) {
-          resetForms();
-
           batch(() => {
             dispatch(setSeverity("success"));
             dispatch(setMessage("Account created successfully!"));
           });
 
-          history.push("/login");
+          history.push("/login/user");
         }
       })
       .catch((err) => {
@@ -47,42 +45,37 @@ function SignUp({ history }) {
       });
   }
 
-  function validate(formData, setErrors) {
-    let tempErrs = { ...errors };
+  function validate(data, setErrors) {
+    let errs = { ...errors };
 
-    if ("username" in formData)
-      tempErrs.username =
-        formData.username === "" || formData.username === null
-          ? "Username is required"
-          : "";
+    if ("firstName" in data)
+      errs.firstName = data.firstName ? "" : "First name is required";
 
-    if ("email" in formData)
-      tempErrs.email =
-        formData.email === "" || formData.email === null
-          ? "Email is required"
-          : "";
+    if ("lastName" in data)
+      errs.lastName = data.lastName ? "" : "Last name is required";
 
-    if ("confirmEmail" in formData)
-      // check for empty values
-      tempErrs.confirmEmail =
-        formData.confirmEmail === "" || formData.confirmEmail === null
-          ? "Confirm email is required"
-          : "";
+    if ("username" in data)
+      errs.username = data.username ? "" : "Username is required";
 
-    if ("confirmEmail" in formData && values.email !== formData.confirmEmail)
-      // omg this was the fix FUCK
-      tempErrs.confirmEmail = "Email does not match";
+    if ("email" in data) errs.email = data.email ? "" : "Email is required";
 
-    if ("password" in formData)
-      tempErrs.password =
-        formData.password === "" || formData.password === null
-          ? "Password is required"
-          : "";
+    if ("confirmEmail" in data) {
+      errs.confirmEmail = data.confirmEmail ? "" : "Confirm email is required";
 
-    setErrors(tempErrs);
+      if (!errs.confirmEmail)
+        errs.confirmEmail =
+          data.confirmEmail === values.email ? "" : "Email does not match";
+    }
+
+    if ("password" in data)
+      errs.password = data.password ? "" : "Password is required";
+
+    setErrors(errs);
   }
 
   const initialState = {
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
     confirmEmail: "",
@@ -93,7 +86,6 @@ function SignUp({ history }) {
     errors,
     handleInput,
     handleFormSubmit,
-    resetForms,
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, SignUpAPI);
@@ -116,6 +108,32 @@ function SignUp({ history }) {
         </div>
 
         <div className="flex flex-col w-full gap-y-8">
+          <div className="flex flex-col md:flex-row items-stretch gap-8">
+            <EmbossedInput
+              name="firstName"
+              type="text"
+              label="FIRST NAME"
+              error={errors.firstName}
+              value={values.firstName}
+              onChange={handleInput}
+              background="bg-gray-100"
+              shadow="shadow-md"
+              width="w-full"
+            />
+
+            <EmbossedInput
+              name="lastName"
+              type="text"
+              label="LAST NAME"
+              error={errors.lastName}
+              value={values.lastName}
+              onChange={handleInput}
+              background="bg-gray-100"
+              shadow="shadow-md"
+              width="w-full"
+            />
+          </div>
+
           <EmbossedInput
             name="email"
             type="email"
