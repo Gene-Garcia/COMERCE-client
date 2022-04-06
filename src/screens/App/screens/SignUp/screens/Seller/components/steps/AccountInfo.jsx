@@ -31,7 +31,6 @@ function AccountInfo() {
   const init = {
     firstName: "",
     lastName: "",
-    businessEmail: "",
     ownerEmail: "",
     confirmEmail: "",
     password: "",
@@ -44,9 +43,6 @@ function AccountInfo() {
 
     if ("lastName" in data)
       temp.lastName = data.lastName ? "" : "Last name is required";
-
-    if ("businessEmail" in data)
-      temp.businessEmail = data.businessEmail ? "" : "Put N/A if unavailable";
 
     if ("ownerEmail" in data)
       temp.ownerEmail = data.ownerEmail ? "" : "Owner email is required";
@@ -99,17 +95,6 @@ function AccountInfo() {
             width="xs:w-3/5 sm:w-5/12"
           />
         </div>
-
-        <LinedInput
-          type="email"
-          name="businessEmail"
-          value={values.businessEmail}
-          error={errors.businessEmail}
-          onChange={handleInput}
-          label="BUSINESS EMAIL"
-          placeholder="email of the business"
-          width="xs:w-4/5 sm:w-3/5"
-        />
 
         <LinedInput
           type="email"

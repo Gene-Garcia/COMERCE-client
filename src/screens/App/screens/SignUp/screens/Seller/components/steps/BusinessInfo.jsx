@@ -31,21 +31,14 @@ function BusinessInfo() {
 
   // submit function
   const createBusiness = async () => {
-    // start the loading because axios call will start
-    setIsLoading(true);
-
-    // unecessary
-    // dispatch(loadBusinessDetails(values));
-
     // build data
     const data = {
       businessData: {
         ...values, //business details
-        // firstName: accountInformation.firstName,
-        // lastName: accountInformation.lastName,
-        businessEmail: accountDetails.businessEmail,
       },
 
+      firstName: accountDetails.firstName,
+      lastName: accountDetails.lastName,
       email: accountDetails.ownerEmail,
       username: (
         accountDetails.firstName + accountDetails.lastName
@@ -88,6 +81,7 @@ function BusinessInfo() {
   };
 
   const init = {
+    businessEmail: "",
     businessLogoAddress: "",
     businessName: "",
     established: "",
@@ -95,6 +89,9 @@ function BusinessInfo() {
   };
   const validate = (data, setErrors) => {
     let temp = { ...errors };
+
+    if ("businessEmail" in data)
+      temp.businessEmail = data.businessEmail ? "" : "Put N/A if unavailable";
 
     if ("businessName" in data)
       temp.businessName = data.businessName ? "" : "Business name is required";
@@ -135,6 +132,17 @@ function BusinessInfo() {
           helper="JPEG and PNG files only"
           value={values.businessLogoAddress}
           error={errors.businessLogoAddress}
+        />
+
+        <LinedInput
+          type="email"
+          name="businessEmail"
+          value={values.businessEmail}
+          error={errors.businessEmail}
+          onChange={handleInput}
+          label="BUSINESS EMAIL"
+          placeholder="email of the business"
+          width="xs:w-4/5 sm:w-3/5"
         />
 
         <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">
