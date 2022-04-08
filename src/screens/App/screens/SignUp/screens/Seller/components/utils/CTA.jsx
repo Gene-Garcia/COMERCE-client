@@ -56,7 +56,7 @@ function TOACTA({ onClick }) {
   );
 }
 
-function AccountInfoCTA({ onClick }) {
+function AccountInfoCTA({ isLoading, onClick }) {
   return (
     <Body>
       <FormButton
@@ -65,6 +65,7 @@ function AccountInfoCTA({ onClick }) {
         uppercase="uppercase"
         text="Submit"
         onClick={onClick}
+        isLoading={isLoading}
       />
 
       <SecondaryButton title="Cancel" link="#" />
@@ -72,7 +73,7 @@ function AccountInfoCTA({ onClick }) {
   );
 }
 
-function BusinessInfoCTA({ isLoading, onClick }) {
+function BusinessInfoCTA({ onClick }) {
   return (
     <Body>
       <FormButton
@@ -81,7 +82,6 @@ function BusinessInfoCTA({ isLoading, onClick }) {
         uppercase="uppercase"
         text="Create Account"
         onClick={onClick}
-        isLoading={isLoading}
       />
 
       <SecondaryButton title="Cancel" link="#" />

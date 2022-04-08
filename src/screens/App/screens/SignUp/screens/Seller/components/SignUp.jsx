@@ -50,11 +50,11 @@ const RegistrationContent = () => {
       </div>
 
       <div className={`${activeStepId === 1 ? "block" : "hidden"}`}>
-        <AccountInfo />
+        <BusinessInfo />
       </div>
 
       <div className={`${activeStepId === 2 ? "block" : "hidden"}`}>
-        <BusinessInfo />
+        <AccountInfo />
       </div>
     </>
   );

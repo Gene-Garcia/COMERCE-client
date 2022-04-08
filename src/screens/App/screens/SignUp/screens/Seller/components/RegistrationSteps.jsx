@@ -16,8 +16,8 @@ function RegistrationSteps() {
       </Link>
       {/* Steps */}
       <Step id={0} main="Step 1" sub="Terms of Agreement" />
-      <Step id={1} main="Step 2" sub="Account Information" />
-      <Step id={2} main="Step 3" sub="Business Information" />
+      <Step id={1} main="Step 2" sub="Business Information" />
+      <Step id={2} main="Step 3" sub="Account Information" />
     </div>
   );
 }

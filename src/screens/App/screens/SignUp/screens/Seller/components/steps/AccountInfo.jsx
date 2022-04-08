@@ -1,32 +1,77 @@
 import React from "react";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
-import {
-  loadAccountDetails,
-  proceedToNextStep,
-} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
+import axios from "../../../../../../../../shared/caller";
+import { useHistory } from "react-router-dom";
 
 function AccountInfo() {
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
-  // submit function
-  const createAccountOnSubmit = () =>
-    batch(() => {
-      dispatch(loadAccountDetails(values));
+  // redux seller registration reducer & state
+  const businessDetails = useSelector(
+    (state) => state.SELLER_REGISTRATION.businessDetails
+  );
 
-      dispatch(setSeverity("information"));
-      dispatch(setMessage("We are now creating your seller account."));
+  // submit API function
+  const createAccountAPI = async () => {
+    // build data for API
+    const data = {
+      businessData: {
+        ...businessDetails,
+      },
 
-      dispatch(proceedToNextStep(2));
-    });
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.ownerEmail,
+      username: (values.firstName + values.lastName).toLowerCase(),
+      password: values.password,
+
+      userType: "SELLER",
+    };
+
+    await axios
+      .post("/api/signup", data)
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(
+              setMessage(
+                "Account created succesfully. We will now redirect to the login page."
+              )
+            );
+          });
+
+          history.push("/login/seller");
+        }
+      })
+      .catch((err) => {
+        // so that when an error is not 403, the user can still re-submit the page
+        setIsLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage("Something went wrong. Please try again."));
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  };
 
   const init = {
     firstName: "",
@@ -60,12 +105,14 @@ function AccountInfo() {
     setErrors(temp);
   };
 
-  const { values, errors, handleInput, handleFormSubmit } = useForm(
-    init,
-    init,
-    validate,
-    createAccountOnSubmit
-  );
+  const {
+    values,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    isLoading,
+    setIsLoading,
+  } = useForm(init, init, validate, createAccountAPI);
 
   return (
     <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
@@ -131,7 +178,7 @@ function AccountInfo() {
         />
       </div>
 
-      <AccountInfoCTA onClick={handleFormSubmit} />
+      <AccountInfoCTA isLoading={isLoading} onClick={handleFormSubmit} />
     </div>
   );
 }

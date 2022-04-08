@@ -3,26 +3,20 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import { BusinessInfoCTA } from "../utils/CTA";
 import Title from "../utils/Title";
-import axios from "../../../../../../../../shared/caller";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
-import { loadBusinessDetails } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import {
+  loadBusinessDetails,
+  proceedToNextStep,
+} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 
 function BusinessInfo() {
-  // history
-  let history = useHistory();
-
   // redux
   const dispatch = useDispatch();
-
-  // redux seller registration reducer & state
-  const accountDetails = useSelector(
-    (state) => state.SELLER_REGISTRATION.accountDetails
-  );
 
   // file input on change
   const fileOnChange = (e) => {
@@ -31,53 +25,14 @@ function BusinessInfo() {
 
   // submit function
   const createBusiness = async () => {
-    // build data
-    const data = {
-      businessData: {
-        ...values, //business details
-      },
+    batch(() => {
+      dispatch(loadBusinessDetails(values));
 
-      firstName: accountDetails.firstName,
-      lastName: accountDetails.lastName,
-      email: accountDetails.ownerEmail,
-      username: (
-        accountDetails.firstName + accountDetails.lastName
-      ).toLowerCase(),
-      password: accountDetails.password,
+      dispatch(setSeverity("information"));
+      dispatch(setMessage("Business information has been saved"));
 
-      userType: "SELLER",
-    };
-
-    // api call
-    await axios
-      .post("/api/signup", data)
-      .then((res) => {
-        if (res.status === 200) {
-          setIsLoading(false);
-
-          batch(() => {
-            dispatch(setSeverity("success"));
-            dispatch(setMessage("Accounted created succesfully"));
-          });
-
-          history.push("/login/seller");
-        }
-      })
-      .catch((err) => {
-        setIsLoading(false);
-
-        if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage("Something went wrong. Please try again."));
-          });
-        else if (err.response.status === 403) history.push("/forbidden");
-        else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
-      });
+      dispatch(proceedToNextStep(2));
+    });
   };
 
   const init = {
@@ -110,14 +65,12 @@ function BusinessInfo() {
     setErrors(temp);
   };
 
-  const {
-    values,
-    errors,
-    handleInput,
-    handleFormSubmit,
-    isLoading,
-    setIsLoading,
-  } = useForm(init, init, validate, createBusiness);
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    createBusiness
+  );
 
   return (
     <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
@@ -181,7 +134,7 @@ function BusinessInfo() {
         />
       </div>
 
-      <BusinessInfoCTA isLoading={isLoading} onClick={handleFormSubmit} />
+      <BusinessInfoCTA onClick={handleFormSubmit} />
     </div>
   );
 }
