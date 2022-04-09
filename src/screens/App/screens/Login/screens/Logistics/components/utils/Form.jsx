@@ -122,34 +122,47 @@ const Form = () => {
             }
           />
 
-          <EmbossedInput
-            type="password"
-            name="password"
-            value={values.password}
-            onChange={handleInput}
-            background="bg-gray-100"
-            label="PASSWORD"
-            error={errors.password}
-            width="w-full"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                />
-              </svg>
-            }
-          />
+          <div className="space-y-0.5">
+            <EmbossedInput
+              type="password"
+              name="password"
+              value={values.password}
+              onChange={handleInput}
+              background="bg-gray-100"
+              label="PASSWORD"
+              error={errors.password}
+              width="w-full"
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-my-accent mx-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+              }
+            />
 
-          {/* button and forgot passwords */}
+            <div className="text-right">
+              <Link
+                to="/password/forgot"
+                className={`text-my-accent font-medium text-sm
+          transition duration-150 ease-linear
+          hover:text-gray-500`}
+              >
+                Forgot Password
+              </Link>
+            </div>
+          </div>
+
+          {/* button and redirect to sign up */}
           <div className="flex flex-row justify-between items-center">
             <div>
               <FormButton
@@ -165,12 +178,10 @@ const Form = () => {
 
             <div>
               <Link
-                to="/password/forgot"
-                className={`text-my-accent font-medium text-sm
-          transition duration-150 ease-linear
-          hover:text-gray-500`}
+                to="/sign-up/logistics"
+                className="text-sm font-medium text-gray-400 transition ease-linear hover:text-my-accent"
               >
-                Forgot Password
+                Don't have an account?
               </Link>
             </div>
           </div>
