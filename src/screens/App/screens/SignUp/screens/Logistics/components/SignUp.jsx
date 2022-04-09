@@ -4,7 +4,7 @@ import Steps from "./utils/Steps";
 
 const SignUp = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint">
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint">
       <div
         className={`flex flex-col items-center justify-center 
         py-16 px-2 xs:px-3 sm:px-6 md:px-0
