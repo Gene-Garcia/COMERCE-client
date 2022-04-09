@@ -32,7 +32,7 @@ const Steps = () => {
 
       <hr />
 
-      <div className="overflow-x-scroll pb-7">
+      <div className="overflow-x-auto pt-1 pb-7">
         <div className="h-96 min-w-rr1 px-8 xs:px-14 sm:px-20 md:px-24 h-full flex flex-row items-center justify-center">
           <Step
             toggle={() => dispatch(toggleStep(1))}
