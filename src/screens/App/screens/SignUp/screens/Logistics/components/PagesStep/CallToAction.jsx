@@ -10,7 +10,7 @@ const ButtonGroup = ({ children }) => {
   );
 };
 
-const SecondaryButton = ({ name, to }) => {
+const SecondaryButton = ({ name, to = "/login/logistics" }) => {
   return (
     <Link
       to={to}
@@ -45,7 +45,7 @@ const AgreementCTA = ({ onClick }) => {
         type="BUTTON"
       />
 
-      <SecondaryButton to="#" name="CANCEL" />
+      <SecondaryButton name="CANCEL" />
     </ButtonGroup>
   );
 };
@@ -63,7 +63,7 @@ const VehicleCTA = ({ onClick }) => {
         type="BUTTON"
       />
 
-      <SecondaryButton to="#" name="CANCEL" />
+      <SecondaryButton name="CANCEL" />
     </ButtonGroup>
   );
 };
@@ -81,7 +81,7 @@ const PersonalCTA = ({ onClick }) => {
         type="BUTTON"
       />
 
-      <SecondaryButton to="#" name="CANCEL" />
+      <SecondaryButton name="CANCEL" />
     </ButtonGroup>
   );
 };
@@ -99,7 +99,7 @@ const AccountCTA = ({ onClick, isLoading }) => {
         type="BUTTON"
       />
 
-      <SecondaryButton to="#" name="CANCEL" />
+      <SecondaryButton name="CANCEL" />
     </ButtonGroup>
   );
 };
