@@ -110,7 +110,8 @@ const AppContent = memo(() => {
       {/* the overflow scroll will be put here to avoid also scrolling the sidebar */}
       <div
         className={`${
-          withSellerNavigation.includes(pathname)
+          withSellerNavigation.includes(pathname) ||
+          withLogisticsNavigation.includes(pathname)
             ? "overflow-y-auto md:flex-grow md:ml-52 lg:ml-56 2xl:ml-60"
             : ""
         }`} // "md:ml-52 lg:ml-56 2xl:ml-60 fixed"

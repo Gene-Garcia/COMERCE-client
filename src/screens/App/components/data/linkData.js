@@ -311,7 +311,7 @@ const logisticsNavLinks = {
     links: {
       PICK_UP: {
         name: "Seller Pick Up",
-        to: "/logistics/shipment/pick-up",
+        to: "/logistics/shipment/seller/pickup",
         svg: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -332,7 +332,7 @@ const logisticsNavLinks = {
 
       DELIVERY: {
         name: "Customer Delivery",
-        to: "/logistics/shipment/delivery",
+        to: "/logistics/shipment/customer/delivery",
         svg: (
           <svg
             xmlns="http://www.w3.org/2000/svg"

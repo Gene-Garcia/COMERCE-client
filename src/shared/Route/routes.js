@@ -206,7 +206,7 @@ const routes = {
           },
 
           CUSTOMER_DELIVERY: {
-            path: "/logistics/shipmnent/customer/delivery",
+            path: "/logistics/shipment/customer/delivery",
             name: "Customer Delivery",
           },
         },
