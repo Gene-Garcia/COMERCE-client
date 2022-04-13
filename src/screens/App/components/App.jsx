@@ -62,6 +62,8 @@ const AppContent = memo(() => {
 
     "/logistics/track/with-me",
     "/logistics/track/track-search",
+    "/logistics/shipment/seller/pickup",
+    "/logistics/shipment/customer/delivery",
   ];
   const withSellerNavigation = [
     "/seller",
@@ -75,6 +77,8 @@ const AppContent = memo(() => {
   const withLogisticsNavigation = [
     "/logistics/track/with-me",
     "/logistics/track/track-search",
+    "/logistics/shipment/seller/pickup",
+    "/logistics/shipment/customer/delivery",
   ];
 
   return (
@@ -154,6 +158,12 @@ const AppContent = memo(() => {
             {...route.LOGISTICS.subroutes.TRACK.subroutes.TRACK_AND_SEARCH}
           />
           <Route {...route.LOGISTICS.subroutes.TRACK.subroutes.WITH_ME} />
+          <Route
+            {...route.LOGISTICS.subroutes.SHIPMENT.subroutes.SELLER_PICK_UP}
+          />
+          <Route
+            {...route.LOGISTICS.subroutes.SHIPMENT.subroutes.CUSTOMER_DELIVERY}
+          />
 
           {/* <PrivateRoute
           path={route.USER.path}

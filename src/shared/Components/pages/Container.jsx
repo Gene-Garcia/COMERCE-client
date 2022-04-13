@@ -22,4 +22,15 @@ function SellerContainer({ children }) {
     </div>
   );
 }
-export { SellerContainer };
+
+const LogisticsContainer = ({ children }) => {
+  return (
+    <>
+      <div className="p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8 bg-my-white-tone">
+        {children}
+      </div>
+    </>
+  );
+};
+
+export { SellerContainer, LogisticsContainer };

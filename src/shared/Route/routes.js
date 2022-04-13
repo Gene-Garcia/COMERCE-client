@@ -195,8 +195,23 @@ const routes = {
         },
       },
 
-      SELLER: {},
-      CUSTOMER: {},
+      SHIPMENT: {
+        path: "/logistics/shipment",
+        name: "Shipments",
+
+        subroutes: {
+          SELLER_PICK_UP: {
+            path: "/logistics/shipment/seller/pickup",
+            name: "Seller Pick Up",
+          },
+
+          CUSTOMER_DELIVERY: {
+            path: "/logistics/shipmnent/customer/delivery",
+            name: "Customer Delivery",
+          },
+        },
+      },
+
       SETTINGS: {},
     },
   },
