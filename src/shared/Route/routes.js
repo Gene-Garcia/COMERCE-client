@@ -170,6 +170,18 @@ const routes = {
           },
         },
       },
+
+      SETTINGS: {
+        path: "/seller/settings",
+        name: "Settings",
+
+        subroutes: {
+          BUSINESS: {
+            path: "/seller/settings/business",
+            name: "Business Settings",
+          },
+        },
+      },
     },
   },
 

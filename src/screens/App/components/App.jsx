@@ -59,12 +59,14 @@ const AppContent = memo(() => {
     "/seller/shipment/pack",
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
+    "/seller/settings/business",
 
     "/logistics/track/with-me",
     "/logistics/track/track-search",
     "/logistics/shipment/seller/pickup",
     "/logistics/shipment/customer/delivery",
   ];
+
   const withSellerNavigation = [
     "/seller",
     "/seller/manage/products",
@@ -73,7 +75,9 @@ const AppContent = memo(() => {
     "/seller/shipment/pack",
     "/seller/shipment/fulfilled",
     "/seller/orders/master",
+    "/seller/settings/business",
   ];
+
   const withLogisticsNavigation = [
     "/logistics/track/with-me",
     "/logistics/track/track-search",
@@ -154,6 +158,7 @@ const AppContent = memo(() => {
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.PACK} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
           <Route {...route.SELLER.subroutes.ORDERS.subroutes.MASTER} />
+          <Route {...route.SELLER.subroutes.SETTINGS.subroutes.BUSINESS} />
 
           <Route
             {...route.LOGISTICS.subroutes.TRACK.subroutes.TRACK_AND_SEARCH}

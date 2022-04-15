@@ -1,9 +1,10 @@
 import routes from "../../../../shared/Route/routes";
 import Dashboard from ".";
 
-import ManageSubRoute from "./screens/Manage/route";
-import ShipmentSubRoute from "./screens/Shipment/route";
-import OrdersSubRoute from "./screens/Orders/route";
+import ManageSubroute from "./screens/Manage/route";
+import ShipmentSubroute from "./screens/Shipment/route";
+import OrdersSubroute from "./screens/Orders/route";
+import SettingsSubroute from "./screens/Settings/route";
 
 const route = {
   path: routes.SELLER.path,
@@ -11,9 +12,10 @@ const route = {
   exact: true,
 
   subroutes: {
-    MANAGE: ManageSubRoute,
-    SHIPMENT: ShipmentSubRoute,
-    ORDERS: OrdersSubRoute,
+    MANAGE: ManageSubroute,
+    SHIPMENT: ShipmentSubroute,
+    ORDERS: OrdersSubroute,
+    SETTINGS: SettingsSubroute,
   },
 };
 export default route;
