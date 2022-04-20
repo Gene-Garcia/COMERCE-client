@@ -13,16 +13,16 @@ const BusinessSettings = () => {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="grid grid-cols-2 gap-6">
-        <SettingsCard className="" title="Business Information">
+      <div className="grid grid-cols-2 grid-rows-2 gap-6">
+        <SettingsCard className="row-span-1" title="Business Information">
           <BusinessInformationCard />
         </SettingsCard>
 
-        <SettingsCard className="" title="Pick Up Address">
+        <SettingsCard className="row-span-2" title="Pick Up Address">
           <AddressCard />
         </SettingsCard>
 
-        <SettingsCard className="" title="Other Information">
+        <SettingsCard className="row-span-1" title="Other Information">
           <OtherInformationCard />
         </SettingsCard>
       </div>
