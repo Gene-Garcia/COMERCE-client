@@ -18,6 +18,11 @@ const AddressCard = () => {
     //   !values.province
     // ) {
     // }
+
+    setIsLoading(false);
+
+    // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
+    resetForms();
   };
 
   const validate = (data, setErrors) => {
@@ -34,12 +39,16 @@ const AddressCard = () => {
     cityMunicipality: "",
     province: "",
   };
-  const { values, errors, isLoading, handleInput, handleFormSubmit } = useForm(
-    init,
-    init,
-    validate,
-    ChangeAddressAPI
-  );
+  const {
+    values,
+    errors,
+    isLoading,
+    handleInput,
+    handleFormSubmit,
+    setIsLoading,
+    setValues,
+    resetForms,
+  } = useForm(init, init, validate, ChangeAddressAPI);
 
   return (
     <div className="space-y-4">
@@ -102,7 +111,20 @@ const AddressCard = () => {
           size="REGULAR"
           text="SAVE CHANGES"
           uppercase="uppercase"
-          onClick={handleFormSubmit}
+          onClick={(e) => {
+            // current useform will not submit if fields of values contains an empty field, WE NEED TO BYPASS IT
+            for (const [k, v] of Object.entries(values)) {
+              if (!v) {
+                // empty, add placeholder |comerce-seller-placeholder|
+                setValues((prev) => ({
+                  ...prev,
+                  [k]: "|comerce-seller-placeholder",
+                }));
+              }
+            }
+
+            handleFormSubmit(e);
+          }}
           textColor="text-white"
           type="BUTTON"
         />

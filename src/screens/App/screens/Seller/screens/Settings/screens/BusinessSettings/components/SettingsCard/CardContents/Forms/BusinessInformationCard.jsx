@@ -11,6 +11,11 @@ const BusinessInformationCard = () => {
   // use form confiugation
   const ChangeBusinessInformationAPI = () => {
     // check if atleast 1 field has data
+
+    setIsLoading(false);
+
+    // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
+    resetForms();
   };
 
   const validate = (data, setErrors) => {
@@ -25,12 +30,16 @@ const BusinessInformationCard = () => {
     tagline: "",
   };
 
-  const { values, errors, handleInput, handleFormSubmit, isLoading } = useForm(
-    init,
-    init,
-    validate,
-    ChangeBusinessInformationAPI
-  );
+  const {
+    values,
+    setValues,
+    errors,
+    handleInput,
+    handleFormSubmit,
+    isLoading,
+    resetForms,
+    setIsLoading,
+  } = useForm(init, init, validate, ChangeBusinessInformationAPI);
 
   return (
     <div className="space-y-4">
@@ -109,7 +118,20 @@ const BusinessInformationCard = () => {
           size="REGULAR"
           text="SAVE CHANGES"
           uppercase="uppercase"
-          onClick={handleFormSubmit}
+          onClick={(e) => {
+            // current useform will not submit if fields of values contains an empty field, WE NEED TO BYPASS IT
+            for (const [k, v] of Object.entries(values)) {
+              if (!v) {
+                // empty, add placeholder |comerce-seller-placeholder|
+                setValues((prev) => ({
+                  ...prev,
+                  [k]: "|comerce-seller-placeholder",
+                }));
+              }
+            }
+
+            handleFormSubmit(e);
+          }}
           textColor="text-white"
           type="BUTTON"
         />
