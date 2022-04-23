@@ -1,11 +1,36 @@
 import React from "react";
 import Cookies from "universal-cookie";
+import { useForm } from "../../../../../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../../../../../shared/Components/button/ButtonBase";
 import { InputFirst } from "../../../../../../../../../../../../shared/Components/input/InputBase";
 import { BorderedInput } from "../../../../../../../../../../../../shared/Components/input/Inputs";
 
 const BusinessInformationCard = () => {
   const cookies = new Cookies();
+
+  // use form confiugation
+  const ChangeBusinessInformationAPI = () => {
+    // check if atleast 1 field has data
+  };
+
+  const validate = (data, setErrors) => {
+    const temp = { ...errors };
+    // nothing to validate for now
+    setErrors({ ...temp });
+  };
+
+  const init = {
+    newLogo: "",
+    businessName: "",
+    tagline: "",
+  };
+
+  const { values, errors, handleInput, handleFormSubmit, isLoading } = useForm(
+    init,
+    init,
+    validate,
+    ChangeBusinessInformationAPI
+  );
 
   return (
     <div className="space-y-4">
@@ -14,7 +39,11 @@ const BusinessInformationCard = () => {
         <div className="flex-shrink space-y-3">
           <div className="m-auto w-max rounded-full border border-gray-400 flex items-center justify-center">
             <img
-              src={cookies.get(process.env.REACT_APP_BS_LOGO)}
+              src={
+                values.newLogo
+                  ? values.newLogo
+                  : cookies.get(process.env.REACT_APP_BS_LOGO)
+              }
               // src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png"
               className="w-28 h-28 p-2 object-contain object-center"
             />
@@ -23,10 +52,10 @@ const BusinessInformationCard = () => {
           <BorderedInput
             type="text"
             name="newLogo"
-            value={""}
-            onChange={() => {}}
+            value={values.newLogo}
+            onChange={handleInput}
             placeholder="Upload New Logo"
-            error={""}
+            error={errors.newLogo}
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,25 +79,25 @@ const BusinessInformationCard = () => {
         <div className="flex-grow space-y-4">
           <InputFirst
             type="text"
-            name={""}
-            value={""}
-            onChange={""}
+            name="businessName"
+            value={values.businessName}
+            onChange={handleInput}
             inputStyle="bg-transparent rounded-t-sm px-2 text-base"
             border="py-1.5 border-b-2 rounded-t shadow"
             label="BUSINESS NAME"
-            error={""}
+            error={errors.businessName}
             focusWithin="focus-within:border-my-accent"
           />
 
           <InputFirst
             type="text"
-            name={""}
-            value={""}
-            onChange={""}
+            name="tagline"
+            value={values.tagline}
+            onChange={handleInput}
             inputStyle="bg-transparent rounded-t-sm px-2 text-base"
             border="py-1.5 border-b-2 rounded-t shadow"
             label="TAGLINE"
-            error={""}
+            error={errors.tagline}
             focusWithin="focus-within:border-my-accent"
           />
         </div>
@@ -76,10 +105,11 @@ const BusinessInformationCard = () => {
 
       <div className="w-max ml-auto">
         <FormButton
+          isLoading={isLoading}
           size="REGULAR"
           text="SAVE CHANGES"
           uppercase="uppercase"
-          onClick={() => {}}
+          onClick={handleFormSubmit}
           textColor="text-white"
           type="BUTTON"
         />
