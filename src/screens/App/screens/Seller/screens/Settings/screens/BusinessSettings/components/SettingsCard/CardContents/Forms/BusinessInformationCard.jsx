@@ -5,19 +5,57 @@ import { FormButton } from "../../../../../../../../../../../../shared/Component
 import { InputFirst } from "../../../../../../../../../../../../shared/Components/input/InputBase";
 import { BorderedInput } from "../../../../../../../../../../../../shared/Components/input/Inputs";
 import ErrorContainer from "../../../utils/ErrorContainer";
+import axios from "../../../../../../../../../../../../shared/caller";
+import { useHistory } from "react-router-dom";
+import { batch, useDispatch } from "react-redux";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../../redux/Alert/AlertAction";
 
 const BusinessInformationCard = () => {
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
   const cookies = new Cookies();
 
   // state for general error message
   const [formError, setFormError] = useState("");
 
   //#region use form confiugation
-  const ChangeBusinessInformationAPI = () => {
-    // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
-    resetForms();
-    setIsLoading(false);
-    setFormError("");
+  const ChangeBusinessInformationAPI = async () => {
+    await axios
+      .patch("/api/seller/business/update", {
+        data: {
+          businessInfo: { ...values },
+          address: {},
+        },
+      })
+      .then((res) => {
+        resetForms();
+        setIsLoading(false);
+        setFormError("");
+
+        if (res.status === 201) {
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Business information updated succesfully"));
+          });
+        }
+        // update cookies for image address and business whenever necessary
+      })
+      .catch((err) => {
+        resetForms();
+        setIsLoading(false);
+
+        if (!err.response)
+          setFormError("Cannot update business information. Try again.");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else setFormError(err.response.data.error);
+      });
   };
 
   const validate = (data, setErrors) => {
@@ -29,7 +67,11 @@ const BusinessInformationCard = () => {
   const formIsValid = (submitCallback) => {
     let isValid;
     // nothing to save in database if all input are empty
-    if (!values.newLogo && !values.businessName && !values.tagline) {
+    if (
+      !values.businessLogoAddress &&
+      !values.businessName &&
+      !values.tagline
+    ) {
       setFormError(
         "Nothing to save. You may edit atleast 1 field before submit"
       );
@@ -41,7 +83,7 @@ const BusinessInformationCard = () => {
   };
 
   const init = {
-    newLogo: "",
+    businessLogoAddress: "",
     businessName: "",
     tagline: "",
   };
@@ -70,8 +112,8 @@ const BusinessInformationCard = () => {
           <div className="m-auto w-max rounded-full border border-gray-400 flex items-center justify-center">
             <img
               src={
-                values.newLogo
-                  ? values.newLogo
+                values.businessLogoAddress
+                  ? values.businessLogoAddress
                   : cookies.get(process.env.REACT_APP_BS_LOGO)
               }
               // src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png"
@@ -81,11 +123,11 @@ const BusinessInformationCard = () => {
 
           <BorderedInput
             type="text"
-            name="newLogo"
-            value={values.newLogo}
+            name="businessLogoAddress"
+            value={values.businessLogoAddress}
             onChange={handleInput}
             placeholder="Upload New Logo"
-            error={errors.newLogo}
+            error={errors.businessLogoAddress}
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"

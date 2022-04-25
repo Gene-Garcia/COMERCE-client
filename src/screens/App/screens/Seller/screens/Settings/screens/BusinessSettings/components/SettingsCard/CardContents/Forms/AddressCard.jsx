@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import { useForm } from "../../../../../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../../../../../shared/Components/button/ButtonBase";
 import { InputFirst } from "../../../../../../../../../../../../shared/Components/input/InputBase";
 import ErrorContainer from "../../../utils/ErrorContainer";
+import axios from "../../../../../../../../../../../../shared/caller";
+import { useHistory } from "react-router-dom";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../../../redux/Alert/AlertAction";
 
 const AddressCard = () => {
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
@@ -13,11 +21,35 @@ const AddressCard = () => {
   const [formError, setFormError] = useState("");
 
   //#region use form configurations
-  const ChangeAddressAPI = () => {
-    // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
-    resetForms();
-    setIsLoading(false);
-    setFormError("");
+  const ChangeAddressAPI = async () => {
+    await axios
+      .patch("/api/seller/business/update", {
+        data: { businessInfo: {}, address: { ...values } },
+      })
+      .then((res) => {
+        resetForms();
+        setIsLoading(false);
+        setFormError("");
+
+        if (res.status === 201) {
+          batch(() => {
+            dispatch(setSeverity("success"));
+            dispatch(setMessage("Pick up address updated succesfully"));
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+
+        resetForms();
+        setIsLoading(false);
+
+        if (!err.response)
+          setFormError("Cannot update business information. Try again.");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else setFormError(err.response.data.error);
+      });
   };
 
   const validate = (data, setErrors) => {
@@ -31,7 +63,7 @@ const AddressCard = () => {
 
     // nothing to save in database if all input are empty
     if (
-      !values.streetAddress &&
+      !values.street &&
       !values.barangay &&
       !values.cityMunicipality &&
       !values.province
@@ -47,7 +79,7 @@ const AddressCard = () => {
   };
 
   const init = {
-    streetAddress: "",
+    street: "",
     barangay: "",
     cityMunicipality: "",
     province: "",
@@ -72,13 +104,13 @@ const AddressCard = () => {
 
       <InputFirst
         type="text"
-        name="streetAddress"
-        value={values.streetAddress}
+        name="street"
+        value={values.street}
         onChange={handleInput}
         inputStyle="bg-transparent rounded-t-sm px-2 text-base"
         border="py-1.5 border-b-2 rounded-t shadow"
         label="Street Address"
-        error={errors.streetAddress}
+        error={errors.street}
         focusWithin="focus-within:border-my-accent"
       />
 
