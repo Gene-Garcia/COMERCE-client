@@ -1,36 +1,49 @@
-import React from "react";
-import { batch, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "../../../../../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../../../../../shared/Components/button/ButtonBase";
 import { InputFirst } from "../../../../../../../../../../../../shared/Components/input/InputBase";
+import ErrorContainer from "../../../utils/ErrorContainer";
 
 const AddressCard = () => {
   // redux
   const dispatch = useDispatch();
 
-  // use form configurations
+  // state for general error message
+  const [formError, setFormError] = useState("");
+
+  //#region use form configurations
   const ChangeAddressAPI = () => {
-    // check if atleast 1 field has data
-    // if (
-    //   !values.streetAddress &&
-    //   !values.barangay &&
-    //   !values.cityMunicipality &&
-    //   !values.province
-    // ) {
-    // }
-
-    setIsLoading(false);
-
     // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
     resetForms();
+    setIsLoading(false);
+    setFormError("");
   };
 
   const validate = (data, setErrors) => {
     let temp = { ...errors };
-
     // nothing to validate for now, we can submit the pick up address form even with atleast 1 value
-
     setErrors(temp);
+  };
+
+  const formIsValid = (submitCallback) => {
+    let isValid;
+
+    // nothing to save in database if all input are empty
+    if (
+      !values.streetAddress &&
+      !values.barangay &&
+      !values.cityMunicipality &&
+      !values.province
+    ) {
+      setFormError(
+        "Nothing to save. You may edit atleast 1 field before submit"
+      );
+
+      isValid = false;
+    } else isValid = true;
+
+    submitCallback(isValid);
   };
 
   const init = {
@@ -48,10 +61,15 @@ const AddressCard = () => {
     setIsLoading,
     setValues,
     resetForms,
-  } = useForm(init, init, validate, ChangeAddressAPI);
+  } = useForm(init, init, validate, ChangeAddressAPI, formIsValid);
+  //#endregion
 
   return (
     <div className="space-y-4">
+      <div className={`${formError ? "block" : "hidden"}`}>
+        <ErrorContainer message={formError} />
+      </div>
+
       <InputFirst
         type="text"
         name="streetAddress"
@@ -111,20 +129,7 @@ const AddressCard = () => {
           size="REGULAR"
           text="SAVE CHANGES"
           uppercase="uppercase"
-          onClick={(e) => {
-            // current useform will not submit if fields of values contains an empty field, WE NEED TO BYPASS IT
-            for (const [k, v] of Object.entries(values)) {
-              if (!v) {
-                // empty, add placeholder |comerce-seller-placeholder|
-                setValues((prev) => ({
-                  ...prev,
-                  [k]: "|comerce-seller-placeholder",
-                }));
-              }
-            }
-
-            handleFormSubmit(e);
-          }}
+          onClick={handleFormSubmit}
           textColor="text-white"
           type="BUTTON"
         />

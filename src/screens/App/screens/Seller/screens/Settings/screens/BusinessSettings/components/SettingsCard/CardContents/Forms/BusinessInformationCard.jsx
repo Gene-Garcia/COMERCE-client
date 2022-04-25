@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import { useForm } from "../../../../../../../../../../../../hooks/useForm";
 import { FormButton } from "../../../../../../../../../../../../shared/Components/button/ButtonBase";
 import { InputFirst } from "../../../../../../../../../../../../shared/Components/input/InputBase";
 import { BorderedInput } from "../../../../../../../../../../../../shared/Components/input/Inputs";
+import ErrorContainer from "../../../utils/ErrorContainer";
 
 const BusinessInformationCard = () => {
   const cookies = new Cookies();
 
-  // use form confiugation
+  // state for general error message
+  const [formError, setFormError] = useState("");
+
+  //#region use form confiugation
   const ChangeBusinessInformationAPI = () => {
-    // check if atleast 1 field has data
-
-    setIsLoading(false);
-
     // this reset form is necessary after submitting to clear the fields of any UGLY PLACEHOLDER
     resetForms();
+    setIsLoading(false);
+    setFormError("");
   };
 
   const validate = (data, setErrors) => {
     const temp = { ...errors };
     // nothing to validate for now
     setErrors({ ...temp });
+  };
+
+  const formIsValid = (submitCallback) => {
+    let isValid;
+    // nothing to save in database if all input are empty
+    if (!values.newLogo && !values.businessName && !values.tagline) {
+      setFormError(
+        "Nothing to save. You may edit atleast 1 field before submit"
+      );
+
+      isValid = false;
+    } else isValid = true;
+
+    submitCallback(isValid);
   };
 
   const init = {
@@ -39,10 +55,15 @@ const BusinessInformationCard = () => {
     isLoading,
     resetForms,
     setIsLoading,
-  } = useForm(init, init, validate, ChangeBusinessInformationAPI);
+  } = useForm(init, init, validate, ChangeBusinessInformationAPI, formIsValid);
+  //#endregion
 
   return (
     <div className="space-y-4">
+      <div className={`${formError ? "block" : "hidden"}`}>
+        <ErrorContainer message={formError} />
+      </div>
+
       <div className="flex flex-row justify-between gap-8">
         {/* logo */}
         <div className="flex-shrink space-y-3">
@@ -118,20 +139,7 @@ const BusinessInformationCard = () => {
           size="REGULAR"
           text="SAVE CHANGES"
           uppercase="uppercase"
-          onClick={(e) => {
-            // current useform will not submit if fields of values contains an empty field, WE NEED TO BYPASS IT
-            for (const [k, v] of Object.entries(values)) {
-              if (!v) {
-                // empty, add placeholder |comerce-seller-placeholder|
-                setValues((prev) => ({
-                  ...prev,
-                  [k]: "|comerce-seller-placeholder",
-                }));
-              }
-            }
-
-            handleFormSubmit(e);
-          }}
+          onClick={handleFormSubmit}
           textColor="text-white"
           type="BUTTON"
         />
