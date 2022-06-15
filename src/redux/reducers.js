@@ -13,6 +13,7 @@ import shoppingCartReducer, {
 import shipOrdersReducer from "./Seller/ShipOrders/ShipOrdersReducer";
 import ordersMasterReducer from "./Seller/OrdersMaster/OrdersMasterReducer";
 import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/LogisticsRegistrationReducer";
+import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   MANAGE_PRODUCT: manageProductReducer,
 
   SHIP_ORDERS: shipOrdersReducer,
+  PACK_ORDERS: packOrdersReducer,
 
   ORDERS_MASTER: ordersMasterReducer,
 
