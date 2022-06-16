@@ -8,7 +8,7 @@ const packOrdersReducer = (state = initial, { type, payload }) => {
       // spread orders and add 'checked' property for checkbox
       return {
         ...state,
-        orders: [payload.map((order) => ({ ...order, checked: false }))],
+        orders: payload.map((order) => ({ ...order, checked: false })),
       };
 
     case types.RESET_TO_DEFAULT:

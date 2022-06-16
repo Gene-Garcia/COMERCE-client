@@ -11,6 +11,7 @@ import {
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import PackOrderTable, { HeaderRow } from "./utils/PackOrderTable";
 import Loading from "../../../../../../../../../shared/Loading/Loading";
+import { loadOrders } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 
 const Pack = () => {
   const history = useHistory();
@@ -28,7 +29,7 @@ const Pack = () => {
         .then((res) => {
           setLoading(false);
           if (res.status === 200) {
-            console.log(res.data.orders);
+            dispatch(loadOrders(res.data.orders));
           }
         })
         .catch((err) => {

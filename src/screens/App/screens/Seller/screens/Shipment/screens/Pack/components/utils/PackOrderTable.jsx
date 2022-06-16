@@ -1,4 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import {
+  dateDifference,
+  formatDate,
+} from "../../../../../../../../../../shared/utils/date";
 
 const PackOrderTable = () => {
   return (
@@ -6,12 +11,17 @@ const PackOrderTable = () => {
       <HeaderRow />
 
       <tbody>
-        <OrderPackRow />
-        <OrderPackRow />
-        <OrderPackRow />
+        <RenderPackOrders />
       </tbody>
     </table>
   );
+};
+
+const RenderPackOrders = () => {
+  // redux pack orders
+  const orders = useSelector((s) => s.PACK_ORDERS.orders);
+
+  return orders.map((order) => <OrderPackRow order={order} />);
 };
 
 const HeaderRow = () => {
@@ -41,38 +51,61 @@ const HeaderRow = () => {
   );
 };
 
-const OrderPackRow = () => {
+const OrderPackRow = ({ order }) => {
+  // destructure order
+  const {
+    _id: orderId,
+    orderDate,
+    ETADate,
+    shipmentDetails: { firstName, lastName },
+    orderedProducts: orders,
+  } = order;
+
   const dataClass = "p-2";
+
+  // date difference
+  const [diff, status] = dateDifference(new Date(), ETADate);
 
   return (
     <tr>
       <td className={`text-center ${dataClass}`}>
         <input type="checkbox" />
       </td>
-      <td className={`${dataClass} font-light break-all text-sm`}>
-        das23zxcv1234adsfsdfDasdf
-      </td>
+
+      <td className={`${dataClass} font-light break-all text-xs`}>{orderId}</td>
+
       <td className={`text-center ${dataClass}`}>
-        <div className="inline-flex gap-1.5 w-full justify-center items-center">
-          <p className="font-medium text-gray-800">Lorem ipsum,</p>
-          <p className="font-medium text-my-accent text-lg">5x</p>
-        </div>
+        <>
+          {orders.map((od) => (
+            <div className="inline-flex gap-1.5 w-full justify-center items-center">
+              <p className="font-medium text-gray-700">{od._product.item},</p>
+              <p className="font-medium text-my-accent text-md">
+                {od.quantity}x
+              </p>
+            </div>
+          ))}
+        </>
       </td>
+
       <td className={`${dataClass} text-gray-900 break-words`}>
-        John Andrew Doe
+        {`${firstName} ${lastName}`}
       </td>
-      <td className={`${dataClass} text-gray-600 break-words`}>
-        November 6, 2022
+
+      <td className={`${dataClass} text-gray-500 break-words`}>
+        {formatDate(orderDate, 1)}
       </td>
-      <td className={`${dataClass} text-gray-600 break-words`}>
-        November 10, 2022
+
+      <td className={`${dataClass} text-gray-500 break-words`}>
+        {formatDate(ETADate, 1)}
       </td>
+
       <td
-        className={`${dataClass} text-gray-700 font-medium text-lg text-center`}
+        className={`${dataClass} text-gray-700 font-medium text-md text-center`}
       >
-        4 day(s)
+        {`${status} ${diff} day(s)`}
       </td>
-      <td className={`${dataClass} flex items-center justify-center`}>
+
+      <td className={`${dataClass} text-center`}>
         <button
           className="bg-gray-300 text-gray-700 font-semibold text-sm 
           px-4 py-1.5 rounded-full bg-opacity-75
