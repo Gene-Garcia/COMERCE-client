@@ -29,23 +29,23 @@ const HeaderRow = () => {
 
   return (
     <thead className="font-semibold text-sm text-gray-400">
-      <tr className="text-center">
-        <th className={`${headerClass}`}>
+      <tr className="text-left">
+        <th className={`${headerClass} text-center`}>
           <input type="checkbox" />
         </th>
-        <th className={`${headerClass} w-seven`}>Order ID</th>
+        <th className={`${headerClass} w-seven text-center`}>Order ID</th>
         {/*  this is for the item name and qty */}
         <th className={`${headerClass}`}>
-          <div className="inline-flex gap-2 w-full justify-center items-center">
-            <p>Item Name</p>
-            <p>Quantity</p>
+          <div className="inline-flex gap-2 w-full items-center">
+            <p className="w-3/4">Item Name</p>
+            <p className="w-1/4">Quantity</p>
           </div>
         </th>
         <th className={`${headerClass}`}>Customer Name</th>
         <th className={`${headerClass}`}>Order Date</th>
         <th className={`${headerClass}`}>Standard ETA</th>
-        <th className={`${headerClass}`}>Day(s) remaining</th>
-        <th className={`${headerClass}`}>Actions</th>
+        <th className={`${headerClass} text-center`}>Day(s) remaining</th>
+        <th className={`${headerClass} text-center min-w-32`}>Actions</th>
       </tr>
     </thead>
   );
@@ -74,17 +74,19 @@ const OrderPackRow = ({ order }) => {
 
       <td className={`${dataClass} font-light break-all text-xs`}>{orderId}</td>
 
-      <td className={`text-center ${dataClass}`}>
-        <>
+      <td className={`${dataClass} `}>
+        <div className="grid grid-cols-1 divide-y divide-gray-300">
           {orders.map((od) => (
             <div className="inline-flex gap-1.5 w-full justify-center items-center">
-              <p className="font-medium text-gray-700">{od._product.item},</p>
-              <p className="font-medium text-my-accent text-md">
+              <p className="w-3/4 font-medium text-gray-700 break-words">
+                {od._product.item}
+              </p>
+              <p className="w-1/4 font-medium text-my-accent text-md">
                 {od.quantity}x
               </p>
             </div>
           ))}
-        </>
+        </div>
       </td>
 
       <td className={`${dataClass} text-gray-900 break-words`}>
@@ -100,7 +102,7 @@ const OrderPackRow = ({ order }) => {
       </td>
 
       <td
-        className={`${dataClass} text-gray-700 font-medium text-md text-center`}
+        className={`${dataClass} break-words text-gray-700 font-medium text-center`}
       >
         {`${status} ${diff} day(s)`}
       </td>
