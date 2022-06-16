@@ -7,7 +7,7 @@ import {
 
 const PackOrderTable = () => {
   return (
-    <table className="bg-my-white-tint w-full rounded">
+    <table className="bg-my-white-tint w-full rounded min-w-rr60">
       <HeaderRow />
 
       <tbody>
@@ -107,27 +107,12 @@ const OrderPackRow = ({ order }) => {
 
       <td className={`${dataClass} text-center`}>
         <button
-          className="bg-gray-300 text-gray-700 font-semibold text-sm 
+          className="uppercase bg-gray-300 text-gray-700 font-semibold text-sm 
           px-4 py-1.5 rounded-full bg-opacity-75
-          inline-flex items-center gap-2
           transition duration-200 ease-linear
           hover:ring-2 hover:ring-offset-2 hover:ring-gray-300
           active:ring-offset-0 active:ring active:ring-gray-300 active:ring-opacity-30"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-            />
-          </svg>
           Print Bill
         </button>
       </td>

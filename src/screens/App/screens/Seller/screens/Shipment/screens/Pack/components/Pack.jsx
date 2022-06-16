@@ -85,7 +85,7 @@ const Pack = () => {
             </table>
           </div>
         ) : (
-          <div>
+          <div className="overflow-x-auto">
             <PackOrderTable />
           </div>
         )}
