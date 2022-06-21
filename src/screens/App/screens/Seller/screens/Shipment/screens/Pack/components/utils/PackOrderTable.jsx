@@ -1,5 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  toggleAllOrderCheck,
+  toggleOrderCheck,
+} from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import {
   dateDifference,
   formatDate,
@@ -21,17 +25,24 @@ const RenderPackOrders = () => {
   // redux pack orders
   const orders = useSelector((s) => s.PACK_ORDERS.orders);
 
-  return orders.map((order) => <OrderPackRow order={order} />);
+  return orders.map((order) => <OrderPackRow key={order._id} order={order} />);
 };
 
 const HeaderRow = () => {
   const headerClass = "py-3 px-2";
 
+  // redux
+  const dispatch = useDispatch();
+
+  const onCheckboxChange = (e) => {
+    dispatch(toggleAllOrderCheck(e.target.checked));
+  };
+
   return (
     <thead className="font-semibold text-sm text-gray-400">
       <tr className="text-left">
         <th className={`${headerClass} text-center`}>
-          <input type="checkbox" />
+          <input type="checkbox" onChange={onCheckboxChange} />
         </th>
         <th className={`${headerClass} w-seven text-center`}>Order ID</th>
         {/*  this is for the item name and qty */}
@@ -59,6 +70,7 @@ const OrderPackRow = ({ order }) => {
     ETADate,
     shipmentDetails: { firstName, lastName },
     orderedProducts: orders,
+    checked,
   } = order;
 
   const dataClass = "p-2";
@@ -66,10 +78,17 @@ const OrderPackRow = ({ order }) => {
   // date difference
   const [diff, status] = dateDifference(new Date(), ETADate);
 
+  // redux
+  const dispatch = useDispatch();
+
+  const onCheckboxChange = (e) => {
+    dispatch(toggleOrderCheck(orderId, e.target.checked));
+  };
+
   return (
     <tr>
       <td className={`text-center ${dataClass}`}>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={onCheckboxChange} checked={checked} />
       </td>
 
       <td className={`${dataClass} font-light break-all text-xs`}>{orderId}</td>

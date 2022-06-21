@@ -9,12 +9,18 @@ const loadOrders = (orders) => {
   return { type: packOrdersActionTypes.LOAD_ORDERS, payload: orders };
 };
 
-const toggleOrderCheck = (orderId) => {
-  return { type: packOrdersActionTypes.TOGGLE_ORDER_CHECK, payload: orderId };
+const toggleOrderCheck = (orderId, checked) => {
+  return {
+    type: packOrdersActionTypes.TOGGLE_ORDER_CHECK,
+    payload: { orderId, checked },
+  };
 };
 
-const toggleAllOrderCheck = () => {
-  return { type: packOrdersActionTypes.TOGGLE_ALL_ORDER_CHECK };
+const toggleAllOrderCheck = (checked) => {
+  return {
+    type: packOrdersActionTypes.TOGGLE_ALL_ORDER_CHECK,
+    payload: checked,
+  };
 };
 
 const resetToDefault = () => {
