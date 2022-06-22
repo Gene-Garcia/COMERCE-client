@@ -12,6 +12,7 @@ import {
 import PackOrderTable, { HeaderRow } from "./utils/PackOrderTable";
 import Loading from "../../../../../../../../../shared/Loading/Loading";
 import { loadOrders } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
+import WaybillModal from "./utils/WaybillModal";
 
 const Pack = () => {
   const history = useHistory();
@@ -58,39 +59,49 @@ const Pack = () => {
   }, []);
 
   return (
-    <SellerContainer>
-      <div className="flex flex-col xs:flex-row gap-4 xs:gap-0 items-center justify-between">
-        <SellerTitle title="Pack Orders" />
+    <>
+      <WaybillModalWrapper />
 
-        <div className="">
-          <HeaderButton type="BUTTON" title="Print Selected" />
+      <SellerContainer>
+        <div className="flex flex-col xs:flex-row gap-4 xs:gap-0 items-center justify-between">
+          <SellerTitle title="Pack Orders" />
+
+          <div className="">
+            <HeaderButton type="BUTTON" title="Print Selected" />
+          </div>
         </div>
-      </div>
 
-      <div className="my-6 xs:my-10 border-b border-gray-300"></div>
+        <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div>
-        {loading ? (
-          <div>
-            <table className="bg-my-white-tint w-full rounded">
-              <HeaderRow />
+        <div>
+          {loading ? (
+            <div>
+              <table className="bg-my-white-tint w-full rounded">
+                <HeaderRow />
 
-              <tbody>
-                <tr>
-                  <td className="text-center py-8" colSpan="8">
-                    <Loading />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <PackOrderTable />
-          </div>
-        )}
-      </div>
-    </SellerContainer>
+                <tbody>
+                  <tr>
+                    <td className="text-center py-8" colSpan="8">
+                      <Loading />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <PackOrderTable />
+            </div>
+          )}
+        </div>
+      </SellerContainer>
+    </>
   );
 };
 export default Pack;
+
+const WaybillModalWrapper = () => {
+  // redux pack order reducer & state
+  // is toggled
+  return <WaybillModal />;
+};

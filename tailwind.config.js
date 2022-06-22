@@ -27,6 +27,7 @@ module.exports = {
         rr28: "28rem",
         min: "min-content",
         max: "max-content",
+        "waybill-height": "15cm",
       },
 
       minWidth: {
@@ -55,6 +56,8 @@ module.exports = {
         fourtyfive: "45%",
         fiftyfive: "55%",
         seventy: "70%",
+
+        "waybill-width": "10cm",
       },
 
       colors: {
