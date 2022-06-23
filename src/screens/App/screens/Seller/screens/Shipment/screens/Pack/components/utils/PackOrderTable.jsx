@@ -2,12 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllOrderCheck,
+  toggleModal,
   toggleOrderCheck,
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import {
   dateDifference,
   formatDate,
 } from "../../../../../../../../../../shared/utils/date";
+import axios from "../../../../../../../../../../shared/caller";
 
 const PackOrderTable = () => {
   return (
@@ -85,6 +87,10 @@ const OrderPackRow = ({ order }) => {
     dispatch(toggleOrderCheck(orderId, e.target.checked));
   };
 
+  const OpenWaybillModal = async () => {
+    dispatch(toggleModal(true));
+  };
+
   return (
     <tr>
       <td className={`text-center ${dataClass}`}>
@@ -95,8 +101,11 @@ const OrderPackRow = ({ order }) => {
 
       <td className={`${dataClass} `}>
         <div className="grid grid-cols-1 divide-y divide-gray-300">
-          {orders.map((od) => (
-            <div className="inline-flex gap-1.5 w-full justify-center items-center">
+          {orders.map((od, i) => (
+            <div
+              key={i}
+              className="inline-flex gap-1.5 w-full justify-center items-center"
+            >
               <p className="w-3/4 font-medium text-gray-700 break-words">
                 {od._product.item}
               </p>
@@ -128,6 +137,7 @@ const OrderPackRow = ({ order }) => {
 
       <td className={`${dataClass} text-center`}>
         <button
+          onClick={OpenWaybillModal}
           className="uppercase bg-gray-300 text-gray-700 font-semibold text-sm 
           px-4 py-1.5 rounded-full bg-opacity-75
           transition duration-200 ease-linear

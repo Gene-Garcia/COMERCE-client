@@ -1,6 +1,6 @@
 import { packOrdersActionTypes as types } from "./PackOrdersActions";
 
-const initial = { orders: [] };
+const initial = { orders: [], isModalOpen: false, waybillOrder: null };
 
 const packOrdersReducer = (state = initial, { type, payload }) => {
   switch (type) {
@@ -26,6 +26,12 @@ const packOrdersReducer = (state = initial, { type, payload }) => {
         ...state,
         orders: state.orders.map((order) => ({ ...order, checked: payload })),
       };
+
+    case types.TOGGLE_MODAL:
+      return { ...state, isModalOpen: payload };
+
+    case types.SET_WAYBILL:
+      return { ...state, waybillOrder: payload };
 
     case types.RESET_TO_DEFAULT:
       return { ...initial };

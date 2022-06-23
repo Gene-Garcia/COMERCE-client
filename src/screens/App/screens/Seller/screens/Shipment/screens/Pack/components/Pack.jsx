@@ -4,7 +4,7 @@ import { SellerTitle } from "../../../../../../../../../shared/Components/pages/
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
 import axios from "../../../../../../../../../shared/caller";
 import { useHistory } from "react-router-dom";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
@@ -102,6 +102,7 @@ export default Pack;
 
 const WaybillModalWrapper = () => {
   // redux pack order reducer & state
-  // is toggled
-  return <WaybillModal />;
+  const isModalOpen = useSelector((s) => s.PACK_ORDERS.isModalOpen);
+
+  return isModalOpen ? <WaybillModal /> : <></>;
 };
