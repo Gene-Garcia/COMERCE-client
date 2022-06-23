@@ -1,6 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
+  setWaybill,
   toggleAllOrderCheck,
   toggleModal,
   toggleOrderCheck,
@@ -10,6 +12,10 @@ import {
   formatDate,
 } from "../../../../../../../../../../shared/utils/date";
 import axios from "../../../../../../../../../../shared/caller";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
 
 const PackOrderTable = () => {
   return (
@@ -80,15 +86,54 @@ const OrderPackRow = ({ order }) => {
   // date difference
   const [diff, status] = dateDifference(new Date(), ETADate);
 
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
-  const onCheckboxChange = (e) => {
-    dispatch(toggleOrderCheck(orderId, e.target.checked));
-  };
-
   const OpenWaybillModal = async () => {
     dispatch(toggleModal(true));
+
+    // build products paramaters, separated by
+    const productIds = orders.map((order) => order._product._id).join("+");
+
+    await axios
+      .get(
+        `/api/logistics/waybill/seller/pick-up/order/${orderId}/products/${productIds}`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(
+            setWaybill({ order: res.data.orders, business: res.data.business })
+          );
+        } else {
+          dispatch(toggleModal(false));
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh your browser and try again."
+              )
+            );
+            dispatch(toggleModal(false));
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+            dispatch(toggleModal(false));
+          });
+      });
+  };
+
+  const onCheckboxChange = (e) => {
+    dispatch(toggleOrderCheck(orderId, e.target.checked));
   };
 
   return (
@@ -138,7 +183,7 @@ const OrderPackRow = ({ order }) => {
       <td className={`${dataClass} text-center`}>
         <button
           onClick={OpenWaybillModal}
-          className="uppercase bg-gray-300 text-gray-700 font-semibold text-sm 
+          className="uppercase bg-gray-200 text-gray-700 font-semibold text-sm 
           px-4 py-1.5 rounded-full bg-opacity-75
           transition duration-200 ease-linear
           hover:ring-2 hover:ring-offset-2 hover:ring-gray-300
