@@ -104,7 +104,7 @@ const OrderPackRow = ({ order }) => {
       .then((res) => {
         if (res.status === 200) {
           dispatch(
-            setWaybill({ order: res.data.orders, business: res.data.business })
+            setWaybill({ order: res.data.order, business: res.data.business })
           );
         } else {
           dispatch(toggleModal(false));

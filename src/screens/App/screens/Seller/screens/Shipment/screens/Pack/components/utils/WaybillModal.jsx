@@ -9,6 +9,8 @@ import {
   setWaybill,
   toggleModal,
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
+import { methods } from "../../../../../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 
 /*
  * will overlay a transparent background to the current page
@@ -18,7 +20,7 @@ import {
 
 function WaybillModal() {
   // redux pack orders state
-  const waybillOrder = useSelector((s) => s.PACK_ORDERS.waybillOrder);
+  const waybill = useSelector((s) => s.PACK_ORDERS.waybill);
 
   return (
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
@@ -31,7 +33,7 @@ function WaybillModal() {
           </div>
 
           <div className="h-waybill-height w-waybill-width mx-3 mb-3 rounded">
-            {waybillOrder ? (
+            {waybill ? (
               <WaybillContent />
             ) : (
               <div className="flex w-full h-full justify-center items-center">
@@ -47,6 +49,10 @@ function WaybillModal() {
 export default WaybillModal;
 
 const WaybillContent = () => {
+  // redux pack orders state
+  const { order, business } = useSelector((s) => s.PACK_ORDERS.waybill);
+  const { shipmentDetails } = order;
+
   return (
     <div
       className="w-full h-full grid grid-cols-3 auto-rows-auto 
@@ -81,38 +87,38 @@ const WaybillContent = () => {
         <div className="w-full inline-flex justify-between items-center gap-2">
           <Label label="Receiver" />
 
-          <Text text={"+63 915 366 0281"} />
+          <Text text={`+63 ${shipmentDetails.cellphoneNumber}`} />
         </div>
 
-        <Text text={"Martin Oscar Romualdez"} />
+        <Text
+          text={`${shipmentDetails.firstName} ${shipmentDetails.lastName}`}
+        />
 
-        <div className="max-h-16 overflow-ellipsis overflow-hidden">
+        <div className="max-h-16 break-all overflow-ellipsis overflow-hidden">
           <Text
-            text={
-              "lot 10, block 15, enterprise street, organization village, Tanza, Cavite, 4032"
-            }
+            text={`${shipmentDetails.streetAddress}, ${shipmentDetails.barangay}, ${shipmentDetails.cityMunicipality}, ${shipmentDetails.province}`}
           />
         </div>
       </div>
+
       {/* qrcode order id and data */}
       <div className="row-span-2 flex items-center justify-center">
         <img src={qrcode} className="w-max h-max" />
       </div>
+
       {/* seller */}
       <div className="col-span-2 flex flex-col gap-1">
         <div className="w-full inline-flex justify-between items-center gap-2">
           <Label label="Seller" />
 
-          <Text text={"+63 905 124 5245"} />
+          <Text text={"TO BE IMPLEMENTED"} />
         </div>
 
-        <Text text={"Power Mac Center"} />
+        <Text text={business.businessName} />
 
-        <div className="max-h-12 overflow-ellipsis overflow-hidden">
+        <div className="max-h-12 break-all overflow-ellipsis overflow-hidden">
           <Text
-            text={
-              "2nd Floor, BGC Uptown Mall, Bonifacio Global City, Taguig, 4012"
-            }
+            text={`${business.pickUpAddress.street}, ${business.pickUpAddress.barangay}, ${business.pickUpAddress.cityMunicipality}, ${business.pickUpAddress.province}`}
           />
         </div>
       </div>
@@ -120,27 +126,41 @@ const WaybillContent = () => {
       <div className="col-span-3 flex flex-col gap-2">
         <Label label="Goods" />
 
-        <div className="max-h-12 overflow-ellipsis overflow-hidden">
+        <div className="max-h-12 break-all overflow-ellipsis overflow-hidden">
           <Text
             size="text-xs"
-            text="Apple iPhone 13 Pro Max 1 TB, Apple AirPods Gen1, Apple AirPods Pro, Apple iMac 2 TB Space Gray, Magnetic Strip Keyboard, Apple Keyboard"
+            text={order.orderedProducts
+              .map((product) => product._product.item)
+              .join(", ")}
           />
         </div>
       </div>
       <div className="col-span-3 inline-flex justify-evenly items-center">
         <div>
           <Label label="Payment" />
-          <Text text="COD" />
+          <Text text={methods[order.paymentMethod]} />
         </div>
 
         <div>
           <Label label="Amount" />
-          <Text text={"P1590.00"} />
+          <Text
+            text={`₱${formatPrice(
+              order.orderedProducts.reduce(
+                (accumulator, product) => accumulator + product.priceAtPoint,
+                0
+              )
+            )}`}
+          />
         </div>
 
         <div className="">
           <Label label="# of Goods" />
-          <Text text="10 items" />
+          <Text
+            text={order.orderedProducts.reduce(
+              (accumulator, product) => accumulator + product.quantity,
+              0
+            )}
+          />
         </div>
       </div>
       {/* logistics manager signature */}
