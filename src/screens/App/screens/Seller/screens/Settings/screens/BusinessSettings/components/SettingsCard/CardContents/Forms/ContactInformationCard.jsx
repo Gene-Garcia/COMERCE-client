@@ -21,10 +21,14 @@ const ContactInformationCard = () => {
 
   //#region use form configuration
   const ChangeContactInformationAPI = async () => {
-    // configure contact number to the correct format
-
     await axios
-      .patch("", {})
+      .patch("/api/seller/business/update", {
+        data: {
+          contactInfo: { ...values },
+          businessInfo: {},
+          address: {},
+        },
+      })
       .then((res) => {
         setIsLoading(false);
         setFormError("");
@@ -51,6 +55,7 @@ const ContactInformationCard = () => {
 
   const validate = (data, setErrors) => {};
 
+  const contactNumberPattern = /^d+$/;
   const formIsValid = (submitCallback) => {
     let isValid;
 
@@ -62,7 +67,10 @@ const ContactInformationCard = () => {
 
       isValid = false;
     } else if (values.contactNumber) {
-      if (
+      if (!contactNumberPattern.test(values.contactNumber)) {
+        setFormError("Contact number must be numerical.");
+        isValid = false;
+      } else if (
         !values.contactNumber.startsWith("9") ||
         values.contactNumber.length !== 10
       ) {
