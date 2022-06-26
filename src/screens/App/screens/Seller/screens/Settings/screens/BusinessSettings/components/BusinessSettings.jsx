@@ -3,6 +3,7 @@ import { SellerContainer } from "../../../../../../../../../shared/Components/pa
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import AddressCard from "./SettingsCard/CardContents/Forms/AddressCard";
 import BusinessInformationCard from "./SettingsCard/CardContents/Forms/BusinessInformationCard";
+import ContactInformationCard from "./SettingsCard/CardContents/Forms/ContactInformationCard";
 import OtherInformationCard from "./SettingsCard/CardContents/OtherInformationCard";
 import SettingsCard from "./SettingsCard/SettingsCard";
 
@@ -14,15 +15,19 @@ const BusinessSettings = () => {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div className="grid grid-cols-2 grid-rows-2 gap-6">
-        <SettingsCard className="row-span-1" title="Business Information">
+        <SettingsCard className="" title="Business Information">
           <BusinessInformationCard />
         </SettingsCard>
 
-        <SettingsCard className="row-span-2" title="Pick Up Address">
+        <SettingsCard className="" title="Pick Up Address">
           <AddressCard />
         </SettingsCard>
 
-        <SettingsCard className="row-span-1" title="Other Information">
+        <SettingsCard className="" title="Contact Information">
+          <ContactInformationCard />
+        </SettingsCard>
+
+        <SettingsCard className="" title="Other Information">
           <OtherInformationCard />
         </SettingsCard>
       </div>
