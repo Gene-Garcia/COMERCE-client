@@ -2,7 +2,7 @@ import React from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  setWaybill,
+  setWaybills,
   toggleAllOrderCheck,
   toggleModal,
   toggleOrderCheck,
@@ -104,8 +104,8 @@ const OrderPackRow = ({ order }) => {
       .then((res) => {
         if (res.status === 200) {
           dispatch(
-            setWaybill({
-              order: res.data.waybillOrders[0],
+            setWaybills({
+              orders: [...res.data.waybillOrders],
               business: res.data.business,
             })
           );
