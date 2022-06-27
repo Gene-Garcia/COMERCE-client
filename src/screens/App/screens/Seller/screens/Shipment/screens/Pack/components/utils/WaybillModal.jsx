@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef, forwardRef, useRef } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import comerceLogoBlue from "../../../../../../../../../../shared/images/comerce-logo-blue.webp";
 import barcode from "../../../../../../../../../../shared/images/barcode.png";
@@ -11,6 +11,7 @@ import {
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
+import { useReactToPrint } from "react-to-print";
 
 /*
  * will overlay a transparent background to the current page
@@ -22,19 +23,23 @@ function WaybillModal() {
   // redux pack orders state
   const waybill = useSelector((s) => s.PACK_ORDERS.waybill);
 
+  // react-to-print
+  const waybillRef = useRef();
+  const printWayBill = useReactToPrint({ content: () => waybillRef.current });
+
   return (
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
         <div className="bg-my-white-tint shadow-lg rounded-lg border border-my-accent border-opacity-30">
           <div className="inline-flex justify-between w-full">
-            <PrintModal />
+            <PrintModal printWayBill={printWayBill} />
             <CloseModal />
           </div>
 
           <div className="h-waybill-height w-waybill-width mx-3 mb-3 rounded">
             {waybill ? (
-              <WaybillContent />
+              <WaybillContent ref={waybillRef} />
             ) : (
               <div className="flex w-full h-full justify-center items-center">
                 <Loading />
@@ -48,14 +53,16 @@ function WaybillModal() {
 }
 export default WaybillModal;
 
-const WaybillContent = () => {
+const WaybillContent = forwardRef((props, ref) => {
   // redux pack orders state
   const { order, business } = useSelector((s) => s.PACK_ORDERS.waybill);
   const { shipmentDetails } = order;
 
   return (
     <div
-      className="w-full h-full grid grid-cols-3 auto-rows-auto 
+      ref={ref}
+      className="h-waybill-height w-waybill-width 
+                grid grid-cols-3 auto-rows-auto 
                 divide-y divide-x divide-gray-400
                 border-r border-b border-gray-400 rounded"
     >
@@ -103,7 +110,7 @@ const WaybillContent = () => {
 
       {/* qrcode order id and data */}
       <div className="row-span-2 flex items-center justify-center">
-        <img src={qrcode} className="w-max h-max" />
+        <img src={qrcode} className="w-28 h-28" />
       </div>
 
       {/* seller */}
@@ -111,7 +118,7 @@ const WaybillContent = () => {
         <div className="w-full inline-flex justify-between items-center gap-2">
           <Label label="Seller" />
 
-          <Text text={"TO BE IMPLEMENTED"} />
+          <Text text={`+63 ${business.contactNumber}`} />
         </div>
 
         <Text text={business.businessName} />
@@ -176,7 +183,7 @@ const WaybillContent = () => {
       </div>
     </div>
   );
-};
+});
 
 const Label = ({ label }) => {
   return <p className="font-semibold text-gray-700 text-sm">{label}</p>;
@@ -228,10 +235,18 @@ function CloseModal() {
   );
 }
 
-const PrintModal = () => {
+const PrintModal = ({ printWayBill }) => {
+  // API request to change order status as pick up
+  const updateOrderStatusAPI = () => {
+    printWayBill();
+
+    // API request
+  };
+
   return (
     <div className=" p-3 ">
       <button
+        onClick={updateOrderStatusAPI}
         className="py-1 px-1.5 bg-my-white-tone rounded 
               inline-flex gap-1 items-center 
               text-sm font-semibold text-black
