@@ -21,8 +21,8 @@ function WaybillModal() {
   const waybills = useSelector((s) => s.PACK_ORDERS.waybills);
 
   // react-to-print
-  const waybillRef = useRef();
-  const printWayBill = useReactToPrint({ content: () => waybillRef.current });
+  const waybillsRef = useRef();
+  const printWayBill = useReactToPrint({ content: () => waybillsRef.current });
 
   return (
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
@@ -34,16 +34,9 @@ function WaybillModal() {
             <CloseModal />
           </div>
 
-          <div className="mx-3 mb-3 rounded">
+          <div className="h-waybill-height overflow-y-auto mx-3 mb-3 rounded">
             {waybills ? (
-              waybills.orders.map((order) => (
-                <WaybillContent
-                  key={order._id}
-                  order={order}
-                  business={waybills.business}
-                  ref={waybillRef}
-                />
-              ))
+              <RenderWaybillContent waybills={waybills} ref={waybillsRef} />
             ) : (
               <div className="flex w-full h-full justify-center items-center">
                 <Loading />
@@ -57,10 +50,23 @@ function WaybillModal() {
 }
 export default WaybillModal;
 
-const WaybillContent = forwardRef(({ order, business }, ref) => {
+const RenderWaybillContent = forwardRef(({ waybills }, ref) => {
+  return (
+    <div ref={ref} className="space-y-36">
+      {waybills.orders.map((order) => (
+        <WaybillContent
+          key={order._id}
+          order={order}
+          business={waybills.business}
+        />
+      ))}{" "}
+    </div>
+  );
+});
+
+const WaybillContent = ({ order, business }) => {
   return (
     <div
-      ref={ref}
       className="h-waybill-height w-waybill-width 
                 grid grid-cols-3 auto-rows-auto 
                 divide-y divide-x divide-gray-400
@@ -69,7 +75,7 @@ const WaybillContent = forwardRef(({ order, business }, ref) => {
       <WaybillLayout order={order} business={business} />
     </div>
   );
-});
+};
 
 function CloseModal() {
   // redux

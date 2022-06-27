@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
@@ -11,8 +11,15 @@ import {
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import PackOrderTable, { HeaderRow } from "./utils/PackOrderTable";
 import Loading from "../../../../../../../../../shared/Loading/Loading";
-import { loadOrders } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
+import {
+  loadOrders,
+  setWaybill,
+  setWaybills,
+  toggleModal,
+} from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import WaybillModal from "./utils/WaybillModal";
+import WaybillLayout from "./utils/WaybillLayout";
+import { useReactToPrint } from "react-to-print";
 
 const Pack = () => {
   const history = useHistory();
@@ -67,7 +74,7 @@ const Pack = () => {
           <SellerTitle title="Pack Orders" />
 
           <div className="">
-            <HeaderButton type="BUTTON" title="Print Selected" />
+            <PrintSelectedHeaderButton />
           </div>
         </div>
 
@@ -105,4 +112,87 @@ const WaybillModalWrapper = () => {
   const isModalOpen = useSelector((s) => s.PACK_ORDERS.isModalOpen);
 
   return isModalOpen ? <WaybillModal /> : <></>;
+};
+
+const PrintSelectedHeaderButton = () => {
+  // redux pack order state
+  const orders = useSelector((s) => s.PACK_ORDERS.orders);
+
+  // redux
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const printSelected = async () => {
+    dispatch(toggleModal(true));
+
+    //#region build paramaters of selected orders
+    const productIds = [];
+
+    const orderIds = [];
+    orders.forEach((order) => {
+      if (order.checked) {
+        const tempProductIds = order.orderedProducts.map(
+          (product) => product._product._id
+        );
+
+        productIds.push(tempProductIds.join("+"));
+
+        orderIds.push(order._id);
+      }
+    });
+
+    const joinedOrderIds = orderIds.join("+");
+    const joinedProductIds = productIds.join("-");
+    //#endregion
+
+    //#region api
+    await axios
+      .get(
+        `/api/logistics/waybill/seller/pick-up/order/${joinedOrderIds}/products/${joinedProductIds}`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(
+            setWaybills({
+              orders: [...res.data.waybillOrders],
+              business: res.data.business,
+            })
+          );
+        } else {
+          dispatch(toggleModal(false));
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh your browser and try again."
+              )
+            );
+            dispatch(toggleModal(false));
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+            dispatch(toggleModal(false));
+          });
+      });
+    //#endregion
+  };
+
+  return (
+    <>
+      <HeaderButton
+        type="BUTTON"
+        title="Print Selected"
+        onClick={printSelected}
+      />
+    </>
+  );
 };
