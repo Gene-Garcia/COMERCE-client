@@ -7,9 +7,7 @@ import signature from "../../../../../../../../../../shared/images/logistics-man
 import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 
-const WaybillLayout = () => {
-  // redux pack orders state
-  const { order, business } = useSelector((s) => s.PACK_ORDERS.waybill);
+const WaybillLayout = ({ order, business }) => {
   const { shipmentDetails } = order;
 
   return (

@@ -5,7 +5,7 @@ const packOrdersActionTypes = {
   TOGGLE_ALL_ORDER_CHECK: "TOGGLE_ALL_ORDER_CHECK",
 
   TOGGLE_MODAL: "TOGGLE_MODAL",
-  SET_WAYBILL: "SET_WAYBILL",
+  SET_WAYBILLS: "SET_WAYBILLS",
 
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
@@ -32,8 +32,8 @@ const toggleModal = (isOpened) => {
   return { type: packOrdersActionTypes.TOGGLE_MODAL, payload: isOpened };
 };
 
-const setWaybill = (orderData) => {
-  return { type: packOrdersActionTypes.SET_WAYBILL, payload: orderData };
+const setWaybills = (orderData) => {
+  return { type: packOrdersActionTypes.SET_WAYBILLS, payload: orderData };
 };
 
 const resetToDefault = () => {
@@ -46,6 +46,6 @@ export {
   toggleOrderCheck,
   toggleAllOrderCheck,
   toggleModal,
-  setWaybill,
+  setWaybills,
   resetToDefault,
 };

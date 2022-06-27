@@ -3,7 +3,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 import {
-  setWaybill,
+  setWaybills,
   toggleModal,
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 
@@ -18,7 +18,7 @@ import WaybillLayout from "./WaybillLayout";
 
 function WaybillModal() {
   // redux pack orders state
-  const waybill = useSelector((s) => s.PACK_ORDERS.waybill);
+  const waybills = useSelector((s) => s.PACK_ORDERS.waybills);
 
   // react-to-print
   const waybillRef = useRef();
@@ -34,9 +34,16 @@ function WaybillModal() {
             <CloseModal />
           </div>
 
-          <div className="h-waybill-height w-waybill-width mx-3 mb-3 rounded">
-            {waybill ? (
-              <WaybillContent ref={waybillRef} />
+          <div className="mx-3 mb-3 rounded">
+            {waybills ? (
+              waybills.orders.map((order) => (
+                <WaybillContent
+                  key={order._id}
+                  order={order}
+                  business={waybills.business}
+                  ref={waybillRef}
+                />
+              ))
             ) : (
               <div className="flex w-full h-full justify-center items-center">
                 <Loading />
@@ -50,7 +57,7 @@ function WaybillModal() {
 }
 export default WaybillModal;
 
-const WaybillContent = forwardRef((props, ref) => {
+const WaybillContent = forwardRef(({ order, business }, ref) => {
   return (
     <div
       ref={ref}
@@ -59,7 +66,7 @@ const WaybillContent = forwardRef((props, ref) => {
                 divide-y divide-x divide-gray-400
                 border-r border-b border-gray-400 rounded"
     >
-      <WaybillLayout />
+      <WaybillLayout order={order} business={business} />
     </div>
   );
 });
@@ -71,7 +78,7 @@ function CloseModal() {
   const close = () => {
     batch(() => {
       dispatch(toggleModal(false));
-      dispatch(setWaybill(null));
+      dispatch(setWaybills(null));
     });
   };
 
