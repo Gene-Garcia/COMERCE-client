@@ -104,7 +104,10 @@ const OrderPackRow = ({ order }) => {
       .then((res) => {
         if (res.status === 200) {
           dispatch(
-            setWaybill({ order: res.data.order, business: res.data.business })
+            setWaybill({
+              order: res.data.waybillOrders[0],
+              business: res.data.business,
+            })
           );
         } else {
           dispatch(toggleModal(false));
@@ -184,7 +187,7 @@ const OrderPackRow = ({ order }) => {
         <button
           onClick={OpenWaybillModal}
           className="uppercase bg-gray-200 text-gray-700 font-semibold text-sm 
-          px-4 py-1.5 rounded-full bg-opacity-75
+          px-4 py-1 rounded-full bg-opacity-75
           transition duration-200 ease-linear
           hover:ring-2 hover:ring-offset-2 hover:ring-gray-300
           active:ring-offset-0 active:ring active:ring-gray-300 active:ring-opacity-30"
