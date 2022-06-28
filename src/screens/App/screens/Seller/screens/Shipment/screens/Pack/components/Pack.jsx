@@ -13,7 +13,7 @@ import PackOrderTable, { HeaderRow } from "./utils/PackOrderTable";
 import Loading from "../../../../../../../../../shared/Loading/Loading";
 import {
   loadOrders,
-  setWaybill,
+  resetToDefault as resetPackOrdersToDefault,
   setWaybills,
   toggleModal,
 } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
@@ -63,6 +63,13 @@ const Pack = () => {
     }
 
     getForPackOrders();
+  }, []);
+
+  // clean-up
+  useEffect(() => {
+    return () => {
+      dispatch(resetPackOrdersToDefault());
+    };
   }, []);
 
   return (
