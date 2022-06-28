@@ -49,7 +49,7 @@ function WaybillModal() {
 
     // API;
     axios
-      .patch("/api/logistics/orders/update/pick-up", {
+      .patch("/api/logistics/orders/pack", {
         orders,
       })
       .then((res) => {

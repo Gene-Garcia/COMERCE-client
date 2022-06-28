@@ -18,8 +18,6 @@ import {
   toggleModal,
 } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import WaybillModal from "./utils/WaybillModal";
-import WaybillLayout from "./utils/WaybillLayout";
-import { useReactToPrint } from "react-to-print";
 
 const Pack = () => {
   const history = useHistory();

@@ -99,7 +99,7 @@ const OrderPackRow = ({ order }) => {
 
     await axios
       .get(
-        `/api/logistics/waybill/seller/pick-up/order/${orderId}/products/${productIds}`
+        `/api/logistics/waybill/seller/order/${orderId}/products/${productIds}`
       )
       .then((res) => {
         if (res.status === 200) {
