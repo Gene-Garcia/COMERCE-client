@@ -34,6 +34,12 @@ const packOrdersReducer = (state = initial, { type, payload }) => {
     case types.SET_WAYBILLS:
       return { ...state, waybills: payload };
 
+    case types.FILTER_ORDERS:
+      return {
+        ...state,
+        orders: state.orders.filter((order) => !payload.includes(order._id)),
+      };
+
     case types.RESET_TO_DEFAULT:
       return { ...initial };
 

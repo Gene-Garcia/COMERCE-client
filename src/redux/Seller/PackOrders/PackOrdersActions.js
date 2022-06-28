@@ -6,6 +6,7 @@ const packOrdersActionTypes = {
 
   TOGGLE_MODAL: "TOGGLE_MODAL",
   SET_WAYBILLS: "SET_WAYBILLS",
+  FILTER_ORDERS: "FILTER_ORDERS",
 
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
@@ -36,6 +37,10 @@ const setWaybills = (orderData) => {
   return { type: packOrdersActionTypes.SET_WAYBILLS, payload: orderData };
 };
 
+const filterOrders = (orderIds) => {
+  return { type: packOrdersActionTypes.FILTER_ORDERS, payload: orderIds };
+};
+
 const resetToDefault = () => {
   return { type: packOrdersActionTypes.RESET_TO_DEFAULT };
 };
@@ -47,5 +52,6 @@ export {
   toggleAllOrderCheck,
   toggleModal,
   setWaybills,
+  filterOrders,
   resetToDefault,
 };
