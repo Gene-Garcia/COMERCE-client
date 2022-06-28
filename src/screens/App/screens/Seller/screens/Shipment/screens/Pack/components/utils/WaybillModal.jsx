@@ -3,12 +3,19 @@ import { batch, useDispatch, useSelector } from "react-redux";
 
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 import {
+  filterOrders,
   setWaybills,
   toggleModal,
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 
 import { useReactToPrint } from "react-to-print";
 import WaybillLayout from "./WaybillLayout";
+import axios from "../../../../../../../../../../shared/caller";
+import { useHistory } from "react-router-dom";
+import {
+  setMessage,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
 
 /*
  * will overlay a transparent background to the current page
@@ -17,6 +24,11 @@ import WaybillLayout from "./WaybillLayout";
  */
 
 function WaybillModal() {
+  const history = useHistory();
+
+  //redux
+  const dispatch = useDispatch();
+
   // redux pack orders state
   const waybills = useSelector((s) => s.PACK_ORDERS.waybills);
 
@@ -24,13 +36,67 @@ function WaybillModal() {
   const waybillsRef = useRef();
   const printWayBill = useReactToPrint({ content: () => waybillsRef.current });
 
+  // API request to change order status as pick up
+  const updateOrderStatusAPI = async () => {
+    printWayBill();
+
+    // build data, do not concatenate with + and - because this is PATCH request and we can send a structured body
+    const orders = waybills.orders.map((order) => ({
+      orderId: order._id,
+      // all of the sent orderedProducts are from the seller already, no need for further filter
+      productIds: order.orderedProducts.map((product) => product._product._id),
+    }));
+
+    // API;
+    axios
+      .patch("/api/logistics/orders/update/pick-up", {
+        orders,
+      })
+      .then((res) => {
+        if (res.status === 201)
+          batch(() => {
+            dispatch(toggleModal(false));
+
+            // remove the updated orders
+            dispatch(filterOrders(res.data.updatedOrders));
+
+            dispatch(setSeverity("success"));
+            dispatch(setMessage(res.data.message));
+          });
+        else if (res.status === 200)
+          batch(() => {
+            dispatch(setSeverity("information"));
+            dispatch(setMessage(res.data.message));
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        if (!err.response)
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(
+              setMessage(
+                "Something went wrong. Please refresh your browser and try again."
+              )
+            );
+          });
+        else if (err.response.status === 401) history.push("/unauthorized");
+        else if (err.response.status === 403) history.push("/forbidden");
+        else
+          batch(() => {
+            dispatch(setSeverity("error"));
+            dispatch(setMessage(err.response.data.error));
+          });
+      });
+  };
+
   return (
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
         <div className="bg-my-white-tint shadow-lg rounded-lg border border-my-accent border-opacity-30">
           <div className="inline-flex justify-between w-full">
-            <PrintModal printWayBill={printWayBill} />
+            <PrintModal printWayBill={updateOrderStatusAPI} />
             <CloseModal />
           </div>
 
@@ -120,17 +186,10 @@ function CloseModal() {
 }
 
 const PrintModal = ({ printWayBill }) => {
-  // API request to change order status as pick up
-  const updateOrderStatusAPI = () => {
-    printWayBill();
-
-    // API request
-  };
-
   return (
     <div className=" p-3 ">
       <button
-        onClick={updateOrderStatusAPI}
+        onClick={printWayBill}
         className="py-1 px-1.5 bg-my-white-tone rounded 
               inline-flex gap-1 items-center 
               text-sm font-semibold text-black
