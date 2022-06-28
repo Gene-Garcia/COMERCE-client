@@ -129,8 +129,6 @@ const PrintSelectedHeaderButton = () => {
   const history = useHistory();
 
   const printSelected = async () => {
-    dispatch(toggleModal(true));
-
     //#region build paramaters of selected orders
     const productIds = [];
 
@@ -147,48 +145,52 @@ const PrintSelectedHeaderButton = () => {
       }
     });
 
-    const joinedOrderIds = orderIds.join("+");
-    const joinedProductIds = productIds.join("-");
-    //#endregion
+    if (orderIds.length > 0 && productIds > 0) {
+      dispatch(toggleModal(true));
 
-    //#region api
-    await axios
-      .get(
-        `/api/logistics/waybill/seller/pick-up/order/${joinedOrderIds}/products/${joinedProductIds}`
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(
-            setWaybills({
-              orders: [...res.data.waybillOrders],
-              business: res.data.business,
-            })
-          );
-        } else {
-          dispatch(toggleModal(false));
-        }
-      })
-      .catch((err) => {
-        if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
+      const joinedOrderIds = orderIds.join("+");
+      const joinedProductIds = productIds.join("-");
+      //#endregion
+
+      //#region api
+      await axios
+        .get(
+          `/api/logistics/waybill/seller/pick-up/order/${joinedOrderIds}/products/${joinedProductIds}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
             dispatch(
-              setMessage(
-                "Something went wrong. Please refresh your browser and try again."
-              )
+              setWaybills({
+                orders: [...res.data.waybillOrders],
+                business: res.data.business,
+              })
             );
+          } else {
             dispatch(toggleModal(false));
-          });
-        else if (err.response.status === 401) history.push("/unauthorized");
-        else if (err.response.status === 403) history.push("/forbidden");
-        else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-            dispatch(toggleModal(false));
-          });
-      });
-    //#endregion
+          }
+        })
+        .catch((err) => {
+          if (!err.response)
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(
+                setMessage(
+                  "Something went wrong. Please refresh your browser and try again."
+                )
+              );
+              dispatch(toggleModal(false));
+            });
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else if (err.response.status === 403) history.push("/forbidden");
+          else
+            batch(() => {
+              dispatch(setSeverity("error"));
+              dispatch(setMessage(err.response.data.error));
+              dispatch(toggleModal(false));
+            });
+        });
+      //#endregion
+    }
   };
 
   return (
