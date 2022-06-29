@@ -34,9 +34,10 @@ const Body = ({ children }) => {
 };
 
 // <tr>
-const Row = ({ children, grid }) => {
+const Row = ({ children, grid, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className={`grid ${grid} w-full 
                  rounded-md odd:bg-gray-100
                  transition duration-250 ease-linear hover:shadow-lg`}
