@@ -31,6 +31,7 @@ module.exports = {
       },
 
       minWidth: {
+        18: "4.5rem",
         32: "8rem",
         rr60: "60rem",
         rr35: "35rem",
@@ -58,6 +59,11 @@ module.exports = {
         seventy: "70%",
 
         "waybill-width": "10cm",
+      },
+
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        15: "repeat(15, minmax(0, 1fr))",
       },
 
       colors: {
