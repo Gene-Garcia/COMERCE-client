@@ -85,7 +85,7 @@ const Orders = ({ history }) => {
             <Loading />
           </div>
         ) : (
-          <div className="">
+          <div className="overflow-auto">
             <OrderTable />
           </div>
         )}

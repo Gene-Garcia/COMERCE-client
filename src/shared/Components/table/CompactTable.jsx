@@ -1,9 +1,11 @@
 import React from "react";
 
 // <table>
-const CompactTable = ({ children }) => {
+const CompactTable = ({ children, elevate = "rounded-lg shadow-md" }) => {
   return (
-    <div className="bg-my-white-tint w-full rounded-lg shadow-md border border-gray-300">
+    <div
+      className={`bg-my-white-tint w-full ${elevate} border border-gray-300`}
+    >
       {children}
     </div>
   );
