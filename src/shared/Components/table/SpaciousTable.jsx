@@ -10,12 +10,12 @@ const SpaciousTable = ({ children }) => {
 };
 
 // <head> <tr </tr> </head>
-const Head = ({ children }) => {
+const Head = ({ children, grid }) => {
   return (
     <div className="px-2 bg-gray-100">
       <div
-        className="grid grid-cols-15 w-full bg-gray-100
-                   text-sm font-semibold text-gray-500"
+        className={`grid ${grid} w-full bg-gray-100
+                   text-sm font-semibold text-gray-500`}
       >
         {children}
       </div>
@@ -34,12 +34,12 @@ const Body = ({ children }) => {
 };
 
 // <tr>
-const Row = ({ children }) => {
+const Row = ({ children, grid }) => {
   return (
     <div
-      className="grid grid-cols-15 w-full 
+      className={`grid ${grid} w-full 
                  rounded-md odd:bg-gray-100
-                 transition duration-250 ease-linear hover:shadow-lg"
+                 transition duration-250 ease-linear hover:shadow-lg`}
     >
       {children}
     </div>
