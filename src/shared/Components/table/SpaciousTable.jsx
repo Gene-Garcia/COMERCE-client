@@ -25,7 +25,7 @@ const Head = ({ children, grid }) => {
 
 // <th>
 const Heading = ({ children, className }) => {
-  return <div className={`px-2 py-1 ${className}`}>{children}</div>;
+  return <div className={`px-2 py-1 my-auto ${className}`}>{children}</div>;
 };
 
 // <body>

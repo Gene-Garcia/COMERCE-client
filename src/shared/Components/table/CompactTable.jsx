@@ -26,7 +26,7 @@ const Head = ({ children, grid }) => {
 
 // <th>
 const Heading = ({ children, className }) => {
-  return <div className={`p-2.5 ${className}`}>{children}</div>;
+  return <div className={`p-2.5 my-auto ${className}`}>{children}</div>;
 };
 
 // <body>
