@@ -2,6 +2,7 @@
 const manageInventoryTypes = {
   LOAD_PRODUCTS: "LOAD_PRODUCTS",
   SET_SELECTED_PRODUCT: "SET_SELECTED_PRODUCT",
+  TOGGLE_PAGE_LOADING: "TOGGLE_PAGE_LOADING",
   TRIGGER_RELOAD: "TRIGGER_RELOAD",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
@@ -21,6 +22,13 @@ const setSelectedProduct = (selectedProduct) => {
   };
 };
 
+const togglePageLoading = (isLoading) => {
+  return {
+    type: manageInventoryTypes.TOGGLE_PAGE_LOADING,
+    payload: isLoading,
+  };
+};
+
 const triggerReload = () => {
   return {
     type: manageInventoryTypes.TRIGGER_RELOAD,
@@ -37,6 +45,7 @@ export {
   manageInventoryTypes,
   loadProducts,
   setSelectedProduct,
+  togglePageLoading,
   triggerReload,
   resetToDefault,
 };

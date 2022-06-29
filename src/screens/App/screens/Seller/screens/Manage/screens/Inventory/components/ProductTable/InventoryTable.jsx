@@ -7,13 +7,11 @@ import SpaciousTable, {
   Head,
   Heading,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
+import Loading from "../../../../../../../../../../shared/Loading/Loading";
 
 function InventoryTable() {
-  // redux
-  const dispatch = useDispatch();
-
   // redux manage inventory reducer & states
-  const products = useSelector((state) => state.MANAGE_INVENTORY.products);
+  const isLoading = useSelector((state) => state.MANAGE_INVENTORY.isLoading);
 
   return (
     <div className="min-w-rr1 bg-transparent">
@@ -26,35 +24,32 @@ function InventoryTable() {
         </Head>
 
         <Body>
-          {products.map((product) => (
-            <ProductData
-              data={product}
-              key={product._id}
-              onClick={() => dispatch(setSelectedProduct(product))}
-            />
-          ))}
+          {isLoading ? (
+            <div className="py-8 bg-transparent">
+              <Loading />
+            </div>
+          ) : (
+            <RenderInventoryRows />
+          )}
         </Body>
       </SpaciousTable>
     </div>
   );
-
-  return (
-    <table className="table-fixed spaced-table-row w-full min-w-rr35">
-      <thead className="">
-        <ProductHead />
-      </thead>
-
-      <tbody className="">
-        {products.map((product) => (
-          <ProductData
-            data={product}
-            key={product._id}
-            onClick={() => dispatch(setSelectedProduct(product))}
-          />
-        ))}
-      </tbody>
-    </table>
-  );
 }
-
 export default InventoryTable;
+
+const RenderInventoryRows = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // redux manage inventory reducer & states
+  const products = useSelector((state) => state.MANAGE_INVENTORY.products);
+
+  return products.map((product) => (
+    <ProductData
+      data={product}
+      key={product._id}
+      onClick={() => dispatch(setSelectedProduct(product))}
+    />
+  ));
+};

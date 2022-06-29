@@ -3,6 +3,7 @@ import { manageInventoryTypes as types } from "./ManageInventoryAction";
 const initial = {
   products: [],
   selectedProduct: null,
+  isLoading: true,
   reload: false,
 };
 
@@ -13,6 +14,9 @@ const manageInventoryReducer = (state = initial, { type, payload }) => {
 
     case types.SET_SELECTED_PRODUCT:
       return { ...state, selectedProduct: payload };
+
+    case types.TOGGLE_PAGE_LOADING:
+      return { ...state, isLoading: payload };
 
     case types.TRIGGER_RELOAD:
       return { ...state, reload: !state.reload };
