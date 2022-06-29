@@ -9,9 +9,9 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
-import Loading from "../../../../../../../../../shared/Loading/Loading";
 import {
   loadPendingOrders,
+  togglePageLoading,
   toggleReload,
   triggerModalState,
   updateModaledOrder,
@@ -27,9 +27,6 @@ const Orders = ({ history }) => {
   // redux ship order reducer & state
   const reload = useSelector((state) => state.SHIP_ORDERS.reload);
 
-  // page loading
-  const [loading, setLoading] = useState(true);
-
   // api call to get the pending for shipment orders of this user/seller
   // added dependency on reload, usually triggered after shipping a product
   useEffect(() => {
@@ -38,8 +35,10 @@ const Orders = ({ history }) => {
         .get("/api/seller/orders/pending")
         .then((res) => {
           if (res.status === 200) {
-            setLoading(false);
-            dispatch(loadPendingOrders(res.data.orders));
+            batch(() => {
+              dispatch(loadPendingOrders(res.data.orders));
+              dispatch(togglePageLoading(false));
+            });
           }
         })
         .catch((err) => {
@@ -51,6 +50,7 @@ const Orders = ({ history }) => {
                   "Something went wrong. Please refresh your browser and try again."
                 )
               );
+              dispatch(togglePageLoading(false));
             });
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
@@ -58,6 +58,7 @@ const Orders = ({ history }) => {
             batch(() => {
               dispatch(setSeverity("error"));
               dispatch(setMessage(err.response.data.error));
+              dispatch(togglePageLoading(false));
             });
         });
     }
@@ -79,16 +80,10 @@ const Orders = ({ history }) => {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div>
-        {loading ? (
-          <div className="bg-my-white-tint rounded-lg shadow-sm p-3">
-            <Loading />
-          </div>
-        ) : (
-          <div className="overflow-auto">
-            <OrderTable />
-          </div>
-        )}
+      <div className="overflow-auto">
+        <div className="min-w-rr60 ">
+          <OrderTable />
+        </div>
       </div>
     </SellerContainer>
   );

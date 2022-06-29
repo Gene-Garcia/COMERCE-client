@@ -33,38 +33,46 @@ import CompactTable, {
   Heading as CTHeading,
   Row as CTRow,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
+import Loading from "../../../../../../../../../../shared/Loading/Loading";
 
 const OrderTable = () => {
   // redux
   const dispatch = useDispatch();
+
+  // redux ship order reducer & state
+  const isLoading = useSelector((state) => state.SHIP_ORDERS.isLoading);
 
   const onCheckboxChange = (e) => {
     dispatch(checkAllOrders(e.target.checked));
   };
 
   return (
-    <div className=" min-w-rr60 ">
-      <SpaciousTable>
-        <Head grid="grid-cols-12">
-          <Heading className="col-span-1 text-center">
-            <input
-              type="checkbox"
-              className="my-auto"
-              onChange={onCheckboxChange}
-            />
-          </Heading>
-          <Heading className="col-span-1">Order ID</Heading>
-          <Heading className="col-span-4">Items</Heading>
-          <Heading className="col-span-2">Address</Heading>
-          <Heading className="col-span-2">Mode of Payment</Heading>
-          <Heading className="col-span-2">Actions</Heading>
-        </Head>
+    <SpaciousTable>
+      <Head grid="grid-cols-12">
+        <Heading className="col-span-1 text-center">
+          <input
+            type="checkbox"
+            className="my-auto"
+            onChange={onCheckboxChange}
+          />
+        </Heading>
+        <Heading className="col-span-1">Order ID</Heading>
+        <Heading className="col-span-4">Items</Heading>
+        <Heading className="col-span-2">Address</Heading>
+        <Heading className="col-span-2">Mode of Payment</Heading>
+        <Heading className="col-span-2">Actions</Heading>
+      </Head>
 
-        <Body>
+      <Body>
+        {isLoading ? (
+          <div className=" p-8">
+            <Loading />
+          </div>
+        ) : (
           <RenderOrderRows />
-        </Body>
-      </SpaciousTable>
-    </div>
+        )}
+      </Body>
+    </SpaciousTable>
   );
 };
 export default OrderTable;
