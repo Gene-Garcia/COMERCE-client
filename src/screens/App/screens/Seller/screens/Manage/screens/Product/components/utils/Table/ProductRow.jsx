@@ -12,6 +12,14 @@ import {
   toggleProductModal,
   updateInformationModalProduct,
 } from "../../../../../../../../../../../redux/Seller/ManageProduct/ManageProductAction";
+import {
+  Data,
+  Row,
+} from "../../../../../../../../../../../shared/Components/table/SpaciousTable";
+import {
+  Action,
+  ActionGroup,
+} from "../../../../../../../../../../../shared/Components/table/TableActions";
 
 function ProductRow({ data }) {
   const {
@@ -68,6 +76,41 @@ function ProductRow({ data }) {
   const theme = "p-3 first:rounded-l-xl last:rounded-r-xl";
 
   return (
+    <Row grid="grid-cols-14">
+      <Data className="col-span-1 font-light text-xs break-all">
+        {productId}
+      </Data>
+      <Data className="col-span-2">
+        <img
+          src={imageAddress}
+          alt="product"
+          className="w-12 lg:w-16 filter drop-shadow-md m-auto"
+        />
+      </Data>
+      <Data className="col-span-3 font-medium text-black">{item}</Data>
+      <Data className="col-span-2 text-my-accent font-semibold">
+        ₱{formatPrice(retailPrice)}
+      </Data>
+      <Data className="col-span-2 text-my-accent">
+        ₱{formatPrice(wholesalePrice)}
+      </Data>
+      <Data className="col-span-2 text-red-600">
+        {inventory} <span className="text-sm">item(s)</span>
+      </Data>
+      <Data className="col-span-2">
+        <ActionGroup>
+          <Action
+            type="BUTTON"
+            text="Info"
+            onClick={referenceToInformationModal}
+          />
+          <Action type="BUTTON" text="Edit" />
+        </ActionGroup>
+      </Data>
+    </Row>
+  );
+
+  return (
     <>
       <tr className="bg-my-white-tint">
         <td className={`${theme} break-all font-light text-xs`}>{productId}</td>
@@ -84,15 +127,15 @@ function ProductRow({ data }) {
           {item}
         </td>
 
-        <td className={`${theme} text-center text-my-accent font-semibold`}>
+        <td className={`${theme} text-my-accent font-semibold`}>
           ₱{formatPrice(retailPrice)}
         </td>
 
-        <td className={`${theme} text-center text-my-accent`}>
+        <td className={`${theme} text-my-accent`}>
           ₱{formatPrice(wholesalePrice)}
         </td>
 
-        <td className={`${theme} text-center text-red-600 text-md`}>
+        <td className={`${theme} text-red-600 text-md`}>
           {inventory} <span className="text-sm">item(s)</span>
         </td>
 

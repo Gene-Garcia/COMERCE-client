@@ -9,6 +9,11 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../../../redux/Alert/AlertAction";
+import SpaciousTable, {
+  Body,
+  Head,
+  Heading,
+} from "../../../../../../../../../../../shared/Components/table/SpaciousTable";
 
 function Overview() {
   const history = useHistory();
@@ -64,6 +69,34 @@ function Overview() {
 
   // cleanup
   useEffect(() => () => setProducts([]), []);
+
+  return (
+    <div className="min-w-rr60 overflow-auto bg-transparent">
+      <SpaciousTable>
+        <Head grid="grid-cols-14">
+          <Heading className="col-span-1">Order ID</Heading>
+          <Heading className="col-span-2">Image</Heading>
+          <Heading className="col-span-3">Product Name</Heading>
+          <Heading className="col-span-2">Retail</Heading>
+          <Heading className="col-span-2">Wholesale</Heading>
+          <Heading className="col-span-2">Onhand</Heading>
+          <Heading className="col-span-2">Actions</Heading>
+        </Head>
+
+        <Body>
+          {loading ? (
+            <div className="py-8 bg-transparent">
+              <Loading />
+            </div>
+          ) : (
+            products.map((product) => (
+              <ProductRow data={product} key={product._id} />
+            ))
+          )}
+        </Body>
+      </SpaciousTable>
+    </div>
+  );
 
   return (
     <table className="table-fixed w-full min-w-rr60">
