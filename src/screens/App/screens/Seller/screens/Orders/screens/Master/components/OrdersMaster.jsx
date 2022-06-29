@@ -62,6 +62,7 @@ const OrdersMaster = () => {
         });
     }
 
+    dispatch(updatePageLoading(true));
     getOrders();
   }, [status]);
 

@@ -6,6 +6,17 @@ import {
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
 import axios from "../../../../../../../../../../shared/caller";
+import CompactTable, {
+  Body as CTBody,
+  Data as CTData,
+  Head as CTHead,
+  Heading as CTHeading,
+  Row as CTRow,
+} from "../../../../../../../../../../shared/Components/table/CompactTable";
+import {
+  Data,
+  Row,
+} from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 
@@ -65,64 +76,57 @@ const CollapseRow = ({ orderId }) => {
   }, []);
 
   return loading ? (
-    <td colSpan={6}>
-      <div className="p-3 opacity-50">
+    <Data className="col-span-9">
+      <div className="p-4 opacity-50">
         <Loading />
       </div>
-    </td>
+    </Data>
   ) : (
-    <td className="" colSpan={6}>
-      <div className="flex flex-row justify-start gap-6 px-6 py-4">
-        {/* table */}
-        <table className="w-3/4 xl:w-4/5 table-fixed rounded shadow h-max">
-          <thead className="border-b border-opacity-75 border-my-accent">
-            <TableHeadings />
-          </thead>
+    <>
+      <Data className="col-span-7">
+        <div className="flex flex-row justify-start gap-6">
+          {/* table */}
+          <CompactTable>
+            {/* <TableHeadings /> */}
+            <CTHead grid="grid-cols-6">
+              <CTHeading className="col-span-2">Product</CTHeading>
+              <CTHeading className="col-span-1">Status</CTHeading>
+              <CTHeading className="col-span-1">Price</CTHeading>
+              <CTHeading className="col-span-1">Quantity</CTHeading>
+              <CTHeading className="col-span-1">Subtotal</CTHeading>
+            </CTHead>
 
-          <tbody>
-            <RenderCollapseRow products={order.orderedProducts} />
-          </tbody>
-        </table>
-
-        {/* pricing */}
-        <div className="w-1/4 xl:w-1/5 flex-shrink-0 text-left place-self-end">
-          <Pricings order={order} />
+            <CTBody>
+              <RenderCollapseRow products={order.orderedProducts} />
+            </CTBody>
+          </CompactTable>
         </div>
-      </div>
-    </td>
+      </Data>
+      <Data className="col-span-2">
+        <Pricings order={order} />
+      </Data>
+    </>
   );
 };
 export default CollapseRow;
 
-const TableHeadings = () => {
-  return (
-    <>
-      <tr className="text-left text-gray-400 font-medium text-sm">
-        <th className={`${cellPadding}`}>Product</th>
-        <th className={`${cellPadding}`}>Status</th>
-        <th className={`${cellPadding}`}>Price</th>
-        <th className={`${cellPadding}`}>Quantity</th>
-        <th className={`${cellPadding}`}>Subtotal</th>
-      </tr>
-    </>
-  );
-};
-
 const RenderCollapseRow = ({ products }) => {
   return products.map((product) => (
-    <tr key={product._product._id} className="text-left text-sm">
-      <td className={`w-max ${cellPadding}`}>{product._product.item}</td>
-      <td className={`w-min ${cellPadding}`}>
-        <span className=" px-3 text-center rounded-full py-0.5 bg-my-accent text-white font-medium text-xs">
+    <CTRow key={product._product._id} grid="grid-cols-6">
+      <CTData className="col-span-2">{product._product.item}</CTData>
+      <CTData className="col-span-1">
+        <span className="px-2 text-center rounded-full py-0.5 bg-my-accent text-white font-medium text-xs">
           {product.status}
         </span>
-      </td>
-      <td className={`${cellPadding}`}>₱{formatPrice(product.priceAtPoint)}</td>
-      <td className={`w-min ${cellPadding}`}>{product.quantity} piece(s)</td>
-      <td className={`${cellPadding}`}>
+      </CTData>
+      <CTData className="col-span-1">
+        ₱{formatPrice(product.priceAtPoint)}
+      </CTData>
+      <CTData className="col-span-1">{product.quantity} piece(s)</CTData>
+      <CTData className="col-span-1 font-medium">
         ₱{formatPrice(product.priceAtPoint * product.quantity)}
-      </td>
-    </tr>
+      </CTData>
+    </CTRow>
   ));
 };
 

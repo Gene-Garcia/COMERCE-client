@@ -1,7 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import SpaciousTable, {
+  Body,
+  Data,
+  Head,
+  Heading,
+  Row,
+} from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
-import OrderHeading from "./OrderHeading";
 import OrderRow from "./OrderRow";
 
 const OrderTable = () => {
@@ -9,21 +15,26 @@ const OrderTable = () => {
   const loading = useSelector((state) => state.ORDERS_MASTER.pageLoading);
 
   return (
-    <table className="w-full table-fixed min-w-rr60">
-      <OrderHeading />
+    <SpaciousTable>
+      <Head grid="grid-cols-9">
+        <Heading className="col-span-1">Order ID</Heading>
+        <Heading className="col-span-2">Customer</Heading>
+        <Heading className="col-span-2">Address</Heading>
+        <Heading className="col-span-1">Order Total</Heading>
+        <Heading className="col-span-1">Payment Method</Heading>
+        <Heading className="col-span-2">Actions</Heading>
+      </Head>
 
-      <tbody className="text-center">
+      <Body>
         {loading ? (
-          <tr className="">
-            <td colSpan={6} className="h-44 text-center">
-              <Loading />
-            </td>
-          </tr>
+          <div className="p-8">
+            <Loading />
+          </div>
         ) : (
           <RenderOrderRows />
         )}
-      </tbody>
-    </table>
+      </Body>
+    </SpaciousTable>
   );
 };
 export default OrderTable;
@@ -35,15 +46,15 @@ const RenderOrderRows = () => {
   return (
     <>
       {orders.length <= 0 ? (
-        <tr>
-          <td colSpan={6}>
-            <h1>No Orders</h1>
-          </td>
-        </tr>
+        <Row className="grid-cols-9">
+          <Data className="col-span-9">
+            <div className="py-8 text-center">
+              <p>No Orders</p>
+            </div>
+          </Data>
+        </Row>
       ) : (
-        orders.map((order, i) => (
-          <OrderRow key={order._id} data={order} stripe={i % 2 !== 0} />
-        ))
+        orders.map((order, i) => <OrderRow key={order._id} data={order} />)
       )}
     </>
   );
