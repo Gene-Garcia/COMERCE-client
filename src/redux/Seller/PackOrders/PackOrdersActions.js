@@ -1,5 +1,6 @@
 const packOrdersActionTypes = {
   LOAD_ORDERS: "LOAD_ORDERS",
+  TOGGLE_PAGE_LOADING: "TOGGLE_PAGE_LOADING",
 
   TOGGLE_ORDER_CHECK: "TOGGLE_ORDER_CHECK",
   TOGGLE_ALL_ORDER_CHECK: "TOGGLE_ALL_ORDER_CHECK",
@@ -13,6 +14,13 @@ const packOrdersActionTypes = {
 
 const loadOrders = (orders) => {
   return { type: packOrdersActionTypes.LOAD_ORDERS, payload: orders };
+};
+
+const togglePageLoading = (isLoading) => {
+  return {
+    type: packOrdersActionTypes.TOGGLE_PAGE_LOADING,
+    payload: isLoading,
+  };
 };
 
 const toggleOrderCheck = (orderId, checked) => {
@@ -48,6 +56,7 @@ const resetToDefault = () => {
 export {
   packOrdersActionTypes,
   loadOrders,
+  togglePageLoading,
   toggleOrderCheck,
   toggleAllOrderCheck,
   toggleModal,

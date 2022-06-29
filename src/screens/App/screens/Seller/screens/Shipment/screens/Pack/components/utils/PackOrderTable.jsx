@@ -34,10 +34,14 @@ import {
   Action,
   ActionGroup,
 } from "../../../../../../../../../../shared/Components/table/TableActions";
+import Loading from "../../../../../../../../../../shared/Loading/Loading";
 
 const PackOrderTable = () => {
   // redux
   const dispatch = useDispatch();
+
+  // pack order reducer & state
+  const isLoading = useSelector((state) => state.PACK_ORDERS.isLoading);
 
   const onCheckboxChange = (e) => {
     dispatch(toggleAllOrderCheck(e.target.checked));
@@ -69,7 +73,13 @@ const PackOrderTable = () => {
       </Head>
 
       <Body>
-        <RenderPackOrders />
+        {isLoading ? (
+          <div className="p-8">
+            <Loading />
+          </div>
+        ) : (
+          <RenderPackOrders />
+        )}
       </Body>
     </SpaciousTable>
   );

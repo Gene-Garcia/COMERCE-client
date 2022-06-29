@@ -1,7 +1,12 @@
 import { packOrdersActionTypes as types } from "./PackOrdersActions";
 
 // waybills.orders can be one or multiple waybills
-const initial = { orders: [], isModalOpen: false, waybills: null };
+const initial = {
+  orders: [],
+  isLoading: true,
+  isModalOpen: false,
+  waybills: null,
+};
 
 const packOrdersReducer = (state = initial, { type, payload }) => {
   switch (type) {
@@ -11,6 +16,9 @@ const packOrdersReducer = (state = initial, { type, payload }) => {
         ...state,
         orders: payload.map((order) => ({ ...order, checked: false })),
       };
+
+    case types.TOGGLE_PAGE_LOADING:
+      return { ...state, isLoading: payload };
 
     case types.TOGGLE_ORDER_CHECK:
       return {

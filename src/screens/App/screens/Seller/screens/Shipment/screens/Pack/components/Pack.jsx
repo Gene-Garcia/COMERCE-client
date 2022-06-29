@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
@@ -9,13 +9,13 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
-import PackOrderTable, { HeaderRow } from "./utils/PackOrderTable";
-import Loading from "../../../../../../../../../shared/Loading/Loading";
+import PackOrderTable from "./utils/PackOrderTable";
 import {
   loadOrders,
   resetToDefault as resetPackOrdersToDefault,
   setWaybills,
   toggleModal,
+  togglePageLoading,
 } from "../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
 import WaybillModal from "./utils/WaybillModal";
 
@@ -26,21 +26,21 @@ const Pack = () => {
   const dispatch = useDispatch();
 
   // loading var
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getForPackOrders() {
       await axios
         .get("/api/seller/logistics/for/pack")
         .then((res) => {
-          setLoading(false);
           if (res.status === 200) {
-            dispatch(loadOrders(res.data.orders));
+            batch(() => {
+              dispatch(loadOrders(res.data.orders));
+              dispatch(togglePageLoading(false));
+            });
           }
         })
         .catch((err) => {
-          setLoading(false);
-
           if (!err.response)
             batch(() => {
               dispatch(setSeverity("error"));
@@ -49,6 +49,7 @@ const Pack = () => {
                   "Something went wrong. Please refresh your browser and try again."
                 )
               );
+              dispatch(togglePageLoading(false));
             });
           else if (err.response.status === 401) history.push("/unauthorized");
           else if (err.response.status === 403) history.push("/forbidden");
@@ -57,6 +58,7 @@ const Pack = () => {
               dispatch(setSeverity("error"));
               dispatch(setMessage(err.response.data.error));
             });
+          dispatch(togglePageLoading(false));
         });
     }
 
@@ -85,7 +87,11 @@ const Pack = () => {
 
         <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-        {!loading && <PackOrderTable />}
+        <div>
+          <div>
+            <PackOrderTable />
+          </div>
+        </div>
 
         {/* <div>
           {loading ? (
