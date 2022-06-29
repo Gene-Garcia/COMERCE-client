@@ -77,13 +77,17 @@ const OrdersMaster = () => {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="bg-my-white-tint rounded overflow-x-auto">
+      <div className="bg-my-white-tint rounded">
         {/* order status */}
         <OrderStatusButton />
 
         <div className="h-1.5 bg-my-white-tone"></div>
 
-        <OrderTable />
+        <div className="overflow-auto">
+          <div className="min-w-rr60">
+            <OrderTable />
+          </div>
+        </div>
       </div>
     </SellerContainer>
   );

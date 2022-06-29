@@ -21,16 +21,18 @@ const OrderStatusButton = () => {
   };
 
   return (
-    <div className="px-4 py-2.5 flex flex-row gap-10">
-      {Object.entries(orderStatuses).map(([k, v]) => (
-        <Button
-          key={k}
-          onClick={updateOrderStatusButton}
-          name={v}
-          id={k}
-          active={status === k}
-        />
-      ))}
+    <div className="overflow-auto">
+      <div className="px-4 py-2.5 flex flex-row gap-10">
+        {Object.entries(orderStatuses).map(([k, v]) => (
+          <Button
+            key={k}
+            onClick={updateOrderStatusButton}
+            name={v}
+            id={k}
+            active={status === k}
+          />
+        ))}
+      </div>
     </div>
   );
 };

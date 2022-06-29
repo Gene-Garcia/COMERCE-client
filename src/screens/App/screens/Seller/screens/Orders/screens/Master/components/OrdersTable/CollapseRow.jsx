@@ -13,14 +13,9 @@ import CompactTable, {
   Heading as CTHeading,
   Row as CTRow,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
-import {
-  Data,
-  Row,
-} from "../../../../../../../../../../shared/Components/table/SpaciousTable";
+import { Data } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
-
-const cellPadding = "px-4 py-2";
 
 const CollapseRow = ({ orderId }) => {
   const history = useHistory();
