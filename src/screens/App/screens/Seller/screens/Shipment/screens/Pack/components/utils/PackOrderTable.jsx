@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -16,16 +16,62 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
+import SpaciousTable, {
+  Body,
+  Data,
+  Head,
+  Heading,
+  Row,
+} from "../../../../../../../../../../shared/Components/table/SpaciousTable";
+import CompactTable, {
+  Body as CTBody,
+  Data as CTData,
+  Head as CTHead,
+  Heading as CTHeading,
+  Row as CTRow,
+} from "../../../../../../../../../../shared/Components/table/CompactTable";
+import {
+  Action,
+  ActionGroup,
+} from "../../../../../../../../../../shared/Components/table/TableActions";
 
 const PackOrderTable = () => {
-  return (
-    <table className="bg-my-white-tint w-full rounded min-w-rr60">
-      <HeaderRow />
+  // redux
+  const dispatch = useDispatch();
 
-      <tbody>
+  const onCheckboxChange = (e) => {
+    dispatch(toggleAllOrderCheck(e.target.checked));
+  };
+
+  // return (
+  //   <table className="bg-my-white-tint w-full rounded min-w-rr60">
+  //     <HeaderRow />
+
+  //     <tbody>
+  //       <RenderPackOrders />
+  //     </tbody>
+  //   </table>
+  // );
+
+  return (
+    <SpaciousTable>
+      <Head grid="grid-cols-12">
+        <Heading className="col-span-1 text-center">
+          <input type="checkbox" onChange={onCheckboxChange} />
+        </Heading>
+        <Heading className="col-span-1">Order ID</Heading>
+        <Heading className="col-span-3">Items</Heading>
+        <Heading className="col-span-2">Customer</Heading>
+        <Heading className="col-span-1">Order Date</Heading>
+        <Heading className="col-span-1">Standard ETA</Heading>
+        <Heading className="col-span-2">Day(s) remaining</Heading>
+        <Heading className="col-span-1">Actions</Heading>
+      </Head>
+
+      <Body>
         <RenderPackOrders />
-      </tbody>
-    </table>
+      </Body>
+    </SpaciousTable>
   );
 };
 
@@ -34,40 +80,6 @@ const RenderPackOrders = () => {
   const orders = useSelector((s) => s.PACK_ORDERS.orders);
 
   return orders.map((order) => <OrderPackRow key={order._id} order={order} />);
-};
-
-const HeaderRow = () => {
-  const headerClass = "py-3 px-2";
-
-  // redux
-  const dispatch = useDispatch();
-
-  const onCheckboxChange = (e) => {
-    dispatch(toggleAllOrderCheck(e.target.checked));
-  };
-
-  return (
-    <thead className="font-semibold text-sm text-gray-400">
-      <tr className="text-left">
-        <th className={`${headerClass} text-center`}>
-          <input type="checkbox" onChange={onCheckboxChange} />
-        </th>
-        <th className={`${headerClass} w-seven text-center`}>Order ID</th>
-        {/*  this is for the item name and qty */}
-        <th className={`${headerClass}`}>
-          <div className="inline-flex gap-2 w-full items-center">
-            <p className="w-3/4">Item Name</p>
-            <p className="w-1/4">Quantity</p>
-          </div>
-        </th>
-        <th className={`${headerClass}`}>Customer Name</th>
-        <th className={`${headerClass}`}>Order Date</th>
-        <th className={`${headerClass}`}>Standard ETA</th>
-        <th className={`${headerClass} text-center`}>Day(s) remaining</th>
-        <th className={`${headerClass} text-center min-w-32`}>Actions</th>
-      </tr>
-    </thead>
-  );
 };
 
 const OrderPackRow = ({ order }) => {
@@ -80,8 +92,6 @@ const OrderPackRow = ({ order }) => {
     orderedProducts: orders,
     checked,
   } = order;
-
-  const dataClass = "p-2";
 
   // date difference
   const [diff, status] = dateDifference(new Date(), ETADate);
@@ -140,64 +150,96 @@ const OrderPackRow = ({ order }) => {
   };
 
   return (
-    <tr>
-      <td className={`text-center ${dataClass}`}>
+    <Row grid="grid-cols-12">
+      <Data className="col-span-1 text-center">
         <input type="checkbox" onChange={onCheckboxChange} checked={checked} />
-      </td>
-
-      <td className={`${dataClass} font-light break-all text-xs`}>{orderId}</td>
-
-      <td className={`${dataClass} `}>
-        <div className="grid grid-cols-1 divide-y divide-gray-300">
-          {orders.map((od, i) => (
-            <div
-              key={i}
-              className="inline-flex gap-1.5 w-full justify-center items-center"
-            >
-              <p className="w-3/4 font-medium text-gray-700 break-words">
-                {od._product.item}
-              </p>
-              <p className="w-1/4 font-medium text-my-accent text-md">
-                {od.quantity}x
-              </p>
-            </div>
-          ))}
-        </div>
-      </td>
-
-      <td className={`${dataClass} text-gray-900 break-words`}>
+      </Data>
+      <Data className="col-span-1 text-xs font-light break-all">{orderId}</Data>
+      <Data className="col-span-3">
+        <OrderedProductsTable orderedProducts={orders} />
+      </Data>
+      <Data className="col-span-2 break-words">
         {`${firstName} ${lastName}`}
-      </td>
-
-      <td className={`${dataClass} text-gray-500 break-words`}>
-        {formatDate(orderDate, 1)}
-      </td>
-
-      <td className={`${dataClass} text-gray-500 break-words`}>
-        {formatDate(ETADate, 1)}
-      </td>
-
-      <td
-        className={`${dataClass} break-words text-gray-700 font-medium text-center`}
-      >
-        {`${status} ${diff} day(s)`}
-      </td>
-
-      <td className={`${dataClass} text-center`}>
-        <button
-          onClick={OpenWaybillModal}
-          className="uppercase bg-gray-200 text-gray-700 font-semibold text-sm 
-          px-4 py-1 rounded-full bg-opacity-75
-          transition duration-200 ease-linear
-          hover:ring-2 hover:ring-offset-2 hover:ring-gray-300
-          active:ring-offset-0 active:ring active:ring-gray-300 active:ring-opacity-30"
-        >
-          Print Bill
-        </button>
-      </td>
-    </tr>
+      </Data>
+      <Data className="col-span-1 break-words">{formatDate(orderDate, 1)}</Data>
+      <Data className="col-span-1 break-words">{formatDate(ETADate, 1)}</Data>
+      <Data className="col-span-2"> {`${status} ${diff} day(s)`}</Data>
+      <Data className="col-span-1">
+        <ActionGroup>
+          <Action type="BUTTON" text="Print Bill" onClick={OpenWaybillModal} />
+        </ActionGroup>
+      </Data>
+    </Row>
   );
 };
 
 export default PackOrderTable;
-export { HeaderRow, OrderPackRow };
+export { OrderPackRow };
+
+const OrderedProductsTable = ({ orderedProducts }) => {
+  // state to collapse ordered product table
+  const [collapse, setCollapse] = useState(false);
+
+  return !collapse ? (
+    <button
+      onClick={() => setCollapse(true)}
+      className="font-medium text-sm text-gray-600 bg-gray-300 rounded px-4 py-1
+      transition duration-200 ease-linear
+      hover:bg-gray-400 hover:text-white
+      active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
+    >
+      Show Products
+    </button>
+  ) : (
+    <>
+      {/* close button */}
+      <div className="text-right">
+        <button
+          onClick={() => setCollapse(false)}
+          className="py-1 px-1.5 bg-my-white-tone rounded 
+          inline-flex gap-1 items-center 
+          text-xs font-medium text-black
+          transition duration-200 ease-linear
+          hover:shadow-md hover:bg-gray-200
+          active:bg-red-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-red-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          CLOSE
+        </button>
+      </div>
+
+      <CompactTable elevate="rounded shadow-sm">
+        <CTHead grid="grid-cols-3">
+          <CTHeading className="col-span-2">Name</CTHeading>
+          <CTHeading className="col-span-1">Quantity</CTHeading>
+        </CTHead>
+
+        <CTBody>
+          {orderedProducts.map((product) => (
+            <CTRow grid="grid-cols-3">
+              <CTData className="col-span-2 text-sm break-words">
+                {product._product.item}
+              </CTData>
+              <CTData className="col-span-1 text-sm break-words">
+                {product.quantity} pcs
+              </CTData>
+            </CTRow>
+          ))}
+        </CTBody>
+      </CompactTable>
+    </>
+  );
+};

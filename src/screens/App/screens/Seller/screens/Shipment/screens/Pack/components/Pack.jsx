@@ -85,7 +85,9 @@ const Pack = () => {
 
         <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-        <div>
+        {!loading && <PackOrderTable />}
+
+        {/* <div>
           {loading ? (
             <div>
               <table className="bg-my-white-tint w-full rounded">
@@ -104,8 +106,8 @@ const Pack = () => {
             <div className="overflow-x-auto">
               <PackOrderTable />
             </div>
-          )}
-        </div>
+          )} 
+        </div>*/}
       </SellerContainer>
     </>
   );
