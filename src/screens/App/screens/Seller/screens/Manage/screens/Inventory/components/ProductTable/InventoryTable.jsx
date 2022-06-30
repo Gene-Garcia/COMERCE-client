@@ -1,13 +1,14 @@
 import React from "react";
-import { ProductData, ProductHead } from "./ProductRow";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../../../../../../../../../../redux/Seller/ManageInventory/ManageInventoryAction";
 import SpaciousTable, {
   Body,
+  Data,
   Head,
   Heading,
+  Row,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
-import Loading from "../../../../../../../../../../shared/Loading/Loading";
+import InventorySkeleton from "./InventorySkeleton";
 
 function InventoryTable() {
   // redux manage inventory reducer & states
@@ -24,13 +25,7 @@ function InventoryTable() {
         </Head>
 
         <Body>
-          {isLoading ? (
-            <div className="py-8 bg-transparent">
-              <Loading />
-            </div>
-          ) : (
-            <RenderInventoryRows />
-          )}
+          {isLoading ? <InventorySkeleton /> : <RenderInventoryRows />}
         </Body>
       </SpaciousTable>
     </div>
@@ -53,3 +48,28 @@ const RenderInventoryRows = () => {
     />
   ));
 };
+
+const ProductData = ({
+  onClick,
+  data: { imageAddress, item, onHand, inventory },
+}) => {
+  return (
+    <Row grid="grid-cols-5" onClick={onClick}>
+      <Data className="col-span-1">
+        <img
+          alt="product"
+          src={imageAddress}
+          className="w-14 object-contain m-auto"
+        />
+      </Data>
+
+      <Data className="col-span-2 break-words font-medium">{item}</Data>
+
+      <Data className="col-span-1 text-my-accent">{onHand}</Data>
+
+      <Data className="col-span-1 text-gray-700">{inventory}</Data>
+    </Row>
+  );
+};
+
+export { ProductData };

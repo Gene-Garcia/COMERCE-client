@@ -10,18 +10,11 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
-import Loading from "../../../../../../../../../shared/Loading/Loading";
 import {
   loadProducts,
   resetToDefault as resetManageInventoryToDefault,
   togglePageLoading,
 } from "../../../../../../../../../redux/Seller/ManageInventory/ManageInventoryAction";
-import SpaciousTable, {
-  Body,
-  Head,
-  Heading,
-} from "../../../../../../../../../shared/Components/table/SpaciousTable";
-
 function Inventory({ history }) {
   // redux
   const dispatch = useDispatch();
