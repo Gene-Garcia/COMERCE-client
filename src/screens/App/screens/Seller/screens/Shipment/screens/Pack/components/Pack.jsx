@@ -9,7 +9,7 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
-import PackOrderTable from "./utils/PackOrderTable";
+import PackOrderTable from "./table/PackOrderTable";
 import {
   loadOrders,
   resetToDefault as resetPackOrdersToDefault,
@@ -92,28 +92,6 @@ const Pack = () => {
             <PackOrderTable />
           </div>
         </div>
-
-        {/* <div>
-          {loading ? (
-            <div>
-              <table className="bg-my-white-tint w-full rounded">
-                <HeaderRow />
-
-                <tbody>
-                  <tr>
-                    <td className="text-center py-8" colSpan="8">
-                      <Loading />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <PackOrderTable />
-            </div>
-          )} 
-        </div>*/}
       </SellerContainer>
     </>
   );
@@ -137,6 +115,7 @@ const PrintSelectedHeaderButton = () => {
   const history = useHistory();
 
   const printSelected = async () => {
+    console.log("printing");
     //#region build paramaters of selected orders
     const productIds = [];
 
@@ -150,10 +129,14 @@ const PrintSelectedHeaderButton = () => {
         productIds.push(tempProductIds.join("+"));
 
         orderIds.push(order._id);
+
+        console.log(productIds);
+        console.log(orderIds);
       }
     });
 
-    if (orderIds.length > 0 && productIds > 0) {
+    if (orderIds.length > 0 && productIds.length > 0) {
+      console.log("here");
       dispatch(toggleModal(true));
 
       const joinedOrderIds = orderIds.join("+");
@@ -163,7 +146,7 @@ const PrintSelectedHeaderButton = () => {
       //#region api
       await axios
         .get(
-          `/api/logistics/waybill/seller/pick-up/order/${joinedOrderIds}/products/${joinedProductIds}`
+          `/api/logistics/waybill/seller/order/${joinedOrderIds}/products/${joinedProductIds}`
         )
         .then((res) => {
           if (res.status === 200) {
