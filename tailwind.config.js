@@ -91,7 +91,7 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ["active", "odd", "focus"],
-      borderColor: ["active"],
+      borderColor: ["active", "focus-within"],
       borderWidth: ["hover"],
       borderRadius: ["hover", "active", "first", "last"],
       boxShadow: ["active", "hover", "focus"],
