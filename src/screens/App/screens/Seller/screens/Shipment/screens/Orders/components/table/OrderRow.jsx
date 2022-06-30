@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import {
-  checkAllOrders,
   checkThisOrder,
   toggleReload,
   triggerModalState,
@@ -15,11 +14,8 @@ import {
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
 import { useHistory } from "react-router-dom";
-import SpaciousTable, {
-  Body,
+import {
   Data,
-  Head,
-  Heading,
   Row,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import {
@@ -33,56 +29,6 @@ import CompactTable, {
   Heading as CTHeading,
   Row as CTRow,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
-import Loading from "../../../../../../../../../../shared/Loading/Loading";
-
-const OrderTable = () => {
-  // redux
-  const dispatch = useDispatch();
-
-  // redux ship order reducer & state
-  const isLoading = useSelector((state) => state.SHIP_ORDERS.isLoading);
-
-  const onCheckboxChange = (e) => {
-    dispatch(checkAllOrders(e.target.checked));
-  };
-
-  return (
-    <SpaciousTable>
-      <Head grid="grid-cols-12">
-        <Heading className="col-span-1 text-center">
-          <input
-            type="checkbox"
-            className="my-auto"
-            onChange={onCheckboxChange}
-          />
-        </Heading>
-        <Heading className="col-span-1">Order ID</Heading>
-        <Heading className="col-span-4">Items</Heading>
-        <Heading className="col-span-2">Address</Heading>
-        <Heading className="col-span-2">Mode of Payment</Heading>
-        <Heading className="col-span-2">Actions</Heading>
-      </Head>
-
-      <Body>
-        {isLoading ? (
-          <div className=" p-8">
-            <Loading />
-          </div>
-        ) : (
-          <RenderOrderRows />
-        )}
-      </Body>
-    </SpaciousTable>
-  );
-};
-export default OrderTable;
-
-const RenderOrderRows = () => {
-  // redux ship orders reducer & state
-  const orders = useSelector((state) => state.SHIP_ORDERS.pendingOrders);
-
-  return orders.map((order) => <OrderRow key={order._id} order={order} />);
-};
 
 const OrderRow = ({ order }) => {
   // history
@@ -202,6 +148,7 @@ const OrderRow = ({ order }) => {
     </Row>
   );
 };
+export default OrderRow;
 
 const OrderedProductsTable = ({ orderedProducts }) => {
   // state to collapse ordered product table
@@ -211,9 +158,9 @@ const OrderedProductsTable = ({ orderedProducts }) => {
     <button
       onClick={() => setCollapse(true)}
       className="font-medium text-sm text-gray-600 bg-gray-300 rounded px-4 py-1
-      transition duration-200 ease-linear
-      hover:bg-gray-400 hover:text-white
-      active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
+        transition duration-200 ease-linear
+        hover:bg-gray-400 hover:text-white
+        active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
     >
       Show Products
     </button>
@@ -224,11 +171,11 @@ const OrderedProductsTable = ({ orderedProducts }) => {
         <button
           onClick={() => setCollapse(false)}
           className="py-1 px-1.5 bg-my-white-tone rounded 
-          inline-flex gap-1 items-center 
-          text-xs font-medium text-black
-          transition duration-200 ease-linear
-          hover:shadow-md hover:bg-gray-200
-          active:bg-red-100"
+            inline-flex gap-1 items-center 
+            text-xs font-medium text-black
+            transition duration-200 ease-linear
+            hover:shadow-md hover:bg-gray-200
+            active:bg-red-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

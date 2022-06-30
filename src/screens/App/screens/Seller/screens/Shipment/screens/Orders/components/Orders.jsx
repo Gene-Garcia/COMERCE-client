@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
-import OrderTable from "./utils/OrderTable";
+import OrderTable from "./table/OrderTable";
 import axios from "../../../../../../../../../shared/caller";
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import {
   loadPendingOrders,
+  resetToDefault,
   togglePageLoading,
   toggleReload,
   triggerModalState,
@@ -65,6 +66,11 @@ const Orders = ({ history }) => {
 
     getPendingOrders();
   }, [reload]);
+
+  // clean up
+  useEffect(() => {
+    return () => dispatch(resetToDefault());
+  }, []);
 
   return (
     <SellerContainer>
