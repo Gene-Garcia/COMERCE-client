@@ -15,6 +15,7 @@ import SpaciousTable, {
   Row,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import OrderSkeleton from "./OrderSkeleton";
+import DesignedPayment from "../../../../../../../../../../shared/Components/payment/DesignedPayment";
 
 const OrderTable = () => {
   // redux orders master reducer & state
@@ -92,7 +93,9 @@ const OrderRow = ({ data }) => {
         <Data className="col-span-1 text-my-accent">
           ₱{formatPrice(orderTotal)}
         </Data>
-        <Data className="col-span-1">{methods[paymentMethod]}</Data>
+        <Data className="col-span-1">
+          <DesignedPayment method={paymentMethod} />
+        </Data>
         <Data className="col-span-2">
           <ActionGroup>
             <Action type="BUTTON" text="Edit" onClick={() => {}} />

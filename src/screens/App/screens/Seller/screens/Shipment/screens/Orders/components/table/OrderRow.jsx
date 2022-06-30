@@ -29,6 +29,7 @@ import CompactTable, {
   Heading as CTHeading,
   Row as CTRow,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
+import DesignedPayment from "../../../../../../../../../../shared/Components/payment/DesignedPayment";
 
 const OrderRow = ({ order }) => {
   // history
@@ -137,7 +138,8 @@ const OrderRow = ({ order }) => {
         {order.shipmentDetails.province}
       </Data>
       <Data className="col-span-2 break-words">
-        {methods[order.paymentMethod]}
+        {/* {methods[order.paymentMethod]} */}
+        <DesignedPayment method={order.paymentMethod} />
       </Data>
       <Data className="col-span-2">
         <ActionGroup>
