@@ -3,7 +3,6 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
 import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import OrderTable from "./OrdersTable/OrderTable";
-import OrderStatusButton from "./utils/OrderStatusButton";
 import axios from "../../../../../../../../../shared/caller";
 import {
   setMessage,
@@ -15,6 +14,7 @@ import {
   updatePageLoading,
 } from "../../../../../../../../../redux/Seller/OrdersMaster/OrdersMasterAction";
 import { useHistory } from "react-router-dom";
+import OrderStatusDropdown from "./utils/OrderStatusDropdown";
 
 const OrdersMaster = () => {
   const history = useHistory();
@@ -62,7 +62,8 @@ const OrdersMaster = () => {
         });
     }
 
-    dispatch(updatePageLoading(true));
+    // setting of true loading is done in dropdown on change
+    // dispatch(updatePageLoading(true));
     getOrders();
   }, [status]);
 
@@ -77,16 +78,12 @@ const OrdersMaster = () => {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="bg-my-white-tint rounded">
-        {/* order status */}
-        <OrderStatusButton />
+      {/* order status */}
+      <OrderStatusDropdown />
 
-        <div className="h-1.5 bg-my-white-tone"></div>
-
-        <div className="overflow-auto">
-          <div className="min-w-rr60">
-            <OrderTable />
-          </div>
+      <div className="mt-8 overflow-auto">
+        <div className="min-w-rr60">
+          <OrderTable />
         </div>
       </div>
     </SellerContainer>
