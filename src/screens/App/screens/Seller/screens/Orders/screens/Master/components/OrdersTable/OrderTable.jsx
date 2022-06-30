@@ -14,7 +14,7 @@ import SpaciousTable, {
   Heading,
   Row,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
-import Loading from "../../../../../../../../../../shared/Loading/Loading";
+import OrderSkeleton from "./OrderSkeleton";
 
 const OrderTable = () => {
   // redux orders master reducer & state
@@ -31,15 +31,7 @@ const OrderTable = () => {
         <Heading className="col-span-2">Actions</Heading>
       </Head>
 
-      <Body>
-        {loading ? (
-          <div className="p-8">
-            <Loading />
-          </div>
-        ) : (
-          <RenderOrderRows />
-        )}
-      </Body>
+      <Body>{loading ? <OrderSkeleton /> : <RenderOrderRows />}</Body>
     </SpaciousTable>
   );
 };
