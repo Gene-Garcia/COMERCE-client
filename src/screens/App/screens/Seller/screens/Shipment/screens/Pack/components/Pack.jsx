@@ -115,7 +115,6 @@ const PrintSelectedHeaderButton = () => {
   const history = useHistory();
 
   const printSelected = async () => {
-    console.log("printing");
     //#region build paramaters of selected orders
     const productIds = [];
 
@@ -136,7 +135,6 @@ const PrintSelectedHeaderButton = () => {
     });
 
     if (orderIds.length > 0 && productIds.length > 0) {
-      console.log("here");
       dispatch(toggleModal(true));
 
       const joinedOrderIds = orderIds.join("+");

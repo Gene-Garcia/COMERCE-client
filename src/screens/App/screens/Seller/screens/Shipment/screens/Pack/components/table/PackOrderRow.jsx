@@ -36,62 +36,6 @@ import {
 } from "../../../../../../../../../../shared/Components/table/TableActions";
 import Loading from "../../../../../../../../../../shared/Loading/Loading";
 
-const PackOrderTable = () => {
-  // redux
-  const dispatch = useDispatch();
-
-  // pack order reducer & state
-  const isLoading = useSelector((state) => state.PACK_ORDERS.isLoading);
-
-  const onCheckboxChange = (e) => {
-    dispatch(toggleAllOrderCheck(e.target.checked));
-  };
-
-  // return (
-  //   <table className="bg-my-white-tint w-full rounded min-w-rr60">
-  //     <HeaderRow />
-
-  //     <tbody>
-  //       <RenderPackOrders />
-  //     </tbody>
-  //   </table>
-  // );
-
-  return (
-    <SpaciousTable>
-      <Head grid="grid-cols-12">
-        <Heading className="col-span-1 text-center">
-          <input type="checkbox" onChange={onCheckboxChange} />
-        </Heading>
-        <Heading className="col-span-1">Order ID</Heading>
-        <Heading className="col-span-3">Items</Heading>
-        <Heading className="col-span-2">Customer</Heading>
-        <Heading className="col-span-1">Order Date</Heading>
-        <Heading className="col-span-1">Standard ETA</Heading>
-        <Heading className="col-span-2">Day(s) remaining</Heading>
-        <Heading className="col-span-1">Actions</Heading>
-      </Head>
-
-      <Body>
-        {isLoading ? (
-          <div className="p-8">
-            <Loading />
-          </div>
-        ) : (
-          <RenderPackOrders />
-        )}
-      </Body>
-    </SpaciousTable>
-  );
-};
-
-const RenderPackOrders = () => {
-  // redux pack orders
-  const orders = useSelector((s) => s.PACK_ORDERS.orders);
-
-  return orders.map((order) => <OrderPackRow key={order._id} order={order} />);
-};
-
 const OrderPackRow = ({ order }) => {
   // destructure order
   const {
@@ -182,9 +126,7 @@ const OrderPackRow = ({ order }) => {
     </Row>
   );
 };
-
-export default PackOrderTable;
-export { OrderPackRow };
+export default OrderPackRow;
 
 const OrderedProductsTable = ({ orderedProducts }) => {
   // state to collapse ordered product table
@@ -194,9 +136,9 @@ const OrderedProductsTable = ({ orderedProducts }) => {
     <button
       onClick={() => setCollapse(true)}
       className="font-medium text-sm text-gray-600 bg-gray-300 rounded px-4 py-1
-      transition duration-200 ease-linear
-      hover:bg-gray-400 hover:text-white
-      active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
+        transition duration-200 ease-linear
+        hover:bg-gray-400 hover:text-white
+        active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
     >
       Show Products
     </button>
@@ -207,11 +149,11 @@ const OrderedProductsTable = ({ orderedProducts }) => {
         <button
           onClick={() => setCollapse(false)}
           className="py-1 px-1.5 bg-my-white-tone rounded 
-          inline-flex gap-1 items-center 
-          text-xs font-medium text-black
-          transition duration-200 ease-linear
-          hover:shadow-md hover:bg-gray-200
-          active:bg-red-100"
+            inline-flex gap-1 items-center 
+            text-xs font-medium text-black
+            transition duration-200 ease-linear
+            hover:shadow-md hover:bg-gray-200
+            active:bg-red-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
