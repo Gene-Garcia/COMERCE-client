@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProductHeadings from "../Table/ProductHeading";
 import ProductRow from "../Table/ProductRow";
 import axios from "../../../../../../../../../../../shared/caller";
 import { useHistory } from "react-router-dom";
-import Loading from "../../../../../../../../../../../shared/Loading/Loading";
 import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
@@ -11,9 +9,13 @@ import {
 } from "../../../../../../../../../../../redux/Alert/AlertAction";
 import SpaciousTable, {
   Body,
+  Data,
   Head,
   Heading,
+  SkeletonForText,
+  SkeletonRow,
 } from "../../../../../../../../../../../shared/Components/table/SpaciousTable";
+import ProductSkeleton from "../Table/ProductSkeleton";
 
 function Overview() {
   const history = useHistory();
@@ -85,9 +87,7 @@ function Overview() {
 
         <Body>
           {loading ? (
-            <div className="py-8 bg-transparent">
-              <Loading />
-            </div>
+            <ProductSkeleton />
           ) : (
             products.map((product) => (
               <ProductRow data={product} key={product._id} />
@@ -96,26 +96,6 @@ function Overview() {
         </Body>
       </SpaciousTable>
     </div>
-  );
-
-  return (
-    <table className="table-fixed w-full min-w-rr60">
-      <ProductHeadings />
-
-      <tbody className=" w-min-rr60">
-        {loading ? (
-          <tr className="">
-            <td colSpan={7} className="py-6 bg-my-white-tint rounded-xl">
-              <Loading />
-            </td>
-          </tr>
-        ) : (
-          products.map((product) => (
-            <ProductRow data={product} key={product._id} />
-          ))
-        )}
-      </tbody>
-    </table>
   );
 }
 export default Overview;

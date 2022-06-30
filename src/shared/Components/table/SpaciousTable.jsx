@@ -53,4 +53,19 @@ const Data = ({ children, className }) => {
 };
 
 export default SpaciousTable;
-export { Head, Heading, Body, Row, Data };
+export { Head, Heading, Body, Row, Data, SkeletonRow, SkeletonForText };
+
+// skeleton
+const SkeletonRow = ({ children, grid }) => {
+  return (
+    <div className={`animate-pulse grid ${grid} odd:bg-gray-100`}>
+      {children}
+    </div>
+  );
+};
+
+const SkeletonForText = ({ color = "bg-gray-200" }) => {
+  return (
+    <div className={`p-2 w-full ${color} text-transparent rounded-sm`}>.</div>
+  );
+};
