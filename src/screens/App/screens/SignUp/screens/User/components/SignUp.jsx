@@ -92,13 +92,14 @@ function SignUp({ history }) {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
+      <Hero />
+
       {/* form */}
       <div
-        className="lg:order-last lg:h-full bg-white flex-grow 
-      flex flex-col justify-center items-center 
-      gap-y-14
-      py-5 sm:py-12 md:py-16 lg:py-0 
-      px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44"
+        className="h-full bg-white flex-grow 
+                   flex flex-col justify-center items-center gap-y-14
+                   py-5 sm:py-12 md:py-16 lg:py-0 
+                   px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44"
       >
         <div className="space-y-10">
           <div className="flex flex-col items-center gap-y-1">
@@ -278,35 +279,31 @@ function SignUp({ history }) {
           Already have an account?
         </Link>
       </div>
-
-      {/* hero */}
-      <div className="lg:w-2/5 lg:h-full flex justify-start items-center py-6 sm:py-10 lg:py-20 gap-y-2 sm:gap-y-3 lg:gap-y-40 flex-col  bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone">
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Already have an account?
-          </h2>
-          <Link
-            to="/login/user"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Login
-          </Link>
-        </div>
-
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Start filling up your cart
-          </h2>
-          <Link
-            to="/catalogue"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Browse
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
 
 export default SignUp;
+
+const Hero = () => {
+  return (
+    <div
+      className="lg:w-2/5 lg:h-full
+                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone
+                 flex items-center justify-center"
+    >
+      <div className="w-3/5 flex flex-col justify-center items-start gap-y-20 content-center">
+        <Link
+          to="/catalogue"
+          className="w-full h-20 bg-white rounded-lg shadow-lg
+                     flex items-center justify-center
+                     text-2xl text-my-accent font-semibold"
+        >
+          Browse Products
+        </Link>
+        <div className="w-3/5 h-20 bg-white rounded-lg"></div>
+        <div className="w-thirty h-20 bg-white rounded-lg"></div>
+      </div>
+    </div>
+  );
+};

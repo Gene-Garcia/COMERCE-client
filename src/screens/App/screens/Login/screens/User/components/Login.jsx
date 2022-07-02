@@ -78,31 +78,7 @@ function Login({ history }) {
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* hero */}
-      <div className="lg:w-2/5 lg:h-full flex justify-start items-center py-6 sm:py-10 lg:py-20 gap-y-2 sm:gap-y-3 lg:gap-y-40 flex-col  bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone">
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Don't have an account?
-          </h2>
-          <Link
-            to="/sign-up/user"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Sign Up
-          </Link>
-        </div>
-
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Start filling up your cart
-          </h2>
-          <Link
-            to="/catalogue"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Browse
-          </Link>
-        </div>
-      </div>
+      <Hero />
 
       {/* form */}
       <div
@@ -244,3 +220,26 @@ function Login({ history }) {
 }
 
 export default Login;
+
+const Hero = () => {
+  return (
+    <div
+      className="lg:w-2/5 lg:h-full
+                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone
+                 flex items-center justify-center"
+    >
+      <div className="w-3/5 flex flex-col justify-center items-start gap-y-20 content-center">
+        <Link
+          to="/catalogue"
+          className="w-full h-20 bg-white rounded-lg shadow-lg
+                     flex items-center justify-center
+                     text-2xl text-my-accent font-semibold"
+        >
+          Browse Products
+        </Link>
+        <div className="w-3/5 h-20 bg-white rounded-lg"></div>
+        <div className="w-thirty h-20 bg-white rounded-lg"></div>
+      </div>
+    </div>
+  );
+};
