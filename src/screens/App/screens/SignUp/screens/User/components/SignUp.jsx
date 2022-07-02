@@ -93,22 +93,35 @@ function SignUp({ history }) {
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* form */}
-      <div className="lg:order-last lg:h-full bg-white flex-grow flex flex-col justify-evenly items-center gap-y-10 lg:gap-y-0 py-5 sm:py-12 md:py-16 lg:py-0 px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44">
-        <div className="flex flex-col items-center gap-y-1">
-          <h1 className="font-bold text-center text-2xl md:text-3xl font-sans text-gray-700">
-            Create an account
-          </h1>
-          <p className="font-medium text-lg md:text-xl text-gray-400">
-            CoMerce Account
-          </p>
-        </div>
+      <div
+        className="lg:order-last lg:h-full bg-white flex-grow 
+      flex flex-col justify-center items-center 
+      gap-y-14
+      py-5 sm:py-12 md:py-16 lg:py-0 
+      px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44"
+      >
+        <div className="space-y-10">
+          <div className="flex flex-col items-center gap-y-1">
+            <h1 className="font-bold text-center text-2xl md:text-4xl font-serif text-gray-700">
+              Sign Up to COMERCE
+            </h1>
+            <p className=" text-lg md:text-xl text-gray-400">
+              Create an account
+            </p>
+          </div>
 
-        <div className="flex flex-row gap-x-4">
           <OAuths />
         </div>
 
-        <div className="flex flex-col w-full gap-y-8">
-          <div className="flex flex-col md:flex-row items-stretch gap-8">
+        <div className="w-full relative">
+          <p className="bg-white relative z-10 mx-auto w-max px-6 text-gray-300 font-medium text-sm ">
+            or sign up with email
+          </p>
+          <div className="absolute z-0 top-2.5 w-full bg-gray-200 h-0.5"></div>
+        </div>
+
+        <div className="flex flex-col w-full gap-y-6">
+          <div className="flex flex-col md:flex-row items-stretch gap-6">
             <EmbossedInput
               name="firstName"
               type="text"
@@ -134,59 +147,63 @@ function SignUp({ history }) {
             />
           </div>
 
-          <EmbossedInput
-            name="email"
-            type="email"
-            label="EMAIL"
-            error={errors.email}
-            value={values.email}
-            onChange={handleInput}
-            background="bg-gray-100"
-            shadow="shadow-md"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            }
-          />
+          <div className="flex flex-col md:flex-row items-stretch gap-6">
+            <EmbossedInput
+              name="email"
+              type="email"
+              label="EMAIL"
+              error={errors.email}
+              value={values.email}
+              onChange={handleInput}
+              background="bg-gray-100"
+              shadow="shadow-md"
+              width="w-full"
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-my-accent mx-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+              }
+            />
 
-          <EmbossedInput
-            name="confirmEmail"
-            type="email"
-            label="CONFIRM EMAIL"
-            error={errors.confirmEmail}
-            value={values.confirmEmail}
-            onChange={handleInput}
-            background="bg-gray-100"
-            shadow="shadow-md"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            }
-          />
+            <EmbossedInput
+              name="confirmEmail"
+              type="email"
+              label="CONFIRM EMAIL"
+              error={errors.confirmEmail}
+              value={values.confirmEmail}
+              onChange={handleInput}
+              background="bg-gray-100"
+              shadow="shadow-md"
+              width="w-full"
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-my-accent mx-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+              }
+            />
+          </div>
 
           <EmbossedInput
             name="username"
@@ -251,6 +268,15 @@ function SignUp({ history }) {
             textColor="text-white"
           ></FormButton>
         </div>
+
+        <Link
+          to="/login/user"
+          className="text-gray-400 font-medium text-base
+                     transition duration-150 ease-linear
+                     hover:text-gray-800"
+        >
+          Already have an account?
+        </Link>
       </div>
 
       {/* hero */}
