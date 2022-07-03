@@ -14,6 +14,7 @@ import shipOrdersReducer from "./Seller/ShipOrders/ShipOrdersReducer";
 import ordersMasterReducer from "./Seller/OrdersMaster/OrdersMasterReducer";
 import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/LogisticsRegistrationReducer";
 import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
+import sellerPickUpReducer from "./Logistics/SellerPickUp/SellerPickUpReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -40,5 +41,6 @@ const reducers = combineReducers({
 
   // Logistics reducers
   LOGISTICS_REGISTRATION: logisticsRegistrationReducer,
+  SELLER_PICK_UP: sellerPickUpReducer,
 });
 export default reducers;
