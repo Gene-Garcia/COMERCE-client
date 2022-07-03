@@ -12,6 +12,7 @@ import {
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
 import comerceBlue from "../../../../../../../shared/images/comerce-logo-blue.webp";
+import comerceWhite from "../../../../../../../shared/images/comerce-logo-white.webp";
 
 function Login({ history }) {
   // redux
@@ -226,27 +227,35 @@ export default Login;
 
 const Hero = () => {
   return (
-    <div
-      className="w-thirty hidden lg:flex items-center justify-center 
-                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
-    >
+    <>
+      <div className="absolute top-3 left-3 z-50">
+        <Link to="/">
+          <img src={comerceWhite} className="w-7 h-auto" />
+        </Link>
+      </div>
+
       <div
-        className="w-3/4 2xl:w-3/5 
+        className="w-thirty hidden lg:flex items-center justify-center 
+                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
+      >
+        <div
+          className="w-3/4 2xl:w-3/5 
                    flex flex-col justify-center items-start content-center
                    gap-y-16"
-      >
-        <Link
-          to="/catalogue"
-          className="w-full h-20 bg-white rounded-lg shadow-lg
-                     flex items-center justify-center
-                     text-xl 2xl:text-2xl 
-                     text-my-accent font-semibold"
         >
-          Browse Products
-        </Link>
-        <div className="w-4/6 xl:w-3/5 h-20 bg-white rounded-lg"></div>
-        <div className="w-2/5 xl:w-thirty h-20 bg-white rounded-lg"></div>
+          <Link
+            to="/catalogue"
+            className="w-full h-20 bg-white rounded-lg shadow-lg
+                     flex items-center justify-center
+                     font-serif text-lg
+                     text-my-accent font-semibold"
+          >
+            Browse Products
+          </Link>
+          <div className="w-4/6 xl:w-3/5 h-20 bg-white rounded-lg"></div>
+          <div className="w-2/5 xl:w-thirty h-20 bg-white rounded-lg"></div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
