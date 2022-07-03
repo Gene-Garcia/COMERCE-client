@@ -30,20 +30,23 @@ const Account = () => {
     // build data
     const data = {
       ...values,
-      userType: "LOGISTICS",
-      vehicleData,
-      delivererData: {
-        firstName: personalData.firstName,
-        lastName: personalData.lastName,
+      firstName: personalData.firstName,
+      lastName: personalData.lastName,
 
-        contactInformation: {
-          streetAddress: personalData.streetAddress,
-          barangay: personalData.barangay,
-          cityMunicipality: personalData.cityMunicipality,
-          province: personalData.province,
-          primaryNumber: personalData.primaryNumber,
-          secondaryNumber: personalData.secondaryNumber,
-        },
+      userType: "LOGISTICS",
+
+      vehicleData,
+
+      address: {
+        streetAddress: personalData.streetAddress,
+        barangay: personalData.barangay,
+        cityMunicipality: personalData.cityMunicipality,
+        province: personalData.province,
+      },
+
+      contactInformation: {
+        primaryNumber: personalData.primaryNumber,
+        secondaryNumber: personalData.secondaryNumber,
       },
     };
 
