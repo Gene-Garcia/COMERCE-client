@@ -28,7 +28,7 @@ const sellerPickUpReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_PRODUCT_CHECKED:
       // iterate each products and find the matching business id
       const products = state.products;
-      for (k in products) {
+      for (let k in products) {
         if (products.hasOwnProperty(k)) {
           if (k === payload.businessId) {
             products[k].checked = payload.isChecked;
@@ -46,7 +46,7 @@ const sellerPickUpReducer = (state = initial, { type, payload }) => {
     case types.TOGGLE_ALL_PRODUCT_CHECKED:
       // iterate each products and update checked
       const products2 = state.products;
-      for (k in products) {
+      for (let k in products) {
         if (products.hasOwnProperty(k)) {
           products[k].checked = payload.isChecked;
         }
