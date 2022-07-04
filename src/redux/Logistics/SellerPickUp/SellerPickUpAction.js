@@ -1,40 +1,40 @@
 const sellerPickUpRegistrationTypes = {
-  LOAD_FOR_PICK_UP_ORDERS: "LOAD_FOR_PICK_UP_ORDERS",
-  TOGGLE_LOADING: "TOGGLE_LOADING",
-  TOGGLE_ORDER_CHECKED: "TOGGLE_ORDER_CHECKED",
-  TOGGLE_ALL_ORDER_CHECKED: "TOGGLE_ALL_ORDER_CHECKED",
-  FILTER_FOR_PICKUP_ORDERS: "FILTER_FOR_PICKUP_ORDERS",
+  LOAD_FOR_PICK_UP_PRODUCTS: "LOAD_FOR_PICK_UP_PRODUCTS",
+  TOGGLE_PAGE_LOADING: "TOGGLE_PAGE_LOADING",
+  TOGGLE_PRODUCT_CHECKED: "TOGGLE_PRODUCT_CHECKED",
+  TOGGLE_ALL_PRODUCT_CHECKED: "TOGGLE_ALL_PRODUCT_CHECKED",
+  FILTER_FOR_PICKUP_PRODUCTS: "FILTER_FOR_PICKUP_PRODUCTS",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
-const loadForPickUpOrders = (orders) => {
+const loadForPickUpProducts = (products) => {
   return {
-    type: sellerPickUpRegistrationTypes.LOAD_FOR_PICK_UP_ORDERS,
-    payload: orders,
+    type: sellerPickUpRegistrationTypes.LOAD_FOR_PICK_UP_PRODUCTS,
+    payload: products,
   };
 };
-const toggleLoading = (isLoading) => {
+const togglePageLoading = (isLoading) => {
   return {
-    type: sellerPickUpRegistrationTypes.TOGGLE_LOADING,
+    type: sellerPickUpRegistrationTypes.TOGGLE_PAGE_LOADING,
     payload: isLoading,
   };
 };
-const toggleOrderChecked = (orderId, isChecked) => {
+const toggleProductChecked = (businessId, isChecked) => {
   return {
-    type: sellerPickUpRegistrationTypes.TOGGLE_ORDER_CHECKED,
-    payload: { orderId, isChecked },
+    type: sellerPickUpRegistrationTypes.TOGGLE_PRODUCT_CHECKED,
+    payload: { businessId, isChecked },
   };
 };
-const toggleAllOrderChecked = (isChecked) => {
+const toggleAllProductChecked = (isChecked) => {
   return {
-    type: sellerPickUpRegistrationTypes.TOGGLE_ALL_ORDER_CHECKED,
+    type: sellerPickUpRegistrationTypes.TOGGLE_ALL_PRODUCT_CHECKED,
     payload: isChecked,
   };
 };
-const filterForPickUpOrders = (orderIds) => {
+const filterForPickUpProducts = (businessIds) => {
   return {
-    type: sellerPickUpRegistrationTypes.FILTER_FOR_PICKUP_ORDERS,
-    payload: orderIds,
+    type: sellerPickUpRegistrationTypes.FILTER_FOR_PICKUP_PRODUCTS,
+    payload: businessIds,
   };
 };
 const resetToDefault = () => {
@@ -43,10 +43,10 @@ const resetToDefault = () => {
 
 export {
   sellerPickUpRegistrationTypes,
-  loadForPickUpOrders,
-  toggleLoading,
-  toggleAllOrderChecked,
-  toggleOrderChecked,
-  filterForPickUpOrders,
+  loadForPickUpProducts,
+  togglePageLoading,
+  toggleAllProductChecked,
+  toggleProductChecked,
+  filterForPickUpProducts,
   resetToDefault,
 };
