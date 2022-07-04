@@ -21,12 +21,12 @@ const PickUpTable = () => {
           <input type="checkbox" className="" />
         </Heading>
         <Heading className="col-span-1">Business ID</Heading>
-        <Heading className="col-span-4">Pick Up Address</Heading>
+        <Heading className="col-span-3">Pick Up Address</Heading>
         <Heading className="col-span-1">Item Quantity</Heading>
         <Heading className="col-span-2">Seller Name</Heading>
         <Heading className="col-span-2">Contact Number</Heading>
         <Heading className="col-span-2">Email</Heading>
-        <Heading classNam="col-span-1">Actions</Heading>
+        <Heading classNam="col-span-2">Actions</Heading>
       </Head>
 
       <Body>{isLoading ? <ProductSkeleton /> : <RenderProductRows />}</Body>

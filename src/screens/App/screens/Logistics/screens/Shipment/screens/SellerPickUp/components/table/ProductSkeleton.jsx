@@ -18,19 +18,19 @@ const ProductSkeleton = () => {
       <Data className="col-span-3">
         <SkeletonForText />
       </Data>
-      <Data className="col-span-2">
-        <SkeletonForText />
-      </Data>
-      <Data className="col-span-2">
-        <SkeletonForText />
-      </Data>
-      <Data className="col-span-2">
-        <SkeletonForText />
-      </Data>
-      <Data className="col-span-2">
-        <SkeletonForText />
-      </Data>
       <Data className="col-span-1">
+        <SkeletonForText />
+      </Data>
+      <Data className="col-span-2">
+        <SkeletonForText />
+      </Data>
+      <Data className="col-span-2">
+        <SkeletonForText />
+      </Data>
+      <Data className="col-span-2">
+        <SkeletonForText />
+      </Data>
+      <Data className="col-span-2">
         <SkeletonForText />
       </Data>
     </SkeletonRow>
