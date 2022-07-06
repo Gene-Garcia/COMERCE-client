@@ -7,7 +7,7 @@ import CompactTable, {
   Row,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
 
-const CollapseParcelRow = ({ products }) => {
+const CollapseParcelRow = ({ orders }) => {
   return (
     <Row grid="grid-cols-4">
       <Data className="col-span-2">
@@ -19,8 +19,25 @@ const CollapseParcelRow = ({ products }) => {
           </Head>
 
           <Body>
-            {products.map((product) => (
-              <ParcelRow key={product.productId} product={product} />
+            {Object.entries(orders).map(([key, products]) => (
+              <Row key={key} grid="grid-cols-4">
+                <Data
+                  className={`col-span-1 break-all text-xs font-light ${
+                    "row-span-" + products.length
+                  }`}
+                >
+                  {key}
+                </Data>
+
+                {products.map((product) => (
+                  <>
+                    <Data className="col-span-1 break-all text-xs font-light">
+                      {product.productId}
+                    </Data>
+                    <Data className="col-span-2">{product.itemName}</Data>
+                  </>
+                ))}
+              </Row>
             ))}
           </Body>
         </CompactTable>
@@ -29,17 +46,3 @@ const CollapseParcelRow = ({ products }) => {
   );
 };
 export default CollapseParcelRow;
-
-const ParcelRow = ({ product }) => {
-  return (
-    <Row grid="grid-cols-4">
-      <Data className="col-span-1 break-all text-xs font-light">
-        {product.orderId}
-      </Data>
-      <Data className="col-span-1 break-all text-xs font-light">
-        {product.productId}
-      </Data>
-      <Data className="col-span-2">{product.itemName}</Data>
-    </Row>
-  );
-};

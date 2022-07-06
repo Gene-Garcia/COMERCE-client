@@ -17,7 +17,7 @@ const ProductRow = ({
     contactNumber,
     pickUpAddress,
     productQuantity,
-    products,
+    orders,
     checked,
   },
 }) => {
@@ -54,7 +54,7 @@ const ProductRow = ({
         </Data>
       </Row>
 
-      {collapsed && <CollapseParcelRow products={products} />}
+      {collapsed && <CollapseParcelRow orders={orders} />}
     </>
   );
 };
