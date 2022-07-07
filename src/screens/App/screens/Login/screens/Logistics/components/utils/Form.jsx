@@ -83,108 +83,118 @@ const Form = () => {
   } = useForm(init, init, validate, SubmitLoginAPI);
 
   return (
-    <div className="w-3/5 h-max bg-white shadow-xl rounded-l-2xl p-12">
-      <div className="flex flex-col gap-6 justify-between h-full">
-        {/* title */}
-        <div className="">
-          <h1 className="text-3xl text-gray-800 font-semibold font-serif">
-            Logistics Login
-          </h1>
-          <p className=" xs:text-xl text-gray-500 font-medium">Welcome Back!</p>
+    <div className="flex flex-col gap-6 justify-between h-full">
+      {/* title */}
+      <div className="">
+        <h1
+          className="text-xl md:text-2xl lg:text-3xl 
+        text-gray-800 font-semibold font-serif"
+        >
+          Logistics Login
+        </h1>
+        <p className="text-md md:text-xl text-gray-500 font-medium">
+          Welcome Back!
+        </p>
+      </div>
+
+      {/* input fields and button */}
+      <div className="space-y-6 lg:space-y-8">
+        <EmbossedInput
+          type="email"
+          name="email"
+          value={values.email}
+          onChange={handleInput}
+          background="bg-gray-100"
+          label="EMAIL"
+          error={errors.email}
+          width="w-full"
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-my-accent mx-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+              />
+            </svg>
+          }
+        />
+
+        <EmbossedInput
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleInput}
+          background="bg-gray-100"
+          label="PASSWORD"
+          error={errors.password}
+          width="w-full"
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-my-accent mx-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+              />
+            </svg>
+          }
+        />
+
+        <div className="flex flex-row justify-between gap-4 items-center">
+          <div className="inline-flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              className="rouned-xl border"
+            />
+            <label
+              for="rememberMe"
+              className="text-sm font-medium text-gray-600"
+            >
+              Remember Me
+            </label>
+          </div>
+
+          <Link
+            to="/password/forgot"
+            className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+          >
+            Forgot Password
+          </Link>
         </div>
 
-        {/* input fields and button */}
-        <div className="space-y-8">
-          <EmbossedInput
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={handleInput}
-            background="bg-gray-100"
-            label="EMAIL"
-            error={errors.email}
-            width="w-full"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            }
+        <div className="w-max ml-auto xl:ml-0">
+          <FormButton
+            size="REGULAR"
+            text="Login"
+            uppercase="uppercase"
+            onClick={handleFormSubmit}
+            isLoading={isLoading}
+            textColor="text-white"
+            type="BUTTON"
           />
+        </div>
 
-          <div className="space-y-0.5">
-            <EmbossedInput
-              type="password"
-              name="password"
-              value={values.password}
-              onChange={handleInput}
-              background="bg-gray-100"
-              label="PASSWORD"
-              error={errors.password}
-              width="w-full"
-              icon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                  />
-                </svg>
-              }
-            />
-
-            <div className="text-right">
-              <Link
-                to="/password/forgot"
-                className={`text-my-accent font-medium text-sm
-          transition duration-150 ease-linear
-          hover:text-gray-500`}
-              >
-                Forgot Password
-              </Link>
-            </div>
-          </div>
-
-          {/* button and redirect to sign up */}
-          <div className="flex flex-row justify-between items-center">
-            <div>
-              <FormButton
-                size="REGULAR"
-                text="Login"
-                uppercase="uppercase"
-                onClick={handleFormSubmit}
-                isLoading={isLoading}
-                textColor="text-white"
-                type="BUTTON"
-              />
-            </div>
-
-            <div>
-              <Link
-                to="/sign-up/logistics"
-                className="text-sm font-medium text-gray-400 transition ease-linear hover:text-my-accent"
-              >
-                Don't have an account?
-              </Link>
-            </div>
-          </div>
+        <div className="text-center">
+          <Link
+            to="/sign-up/logistics"
+            className="text-sm font-medium text-gray-400 transition ease-linear hover:text-my-accent"
+          >
+            Don't have an account?
+          </Link>
         </div>
       </div>
     </div>
