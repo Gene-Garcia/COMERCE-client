@@ -4,7 +4,11 @@ import { FormButton } from "../../../../../../../../shared/Components/button/But
 
 const ButtonGroup = ({ children }) => {
   return (
-    <div className="w-full flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 md:gap-8 items-center">
+    <div
+      className="w-full flex flex-col xs:flex-row 
+                gap-4 sm:gap-5 xl:gap-6 2xl:gap-7 
+                items-center justify-end lg:justify-start"
+    >
       {children}
     </div>
   );
@@ -14,20 +18,16 @@ const SecondaryButton = ({ name, to = "/login/logistics" }) => {
   return (
     <Link
       to={to}
-      className={`w-full py-3 px-7 gap-3 bg-gray-100
+      className={`py-2.5 px-5 gap-3 bg-gray-100
         inline-flex items-center justify-center flex-wrap 
-        rounded
+        lowercase rounded
         transition duration-250 ease-linear
-        hover:ring-2 hover:ring-gray-200 
-        hover:ring-opacity-55 hover:ring-offset-2
+        hover:text-gray-500
         active:bg-gray-200
-        active:ring-offset-0 active:ring-opacity-50`}
+        active:ring-offset-0 active:ring-opacity-50
+        font-sans text-lg font-semibold text-gray-400 tracking-normal leading-none`}
     >
-      <span
-        className={`font-sans text-lg font-semibold text-gray-300 tracking-normal leading-none`}
-      >
-        {name}
-      </span>
+      {name}
     </Link>
   );
 };
@@ -35,15 +35,17 @@ const SecondaryButton = ({ name, to = "/login/logistics" }) => {
 const AgreementCTA = ({ onClick }) => {
   return (
     <ButtonGroup>
-      <FormButton
-        size="MEDIUM"
-        text="NEXT"
-        uppercase="uppercase"
-        onClick={onClick}
-        isLoading={false}
-        textColor="text-white"
-        type="BUTTON"
-      />
+      <div className="order-last lg:order-first">
+        <FormButton
+          size="REGULAR"
+          text="NEXT"
+          uppercase="uppercase"
+          onClick={onClick}
+          isLoading={false}
+          textColor="text-white"
+          type="BUTTON"
+        />
+      </div>
 
       <SecondaryButton name="CANCEL" />
     </ButtonGroup>
@@ -53,15 +55,17 @@ const AgreementCTA = ({ onClick }) => {
 const VehicleCTA = ({ onClick }) => {
   return (
     <ButtonGroup>
-      <FormButton
-        size="MEDIUM"
-        text="NEXT"
-        uppercase="uppercase"
-        onClick={onClick}
-        isLoading={false}
-        textColor="text-white"
-        type="BUTTON"
-      />
+      <div className="order-last lg:order-first">
+        <FormButton
+          size="REGULAR"
+          text="NEXT"
+          uppercase="uppercase"
+          onClick={onClick}
+          isLoading={false}
+          textColor="text-white"
+          type="BUTTON"
+        />
+      </div>
 
       <SecondaryButton name="CANCEL" />
     </ButtonGroup>
@@ -71,16 +75,17 @@ const VehicleCTA = ({ onClick }) => {
 const PersonalCTA = ({ onClick }) => {
   return (
     <ButtonGroup>
-      <FormButton
-        size="MEDIUM"
-        text="NEXT"
-        uppercase="uppercase"
-        onClick={onClick}
-        isLoading={false}
-        textColor="text-white"
-        type="BUTTON"
-      />
-
+      <div className="order-last lg:order-first">
+        <FormButton
+          size="REGULAR"
+          text="NEXT"
+          uppercase="uppercase"
+          onClick={onClick}
+          isLoading={false}
+          textColor="text-white"
+          type="BUTTON"
+        />
+      </div>
       <SecondaryButton name="CANCEL" />
     </ButtonGroup>
   );
