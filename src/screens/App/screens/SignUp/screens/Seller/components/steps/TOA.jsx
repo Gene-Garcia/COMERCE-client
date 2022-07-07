@@ -10,7 +10,6 @@ import {
 } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 import termsOfAgreement from "../data/termsOfAgreement";
 import { TOACTA } from "../utils/CTA";
-import Title from "../utils/Title";
 
 function TermsOfAgreement() {
   // redux
@@ -28,9 +27,10 @@ function TermsOfAgreement() {
     });
 
   return (
-    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
-      <Title name="Terms of Agreement" />
-
+    <div
+      className="flex flex-col justify-between 
+      gap-4 xs:gap-5 sm:gap-6 md:gap-10"
+    >
       <div className="h-96 whitespace-pre-line overflow-y-scroll">
         <p className="text-base text-black">{termsOfAgreement}</p>
       </div>

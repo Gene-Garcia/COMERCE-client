@@ -1,8 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import { BusinessInfoCTA } from "../utils/CTA";
-import Title from "../utils/Title";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { batch, useDispatch } from "react-redux";
 import {
@@ -73,9 +71,10 @@ function BusinessInfo() {
   );
 
   return (
-    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
-      <Title name="Business Information" />
-
+    <div
+      className="w-full flex flex-col justify-between 
+      gap-4 xs:gap-5 sm:gap-6 md:gap-10"
+    >
       <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
         <FileInput
           name="businessLogoAddress"
@@ -152,11 +151,17 @@ function FileInput({ name, label, helper, onChange, value, error }) {
         {label}
       </label>
 
-      <div className="flex flex-row gap-3">
-        <label class="flex flex-col items-center rounded-md shadow border border-my-accent px-8 py-2.5 w-max cursor-pointer hover:bg-my-accent hover:text-white text-gray-700 transition duration-200">
+      <div className="flex flex-col xs:flex-row gap-3">
+        <label
+          class="flex flex-col items-center w-max
+        rounded-md shadow border border-my-accent px-8 py-2.5 
+        text-gray-700 cursor-pointer 
+        transition duration-200 ease-linear
+        hover:bg-my-accent hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -168,13 +173,14 @@ function FileInput({ name, label, helper, onChange, value, error }) {
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
             />
           </svg>
-          <span className="text-md">Upload Logo</span>
+          <span className="text-base">Upload Logo</span>
           <input
             type="file"
             className="hidden"
             // name={name}
             // onChange={onChange}
           />
+          <i className="text-sm text-gray-500">{helper}</i>
         </label>
 
         <div className="justify-self-start flex flex-col">
@@ -192,8 +198,6 @@ function FileInput({ name, label, helper, onChange, value, error }) {
           <i className="text-sm text-gray-500">Temporary file upload</i>
         </div>
       </div>
-
-      <i className="text-sm text-gray-500">{helper}</i>
     </div>
   );
 }

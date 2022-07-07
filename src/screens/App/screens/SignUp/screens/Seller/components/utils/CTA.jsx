@@ -13,15 +13,17 @@ function PrimaryButton({ value, onClick }) {
   );
 }
 
-function SecondaryButton({ title, link }) {
+function SecondaryButton({ title, link = "/login/seller" }) {
   return (
     <a
       href={link}
-      className="text-nase font-medium text-gray-400 
-      lowercase px-3 
+      className="font-medium text-md font-sans lowercase text-gray-400 
+      py-2.5 px-5 rounded leading-none
+      bg-gray-100
       flex justify-center items-center 
       transition duration-200 ease-linear 
-      hover:text-my-accent-tint active:ring-2 active:ring-gray-600 active:ring-opacity-20"
+      hover:text-gray-500
+      active:ring-2 active:ring-gray-600 active:ring-opacity-20"
     >
       {title}
     </a>
@@ -30,7 +32,7 @@ function SecondaryButton({ title, link }) {
 
 function Body({ children }) {
   return (
-    <div className="flex flex-col sm:flex-row w-full justify-start sm:justify-between gap-y-5">
+    <div className="flex flex-wrap w-full justify-between gap-y-5 gap-x-6">
       <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center">
         {children}
       </div>
@@ -43,15 +45,17 @@ function Body({ children }) {
 function TOACTA({ onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Agree"
-        onClick={onClick}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Agree"
+          onClick={onClick}
+        />
+      </div>
 
-      <SecondaryButton title="Disagree" link="#" />
+      <SecondaryButton title="Disagree" />
     </Body>
   );
 }
@@ -59,16 +63,18 @@ function TOACTA({ onClick }) {
 function AccountInfoCTA({ isLoading, onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Submit"
-        onClick={onClick}
-        isLoading={isLoading}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Submit"
+          onClick={onClick}
+          isLoading={isLoading}
+        />
+      </div>
 
-      <SecondaryButton title="Cancel" link="#" />
+      <SecondaryButton title="Cancel" />
     </Body>
   );
 }
@@ -76,15 +82,17 @@ function AccountInfoCTA({ isLoading, onClick }) {
 function BusinessInfoCTA({ onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Create Account"
-        onClick={onClick}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Create Account"
+          onClick={onClick}
+        />
+      </div>
 
-      <SecondaryButton title="Cancel" link="#" />
+      <SecondaryButton title="Cancel" />
     </Body>
   );
 }

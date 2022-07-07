@@ -7,7 +7,6 @@ import {
 } from "../../../../../../../../redux/Alert/AlertAction";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
-import Title from "../utils/Title";
 import axios from "../../../../../../../../shared/caller";
 import { useHistory } from "react-router-dom";
 
@@ -115,11 +114,18 @@ function AccountInfo() {
   } = useForm(init, init, validate, createAccountAPI);
 
   return (
-    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
-      <Title name="Account Information" />
-
-      <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
-        <div className="flex flex-col md:flex-row justify-start gap-3 xs:gap-x-4 sm:gap-x-5 gap-x-10">
+    <div
+      className="w-full flex flex-col justify-between 
+      gap-4 xs:gap-5 sm:gap-6 md:gap-10"
+    >
+      <div
+        className="flex flex-col 
+        gap-3 xs:gap-4 sm:gap-5 md:gap-8"
+      >
+        <div
+          className="flex flex-col md:flex-row justify-start 
+          gap-3 xs:gap-x-4 sm:gap-x-5 gap-x-10"
+        >
           <LinedInput
             type="text"
             name="firstName"
