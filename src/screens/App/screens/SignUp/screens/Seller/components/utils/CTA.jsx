@@ -17,7 +17,8 @@ function SecondaryButton({ title, link = "/login/seller" }) {
   return (
     <a
       href={link}
-      className="font-medium text-md font-sans lowercase text-gray-400 
+      className="order-first lg:order-last
+      font-medium text-md font-sans lowercase text-gray-400 
       py-2.5 px-5 rounded leading-none
       bg-gray-100
       flex justify-center items-center 
@@ -32,12 +33,14 @@ function SecondaryButton({ title, link = "/login/seller" }) {
 
 function Body({ children }) {
   return (
-    <div className="flex flex-wrap w-full justify-between gap-y-5 gap-x-6">
-      <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center">
+    <div className="flex flex-col w-full gap-6 md:gap-7 xl:gap-8">
+      <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center justify-end lg:justify-start">
         {children}
       </div>
 
-      <ToLogin />
+      <div className="w-max mx-auto">
+        <ToLogin />
+      </div>
     </div>
   );
 }
@@ -101,19 +104,11 @@ export { TOACTA, AccountInfoCTA, BusinessInfoCTA };
 
 function ToLogin() {
   return (
-    <div className="flex flex-row items-center">
-      <Link
-        to="/login/seller"
-        className="text-gray-500 text-sm transition ease-linear hover:text-my-accent"
-      >
-        already have an account?
-      </Link>
-      {/* <Link
-        to="/login/seller"
-        className="px-0.5 text-my-accent font-medium text-md border-b border-transparent transition ease-linear hover:border-my-accent "
-      >
-        Login
-      </Link> */}
-    </div>
+    <Link
+      to="/login/seller"
+      className="text-gray-400 text-sm transition ease-linear hover:text-my-accent"
+    >
+      already have an account?
+    </Link>
   );
 }

@@ -29,9 +29,9 @@ function TermsOfAgreement() {
   return (
     <div
       className="flex flex-col justify-between 
-      gap-4 xs:gap-5 sm:gap-6 md:gap-10"
+      gap-6 md:gap-7 xl:gap-8"
     >
-      <div className="h-96 whitespace-pre-line overflow-y-scroll">
+      <div className="h-96 whitespace-pre-line overflow-y-scroll bg-gray-100 p-1.5 rounded">
         <p className="text-base text-black">{termsOfAgreement}</p>
       </div>
 
