@@ -5,6 +5,7 @@ import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
 import BusinessInfo from "./steps/BusinessInfo";
 import TermsOfAgreement from "./steps/TOA";
+import Title from "./utils/Title";
 
 function SignUp() {
   // redux
@@ -16,17 +17,26 @@ function SignUp() {
   }, []);
 
   return (
-    <div className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint flex items-center justify-center px-2.5 sm:px-0">
-      {/* root container - no bg color */}
-      <div className="w-full sm:w-11/12 md:w-4/5 xl:w-3/4 2xl:w-1/2 flex flex-col md:flex-row shadow-2xl bg-transparent rounded-lg">
-        {/* steps container */}
-        <div className="md:w-1/4 rounded-l-lg">
+    <div
+      className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint 
+                flex items-center justify-center
+                p-2.5 sm:p-0"
+    >
+      <div
+        className="w-full sm:w-11/12 md:w-4/5 xl:w-3/4 2xl:w-1/2 
+                  grid grid-cols-4 gap-8
+                  shadow-2xl bg-white rounded-lg p-5 md:p-6 lg:p-8"
+      >
+        <div className="order-2 md:order-1 col-span-4">
+          <HeadingContent />
+        </div>
+
+        <div className="order-1 md:order-2 col-span-4 md:col-span-1">
           <RegistrationSteps />
         </div>
 
-        {/* content */}
-        <div className="md:w-3/4 bg-white rounded-bl-lg md:rounded-l-none rounded-r-none xs:rounded-br-lg md:rounded-tr-lg p-5 md:p-6 lg:p-8">
-          <RegistrationContent />
+        <div className="order-3 col-span-4 md:col-span-3">
+          <FormContent />
         </div>
       </div>
     </div>
@@ -37,7 +47,7 @@ export default SignUp;
 
 // Single Responsibility Principle
 
-const RegistrationContent = () => {
+const FormContent = () => {
   // redux seller registration reducer & states
   const activeStepId = useSelector(
     (state) => state.SELLER_REGISTRATION.activeStepId
@@ -45,17 +55,32 @@ const RegistrationContent = () => {
 
   return (
     <>
-      <div className={`${activeStepId === 0 ? "block" : "hidden"}`}>
-        <TermsOfAgreement />
-      </div>
-
-      <div className={`${activeStepId === 1 ? "block" : "hidden"}`}>
-        <AccountInfo />
-      </div>
-
-      <div className={`${activeStepId === 2 ? "block" : "hidden"}`}>
-        <BusinessInfo />
-      </div>
+      {activeStepId === 0 && <TermsOfAgreement />}
+      {activeStepId === 1 && <BusinessInfo />}
+      {activeStepId === 2 && <AccountInfo />}
     </>
+  );
+};
+
+const HeadingContent = () => {
+  // redux seller registration reducer & states
+  const activeStepId = useSelector(
+    (state) => state.SELLER_REGISTRATION.activeStepId
+  );
+
+  return (
+    <>
+      {activeStepId === 0 && <Title name="Terms of Agreement" />}
+      {activeStepId === 1 && <Title name="Business Information" />}
+      {activeStepId === 2 && <Title name="Account Registration" />}
+    </>
+  );
+};
+
+const ConditionalRegistrationSteps = () => {
+  return (
+    <div className="block md:hidden">
+      <RegistrationSteps />
+    </div>
   );
 };

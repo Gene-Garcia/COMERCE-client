@@ -62,9 +62,9 @@ function checkLoggedIn() {
 }
 
 function getExpiration() {
-  // 15 minutes, the server also uses 15-minute expiry
+  // 120 minutes, the server also uses 120-minute expiry
   const date = new Date();
-  date.setMinutes(date.getMinutes() + 15);
+  date.setMinutes(date.getMinutes() + 120);
 
   return date;
 }

@@ -11,6 +11,10 @@ import shoppingCartReducer, {
   cartCounterReducer,
 } from "./ShoppingCart/ShoppingCartReducer";
 import shipOrdersReducer from "./Seller/ShipOrders/ShipOrdersReducer";
+import ordersMasterReducer from "./Seller/OrdersMaster/OrdersMasterReducer";
+import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/LogisticsRegistrationReducer";
+import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
+import sellerPickUpReducer from "./Logistics/SellerPickUp/SellerPickUpReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -24,11 +28,19 @@ const reducers = combineReducers({
   ORDER_HISTORY: orderHistoryReducer,
   RATE_ORDER: rateOrderReducer,
 
+  // Seller Reducers
   SELLER_REGISTRATION: sellerRegistrationReducer,
 
   MANAGE_INVENTORY: manageInventoryReducer,
   MANAGE_PRODUCT: manageProductReducer,
 
   SHIP_ORDERS: shipOrdersReducer,
+  PACK_ORDERS: packOrdersReducer,
+
+  ORDERS_MASTER: ordersMasterReducer,
+
+  // Logistics reducers
+  LOGISTICS_REGISTRATION: logisticsRegistrationReducer,
+  SELLER_PICK_UP: sellerPickUpReducer,
 });
 export default reducers;

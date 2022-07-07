@@ -1,29 +1,34 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { changeCurrentStep } from "../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
-import comerceLogo from "../../../../../../../shared/images/comerce-logo-blue.webp";
 
 function RegistrationSteps() {
   return (
-    <div className="flex flex-row md:flex-col gap-1 xs:gap-2 sm:gap-3">
-      {/* COMERCE logo */}
-      <Link to="/" className=" hidden md:block">
-        <div className="bg-white rounded-l-lg p-4 flex flex-wrap flex-row items-center justify-center gap-y-0.5 gap-x-3">
-          <img alt="COMERCE Logo" className="w-10" src={comerceLogo} />
-          <span className="text-black text-2xl font-mono">COMERCE</span>
-        </div>
-      </Link>
-      {/* Steps */}
-      <Step id={0} main="Step 1" sub="Terms of Agreement" />
-      <Step id={1} main="Step 2" sub="Account Information" />
-      <Step id={2} main="Step 3" sub="Business Information" />
+    <div className="flex flex-col gap-8">
+      <div
+        className="flex flex-row md:flex-col 
+    gap-x-4 xs:gap-x-6 sm:gap-x-8 gap-y-3 
+    items-center justify-center md:justify-start"
+      >
+        {/* Steps */}
+        <Step id={0} sub="Agreement" />
+
+        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+
+        <Step id={1} sub="Business" />
+
+        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+
+        <Step id={2} sub="Account" />
+      </div>
+
+      <div className="block md:hidden m-auto h-0.5 w-1/2 bg-my-accent"></div>
     </div>
   );
 }
 export default RegistrationSteps;
 
-function Step({ main, sub, id }) {
+function Step({ sub, id }) {
   // redux
   const dispatch = useDispatch();
 
@@ -42,17 +47,20 @@ function Step({ main, sub, id }) {
 
   const theme = {
     toggled: {
-      main: "text-my-accent",
-      sub: "text-my-accent",
+      circle: "bg-my-accent",
+      number: "text-white",
+      sub: "text-black",
     },
 
     idle: {
-      main: "text-gray-400",
+      circle: "bg-white",
+      number: "text-gray-500",
       sub: "text-gray-300",
     },
 
     visited: {
-      main: "text-gray-800 ",
+      circle: "bg-my-accent",
+      number: "text-white",
       sub: "text-gray-700 ",
     },
   };
@@ -60,35 +68,32 @@ function Step({ main, sub, id }) {
   return (
     <div
       onClick={() => dispatch(changeCurrentStep(id))}
-      className="group bg-white rounded-t-lg md:rounded-t-none md:rounded-l-lg p-2 sm:p-3 md:p-4 flex flex-row items-center justify-between cursor-pointer"
+      className="group cursor-pointer
+      flex flex-col items-center gap-1"
     >
-      <div>
-        <p
-          className={`${theme[status].main} font-medium text-md  md:text-lg transition duration-200 group-hover:text-my-accent`}
+      <div
+        className={`h-9 w-9 rounded-full bg-white
+                  border border-my-accent
+                  flex items-center justify-center`}
+      >
+        <span
+          className={`h-7 w-7 rounded-full 
+        ${theme[status].circle} 
+        flex items-center justify-center
+        text-sm font-bold ${theme[status].number}`}
         >
-          {main}
-        </p>
-        <p
-          className={`${theme[status].sub} text-sm md:text-md font-regular transition duration-200 group-hover:text-my-accent`}
-        >
-          {sub}
-        </p>
+          {id + 1}
+        </span>
       </div>
 
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="hidden md:block h-4 w-4 group-hover:text-my-accent transition duration-200"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <p
+        className={`${theme[status].sub} mb-0
+        text-base md:text-md font-medium 
+        transition duration-150 
+        group-hover:text-my-accent`}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M13 5l7 7-7 7M5 5l7 7-7 7"
-        />
-      </svg>
+        {sub}
+      </p>
     </div>
   );
 }

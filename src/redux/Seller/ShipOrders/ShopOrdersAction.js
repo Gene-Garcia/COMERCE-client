@@ -1,5 +1,6 @@
 const shopOrdersActionTypes = {
   LOAD_PENDING_ORDERS: "LOAD_PENDING_ORDERS",
+  TOGGLE_PAGE_LOADING: "TOGGLE_PAGE_LOADING",
   UPDATE_MODALED_ORDER: "UPDATE_MODALED_ORDER",
   TRIGGER_MODAL_STATE: "TRIGGER_MODAL_STATE",
   CHECK_THIS_ORDER: "CHECK_THIS_ORDER",
@@ -12,6 +13,13 @@ const loadPendingOrders = (pendingOrders) => {
   return {
     type: shopOrdersActionTypes.LOAD_PENDING_ORDERS,
     payload: pendingOrders,
+  };
+};
+
+const togglePageLoading = (isLoading) => {
+  return {
+    type: shopOrdersActionTypes.TOGGLE_PAGE_LOADING,
+    payload: isLoading,
   };
 };
 
@@ -58,6 +66,7 @@ const resetToDefault = () => {
 export {
   shopOrdersActionTypes,
   loadPendingOrders,
+  togglePageLoading,
   updateModaledOrder,
   triggerModalState,
   checkThisOrder,

@@ -27,13 +27,19 @@ module.exports = {
         rr28: "28rem",
         min: "min-content",
         max: "max-content",
+        "waybill-height": "15cm",
       },
 
       minWidth: {
+        18: "4.5rem",
+        32: "8rem",
         rr60: "60rem",
+        rr35: "35rem",
+        rr1: "25rem",
       },
 
       width: {
+        34: "8.5rem",
         rr36: "36rem",
         rr50: "50rem",
 
@@ -48,8 +54,16 @@ module.exports = {
 
         thirty: "30%",
         thirtyfive: "35%",
+        fourtyfive: "45%",
         fiftyfive: "55%",
         seventy: "70%",
+
+        "waybill-width": "10cm",
+      },
+
+      gridTemplateColumns: {
+        14: "repeat(14, minmax(0, 1fr))",
+        15: "repeat(15, minmax(0, 1fr))",
       },
 
       colors: {
@@ -77,18 +91,19 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ["active", "odd", "focus"],
-      borderColor: ["active"],
+      borderColor: ["active", "focus-within"],
       borderWidth: ["hover"],
-      borderRadius: ["hover", "active"],
+      borderRadius: ["hover", "active", "first", "last"],
       boxShadow: ["active", "hover", "focus"],
       display: ["group-hover"],
       grayscale: ["hover"],
-      ringWidth: ["active", "hover"],
-      ringColor: ["active", "hover"],
+      ringWidth: ["active", "hover", "group-hover"],
+      ringColor: ["active", "hover", "group-hover"],
       ringOpacity: ["active", "hover"],
-      ringOffsetWidth: ["active", "hover"],
+      ringOffsetWidth: ["active", "hover", "group-hover"],
       ringOffsetColor: ["active"],
       textColor: ["active"],
+      textOpacity: ["hover"],
     },
   },
   plugins: [],

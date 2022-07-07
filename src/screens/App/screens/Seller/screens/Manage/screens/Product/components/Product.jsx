@@ -36,9 +36,7 @@ const Product = () => {
           <Navigation />
         </div>
 
-        <div>
-          <NavigatedProductAction />
-        </div>
+        <NavigatedProductAction />
       </SellerContainer>
     </>
   );
@@ -58,9 +56,9 @@ const NavigatedProductAction = () => {
     (state) => state.MANAGE_PRODUCT.toggledProductSubPage
   );
   return (
-    <>
+    <div className="overflow-x-auto">
       <>{toggled === "OVERVIEW" && <Overview />}</>
       <>{toggled === "ADD_PRODUCT" && <AddProduct />}</>
-    </>
+    </div>
   );
 };

@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { formatDate } from "../../../../../../../../../../shared/utils/date";
 import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
-import Label from "./Label";
 
 const OrderModal = () => {
   // redux ship orders reducer and states
@@ -75,6 +74,15 @@ const OrderModal = () => {
 };
 
 export default OrderModal;
+
+const Label = ({ full, title, value, accented }) => {
+  return (
+    <div className={full ? "w-full" : "w-1/2"}>
+      <label className="text-xs text-gray-400 font-medium">{title}</label>
+      <p className={`${accented && "text-my-accent font-medium"}`}>{value}</p>
+    </div>
+  );
+};
 
 const ProductCard = ({ product }) => {
   const info = product._product;

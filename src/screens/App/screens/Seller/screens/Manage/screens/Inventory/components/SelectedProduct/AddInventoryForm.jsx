@@ -132,7 +132,7 @@ function AddInventoryForm() {
     <div className="flex flex-col gap-y-5">
       <p className="font-semibold text-gray-600 text-md">Add Inventory</p>
 
-      <div className="inline-flex items-center gap-8">
+      <div className="flex flex-row items-center justify-between gap-2">
         <EmbossedInput
           type="number"
           label="Inventory"

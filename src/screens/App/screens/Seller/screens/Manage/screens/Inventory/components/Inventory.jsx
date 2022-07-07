@@ -10,12 +10,11 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
-import Loading from "../../../../../../../../../shared/Loading/Loading";
 import {
   loadProducts,
   resetToDefault as resetManageInventoryToDefault,
+  togglePageLoading,
 } from "../../../../../../../../../redux/Seller/ManageInventory/ManageInventoryAction";
-
 function Inventory({ history }) {
   // redux
   const dispatch = useDispatch();
@@ -23,22 +22,21 @@ function Inventory({ history }) {
   // redux manage inventory reducer & states
   const reload = useSelector((state) => state.MANAGE_INVENTORY.reload);
 
-  // page loading
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function getProductsInventories() {
+      // dispatch(togglePageLoading(true));
+
       axios
         .get("/api/seller/inventories")
         .then((res) => {
           if (res.status === 200) {
-            dispatch(loadProducts(res.data.products));
-            setLoading(false);
+            batch(() => {
+              dispatch(loadProducts(res.data.products));
+              dispatch(togglePageLoading(false));
+            });
           }
         })
         .catch((err) => {
-          setLoading(false);
-
           if (!err.response)
             batch(() => {
               dispatch(setSeverity("error"));
@@ -47,6 +45,7 @@ function Inventory({ history }) {
                   "Something went wrong. Please refresh your browser and try again."
                 )
               );
+              dispatch(togglePageLoading(false));
             });
           else if (err.response.status === 401) history.push("/unathorized");
           else if (err.response.status === 403) history.push("/forbidden");
@@ -54,11 +53,10 @@ function Inventory({ history }) {
             batch(() => {
               dispatch(setSeverity("error"));
               dispatch(setMessage(err.response.data.error));
+              dispatch(togglePageLoading(false));
             });
         });
     }
-
-    setLoading(true);
     getProductsInventories();
   }, [reload]);
 
@@ -73,18 +71,12 @@ function Inventory({ history }) {
 
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="flex flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
-        <div className="h-min w-3/5 bg-my-white-tint rounded-lg p-2">
-          {loading ? (
-            <div className="w-full flex justify-center items-center">
-              <Loading />
-            </div>
-          ) : (
-            <InventoryTable />
-          )}
+      <div className="flex flex-col lg:flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
+        <div className="h-min lg:w-fiftyfive 2xl:w-3/5 overflow-auto">
+          <InventoryTable />
         </div>
 
-        <div className="w-2/5 space-y-6">
+        <div className="w-full lg:w-fourtyfive 2xl:w-2/5 space-y-6">
           <ProductInventoryContainer />
         </div>
       </div>

@@ -34,7 +34,13 @@
 
 import { useState } from "react";
 
-function useForm(initialValues, initialErros, validate, submitFunction) {
+function useForm(
+  initialValues,
+  initialErros,
+  validate,
+  submitFunction,
+  customFormIsValid = false // false if not function passed
+) {
   // Values embedded to form
   const [values, setValues] = useState({ ...initialValues });
   // String messages, holds any error messages of the form
@@ -59,27 +65,34 @@ function useForm(initialValues, initialErros, validate, submitFunction) {
     validate({ [name]: value }, setErrors);
   };
 
-  // A function that performs checking through all values and errors to determine if the form is valid for submit
-  const formIsValid = (cb) => {
-    let isValid = true;
+  /*
+   * A function that performs checking through all values and errors to determine if the form is valid for submit
+   *
+   * However, some components would require a different type of determing if form can be submitted or not.
+   * Custom formIsValid can be passed as parameters if not the default formIsValid functino will be used
+   */
+  let formIsValid = customFormIsValid
+    ? customFormIsValid
+    : (cb) => {
+        let isValid = true;
 
-    for (const [, v] of Object.entries(values)) {
-      if (v === "" || v === null) {
-        isValid = false;
-        break;
-      }
-    }
-    // console.log("isValid after checking in value: " + isValid);
+        for (const [, v] of Object.entries(values)) {
+          if (v === "" || v === null) {
+            isValid = false;
+            break;
+          }
+        }
+        // console.log("isValid after checking in value: " + isValid);
 
-    for (const [, v] of Object.entries(errors)) {
-      if (v !== "" && v !== null) {
-        isValid = false;
-        break;
-      }
-    }
+        for (const [, v] of Object.entries(errors)) {
+          if (v !== "" && v !== null) {
+            isValid = false;
+            break;
+          }
+        }
 
-    if (cb) cb(isValid);
-  };
+        if (cb) cb(isValid);
+      };
 
   function resetForms() {
     setValues({ ...initialValues });
