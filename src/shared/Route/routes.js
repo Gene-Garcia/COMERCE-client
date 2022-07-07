@@ -26,6 +26,11 @@ const routes = {
         path: "/sign-up/seller",
         name: "Seller Sign Up",
       },
+
+      LOGISTICS: {
+        path: "/sign-up/logistics",
+        name: "Logistics Sign Up",
+      },
     },
   },
 
@@ -39,6 +44,11 @@ const routes = {
       SELLER: {
         path: "/login/seller",
         name: "Seller Login",
+      },
+
+      LOGISTICS: {
+        path: "/login/logistics",
+        name: "Logistics Login",
       },
     },
   },
@@ -134,7 +144,12 @@ const routes = {
         subroutes: {
           ORDERS: {
             path: "/seller/shipment/orders",
-            name: "Manage Order Shipment",
+            name: "Ship Orders",
+          },
+
+          PACK: {
+            path: "/seller/shipment/pack",
+            name: "Pack Orders",
           },
 
           FULFILLED: {
@@ -143,6 +158,73 @@ const routes = {
           },
         },
       },
+
+      ORDERS: {
+        path: "/seller/orders",
+        name: "Orders",
+
+        subroutes: {
+          MASTER: {
+            path: "/seller/orders/master",
+            name: "Orders Master Data",
+          },
+        },
+      },
+
+      SETTINGS: {
+        path: "/seller/settings",
+        name: "Settings",
+
+        subroutes: {
+          BUSINESS: {
+            path: "/seller/settings/business",
+            name: "Business Settings",
+          },
+        },
+      },
+    },
+  },
+
+  LOGISTICS: {
+    path: "/logistics",
+    name: "Dashboard",
+
+    subroutes: {
+      TRACK: {
+        path: "/logistics/track",
+        name: "Track",
+
+        subroutes: {
+          WITH_ME: {
+            path: "/logistics/track/with-me",
+            name: "Logistics With Me",
+          },
+
+          TRACK_AND_SEARCH: {
+            path: "/logistics/track/track-search",
+            name: "Logistics Track & Search",
+          },
+        },
+      },
+
+      SHIPMENT: {
+        path: "/logistics/shipment",
+        name: "Shipments",
+
+        subroutes: {
+          SELLER_PICK_UP: {
+            path: "/logistics/shipment/seller/pickup",
+            name: "Seller Pick Up",
+          },
+
+          CUSTOMER_DELIVERY: {
+            path: "/logistics/shipment/customer/delivery",
+            name: "Customer Delivery",
+          },
+        },
+      },
+
+      SETTINGS: {},
     },
   },
 };

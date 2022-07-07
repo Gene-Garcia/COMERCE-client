@@ -45,4 +45,20 @@ function formatDate(d, full) {
   else return `${shortcutMonth[month]} ${day}, ${year}`;
 }
 
-export { formatDate };
+/*
+ * Converts and gets the difference between two dates
+ *
+ */
+const dateDifference = (d1, d2) => {
+  const x = new Date(d1);
+  const y = new Date(d2);
+
+  const diffTime = Math.abs(x - y);
+
+  return [
+    Math.ceil(diffTime / (1000 * 60 * 60 * 24)),
+    x > y ? "Delayed for" : "Ahead for",
+  ];
+};
+
+export { formatDate, dateDifference };

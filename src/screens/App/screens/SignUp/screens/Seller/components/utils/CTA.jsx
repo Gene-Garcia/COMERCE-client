@@ -13,15 +13,18 @@ function PrimaryButton({ value, onClick }) {
   );
 }
 
-function SecondaryButton({ title, link }) {
+function SecondaryButton({ title, link = "/login/seller" }) {
   return (
     <a
       href={link}
-      className="text-nase font-medium text-gray-400 
-      lowercase px-3 
+      className="order-first lg:order-last
+      font-medium text-md font-sans lowercase text-gray-400 
+      py-2.5 px-5 rounded leading-none
+      bg-gray-100
       flex justify-center items-center 
       transition duration-200 ease-linear 
-      hover:text-my-accent-tint active:ring-2 active:ring-gray-600 active:ring-opacity-20"
+      hover:text-gray-500
+      active:ring-2 active:ring-gray-600 active:ring-opacity-20"
     >
       {title}
     </a>
@@ -30,12 +33,14 @@ function SecondaryButton({ title, link }) {
 
 function Body({ children }) {
   return (
-    <div className="flex flex-col sm:flex-row w-full justify-start sm:justify-between gap-y-5">
-      <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center">
+    <div className="flex flex-col w-full gap-6 md:gap-7 xl:gap-8">
+      <div className="flex flex-row gap-5 md:gap-3 lg:gap-4 items-center justify-end lg:justify-start">
         {children}
       </div>
 
-      <ToLogin />
+      <div className="w-max mx-auto">
+        <ToLogin />
+      </div>
     </div>
   );
 }
@@ -43,48 +48,54 @@ function Body({ children }) {
 function TOACTA({ onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Agree"
-        onClick={onClick}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Agree"
+          onClick={onClick}
+        />
+      </div>
 
-      <SecondaryButton title="Disagree" link="#" />
+      <SecondaryButton title="Disagree" />
     </Body>
   );
 }
 
-function AccountInfoCTA({ onClick }) {
+function AccountInfoCTA({ isLoading, onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Submit"
-        onClick={onClick}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Submit"
+          onClick={onClick}
+          isLoading={isLoading}
+        />
+      </div>
 
-      <SecondaryButton title="Cancel" link="#" />
+      <SecondaryButton title="Cancel" />
     </Body>
   );
 }
 
-function BusinessInfoCTA({ isLoading, onClick }) {
+function BusinessInfoCTA({ onClick }) {
   return (
     <Body>
-      <FormButton
-        size="MEDIUM"
-        textColor="text-white"
-        uppercase="uppercase"
-        text="Create Account"
-        onClick={onClick}
-        isLoading={isLoading}
-      />
+      <div className="w-max">
+        <FormButton
+          size="REGULAR"
+          textColor="text-white"
+          uppercase="uppercase"
+          text="Create Account"
+          onClick={onClick}
+        />
+      </div>
 
-      <SecondaryButton title="Cancel" link="#" />
+      <SecondaryButton title="Cancel" />
     </Body>
   );
 }
@@ -93,19 +104,11 @@ export { TOACTA, AccountInfoCTA, BusinessInfoCTA };
 
 function ToLogin() {
   return (
-    <div className="flex flex-row items-center">
-      <Link
-        to="/login/seller"
-        className="text-gray-500 text-sm transition ease-linear hover:text-my-accent"
-      >
-        already have an account?
-      </Link>
-      {/* <Link
-        to="/login/seller"
-        className="px-0.5 text-my-accent font-medium text-md border-b border-transparent transition ease-linear hover:border-my-accent "
-      >
-        Login
-      </Link> */}
-    </div>
+    <Link
+      to="/login/seller"
+      className="text-gray-400 text-sm transition ease-linear hover:text-my-accent"
+    >
+      already have an account?
+    </Link>
   );
 }

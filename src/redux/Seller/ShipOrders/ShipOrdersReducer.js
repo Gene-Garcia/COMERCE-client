@@ -3,6 +3,8 @@ import { shopOrdersActionTypes as types } from "./ShopOrdersAction";
 const initial = {
   pendingOrders: [],
 
+  isLoading: true,
+
   isModalOpen: false,
   modalOrder: null,
 
@@ -13,6 +15,9 @@ const shipOrdersReducer = (state = initial, { type, payload }) => {
   switch (type) {
     case types.LOAD_PENDING_ORDERS:
       return { ...state, pendingOrders: payload };
+
+    case types.TOGGLE_PAGE_LOADING:
+      return { ...state, isLoading: payload };
 
     case types.UPDATE_MODALED_ORDER:
       return { ...state, modalOrder: payload };

@@ -12,6 +12,7 @@ import CheckoutRoute from "./screens/Checkout/route";
 import UserIndexRoute from "./screens/User/route";
 
 import SellerRoute from "./screens/Seller/route";
+import LogisticsRoute from "./screens/Logistics/route";
 
 const route = {
   HOME: HomeRoute,
@@ -24,6 +25,7 @@ const route = {
   SIGN_OUT: SignOutRoute,
   CHECKOUT: CheckoutRoute,
   SELLER: SellerRoute,
+  LOGISTICS: LogisticsRoute,
 };
 
 export default route;

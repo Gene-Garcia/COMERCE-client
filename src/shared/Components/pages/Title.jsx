@@ -16,4 +16,11 @@ function SellerTitle({ title }) {
     <h3 className="font-serif font-semibold text-2xl text-gray-700">{title}</h3>
   );
 }
-export { SellerTitle };
+
+const LogisticsTitle = ({ title }) => {
+  return (
+    <h3 className="font-serif font-semibold text-2xl text-gray-700">{title}</h3>
+  );
+};
+
+export { SellerTitle, LogisticsTitle };

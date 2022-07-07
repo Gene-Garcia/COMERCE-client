@@ -8,7 +8,7 @@
  *
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../../redux/Alert/AlertAction";
 
@@ -23,6 +23,11 @@ function Alert() {
   if (severity === "error") color = "bg-red-100 border-red-500";
   else if (severity === "success") color = "bg-green-100 border-green-500";
   else if (severity === "information") color = "bg-blue-100 border-blue-500";
+
+  // auto close of notication after certain seconds
+  setTimeout(() => {
+    dispatch(setMessage(""));
+  }, 3500);
 
   return (
     <div className={(message ? "fixed" : "hidden") + " top-32 left-1/2 z-10"}>

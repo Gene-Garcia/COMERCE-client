@@ -11,22 +11,26 @@ function ProductInventories() {
   return (
     <div className="bg-my-white-tint rounded">
       <div
-        className="w-full py-3 px-4 border-b border-gray-200
-      inline-flex justify-between items-center"
+        className="w-full p-3 border-b border-gray-200
+      flex flex-col sm:flex-row md:flex-col xl:flex-row 
+      gap-2 lg:gap-1.5 xl:gap-2.5
+      justify-between items-center"
       >
-        <p className="font-semibold text-lg">{item}</p>
+        <p className="place-self-start sm:place-self-auto md:place-self-start font-semibold text-base xl:text-md text-gray-700">
+          {item}
+        </p>
 
         {/* total onhand and inventory */}
-        <div className="inline-flex gap-2">
+        <div className="flex flex-row gap-2 place-self-start xs:place-self-end">
           <div className="text-right">
-            <label className="uppercase font-semibold text-gray-400 text-sm">
+            <label className="uppercase font-medium text-gray-400 text-sm">
               Total Onhand
             </label>
             <p className="-mt-1.5 text-red-500 text-md font-medium">{onHand}</p>
           </div>
 
           <div className="text-right">
-            <label className="uppercase font-semibold text-gray-400 text-sm">
+            <label className="uppercase font-medium text-gray-400 text-sm">
               Total Inventory
             </label>
             <p className="-mt-1.5 text-black text-md font-medium">

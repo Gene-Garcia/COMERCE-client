@@ -1,28 +1,20 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useForm } from "../../../../../../../../hooks/useForm";
 import { BusinessInfoCTA } from "../utils/CTA";
-import Title from "../utils/Title";
-import axios from "../../../../../../../../shared/caller";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
-import { loadBusinessDetails } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import {
+  loadBusinessDetails,
+  proceedToNextStep,
+} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 
 function BusinessInfo() {
-  // history
-  let history = useHistory();
-
   // redux
   const dispatch = useDispatch();
-
-  // redux seller registration reducer & state
-  const accountDetails = useSelector(
-    (state) => state.SELLER_REGISTRATION.accountDetails
-  );
 
   // file input on change
   const fileOnChange = (e) => {
@@ -31,63 +23,18 @@ function BusinessInfo() {
 
   // submit function
   const createBusiness = async () => {
-    // start the loading because axios call will start
-    setIsLoading(true);
+    batch(() => {
+      dispatch(loadBusinessDetails(values));
 
-    // unecessary
-    // dispatch(loadBusinessDetails(values));
+      dispatch(setSeverity("information"));
+      dispatch(setMessage("Business information has been saved"));
 
-    // build data
-    const data = {
-      businessData: {
-        ...values, //business details
-        // firstName: accountInformation.firstName,
-        // lastName: accountInformation.lastName,
-        businessEmail: accountDetails.businessEmail,
-      },
-
-      email: accountDetails.ownerEmail,
-      username: (
-        accountDetails.firstName + accountDetails.lastName
-      ).toLowerCase(),
-      password: accountDetails.password,
-
-      userType: "SELLER",
-    };
-
-    // api call
-    await axios
-      .post("/api/signup", data)
-      .then((res) => {
-        if (res.status === 200) {
-          setIsLoading(false);
-
-          batch(() => {
-            dispatch(setSeverity("success"));
-            dispatch(setMessage("Accounted created succesfully"));
-          });
-
-          history.push("/login/seller");
-        }
-      })
-      .catch((err) => {
-        setIsLoading(false);
-
-        if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage("Something went wrong. Please try again."));
-          });
-        else if (err.response.status === 403) history.push("/forbidden");
-        else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
-      });
+      dispatch(proceedToNextStep(2));
+    });
   };
 
   const init = {
+    businessEmail: "",
     businessLogoAddress: "",
     businessName: "",
     established: "",
@@ -95,6 +42,9 @@ function BusinessInfo() {
   };
   const validate = (data, setErrors) => {
     let temp = { ...errors };
+
+    if ("businessEmail" in data)
+      temp.businessEmail = data.businessEmail ? "" : "Put N/A if unavailable";
 
     if ("businessName" in data)
       temp.businessName = data.businessName ? "" : "Business name is required";
@@ -113,19 +63,18 @@ function BusinessInfo() {
     setErrors(temp);
   };
 
-  const {
-    values,
-    errors,
-    handleInput,
-    handleFormSubmit,
-    isLoading,
-    setIsLoading,
-  } = useForm(init, init, validate, createBusiness);
+  const { values, errors, handleInput, handleFormSubmit } = useForm(
+    init,
+    init,
+    validate,
+    createBusiness
+  );
 
   return (
-    <div className="flex flex-col justify-between gap-4 xs:gap-5 sm:gap-6 md:gap-10">
-      <Title name="Business Information" />
-
+    <div
+      className="w-full flex flex-col justify-between 
+      gap-6 md:gap-7 xl:gap-8"
+    >
       <div className="flex flex-col gap-3 xs:gap-4 sm:gap-5 md:gap-8">
         <FileInput
           name="businessLogoAddress"
@@ -135,6 +84,17 @@ function BusinessInfo() {
           helper="JPEG and PNG files only"
           value={values.businessLogoAddress}
           error={errors.businessLogoAddress}
+        />
+
+        <LinedInput
+          type="email"
+          name="businessEmail"
+          value={values.businessEmail}
+          error={errors.businessEmail}
+          onChange={handleInput}
+          label="BUSINESS EMAIL"
+          placeholder="email of the business"
+          width="xs:w-4/5 sm:w-3/5"
         />
 
         <div className="flex flex-col sm:flex-row gap-y-4 gap-x-10">
@@ -173,7 +133,7 @@ function BusinessInfo() {
         />
       </div>
 
-      <BusinessInfoCTA isLoading={isLoading} onClick={handleFormSubmit} />
+      <BusinessInfoCTA onClick={handleFormSubmit} />
     </div>
   );
 }
@@ -191,11 +151,17 @@ function FileInput({ name, label, helper, onChange, value, error }) {
         {label}
       </label>
 
-      <div className="flex flex-row gap-3">
-        <label class="flex flex-col items-center rounded-md shadow border border-my-accent px-8 py-2.5 w-max cursor-pointer hover:bg-my-accent hover:text-white text-gray-700 transition duration-200">
+      <div className="flex flex-col xs:flex-row gap-3">
+        <label
+          class="flex flex-col items-center w-max
+        rounded-md shadow border border-my-accent px-8 py-2.5 
+        text-gray-700 cursor-pointer 
+        transition duration-200 ease-linear
+        hover:bg-my-accent hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -207,13 +173,14 @@ function FileInput({ name, label, helper, onChange, value, error }) {
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
             />
           </svg>
-          <span className="text-md">Upload Logo</span>
+          <span className="text-base">Upload Logo</span>
           <input
             type="file"
             className="hidden"
             // name={name}
             // onChange={onChange}
           />
+          <i className="text-sm text-gray-500">{helper}</i>
         </label>
 
         <div className="justify-self-start flex flex-col">
@@ -231,8 +198,6 @@ function FileInput({ name, label, helper, onChange, value, error }) {
           <i className="text-sm text-gray-500">Temporary file upload</i>
         </div>
       </div>
-
-      <i className="text-sm text-gray-500">{helper}</i>
     </div>
   );
 }

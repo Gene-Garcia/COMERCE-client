@@ -11,6 +11,8 @@ import {
   setMessage,
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
+import comerceBlue from "../../../../../../../shared/images/comerce-logo-blue.webp";
+import comerceWhite from "../../../../../../../shared/images/comerce-logo-white.webp";
 
 function Login({ history }) {
   // redux
@@ -78,76 +80,69 @@ function Login({ history }) {
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* hero */}
-      <div className="lg:w-2/5 lg:h-full flex justify-start items-center py-6 sm:py-10 lg:py-20 gap-y-2 sm:gap-y-3 lg:gap-y-40 flex-col  bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone">
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Don't have an account?
-          </h2>
-          <Link
-            to="/sign-up/user"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Sign Up
-          </Link>
-        </div>
-
-        <div className="flex flex-col justify-center items-center lg:gap-y-6">
-          <h2 className="text-white font-bold text-xl lg:text-3xl text-opacity-80">
-            Start filling up your cart
-          </h2>
-          <Link
-            to="/catalogue"
-            className="transition duration-300 rounded-full border-b border-transparent text-white font-semibold text-md lg:text-xl hover:border-white px-20 py-3"
-          >
-            Browse
-          </Link>
-        </div>
-      </div>
+      <Hero />
 
       {/* form */}
-      <div className="order-first lg:order-last lg:h-full bg-white flex-grow flex flex-col justify-evenly items-center gap-y-10 lg:gap-y-0 py-5 sm:py-12 md:py-16 lg:py-0 px-3 xs:px-7 sm:px-16 md:px-28 lg:px-20 xl:px-44">
-        <div className="flex flex-col items-center gap-y-1">
-          <h1 className="font-bold text-center text-2xl md:text-3xl font-sans text-gray-700">
-            Login to your account
-          </h1>
-          <p className="font-medium text-lg md:text-xl text-gray-400">
-            CoMerce Account
-          </p>
-        </div>
+      <div className="bg-white flex-grow flex flex-col justify-center items-center">
+        <div
+          className="w-4/5 md:w-3/4 lg:w-10/12 xl:w-seventy 2xl:w-1/2
+                     flex flex-col justify-center items-center 
+                     gap-y-8 lg:gap-y-10 xl:gap-y-11 2xl:gap-y-16"
+        >
+          {/* comerce logo on MD and lower devices */}
+          <Link to="/" className="flex items-center gap-2 lg:hidden">
+            <img src={comerceBlue} className="w-12 h-min" />
+            <h1 className="font-mono font-bold text-2xl">COMERCE</h1>
+          </Link>
 
-        <div className="flex flex-row gap-x-4">
-          <OAuths />
-        </div>
+          <div className="space-y-6 lg:space-y-8">
+            <div className="flex flex-col items-center gap-y-0.5">
+              <h1 className="font-bold text-center text-3xl lg:text-4xl font-serif text-gray-900">
+                COMERCE Login
+              </h1>
+              <p className="text-lg md:text-xl text-gray-400">
+                Welcome back! Login to your account
+              </p>
+            </div>
 
-        <div className="flex flex-col w-full gap-y-8">
-          <EmbossedInput
-            name="email"
-            type="email"
-            label="EMAIL"
-            error={errors.email}
-            value={values.email}
-            onChange={handleInput}
-            background="bg-gray-100"
-            shadow="shadow-md"
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            }
-          />
+            <OAuths />
+          </div>
 
-          <div className="space-y-0.5">
+          <div className="w-full relative">
+            <p className="bg-white relative z-10 mx-auto w-max px-6 text-gray-300 font-medium text-sm ">
+              or login with email
+            </p>
+            <div className="absolute z-0 top-2.5 w-full bg-gray-200 h-0.5"></div>
+          </div>
+
+          <div className="flex flex-col w-full gap-y-6 lg:gap-y-9">
+            <EmbossedInput
+              name="email"
+              type="email"
+              label="EMAIL"
+              error={errors.email}
+              value={values.email}
+              onChange={handleInput}
+              background="bg-gray-100"
+              shadow="shadow-md"
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-my-accent mx-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+              }
+            />
+
             <EmbossedInput
               type="password"
               name="password"
@@ -175,7 +170,21 @@ function Login({ history }) {
               }
             />
 
-            <div className="text-right">
+            <div className="flex flex-row justify-between gap-4 items-center">
+              <div className="inline-flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  className="rouned-xl border"
+                />
+                <label
+                  for="rememberMe"
+                  className="text-sm font-medium text-gray-600"
+                >
+                  Remember Me
+                </label>
+              </div>
+
               <Link
                 to="/password/forgot"
                 className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
@@ -183,18 +192,31 @@ function Login({ history }) {
                 Forgot Password
               </Link>
             </div>
+
+            <div className="w-min ml-auto lg:ml-0">
+              <FormButton
+                size="medium"
+                isLoading={isLoading}
+                text="LOGIN"
+                uppercase="uppercase"
+                onClick={handleFormSubmit}
+                textColor="text-white"
+              >
+                <span className="text-white font-semibold text-base ">
+                  LOGIN
+                </span>
+              </FormButton>
+            </div>
           </div>
 
-          <FormButton
-            size="medium"
-            isLoading={isLoading}
-            text="LOGIN"
-            uppercase="uppercase"
-            onClick={handleFormSubmit}
-            textColor="text-white"
+          <Link
+            to="/sign-up/user"
+            className="text-gray-400 font-medium text-base
+                     transition duration-150 ease-linear
+                     hover:text-gray-800"
           >
-            <span className="text-white font-semibold text-base ">LOGIN</span>
-          </FormButton>
+            Don't have an account?
+          </Link>
         </div>
       </div>
     </div>
@@ -202,3 +224,38 @@ function Login({ history }) {
 }
 
 export default Login;
+
+const Hero = () => {
+  return (
+    <>
+      <div className="absolute top-3 left-3 z-50">
+        <Link to="/">
+          <img src={comerceWhite} className="w-7 h-auto" />
+        </Link>
+      </div>
+
+      <div
+        className="w-thirty hidden lg:flex items-center justify-center 
+                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
+      >
+        <div
+          className="w-3/4 2xl:w-3/5 
+                   flex flex-col justify-center items-start content-center
+                   gap-y-16"
+        >
+          <Link
+            to="/catalogue"
+            className="w-full h-20 bg-white rounded-lg shadow-lg
+                     flex items-center justify-center
+                     font-serif text-lg
+                     text-my-accent font-semibold"
+          >
+            Browse Products
+          </Link>
+          <div className="w-4/6 xl:w-3/5 h-20 bg-white rounded-lg"></div>
+          <div className="w-2/5 xl:w-thirty h-20 bg-white rounded-lg"></div>
+        </div>
+      </div>
+    </>
+  );
+};
