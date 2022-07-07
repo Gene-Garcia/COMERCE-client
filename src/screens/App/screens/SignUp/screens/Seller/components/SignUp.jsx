@@ -19,7 +19,8 @@ function SignUp() {
   return (
     <div
       className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint 
-                flex items-center justify-center"
+                flex items-center justify-center
+                p-2.5 sm:p-0"
     >
       <div
         className="w-full sm:w-11/12 md:w-4/5 xl:w-3/4 2xl:w-1/2 
