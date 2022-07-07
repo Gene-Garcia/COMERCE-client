@@ -90,10 +90,10 @@ function Login({ history }) {
                      gap-y-8 lg:gap-y-10 xl:gap-y-11 2xl:gap-y-16"
         >
           {/* comerce logo on MD and lower devices */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <Link to="/" className="flex items-center gap-2 lg:hidden">
             <img src={comerceBlue} className="w-12 h-min" />
             <h1 className="font-mono font-bold text-2xl">COMERCE</h1>
-          </div>
+          </Link>
 
           <div className="space-y-6 lg:space-y-8">
             <div className="flex flex-col items-center gap-y-0.5">

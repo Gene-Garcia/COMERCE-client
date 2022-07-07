@@ -93,7 +93,7 @@ function SignUp({ history }) {
   } = useForm(initialState, initialState, validate, SignUpAPI);
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen">
+    <div className="flex flex-col lg:flex-row py-12 md:py-0 md:h-screen">
       <Hero />
 
       {/* form */}
@@ -104,10 +104,10 @@ function SignUp({ history }) {
                      gap-y-8 lg:gap-y-10 xl:gap-y-11 2xl:gap-y-16"
         >
           {/* comerce logo on MD and lower devices */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <Link to="/" className="flex items-center gap-2 lg:hidden">
             <img src={comerceBlue} className="w-12 h-min" />
             <h1 className="font-mono font-bold text-2xl">COMERCE</h1>
-          </div>
+          </Link>
 
           <div className="space-y-6 lg:space-y-8">
             <div className="flex flex-col items-center gap-y-0.5">
@@ -268,24 +268,27 @@ function SignUp({ history }) {
               }
             />
 
-            <FormButton
-              size="medium"
-              text="SIGN UP"
-              uppercase="uppercase"
-              isLoading={isLoading}
-              onClick={handleFormSubmit}
-              textColor="text-white"
-            ></FormButton>
-          </div>
+            <div className="w-max ml-auto lg:ml-0">
+              <FormButton
+                size="medium"
+                text="SIGN UP"
+                uppercase="uppercase"
+                isLoading={isLoading}
+                onClick={handleFormSubmit}
+                textColor="text-white"
+              ></FormButton>
+            </div>
 
-          <Link
-            to="/login/user"
-            className="text-gray-400 font-medium text-base
+            <Link
+              to="/login/user"
+              className="text-gray-400 font-medium text-base
                      transition duration-150 ease-linear
-                     hover:text-gray-800"
-          >
-            Already have an account?
-          </Link>
+                     hover:text-gray-800
+                     mx-auto"
+            >
+              Already have an account?
+            </Link>
+          </div>
         </div>
       </div>
     </div>
