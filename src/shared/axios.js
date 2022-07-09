@@ -14,3 +14,7 @@ axios.create({
 });
 
 export default axios;
+
+const axiosTest = "";
+
+export { axiosTest };
