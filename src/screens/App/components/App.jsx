@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import route from "../route";
 import axios from "../../../shared/caller";
-import Alert from "../../../shared/Components/pages/Alert";
+import Alert, { StackedAlert } from "../../../shared/Components/pages/Alert";
 import BusinessHeader from "../../../shared/Components/seller/BusinessHeader";
 import UserNavigation from "./userNavigation/Navigation";
 import SellerLogisticsNavigation from "./sellerLogisticsNavigation/Navigation";
@@ -30,6 +30,7 @@ const App = () => {
     <Router>
       {/* Global message notification */}
       <Alert />
+      <StackedAlert />
 
       <AppContent />
     </Router>
