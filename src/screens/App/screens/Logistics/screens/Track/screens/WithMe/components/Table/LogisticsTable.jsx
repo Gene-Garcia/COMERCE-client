@@ -40,13 +40,13 @@ const RenderLogisticsRow = () => {
   // with me redux states
   const logistics = useSelector((state) => state.WITH_ME.logistics);
 
-  return logistics ? (
+  return logistics && logistics.length > 0 ? (
     logistics.map((logistics) => (
       <LogisticsRow key={logistics._id} data={logistics} />
     ))
   ) : (
     <Row grid="grid-cols-1">
-      <Data className="col-span-1 text-center">
+      <Data className="col-span-1 py-6 text-center font-medium text-gray-700">
         Congratulations! You have no logistics with you now.
       </Data>
     </Row>

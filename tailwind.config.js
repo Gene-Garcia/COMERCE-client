@@ -95,7 +95,7 @@ module.exports = {
     extend: {
       backgroundColor: ["active", "odd", "focus"],
       borderColor: ["active", "focus-within"],
-      borderWidth: ["hover"],
+      borderWidth: ["hover", "active"],
       borderRadius: ["hover", "active", "first", "last"],
       boxShadow: ["active", "hover", "focus"],
       display: ["group-hover"],

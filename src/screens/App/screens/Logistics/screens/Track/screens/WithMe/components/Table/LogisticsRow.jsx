@@ -56,10 +56,11 @@ const LogisticsRow = ({
         ) : (
           <button
             onClick={() => toggleCollapse("ORDERS", true)}
-            className="text-gray-700 font-medium text-sm
-                     bg-gray-300 px-4 py-1 rounded
-                     transition duration-150 ease-linear
-                     hover:bg-gray-50 hover:text-gray-800"
+            className="text-gray-600 font-medium text-sm
+                     bg-gray-200 px-3.5 py-1 rounded-md
+                     transition duration-200 ease-linear
+                     hover:ring-2 hover:ring-gray-200 hover:ring-offset-2
+                     active:bg-gray-400 active:ring-0 active:text-white"
           >
             Show Orders
           </button>
@@ -81,10 +82,11 @@ const LogisticsRow = ({
         ) : attempts && attempts.length > 0 ? (
           <button
             onClick={() => toggleCollapse("ATTEMPTS", true)}
-            className="text-gray-700 font-medium text-sm
-                     bg-gray-300 px-4 py-1 rounded
-                     transition duration-150 ease-linear
-                     hover:bg-gray-50 hover:text-gray-800"
+            className="text-gray-600 font-medium text-sm
+                     bg-gray-200 px-3.5 py-1 rounded-md
+                     transition duration-200 ease-linear
+                     hover:ring-2 hover:ring-gray-200 hover:ring-offset-2
+                     active:bg-gray-400 active:ring-0 active:text-white"
           >
             Show Attempts
           </button>

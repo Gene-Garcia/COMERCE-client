@@ -8,9 +8,11 @@ import {
   loadLogistics,
   resetToDefault,
   toggleLoading,
+  updateLogisticsType,
 } from "../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import { setMessages } from "../../../../../../../../../redux/Alert/AlertAction";
 import { useHistory } from "react-router-dom";
+import { logisticsType } from "../../../../../../../../../shared/utils/logisticsType";
 
 const WithMe = () => {
   const history = useHistory();
@@ -81,6 +83,8 @@ const WithMe = () => {
       <LogisticsTitle title="With Me" />
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
+      <LogisticTypeButtons />
+
       <div className="overflow-x-auto">
         <div className="min-w-rr70">
           <LogisticsTable />
@@ -91,3 +95,58 @@ const WithMe = () => {
 };
 
 export default WithMe;
+
+const LogisticTypeButtons = () => {
+  const data = [
+    {
+      ID: logisticsType.SELLER_PICK_UP,
+      NAME: "Seller Pick Up",
+    },
+    {
+      ID: logisticsType.CUSTOMER_DELIVERY,
+      NAME: "Customer Delivery",
+    },
+  ];
+
+  //#region Logistics type change configuration
+  // redux
+  const dispatch = useDispatch();
+
+  const logisticButtonClick = async (id) => {
+    batch(() => {
+      dispatch(toggleLoading(true));
+      dispatch(updateLogisticsType(id));
+    });
+  };
+  //#endregion
+
+  return (
+    <div className="mb-6 flex gap-4">
+      {data.map(({ ID, NAME }) => (
+        <LogisticTypeButton
+          onClick={logisticButtonClick}
+          key={ID}
+          id={ID}
+          name={NAME}
+        />
+      ))}
+    </div>
+  );
+};
+
+const LogisticTypeButton = ({ id, name, onClick }) => {
+  return (
+    <button
+      onClick={() => onClick(id)}
+      className="bg-my-white-tint rounded shadow
+                w-44 text-center py-1.5
+                text-sm font-semibold text-gray-500
+                border-b border-transparent
+                transition duration-150 ease-linear
+                hover:border-my-accent hover:text-my-accent
+                active:bg-gray-100"
+    >
+      {name}
+    </button>
+  );
+};
