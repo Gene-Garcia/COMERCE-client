@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAllLogistics } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import SpaciousTable, {
   Body,
   Data,
@@ -14,11 +15,18 @@ const LogisticsTable = () => {
   // with me redux states
   const isLoading = useSelector((state) => state.WITH_ME.isLoading);
 
+  //#region checkbox configuration
+  const dispatch = useDispatch();
+  const checkboxChange = (e) => {
+    dispatch(checkAllLogistics(e.target.checked));
+  };
+  //#endregion
+
   return (
     <SpaciousTable>
       <Head grid="grid-cols-16">
         <Heading className="col-span-1 text-center">
-          <input type="checkbox" />
+          <input type="checkbox" onChange={checkboxChange} />
         </Heading>
         <Heading className="col-span-1">Logistics ID</Heading>
         <Heading className="col-span-1">Start</Heading>

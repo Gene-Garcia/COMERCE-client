@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { checkLogistic } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import {
   Data,
   Row,
@@ -32,9 +34,9 @@ const LogisticsRow = ({
   //#endregion
 
   //#region checkbox configurations
-  const checkboxChange = (e) => {
-    // checked = e.target.checked;
-  };
+  const dispatch = useDispatch();
+  const checkboxChange = (e) =>
+    dispatch(checkLogistic(logisticsId, e.target.checked));
   //#endregion
 
   return (
