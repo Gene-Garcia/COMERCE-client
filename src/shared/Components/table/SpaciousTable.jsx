@@ -40,7 +40,8 @@ const Row = ({ children, grid, onClick }) => {
       onClick={onClick}
       className={`grid ${grid} w-full 
                  rounded-md odd:bg-gray-100
-                 transition duration-250 ease-linear hover:bg-gray-200`}
+                 transition duration-250 ease-linear
+                 border border-transparent hover:border-gray-300`}
     >
       {children}
     </div>
