@@ -60,8 +60,8 @@ const AttemptsCollapseData = ({ data: attempts, toggleCollapse }) => {
         </Head>
 
         <Body>
-          {attempts.map(({ _id, reason, attemptDate: date }) => (
-            <Row key={_id} grid="grid-cols-3">
+          {attempts.map(({ reason, attemptDate: date }) => (
+            <Row key={JSON.stringify(date)} grid="grid-cols-3">
               <Data className="col-span-1 text-sm break-all">
                 {formatDate(date)}
               </Data>
