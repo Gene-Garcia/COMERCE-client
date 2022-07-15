@@ -7,9 +7,19 @@ import {
   Action,
   ActionGroup,
 } from "../../../../../../../../../../shared/Components/table/TableActions";
+import { formatDate } from "../../../../../../../../../../shared/utils/date";
 import { AttemptsCollapseData, OrderCollapseData } from "./CollapseData";
 
-const LogisticsRow = () => {
+const LogisticsRow = ({
+  data: {
+    _id: logisticsId,
+    dateStarted,
+    orders,
+    _business: { contactNumber, businessName, pickUpAddress: address },
+    failedAttempts: attempts,
+    checked,
+  },
+}) => {
   //#region Toggle table configuration
   const [toggled, setToggled] = useState({
     ORDERS: false,
@@ -21,17 +31,28 @@ const LogisticsRow = () => {
   };
   //#endregion
 
+  //#region checkbox configurations
+  const checkboxChange = (e) => {
+    // checked = e.target.checked;
+  };
+  //#endregion
+
   return (
-    <Row grid="grid-cols-15">
+    <Row grid="grid-cols-16">
       <Data className="col-span-1 text-center">
-        <input type="checkbox" />
+        <input type="checkbox" onChange={checkboxChange} checked={checked} />
       </Data>
+
       <Data className="col-span-1 break-all text-xs font-light leading-none">
-        624914c0b6f1580e80ccfb6a
+        {logisticsId}
       </Data>
-      <Data className="col-span-2">
+      <Data className="col-span-1 text-sm break-all">
+        {formatDate(dateStarted, true)}
+      </Data>
+
+      <Data className="col-span-4">
         {toggled.ORDERS ? (
-          <OrderCollapseData toggleCollapse={toggleCollapse} />
+          <OrderCollapseData data={orders} toggleCollapse={toggleCollapse} />
         ) : (
           <button
             onClick={() => toggleCollapse("ORDERS", true)}
@@ -44,16 +65,20 @@ const LogisticsRow = () => {
           </button>
         )}
       </Data>
-      <Data className="col-span-3">
-        Lot 1 Block 14, San Francisco, Binan, Laguna
-      </Data>
-      <Data className="col-span-2">Apple</Data>
-      <Data className="col-span-1">April 3, 2022</Data>
-      <Data className="col-span-1">April 8, 2022</Data>
+
       <Data className="col-span-2">
+        {`${address.street}, ${address.barangay}, ${address.cityMunicipality}, ${address.province}`}
+      </Data>
+      <Data className="col-span-1">{businessName}</Data>
+      <Data className="col-span-2 break-all">{contactNumber}</Data>
+
+      <Data className="col-span-3">
         {toggled.ATTEMPTS ? (
-          <AttemptsCollapseData toggleCollapse={toggleCollapse} />
-        ) : (
+          <AttemptsCollapseData
+            data={attempts}
+            toggleCollapse={toggleCollapse}
+          />
+        ) : attempts && attempts.length > 0 ? (
           <button
             onClick={() => toggleCollapse("ATTEMPTS", true)}
             className="text-gray-700 font-medium text-sm
@@ -63,12 +88,14 @@ const LogisticsRow = () => {
           >
             Show Attempts
           </button>
+        ) : (
+          <p className="break-all font-medium text-gray-500">No Attempts</p>
         )}
       </Data>
 
-      <Data className="col-span-2">
+      <Data className="col-span-1">
         <ActionGroup>
-          <Action text="COMPLETED" type="BUTTON" onClick={() => {}} />
+          <Action text="FINISHED" type="BUTTON" onClick={() => {}} />
         </ActionGroup>
       </Data>
     </Row>
