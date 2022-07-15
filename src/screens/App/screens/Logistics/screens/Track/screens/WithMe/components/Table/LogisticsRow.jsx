@@ -10,6 +10,7 @@ import {
 import { AttemptsCollapseData, OrderCollapseData } from "./CollapseData";
 
 const LogisticsRow = () => {
+  //#region Toggle table configuration
   const [toggled, setToggled] = useState({
     ORDERS: false,
     ATTEMPTS: false,
@@ -18,6 +19,7 @@ const LogisticsRow = () => {
   const toggleCollapse = (key, toggle) => {
     setToggled((prev) => ({ ...prev, [key]: toggle }));
   };
+  //#endregion
 
   return (
     <Row grid="grid-cols-15">

@@ -1,9 +1,9 @@
-import { deliveryTypes } from "../../../../../server/config/deliveryType";
+import { logisticsType } from "../../../shared/utils/logisticsType";
 import { withMeActionTypes as types } from "./WithMeAction";
 
 const initial = {
   logistics: [],
-  logisticsType: deliveryTypes.SELLER_PICK_UP,
+  logisticsType: logisticsType.SELLER_PICK_UP,
   isLoading: true,
 };
 
