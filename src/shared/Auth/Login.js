@@ -18,13 +18,13 @@ import Cookies from "universal-cookie";
 function clearUserPersistData() {
   const cookies = new Cookies();
 
-  cookies.remove(process.env.REACT_APP_LS_EMAIL_KEY);
-  cookies.remove(process.env.REACT_APP_LS_USERNAME_KEY);
+  cookies.remove(process.env.REACT_APP_LS_EMAIL_KEY, { path: "/" });
+  cookies.remove(process.env.REACT_APP_LS_USERNAME_KEY, { path: "/" });
 
   // business related keys
-  cookies.remove(process.env.REACT_APP_BS_NAME);
-  cookies.remove(process.env.REACT_APP_BS_LOGO);
-  cookies.remove(process.env.REACT_APP_BS_EMAIL);
+  cookies.remove(process.env.REACT_APP_BS_NAME, { path: "/" });
+  cookies.remove(process.env.REACT_APP_BS_LOGO, { path: "/" });
+  cookies.remove(process.env.REACT_APP_BS_EMAIL, { path: "/" });
 }
 
 function setUserPersistData(
