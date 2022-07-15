@@ -1,7 +1,9 @@
+import { deliveryTypes } from "../../../../../server/config/deliveryType";
 import { withMeActionTypes as types } from "./WithMeAction";
 
 const initial = {
   logistics: [],
+  logisticsType: deliveryTypes.SELLER_PICK_UP,
   isLoading: true,
 };
 
@@ -32,6 +34,12 @@ const withMeReducer = (state = initial, { type, payload }) => {
           ...logistic,
           checked: payload,
         })),
+      };
+
+    case types.UPDATE_LOGISTICS_TYPE:
+      return {
+        ...state,
+        logisticsType: payload,
       };
 
     case types.RESET_TO_DEFAULT:

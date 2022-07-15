@@ -3,6 +3,7 @@ const withMeActionTypes = {
   TOGGLE_LOADING: "TOGGLE_LOADING",
   CHECK_LOGISTIC: "CHECK_LOGISTIC",
   CHECK_ALL_LOGISTICS: "CHECK_ALL_LOGISTICS",
+  UPDATE_LOGISTICS_TYPE: "UPDATE_LOGISTICS_TYPE",
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
@@ -25,6 +26,10 @@ const checkAllLogistics = (isChecked) => {
   return { type: withMeActionTypes.CHECK_ALL_LOGISTICS, payload: isChecked };
 };
 
+const updateLogisticsType = (type) => {
+  return { type: withMeActionTypes.UPDATE_LOGISTICS_TYPE, payload: type };
+};
+
 const resetToDefault = () => {
   return { type: withMeActionTypes.RESET_TO_DEFAULT };
 };
@@ -35,5 +40,6 @@ export {
   toggleLoading,
   checkLogistic,
   checkAllLogistics,
+  updateLogisticsType,
   resetToDefault,
 };
