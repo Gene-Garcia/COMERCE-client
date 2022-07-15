@@ -6,35 +6,48 @@ import CompactTable, {
   Heading,
   Row,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
+import { formatDate } from "../../../../../../../../../../shared/utils/date";
 
-const OrderCollapseData = ({ toggleCollapse }) => {
+const OrderCollapseData = ({ data: orders, toggleCollapse }) => {
   return (
     <>
       <Close onClick={() => toggleCollapse("ORDERS", false)} />
 
       {/* table */}
       <CompactTable elevate="rounded-md">
-        <Head grid="grid-cols-2">
+        <Head grid="grid-cols-6">
           <Heading className="col-span-1">Order ID</Heading>
-          <Heading className="col-span-1">Quantity</Heading>
+          <Heading className="col-span-1">QTY</Heading>
+          <Heading className="col-span-2">Date Placed</Heading>
+          <Heading className="col-span-2">ETA Date</Heading>
         </Head>
 
         <Body>
-          {[0, 0].map((e, i) => (
-            <Row key={i} grid="grid-cols-2">
-              <Data className="col-span-1 text-xs font-light break-all">
-                624914c0b6f1580e80ccfb6a
-              </Data>
-              <Data className="col-span-1 text-sm break-words">2 piece(s)</Data>
-            </Row>
-          ))}
+          {orders.map(
+            ({ products, _order: { _id: orderId, ETADate, orderDate } }, i) => (
+              <Row key={i} grid="grid-cols-6">
+                <Data className="col-span-1 text-xs font-light break-all">
+                  {orderId}
+                </Data>
+                <Data className="col-span-1 break-words text-center">
+                  {products.length}
+                </Data>
+                <Data className="col-span-2 text-sm break-all">
+                  {formatDate(orderDate)}
+                </Data>
+                <Data className="col-span-2 text-sm break-all">
+                  {formatDate(ETADate)}
+                </Data>
+              </Row>
+            )
+          )}
         </Body>
       </CompactTable>
     </>
   );
 };
 
-const AttemptsCollapseData = ({ toggleCollapse }) => {
+const AttemptsCollapseData = ({ data: attempts, toggleCollapse }) => {
   return (
     <>
       <Close onClick={() => toggleCollapse("ATTEMPTS", false)} />
@@ -47,14 +60,12 @@ const AttemptsCollapseData = ({ toggleCollapse }) => {
         </Head>
 
         <Body>
-          {[0, 0].map((e, i) => (
-            <Row key={i} grid="grid-cols-3">
-              <Data className="col-span-1 text-xs font-light break-all">
-                624914c0b6f1580e80ccfb6a
+          {attempts.map(({ _id, reason, attemptDate: date }) => (
+            <Row key={_id} grid="grid-cols-3">
+              <Data className="col-span-1 text-sm break-all">
+                {formatDate(date)}
               </Data>
-              <Data className="col-span-2 text-sm break-words">
-                Customer cannot be contacted
-              </Data>
+              <Data className="col-span-2 text-sm break-words">{reason}</Data>
             </Row>
           ))}
         </Body>
