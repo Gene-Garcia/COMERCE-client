@@ -23,6 +23,10 @@ module.exports = {
     },
 
     extend: {
+      minHeight: {
+        alert: "2.5rem",
+      },
+
       height: {
         rr28: "28rem",
         min: "min-content",
@@ -31,6 +35,8 @@ module.exports = {
       },
 
       minWidth: {
+        alert: "18rem",
+
         18: "4.5rem",
         32: "8rem",
         rr70: "65rem",

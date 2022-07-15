@@ -9,6 +9,7 @@ import { FormButton } from "../../../../../../../shared/Components/button/Button
 import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
 import comerceBlue from "../../../../../../../shared/images/comerce-logo-blue.webp";
@@ -37,15 +38,23 @@ function Login({ history }) {
         setIsLoading(false);
 
         if (err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage("Something went wrong. Try again."));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Something went wrong. Try again.",
+                severity: "error",
+              },
+            ])
+          );
       });
   }
 
