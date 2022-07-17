@@ -88,49 +88,15 @@ module.exports = {
     },
 
     extend: {
-      minHeight: {
-        alert: "2.5rem",
-      },
-
-      height: {
-        rr28: "28rem",
-        min: "min-content",
-        max: "max-content",
-        "waybill-height": "15cm",
-      },
-
       minWidth: {
-        alert: "18rem",
-
-        18: "4.5rem",
-        32: "8rem",
-        rr70: "65rem",
-        rr60: "60rem",
-        rr35: "35rem",
-        rr1: "25rem",
+        "table-60": "60rem",
       },
 
       width: {
-        34: "8.5rem",
-        rr36: "36rem",
-        rr50: "50rem",
-
-        two: "2%",
-        three: "3%",
-        five: "5%",
-        seven: "7%",
-        eight: "8%",
-        ten: "10%",
-        thirteen: "13%",
-        fifteen: "15%",
-
         thirty: "30%",
-        thirtyfive: "35%",
-        fourtyfive: "45%",
-        fiftyfive: "55%",
+        "fourty-five": "45%",
+        "fifty-five": "55%",
         seventy: "70%",
-
-        "waybill-width": "10cm",
       },
 
       gridTemplateColumns: {
@@ -141,44 +107,25 @@ module.exports = {
       },
 
       colors: {
-        "my-accent": "#0092CA",
-        "my-accent-mono": "#4085CB",
+        accent: "#0092CA",
+        "accent-mono": "#4085CB",
         // base color + white
-        "my-accent-tint": "#66BEDF",
+        "accent-tint": "#66BEDF",
         // base color + gray
-        "my-accent-tone": "#41AED8",
+        "accent-tone": "#41AED8",
         // base color + black
-        "my-accent-shade": "#001449",
-        "my-off-white": "#FDFDFD",
+        "accent-shade": "#001449",
 
         // seller pages white pallette
         // white + white
-        "my-white-tint": "#F8F9FD",
+        "white-tint": "#F8F9FD",
         // white + gray
-        "my-white-tone": "#EDF0F4",
+        "white-tone": "#EDF0F4",
 
         // overrided tailwind black
         black: "#082032",
       },
     },
   },
-  // variants: {
-  //   extend: {
-  //     backgroundColor: ["active", "odd", "focus"],
-  //     borderColor: ["active", "focus-within"],
-  //     borderWidth: ["hover", "active"],
-  //     borderRadius: ["hover", "active", "first", "last"],
-  //     boxShadow: ["active", "hover", "focus"],
-  //     display: ["group-hover"],
-  //     grayscale: ["hover"],
-  //     ringWidth: ["active", "hover", "group-hover"],
-  //     ringColor: ["active", "hover", "group-hover"],
-  //     ringOpacity: ["active", "hover"],
-  //     ringOffsetWidth: ["active", "hover", "group-hover"],
-  //     ringOffsetColor: ["active"],
-  //     textColor: ["active"],
-  //     textOpacity: ["hover"],
-  //   },
-  // },
   plugins: [],
 };
