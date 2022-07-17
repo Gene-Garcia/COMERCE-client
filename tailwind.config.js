@@ -1,11 +1,76 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
-  purge: [
+  content: [
     "./public/index.html",
-    "./src/**/*.jsx",
-    "./src/screens/**/*.jsx",
-    "./src/shared/**/*.jsx",
+
+    // Shared folder
+    "./src/shared/**/*.{tsx,jsx}",
+    "./src/shared/**/**/*.{tsx,jsx}",
+    "./src/shared/**/**/**/*.{tsx,jsx}",
+
+    // "/components/*.{tsx,jsx}",
+    // "/components/**/*.{tsx,jsx}",
+    // "/components/**/**/*.{tsx,jsx}",
+    // "/components/**/**/**/*.{tsx,jsx}",
+    // "/components/**/**/**/**/*.{tsx,jsx}",
+
+    // App directories
+    "./src/screens/App/components/*.{tsx,jsx}",
+    "./src/screens/App/components/**/*.{tsx,jsx}",
+    "./src/screens/App/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/components/**/**/**/**/*.{tsx,jsx}",
+
+    // App screns
+    // "./src/screens/App/screens/**/components---",
+    "./src/screens/App/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+
+    // Level 1 App screens
+    // "./src/screens/App/screens/**/screens/**/components---",
+    "./src/screens/App/screens/**/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+
+    // Level 2 App screens
+    // "./src/screens/App/screens/**/screens/**/screens/**/components---",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+
+    // Level 3 App screens
+    // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components---",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+
+    // Level 4 App screens
+    // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components--",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+
+    // Fallback Level 5 App screens - No component has reached this
+    // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
   ],
-  darkMode: false, // other values 'media' and 'class'
+  // darkMode: false, // other values 'media' and 'class'
   theme: {
     fontFamily: {
       sans: ["'Open Sans'", "sans-serif"],
@@ -97,23 +162,23 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      backgroundColor: ["active", "odd", "focus"],
-      borderColor: ["active", "focus-within"],
-      borderWidth: ["hover", "active"],
-      borderRadius: ["hover", "active", "first", "last"],
-      boxShadow: ["active", "hover", "focus"],
-      display: ["group-hover"],
-      grayscale: ["hover"],
-      ringWidth: ["active", "hover", "group-hover"],
-      ringColor: ["active", "hover", "group-hover"],
-      ringOpacity: ["active", "hover"],
-      ringOffsetWidth: ["active", "hover", "group-hover"],
-      ringOffsetColor: ["active"],
-      textColor: ["active"],
-      textOpacity: ["hover"],
-    },
-  },
+  // variants: {
+  //   extend: {
+  //     backgroundColor: ["active", "odd", "focus"],
+  //     borderColor: ["active", "focus-within"],
+  //     borderWidth: ["hover", "active"],
+  //     borderRadius: ["hover", "active", "first", "last"],
+  //     boxShadow: ["active", "hover", "focus"],
+  //     display: ["group-hover"],
+  //     grayscale: ["hover"],
+  //     ringWidth: ["active", "hover", "group-hover"],
+  //     ringColor: ["active", "hover", "group-hover"],
+  //     ringOpacity: ["active", "hover"],
+  //     ringOffsetWidth: ["active", "hover", "group-hover"],
+  //     ringOffsetColor: ["active"],
+  //     textColor: ["active"],
+  //     textOpacity: ["hover"],
+  //   },
+  // },
   plugins: [],
 };
