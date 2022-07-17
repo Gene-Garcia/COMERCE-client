@@ -13,16 +13,16 @@ function RegistrationSteps() {
         {/* Steps */}
         <Step id={0} sub="Agreement" />
 
-        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+        <div className="hidden md:block w-0.5 h-12 bg-accent"></div>
 
         <Step id={1} sub="Business" />
 
-        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+        <div className="hidden md:block w-0.5 h-12 bg-accent"></div>
 
         <Step id={2} sub="Account" />
       </div>
 
-      <div className="block md:hidden m-auto h-0.5 w-1/2 bg-my-accent"></div>
+      <div className="block md:hidden m-auto h-0.5 w-1/2 bg-accent"></div>
     </div>
   );
 }
@@ -47,7 +47,7 @@ function Step({ sub, id }) {
 
   const theme = {
     toggled: {
-      circle: "bg-my-accent",
+      circle: "bg-accent",
       number: "text-white",
       sub: "text-black",
     },
@@ -59,7 +59,7 @@ function Step({ sub, id }) {
     },
 
     visited: {
-      circle: "bg-my-accent",
+      circle: "bg-accent",
       number: "text-white",
       sub: "text-gray-700 ",
     },
@@ -73,7 +73,7 @@ function Step({ sub, id }) {
     >
       <div
         className={`h-9 w-9 rounded-full bg-white
-                  border border-my-accent
+                  border border-accent
                   flex items-center justify-center`}
       >
         <span
@@ -90,7 +90,7 @@ function Step({ sub, id }) {
         className={`${theme[status].sub} mb-0
         text-base md:text-md font-medium 
         transition duration-150 
-        group-hover:text-my-accent`}
+        group-hover:text-accent`}
       >
         {sub}
       </p>

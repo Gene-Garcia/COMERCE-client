@@ -87,7 +87,7 @@ const Orders = ({ history }) => {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div className="overflow-auto">
-        <div className="min-w-rr60 ">
+        <div className="min-w-table-60 ">
           <OrderTable />
         </div>
       </div>

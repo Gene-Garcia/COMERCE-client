@@ -53,7 +53,7 @@ function SignOut({ history }) {
 
   return (
     <div className="flex w-full h-full justify-center items-center">
-      <h1 className="text-my-accent font-bold text-4xl">Signing You Out...</h1>
+      <h1 className="text-accent font-bold text-4xl">Signing You Out...</h1>
     </div>
   );
 }

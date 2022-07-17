@@ -35,7 +35,7 @@ function Arrow({ svg, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="transition duration-300 rounded bg-gray-200 text-gray-800 w-8 h-8 flex items-center justify-center hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white"
+      className="transition duration-300 rounded bg-gray-200 text-gray-800 w-8 h-8 flex items-center justify-center hover:text-accent hover:bg-blue-50 active:shadow active:bg-accent active:text-white"
     >
       {svg}
     </button>
@@ -44,14 +44,14 @@ function Arrow({ svg, onClick }) {
 
 function Page({ pageNumber, onClick, state }) {
   const stateStyle = {
-    ACTIVE: "bg-my-accent bg-opacity-50 text-white",
+    ACTIVE: "bg-accent bg-opacity-50 text-white",
     IDLE: "text-gray-700",
   };
 
   return (
     <button
       onClick={onClick}
-      className={`${stateStyle[state]} transition duration-300 ease-linear rounded bg-gray-200 text-md  w-8 h-8 font-semibold font-serif hover:text-my-accent hover:bg-blue-50 active:shadow active:bg-my-accent active:text-white`}
+      className={`${stateStyle[state]} transition duration-300 ease-linear rounded bg-gray-200 text-md  w-8 h-8 font-semibold font-serif hover:text-accent hover:bg-blue-50 active:shadow active:bg-accent active:text-white`}
     >
       {pageNumber}
     </button>

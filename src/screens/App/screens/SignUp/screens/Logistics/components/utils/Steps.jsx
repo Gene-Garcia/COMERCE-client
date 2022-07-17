@@ -22,8 +22,8 @@ const Steps = () => {
           />
 
           <div className="flex flex-col gap-0 justify-end items-end">
-            <h2 className="font-mono text-my-accent text-2xl my-0">COMERCE</h2>
-            <p className="text-right font-medium text-my-accent text-lg my-0">
+            <h2 className="font-mono text-accent text-2xl my-0">COMERCE</h2>
+            <p className="text-right font-medium text-accent text-lg my-0">
               express
             </p>
           </div>
@@ -33,7 +33,7 @@ const Steps = () => {
       <hr />
 
       <div className="overflow-x-auto pt-1 pb-7">
-        <div className="h-96 min-w-rr1 px-8 xs:px-14 sm:px-20 md:px-24 h-full flex flex-row items-center justify-center">
+        <div className="h-96 min-w-[25rem] px-8 xs:px-14 sm:px-20 md:px-24 h-full flex flex-row items-center justify-center">
           <Step
             toggle={() => dispatch(toggleStep(1))}
             number={1}

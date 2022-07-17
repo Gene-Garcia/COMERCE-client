@@ -47,8 +47,8 @@ function Indicator({ id, number, stepName: name, active }) {
       <div
         className={
           (active
-            ? "bg-my-accent border-transparent text-white"
-            : "border-my-accent text-gray-500") +
+            ? "bg-accent border-transparent text-white"
+            : "border-accent text-gray-500") +
           ` transition border bg-opacity-90 h-8 w-8 rounded-full text-md font-bold flex items-center justify-center`
         }
       >

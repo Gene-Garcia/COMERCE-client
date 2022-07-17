@@ -111,7 +111,7 @@ const AddressCard = () => {
         border="py-1.5 border-b-2 rounded-t shadow"
         label="Street Address"
         error={errors.street}
-        focusWithin="focus-within:border-my-accent"
+        focusWithin="focus-within:border-accent"
       />
 
       <div className="flex flex-row justify-between gap-4">
@@ -124,7 +124,7 @@ const AddressCard = () => {
           border="py-1.5 border-b-2 rounded-t shadow"
           label="BARANGAY"
           error={errors.barangay}
-          focusWithin="focus-within:border-my-accent"
+          focusWithin="focus-within:border-accent"
           width="w-full"
         />
 
@@ -137,7 +137,7 @@ const AddressCard = () => {
           border="py-1.5 border-b-2 rounded-t shadow"
           label="CITY/MUNICIPALITY"
           error={errors.cityMunicipality}
-          focusWithin="focus-within:border-my-accent"
+          focusWithin="focus-within:border-accent"
           width="w-full"
         />
       </div>
@@ -151,7 +151,7 @@ const AddressCard = () => {
         border="py-1.5 border-b-2 rounded-t shadow"
         label="PROVINCE"
         error={errors.province}
-        focusWithin="focus-within:border-my-accent"
+        focusWithin="focus-within:border-accent"
         width="w-1/2"
       />
 

@@ -24,7 +24,7 @@ function BusinessHeader() {
 
   return (
     <SellerContainer>
-      <div className="w-full flex items-center justify-between p-3 rounded-md bg-my-white-tint">
+      <div className="w-full flex items-center justify-between p-3 rounded-md bg-white-tint">
         {loading ? (
           <>
             <div className="inline-flex gap-2.5 items-center">

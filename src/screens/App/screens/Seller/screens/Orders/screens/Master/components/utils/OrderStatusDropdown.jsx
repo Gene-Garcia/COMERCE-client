@@ -32,10 +32,10 @@ const OrderStatusDropdown = () => {
 
       <div
         id="select-parent"
-        className="w-max bg-my-white-tint rounded shadow p-1.5
+        className="w-max bg-white-tint rounded shadow p-1.5
                  transition duration-200 ease-linear
                  border border-transparent
-                 focus-within:border-my-accent
+                 focus-within:border-accent
                  hover:shadow-md"
       >
         <select

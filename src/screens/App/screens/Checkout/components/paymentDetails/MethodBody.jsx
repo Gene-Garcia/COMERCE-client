@@ -10,7 +10,7 @@ function PaymentMethodBody({ id, children, active }) {
     <button
       onClick={() => dispatch(togglePaymentOption(id))}
       className={
-        (active ? `border-my-accent` : `border-gray-200`) +
+        (active ? `border-accent` : `border-gray-200`) +
         ` transition duration-300 px-7 py-3 md:py-0 border-b-4 font-semibold text-gray-600 flex items-center justify-center`
       }
     >

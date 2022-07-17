@@ -88,7 +88,7 @@ const CheckoutPrices = () => {
         </div>
 
         <div>
-          <p className="text-xl font-medium text-my-accent">
+          <p className="text-xl font-medium text-accent">
             {`₱${formatPrice(grandTotal)}`}
           </p>
         </div>

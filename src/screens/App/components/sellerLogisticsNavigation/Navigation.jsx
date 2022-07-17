@@ -15,7 +15,7 @@ export default Navigation;
 function Sidebar({ links }) {
   return (
     <div
-      className="fixed h-screen bg-my-accent-shade
+      className="fixed h-screen bg-accent-shade
  md:w-52 lg:w-56 2xl:w-60"
     >
       <div
@@ -45,7 +45,7 @@ function Sidebar({ links }) {
 
 function Navbar({ links }) {
   return (
-    <div className="bg-my-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
+    <div className="bg-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
       <Link className="w-10" to="/">
         <img
           src={comerceWhite}

@@ -25,10 +25,10 @@ function SidebarLink({ svg, name, to }) {
       w-full py-1.5 md:px-1 lg:px-3 rounded
       inline-flex items-center md:gap-1.5 lg:gap-2 
       transition duration-150 ease-linear 
-      hover:bg-my-accent-tone"
+      hover:bg-accent-tone"
     >
       {svg}
-      
+
       {name}
     </Link>
   );

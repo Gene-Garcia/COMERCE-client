@@ -59,7 +59,7 @@ function Star({ id, hovered, over }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-12 w-12 ${hovered ? "text-my-accent" : "text-gray-500"}`}
+      className={`h-12 w-12 ${hovered ? "text-accent" : "text-gray-500"}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

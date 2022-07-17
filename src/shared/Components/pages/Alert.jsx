@@ -99,7 +99,7 @@ const AlertBody = ({ id, message, severity, iteration }) => {
 
   return (
     <div
-      className={`min-h-10 max-h-28 min-w-alert max-w-lg
+      className={`min-h-10 max-h-28 min-w-[18rem] max-w-lg
         bg-gray-50
         flex items-center gap-2
         border rounded shadow-md
@@ -120,7 +120,7 @@ const AlertBody = ({ id, message, severity, iteration }) => {
 
       <button
         onClick={() => dispatch(filterMessages(id))}
-        className="p-1 hover:text-my-accent transition ease-linear"
+        className="p-1 hover:text-accent transition ease-linear"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

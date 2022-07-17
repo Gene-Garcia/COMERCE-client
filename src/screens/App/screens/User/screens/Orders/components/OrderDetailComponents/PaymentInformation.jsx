@@ -53,7 +53,7 @@ function PaymentInformation() {
 
           <div>
             <p className="font-medium text-gray-800 text-opacity-80 text-md">
-              <span className="text-my-accent text-opacity-80">
+              <span className="text-accent text-opacity-80">
                 {pMethods[order.paymentMethod]}
               </span>{" "}
               payment

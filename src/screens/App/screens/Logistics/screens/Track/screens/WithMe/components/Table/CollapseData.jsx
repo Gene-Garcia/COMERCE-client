@@ -78,7 +78,7 @@ const Close = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="py-1 px-1.5 bg-my-white-tone rounded 
+      className="py-1 px-1.5 bg-white-tone rounded 
             inline-flex gap-1 items-center 
             text-xs font-medium text-black
             transition duration-200 ease-linear

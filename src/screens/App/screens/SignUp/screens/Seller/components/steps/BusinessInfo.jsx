@@ -154,10 +154,10 @@ function FileInput({ name, label, helper, onChange, value, error }) {
       <div className="flex flex-col xs:flex-row gap-3">
         <label
           class="flex flex-col items-center w-max
-        rounded-md shadow border border-my-accent px-8 py-2.5 
+        rounded-md shadow border border-accent px-8 py-2.5 
         text-gray-700 cursor-pointer 
         transition duration-200 ease-linear
-        hover:bg-my-accent hover:text-white"
+        hover:bg-accent hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +192,7 @@ function FileInput({ name, label, helper, onChange, value, error }) {
             placeholder="Image Address"
             className={`border-b-2 ${
               error ? inputTheme.invalid : inputTheme.valid
-            } font-regular text-black focus:outline-none transition duration-200 focus:border-my-accent`}
+            } font-regular text-black focus:outline-none transition duration-200 focus:border-accent`}
             autoComplete={`new-${name}`}
           />
           <i className="text-sm text-gray-500">Temporary file upload</i>

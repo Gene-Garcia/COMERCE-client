@@ -41,7 +41,7 @@ function ProductCard({ data }) {
         <p className="text-gray-800 font-medium">{data._product.item}</p>
 
         <p className="flex flex-row justify-between items-center">
-          <span className="text-my-accent font-medium">
+          <span className="text-accent font-medium">
             {`₱${formatPrice(data.priceAtPoint)}`}
           </span>
           <span className="italic text-sm text-gray-900">x{data.quantity}</span>

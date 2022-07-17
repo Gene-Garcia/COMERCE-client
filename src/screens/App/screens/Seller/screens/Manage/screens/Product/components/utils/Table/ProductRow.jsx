@@ -85,10 +85,10 @@ function ProductRow({ data }) {
         />
       </Data>
       <Data className="col-span-3 font-medium text-black">{item}</Data>
-      <Data className="col-span-2 text-my-accent font-semibold">
+      <Data className="col-span-2 text-accent font-semibold">
         ₱{formatPrice(retailPrice)}
       </Data>
-      <Data className="col-span-2 text-my-accent">
+      <Data className="col-span-2 text-accent">
         ₱{formatPrice(wholesalePrice)}
       </Data>
       <Data className="col-span-2 text-red-600">

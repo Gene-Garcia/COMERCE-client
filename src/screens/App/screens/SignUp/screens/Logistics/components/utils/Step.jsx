@@ -22,22 +22,22 @@ const Step = ({ toggle, number, name, first }) => {
         <div
           className={`relative
             w-10 h-10 rounded-full 
-            border-2 border-my-accent
-            ${passed ? "bg-my-accent" : "bg-white"}
+            border-2 border-accent
+            ${passed ? "bg-accent" : "bg-white"}
             flex items-center justify-center
             transition duration-150 ease-linear
-            group-hover:ring-1 group-hover:ring-my-accent group-hover:ring-offset-2`}
+            group-hover:ring-1 group-hover:ring-accent group-hover:ring-offset-2`}
         >
           <span
             className={`relative font-semibold text-lg
-                ${passed ? "text-white" : "text-my-accent"}`}
+                ${passed ? "text-white" : "text-accent"}`}
           >
             {number}
           </span>
 
           <span
             className={`absolute -bottom-6 text-sm font-semibold 
-        ${toggled ? "text-gray-800" : "text-my-accent"}`}
+        ${toggled ? "text-gray-800" : "text-accent"}`}
           >
             {name}
           </span>
@@ -53,7 +53,7 @@ const Divider = ({ passed }) => {
   return (
     <div
       className={`flex-grow 
-      h-1.5 rounded-l-sm ${passed ? "bg-my-accent" : "bg-gray-200"}`}
+      h-1.5 rounded-l-sm ${passed ? "bg-accent" : "bg-gray-200"}`}
     ></div>
   );
 };

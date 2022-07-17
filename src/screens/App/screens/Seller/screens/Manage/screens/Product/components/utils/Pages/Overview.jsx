@@ -73,7 +73,7 @@ function Overview() {
   useEffect(() => () => setProducts([]), []);
 
   return (
-    <div className="min-w-rr60 overflow-auto bg-transparent">
+    <div className="min-w-table-60 overflow-auto bg-transparent">
       <SpaciousTable>
         <Head grid="grid-cols-14">
           <Heading className="col-span-1">Order ID</Heading>

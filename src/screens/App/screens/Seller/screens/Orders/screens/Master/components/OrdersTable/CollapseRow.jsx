@@ -110,7 +110,7 @@ const RenderCollapseRow = ({ products }) => {
     <CTRow key={product._product._id} grid="grid-cols-6">
       <CTData className="col-span-2">{product._product.item}</CTData>
       <CTData className="col-span-1">
-        <span className="px-2 text-center rounded-full py-0.5 bg-my-accent text-white font-medium text-xs">
+        <span className="px-2 text-center rounded-full py-0.5 bg-accent text-white font-medium text-xs">
           {product.status}
         </span>
       </CTData>
@@ -151,7 +151,7 @@ const Pricings = ({ order }) => {
 
       <div className="mt-4 flex flex-row justify-between gap-2">
         <p className="font-semibold text-gray-400 text-lg">Total</p>
-        <p className="text-my-accent text-lg font-medium">
+        <p className="text-accent text-lg font-medium">
           ₱{formatPrice(grandTotal)}
         </p>
       </div>

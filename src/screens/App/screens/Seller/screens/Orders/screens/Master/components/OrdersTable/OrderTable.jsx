@@ -90,7 +90,7 @@ const OrderRow = ({ data }) => {
         </Data>
         <Data className="col-span-2">{`${firstName} ${lastName}`}</Data>
         <Data className="col-span-2">{`${barangay}, ${cityMunicipality}, ${province}`}</Data>
-        <Data className="col-span-1 text-my-accent">
+        <Data className="col-span-1 text-accent">
           ₱{formatPrice(orderTotal)}
         </Data>
         <Data className="col-span-1">

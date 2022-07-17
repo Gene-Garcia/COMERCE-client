@@ -86,7 +86,7 @@ const WithMe = () => {
       <LogisticTypeButtons />
 
       <div className="overflow-x-auto">
-        <div className="min-w-rr70">
+        <div className="min-w-[65rem]">
           <LogisticsTable />
         </div>
       </div>
@@ -138,12 +138,12 @@ const LogisticTypeButton = ({ id, name, onClick }) => {
   return (
     <button
       onClick={() => onClick(id)}
-      className="bg-my-white-tint rounded shadow
+      className="bg-white-tint rounded shadow
                 w-44 text-center py-1.5
                 text-sm font-semibold text-gray-500
                 border-b border-transparent
                 transition duration-150 ease-linear
-                hover:border-my-accent hover:text-my-accent
+                hover:border-accent hover:text-accent
                 active:bg-gray-100"
     >
       {name}

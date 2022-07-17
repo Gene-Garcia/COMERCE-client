@@ -17,11 +17,11 @@ function DesignedButton({ onClick, name }) {
   return (
     <button
       onClick={onClick}
-      className="px-5 py-2.5 bg-my-accent rounded shadow 
+      className="px-5 py-2.5 bg-accent rounded shadow 
       text-white text-center font-semibold 
       transition duration-200 ease-linear 
-      hover:bg-my-accent-mo     no 
-      active:ring active:ring-my-accent-mono active:ring-opacity-40"
+      hover:bg-accent-mo     no 
+      active:ring active:ring-accent-mono active:ring-opacity-40"
     >
       {name}
     </button>

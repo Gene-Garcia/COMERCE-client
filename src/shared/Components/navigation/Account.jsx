@@ -30,13 +30,13 @@ function UnAuthenticated({ bgType }) {
       login:
         "text-white rounded-full border border-transparent hover:border hover:border-white",
       signUp:
-        "text-my-accent bg-white rounded-full border border-white hover:bg-transparent hover:text-white",
+        "text-accent bg-white rounded-full border border-white hover:bg-transparent hover:text-white",
     },
     contrast: {
       login:
-        "text-my-accent border border-transparent hover:border-my-accent hover:shadow",
+        "text-accent border border-transparent hover:border-accent hover:shadow",
       signUp:
-        "text-my-accent shadow border border-my-accent hover:bg-my-accent hover:text-white",
+        "text-accent shadow border border-accent hover:bg-accent hover:text-white",
     },
   };
 
@@ -59,7 +59,7 @@ function Authenticated({ bgType }) {
   // const color = "text-white";
   const themes = {
     accent: "text-gray-50",
-    contrast: "text-my-accent",
+    contrast: "text-accent",
   };
 
   return (

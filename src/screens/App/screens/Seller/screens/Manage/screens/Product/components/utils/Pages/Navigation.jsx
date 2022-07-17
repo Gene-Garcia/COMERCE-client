@@ -41,7 +41,7 @@ function Button({ text, state, onClick }) {
       rounded px-2 py-1 
       transition duration-150 ease-linear 
       hover:bg-gray-200 hover:shadow-sm
-      active:text-my-accent"
+      active:text-accent"
         onClick={onClick}
       >
         {text}

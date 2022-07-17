@@ -6,7 +6,7 @@ function PrimaryButton({ value, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="bg-my-accent shadow text-white px-5 sm:px-7 lg:px-9 h-12 text-base font-semibold shadow-lg transition duration-300 hover:bg-my-accent-mono active:ring-4 active:ring-my-accent-mono active:ring-opacity-30"
+      className="bg-accent shadow text-white px-5 sm:px-7 lg:px-9 h-12 text-base font-semibold shadow-lg transition duration-300 hover:bg-accent-mono active:ring-4 active:ring-accent-mono active:ring-opacity-30"
     >
       {value}
     </button>
@@ -106,7 +106,7 @@ function ToLogin() {
   return (
     <Link
       to="/login/seller"
-      className="text-gray-400 text-sm transition ease-linear hover:text-my-accent"
+      className="text-gray-400 text-sm transition ease-linear hover:text-accent"
     >
       already have an account?
     </Link>

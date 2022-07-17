@@ -162,7 +162,7 @@ const OrderedProductsTable = ({ orderedProducts }) => {
       className="font-medium text-sm text-gray-600 bg-gray-300 rounded px-4 py-1
         transition duration-200 ease-linear
         hover:bg-gray-400 hover:text-white
-        active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-my-white-tone"
+        active:ring-2 active:ring-gray-300 active:ring-offset-2 active:ring-offset-white-tone"
     >
       Show Products
     </button>
@@ -172,7 +172,7 @@ const OrderedProductsTable = ({ orderedProducts }) => {
       <div className="text-right">
         <button
           onClick={() => setCollapse(false)}
-          className="py-1 px-1.5 bg-my-white-tone rounded 
+          className="py-1 px-1.5 bg-white-tone rounded 
             inline-flex gap-1 items-center 
             text-xs font-medium text-black
             transition duration-200 ease-linear

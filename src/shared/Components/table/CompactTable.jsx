@@ -2,7 +2,7 @@ import React from "react";
 
 // <table>
 const CompactTable = ({ children, elevate = "rounded-lg shadow-md" }) => {
-  return <div className={`bg-my-white-tint w-full ${elevate}`}>{children}</div>;
+  return <div className={`bg-white-tint w-full ${elevate}`}>{children}</div>;
 };
 
 // <head> <tr </tr> </head>

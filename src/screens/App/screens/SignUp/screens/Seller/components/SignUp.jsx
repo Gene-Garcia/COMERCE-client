@@ -18,7 +18,7 @@ function SignUp() {
 
   return (
     <div
-      className="h-screen bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint 
+      className="h-screen bg-gradient-to-bl from-accent via-accent-tone to-accent-tint 
                 flex items-center justify-center
                 p-2.5 sm:p-0"
     >

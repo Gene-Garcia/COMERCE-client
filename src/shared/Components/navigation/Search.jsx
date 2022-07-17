@@ -8,9 +8,9 @@ function Search({ bgType }) {
       button: "text-gray-50 ",
     },
     contrast: {
-      root: "focus-within:border-my-accent ",
+      root: "focus-within:border-accent ",
       input: "text-gray-700 ",
-      button: "text-my-accent",
+      button: "text-accent",
     },
   };
 

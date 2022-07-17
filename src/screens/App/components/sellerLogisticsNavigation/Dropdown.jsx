@@ -11,7 +11,7 @@ function Dropdown({ name, links }) {
         group-hover:block"
     >
       <div
-        className="w-full bg-my-white-tint mt-1
+        className="w-full bg-white-tint mt-1
           flex flex-col
           shadow rounded-md
           border border-gray-200"
@@ -41,7 +41,7 @@ function DropdownLink({ name, to, svg }) {
         rounded
         transition ease-linear
         hover:bg-gray-200
-        active:text-my-accent"
+        active:text-accent"
     >
       {svg}
 

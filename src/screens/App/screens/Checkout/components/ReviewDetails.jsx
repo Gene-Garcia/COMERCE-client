@@ -90,7 +90,7 @@ function ReviewDetails() {
       <ReviewBody title="Estimated Delivery Time">
         <p className="font-medium">
           Receive item by{" "}
-          <span className="text-my-accent">
+          <span className="text-accent">
             {`${formatDate(early, 1)} - ${formatDate(late, 1)}`}
           </span>
         </p>
@@ -109,7 +109,7 @@ function ReviewDetails() {
       <ReviewBody title="Payment Details">
         <p className="font-medium mb-2.5">
           Pay order with{" "}
-          <span className="text-my-accent">{methods[toggledPayment]}</span>
+          <span className="text-accent">{methods[toggledPayment]}</span>
         </p>
         {toggledPayment !== "COD" && (
           <span className="bg-gray-100 px-3 py-1.5 rounded-md">
@@ -131,7 +131,7 @@ function ReviewDetails() {
         <br />
         <div className="flex flex-row justify-between font-medium text-lg">
           <p>Grand Total (Incl. vat)</p>
-          <p className="text-my-accent">{`₱${formatPrice(grandTotal)}`}</p>
+          <p className="text-accent">{`₱${formatPrice(grandTotal)}`}</p>
         </div>
       </ReviewBody>
 

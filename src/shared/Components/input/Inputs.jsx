@@ -38,8 +38,8 @@ function EmbossedInput({
         valid: "border-transparent",
         invalid: "border-red-400",
       }}
-      focusWithin="focus-within:border-my-accent"
-      focus="focus:border-my-accent"
+      focusWithin="focus-within:border-accent"
+      focus="focus:border-accent"
       label={label}
       error={error}
       width={width}
@@ -80,8 +80,8 @@ function BorderedInput({
       icon={icon}
       inputStyle="py-1.5 px-2 rounded text-base"
       border="rounded border"
-      focusWithin="focus-within:border-my-accent"
-      focus="focus:border-my-accent" // only affects text-area input
+      focusWithin="focus-within:border-accent"
+      focus="focus:border-accent" // only affects text-area input
       label={label}
       labelObj={{ color: "text-gray-400 text-opacity-80" }}
       error={error}
@@ -124,8 +124,8 @@ function LinedInput({
       icon={icon}
       inputStyle=""
       border="border-b-2 p-0.5"
-      focus="focus:border-my-accent"
-      focusWithin="focus-within:border-my-accent"
+      focus="focus:border-accent"
+      focusWithin="focus-within:border-accent"
       label={label}
       error={error}
       errorObj={{}}

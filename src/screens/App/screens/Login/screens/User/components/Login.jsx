@@ -137,7 +137,7 @@ function Login({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -164,7 +164,7 @@ function Login({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -196,7 +196,7 @@ function Login({ history }) {
 
               <Link
                 to="/password/forgot"
-                className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+                className="text-accent text-sm font-medium transition ease-linear hover:text-gray-600"
               >
                 Forgot Password
               </Link>
@@ -245,7 +245,7 @@ const Hero = () => {
 
       <div
         className="w-thirty hidden lg:flex items-center justify-center 
-                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
+                 bg-gradient-to-br from-accent via-accent-tin to-accent-tone"
       >
         <div
           className="w-3/4 2xl:w-3/5 
@@ -257,7 +257,7 @@ const Hero = () => {
             className="w-full h-20 bg-white rounded-lg shadow-lg
                      flex items-center justify-center
                      font-serif text-lg
-                     text-my-accent font-semibold"
+                     text-accent font-semibold"
           >
             Browse Products
           </Link>

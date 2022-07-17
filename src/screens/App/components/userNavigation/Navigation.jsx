@@ -32,7 +32,7 @@ function Navigation() {
             <Link
               key={i}
               to={e.to}
-              className=" flex items-center text-sm font-semibold text-gray-500 transition duration-200 ease-linear hover:text-my-accent"
+              className=" flex items-center text-sm font-semibold text-gray-500 transition duration-200 ease-linear hover:text-accent"
             >
               {e.name}
             </Link>

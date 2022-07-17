@@ -3,9 +3,7 @@ import React from "react";
 // <table>
 const SpaciousTable = ({ children }) => {
   return (
-    <div className="bg-my-white-tint w-full rounded-lg shadow-md">
-      {children}
-    </div>
+    <div className="bg-white-tint w-full rounded-lg shadow-md">{children}</div>
   );
 };
 

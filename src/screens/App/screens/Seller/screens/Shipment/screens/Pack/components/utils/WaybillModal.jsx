@@ -94,13 +94,13 @@ function WaybillModal() {
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
-        <div className="bg-my-white-tint shadow-lg rounded-lg border border-my-accent border-opacity-30">
+        <div className="bg-white-tint shadow-lg rounded-lg border border-accent border-opacity-30">
           <div className="inline-flex justify-between w-full">
             <PrintModal printWayBill={updateOrderStatusAPI} />
             <CloseModal />
           </div>
 
-          <div className="h-waybill-height overflow-y-auto mx-3 mb-3 rounded">
+          <div className="h-[15cm] overflow-y-auto mx-3 mb-3 rounded">
             {waybills ? (
               <RenderWaybillContent waybills={waybills} ref={waybillsRef} />
             ) : (
@@ -133,7 +133,7 @@ const RenderWaybillContent = forwardRef(({ waybills }, ref) => {
 const WaybillContent = ({ order, business }) => {
   return (
     <div
-      className="h-waybill-height w-waybill-width 
+      className="h-[15cm] w-[10cm] 
                 grid grid-cols-3 auto-rows-auto 
                 divide-y divide-x divide-gray-400
                 border-r border-b border-gray-400 rounded"
@@ -158,7 +158,7 @@ function CloseModal() {
     <div className=" p-3">
       <button
         onClick={close}
-        className="py-1 px-1.5 bg-my-white-tone rounded 
+        className="py-1 px-1.5 bg-white-tone rounded 
                 inline-flex gap-1 items-center 
                 text-sm font-semibold text-black
                 transition duration-200 ease-linear
@@ -190,7 +190,7 @@ const PrintModal = ({ printWayBill }) => {
     <div className=" p-3 ">
       <button
         onClick={printWayBill}
-        className="py-1 px-1.5 bg-my-white-tone rounded 
+        className="py-1 px-1.5 bg-white-tone rounded 
               inline-flex gap-1 items-center 
               text-sm font-semibold text-black
               transition duration-200 ease-linear
@@ -199,7 +199,7 @@ const PrintModal = ({ printWayBill }) => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-my-accent"
+          className="h-5 w-5 text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

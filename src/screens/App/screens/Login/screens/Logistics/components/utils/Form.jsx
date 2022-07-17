@@ -111,7 +111,7 @@ const Form = () => {
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-my-accent mx-2"
+              className="h-5 w-5 text-accent mx-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -138,7 +138,7 @@ const Form = () => {
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-my-accent mx-2"
+              className="h-5 w-5 text-accent mx-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -170,7 +170,7 @@ const Form = () => {
 
           <Link
             to="/password/forgot"
-            className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+            className="text-accent text-sm font-medium transition ease-linear hover:text-gray-600"
           >
             Forgot Password
           </Link>
@@ -191,7 +191,7 @@ const Form = () => {
         <div className="text-center">
           <Link
             to="/sign-up/logistics"
-            className="text-sm font-medium text-gray-400 transition ease-linear hover:text-my-accent"
+            className="text-sm font-medium text-gray-400 transition ease-linear hover:text-accent"
           >
             Don't have an account?
           </Link>

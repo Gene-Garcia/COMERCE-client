@@ -131,7 +131,7 @@ const BusinessInformationCard = () => {
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-my-accent mx-2"
+                className="h-6 w-6 text-accent mx-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -158,7 +158,7 @@ const BusinessInformationCard = () => {
             border="py-1.5 border-b-2 rounded-t shadow"
             label="BUSINESS NAME"
             error={errors.businessName}
-            focusWithin="focus-within:border-my-accent"
+            focusWithin="focus-within:border-accent"
           />
 
           <InputFirst
@@ -170,7 +170,7 @@ const BusinessInformationCard = () => {
             border="py-1.5 border-b-2 rounded-t shadow"
             label="TAGLINE"
             error={errors.tagline}
-            focusWithin="focus-within:border-my-accent"
+            focusWithin="focus-within:border-accent"
           />
         </div>
       </div>

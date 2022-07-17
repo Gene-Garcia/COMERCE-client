@@ -186,7 +186,7 @@ const Personal = () => {
             error={errors.primaryNumber}
             width="w-full"
             icon={
-              <span className="mx-2 font-medium text-my-accent text-base">
+              <span className="mx-2 font-medium text-accent text-base">
                 +63
               </span>
             }
@@ -203,7 +203,7 @@ const Personal = () => {
             error={errors.secondaryNumber}
             width="w-full"
             icon={
-              <span className="mx-2 font-medium text-my-accent text-base">
+              <span className="mx-2 font-medium text-accent text-base">
                 +63
               </span>
             }

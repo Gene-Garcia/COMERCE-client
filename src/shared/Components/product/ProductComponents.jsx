@@ -26,7 +26,7 @@ function ProductPrice({ price, size }) {
   else theme = "text-lg";
 
   return (
-    <h3 className={`text-my-accent font-semibold text-opacity-80 ${theme}`}>
+    <h3 className={`text-accent font-semibold text-opacity-80 ${theme}`}>
       {`₱${formatPrice(price)}`}
     </h3>
   );
@@ -76,7 +76,7 @@ function ProductRating({ size, rating, style }) {
   const tempStyle = style ? style.toUpperCase() : "DEFAULT";
   let theme = {
     DEFAULT: {
-      rated: "text-my-accent",
+      rated: "text-accent",
       unrated: "text-gray-500",
     },
 
@@ -218,7 +218,7 @@ function ProductPurchase({ productId, size, style = "DEFAULT" }) {
         Icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-gray-600 group-hover:text-my-accent"
+            className="h-4 w-4 text-gray-600 group-hover:text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

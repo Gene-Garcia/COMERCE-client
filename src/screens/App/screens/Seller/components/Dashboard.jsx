@@ -104,7 +104,7 @@ function Card({ children, width, addOns, bgColor }) {
   return (
     <div
       className={`${width} p-6 rounded-md ${
-        bgColor ? bgColor : "bg-my-white-tint"
+        bgColor ? bgColor : "bg-white-tint"
       } ${addOns}`}
     >
       {children}

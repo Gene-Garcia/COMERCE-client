@@ -10,7 +10,7 @@ const OrderModal = () => {
   const products = modalOrder.orderedProducts;
 
   return (
-    <div className="w-rr36 overflow-hidden px-5 pb-5 space-y-6">
+    <div className="w-[36rem] overflow-hidden px-5 pb-5 space-y-6">
       {/* products scrollable */}
       <div className="flex flex-row gap-x-3 pb-3 overflow-x-auto">
         {products.map((product) => (
@@ -79,7 +79,7 @@ const Label = ({ full, title, value, accented }) => {
   return (
     <div className={full ? "w-full" : "w-1/2"}>
       <label className="text-xs text-gray-400 font-medium">{title}</label>
-      <p className={`${accented && "text-my-accent font-medium"}`}>{value}</p>
+      <p className={`${accented && "text-accent font-medium"}`}>{value}</p>
     </div>
   );
 };
@@ -99,9 +99,9 @@ const ProductCard = ({ product }) => {
       <div className="flex flex-col justify-between text-left w-full h-full p-1.5">
         <p className="font-medium text-gray-500">{info.item}</p>
         <p className="font-medium">
-          <span className="text-my-accent">{product.quantity}</span> piece(s)
+          <span className="text-accent">{product.quantity}</span> piece(s)
         </p>
-        <p className="text-right text-sm text-my-accent">
+        <p className="text-right text-sm text-accent">
           ₱{formatPrice(product.priceAtPoint)}
         </p>
       </div>

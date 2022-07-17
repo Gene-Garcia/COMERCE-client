@@ -27,7 +27,7 @@ function ProductCardLink({ data }) {
           <p className="text-sm md:text-md font-medium text-gray-500 mb-0">
             {item}
           </p>
-          <p className="text-my-accent text-sm md:text-md font-medium mb-0">{`₱${formatPrice(
+          <p className="text-accent text-sm md:text-md font-medium mb-0">{`₱${formatPrice(
             price
           )}`}</p>
         </div>
@@ -36,7 +36,7 @@ function ProductCardLink({ data }) {
           <p className="text-gray-400 text-xs md:text-sm mb-0">Order ID</p>
           <Link
             to={`/user/orders?oid=${orderId}`}
-            className="text-sm text-gray-500 transition duration-150 ease-linear hover:text-my-accent"
+            className="text-sm text-gray-500 transition duration-150 ease-linear hover:text-accent"
           >
             {orderId}
           </Link>
@@ -73,7 +73,7 @@ function ProductCardDisplay() {
               </p>
               <Link
                 to={`/user/orders?oid=${orderId}`}
-                className="text-gray-800 transition duration-150 ease-linear hover:text-my-accent"
+                className="text-gray-800 transition duration-150 ease-linear hover:text-accent"
               >
                 {orderId}
               </Link>

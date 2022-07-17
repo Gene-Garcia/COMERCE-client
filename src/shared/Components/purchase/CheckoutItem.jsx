@@ -28,7 +28,7 @@ function CheckoutItem({ data, editable }) {
   return (
     <div className="relative group">
       <div
-        className={`${removerPosition} z-20 w-full rounded bg-gradient-to-br from-my-accent via-my-accent-tone to-my-accent-tint opacity-0 transition duration-200 ease-linear group-hover:opacity-100 group-hover:bg-opacity-50`}
+        className={`${removerPosition} z-20 w-full rounded bg-gradient-to-br from-accent via-accent-tone to-accent-tint opacity-0 transition duration-200 ease-linear group-hover:opacity-100 group-hover:bg-opacity-50`}
       >
         <button
           onClick={() =>
