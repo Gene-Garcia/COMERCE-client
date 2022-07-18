@@ -6,13 +6,9 @@ import {
   triggerModalState,
   updateModaledOrder,
 } from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
-import { methods } from "../../../../../../../../../../shared/utils/payment";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 import axios from "../../../../../../../../../../shared/caller";
-import {
-  setMessage,
-  setSeverity,
-} from "../../../../../../../../../../redux/Alert/AlertAction";
+import { setMessages } from "../../../../../../../../../../redux/Alert/AlertAction";
 import { useHistory } from "react-router-dom";
 import {
   Data,
@@ -56,21 +52,22 @@ const OrderRow = ({ order }) => {
       })
       .catch((err) => {
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong. Please refresh the page and try again."
-              )
-            );
-          });
+          dispatch(
+            setMessages({
+              message:
+                "Something went wrong. Please refresh the page and try again.",
+              severity: "error",
+            })
+          );
         else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages({
+              message: err.response.data.error,
+              severity: "error",
+            })
+          );
       });
   }
 
@@ -87,31 +84,31 @@ const OrderRow = ({ order }) => {
     await axios
       .patch("/api/seller/logistics/ship", { orders: [data] })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           batch(() => {
-            dispatch(setSeverity("information"));
-            dispatch(setMessage(res.data.message));
+            dispatch(setMessages(res.data.messages));
             dispatch(toggleReload());
           });
         }
       })
       .catch((err) => {
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong. Please refresh the page and try again."
-              )
-            );
-          });
+          dispatch(
+            setMessages({
+              message:
+                "Something went wrong. Please refresh the page and try again.",
+              severity: "error",
+            })
+          );
         else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages({
+              message: err.response.data.error,
+              severity: "error",
+            })
+          );
       });
   }
 
