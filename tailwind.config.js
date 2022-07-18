@@ -5,9 +5,9 @@ module.exports = {
     "./public/index.html",
 
     // Shared folder
-    "./src/shared/**/*.{tsx,jsx}",
-    "./src/shared/**/**/*.{tsx,jsx}",
-    "./src/shared/**/**/**/*.{tsx,jsx}",
+    "./src/shared/**/*.{tsx,jsx,js,ts}",
+    "./src/shared/**/**/*.{tsx,jsx,js,ts}",
+    "./src/shared/**/**/**/*.{tsx,jsx,js,ts}",
 
     // "/components/*.{tsx,jsx}",
     // "/components/**/*.{tsx,jsx}",
@@ -16,59 +16,59 @@ module.exports = {
     // "/components/**/**/**/**/*.{tsx,jsx}",
 
     // App directories
-    "./src/screens/App/components/*.{tsx,jsx}",
-    "./src/screens/App/components/**/*.{tsx,jsx}",
-    "./src/screens/App/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // App screns
     // "./src/screens/App/screens/**/components---",
-    "./src/screens/App/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // Level 1 App screens
     // "./src/screens/App/screens/**/screens/**/components---",
-    "./src/screens/App/screens/**/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // Level 2 App screens
     // "./src/screens/App/screens/**/screens/**/screens/**/components---",
-    "./src/screens/App/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // Level 3 App screens
     // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components---",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // Level 4 App screens
     // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components--",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
 
     // Fallback Level 5 App screens - No component has reached this
     // "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx}",
-    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/*.{tsx,jsx,js,ts}",
+    "./src/screens/App/screens/**/screens/**/screens/**/screens/**/screens/**/screens/**/components/**/**/**/**/*.{tsx,jsx,js,ts}",
   ],
   // darkMode: false, // other values 'media' and 'class'
   theme: {
