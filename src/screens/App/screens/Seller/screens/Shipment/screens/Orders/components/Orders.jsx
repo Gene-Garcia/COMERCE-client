@@ -7,6 +7,7 @@ import axios from "../../../../../../../../../shared/caller";
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import {
@@ -149,31 +150,32 @@ const ShipSelectedButton = () => {
     await axios
       .patch("/api/seller/logistics/ship", { orders: data })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           batch(() => {
-            dispatch(setSeverity("information"));
-            dispatch(setMessage(res.data.message));
+            dispatch(togglePageLoading(true));
+            dispatch(setMessages(res.data.messages));
             dispatch(toggleReload());
           });
         }
       })
       .catch((err) => {
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong. Please refresh the page and try again."
-              )
-            );
-          });
+          dispatch(
+            setMessages({
+              message:
+                "Something went wrong. Please refresh the page and try again.",
+              severity: "error",
+            })
+          );
         else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages({
+              message: err.response.data.error,
+              severity: "error",
+            })
+          );
       });
   }
 

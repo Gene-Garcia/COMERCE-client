@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { batch, useDispatch } from "react-redux";
 import {
   checkThisOrder,
+  togglePageLoading,
   toggleReload,
   triggerModalState,
   updateModaledOrder,
@@ -87,6 +88,7 @@ const OrderRow = ({ order }) => {
         if (res.status === 201) {
           batch(() => {
             dispatch(setMessages(res.data.messages));
+            dispatch(togglePageLoading(true));
             dispatch(toggleReload());
           });
         }
