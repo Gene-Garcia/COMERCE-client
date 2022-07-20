@@ -5,6 +5,7 @@ const initial = {
   logistics: [],
   logisticsType: logisticsType.SELLER_PICK_UP,
   isLoading: true,
+  reload: false, // only for toggle
 };
 
 const withMeReducer = (state = initial, { type, payload }) => {
@@ -40,6 +41,12 @@ const withMeReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         logisticsType: payload,
+      };
+
+    case types.TOGGLE_RELOAD:
+      return {
+        ...state,
+        reload: !state.reload,
       };
 
     case types.RESET_TO_DEFAULT:

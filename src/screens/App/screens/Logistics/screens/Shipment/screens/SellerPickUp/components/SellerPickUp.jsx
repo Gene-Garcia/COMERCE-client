@@ -3,7 +3,7 @@ import { LogisticsContainer } from "../../../../../../../../../shared/Components
 import { LogisticsTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import PickUpTable from "./table/PickUpTable";
 import { useHistory } from "react-router-dom";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import axios from "../../../../../../../../../shared/caller";
 import {
   loadForPickUpOrders,
@@ -21,6 +21,9 @@ const SellerPickUp = () => {
 
   // redux
   const dispatch = useDispatch();
+
+  // with me redux states
+  const reload = useSelector((s) => s.WITH_ME.reload);
 
   //#region API request to get for pick up orders
   useEffect(() => {
@@ -60,7 +63,7 @@ const SellerPickUp = () => {
     }
 
     requestForPickUpProducts();
-  }, []);
+  }, [reload]);
   //#endregion API request
 
   // cleanup

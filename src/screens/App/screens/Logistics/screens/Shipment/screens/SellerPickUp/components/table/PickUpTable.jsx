@@ -39,9 +39,17 @@ const RenderProductRows = () => {
   // seller pick up redux state
   const products = useSelector((state) => state.SELLER_PICK_UP.products);
 
-  return Object.entries(products).map(([k, v]) => (
-    <ProductRow key={k} businessId={k} product={v} />
-  ));
+  return products && products.length > 0 ? (
+    Object.entries(products).map(([k, v]) => (
+      <ProductRow key={k} businessId={k} product={v} />
+    ))
+  ) : (
+    <Row grid="grid-cols-1">
+      <Data className="col-span-1 text-center py-9 font-medium text-gray-800">
+        No pending orders for pick up.
+      </Data>
+    </Row>
+  );
 
   // return products.map((product) => <ProductRow key={order._id} order={order} />);
 };

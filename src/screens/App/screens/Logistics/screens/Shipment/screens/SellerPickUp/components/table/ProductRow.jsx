@@ -3,8 +3,13 @@ import { batch, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
+import {
+  toggleLoading,
+  toggleReload,
+} from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import axios from "../../../../../../../../../../shared/axios";
 import {
   Data,
@@ -36,34 +41,43 @@ const ProductRow = ({
   // redux
   const dispatch = useDispatch();
 
-  //#region API to PACK ORDER
-  const PackOrderAPI = async () => {
-    console.log("Requesting");
-    console.log(product);
+  //#region API to PICK UP ORDER
+  const PickUpOrderAPI = async () => {
     await axios
       .post("/api/logistics/orders/pick-up", {
         products: { [businessId]: product },
       })
       .then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setMessages(res.data.messages));
+            dispatch(toggleLoading(true));
+            dispatch(toggleReload());
+          });
+        }
       })
       .catch((err) => {
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong in retrieving your orders. Refresh your browser or try again later."
-              )
-            );
-          });
+          dispatch(
+            setMessages([
+              {
+                message:
+                  "Something went wrong in retrieving your orders. Try again",
+                severity: "error",
+              },
+            ])
+          );
         else if (err.response.status === 403) history.push("/forbidden");
         else if (err.response.status === 401) history.push("unathorized");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
       });
   };
   //#endregion
@@ -100,7 +114,7 @@ const ProductRow = ({
               text="Show Parcels"
               onClick={() => setCollapsed((prev) => !prev)}
             />
-            <Action type="BUTTON" text="Pick Up" onClick={PackOrderAPI} />
+            <Action type="BUTTON" text="Pick Up" onClick={PickUpOrderAPI} />
           </ActionGroup>
         </Data>
       </Row>
