@@ -6,7 +6,7 @@ import {
   toggleReload,
   triggerModalState,
   updateModaledOrder,
-} from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
+} from "../../../../../../../../../../redux/Seller/ShipOrders/ShipOrdersAction";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 import axios from "../../../../../../../../../../shared/caller";
 import { setMessages } from "../../../../../../../../../../redux/Alert/AlertAction";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAllOrders } from "../../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
+import { checkAllOrders } from "../../../../../../../../../../redux/Seller/ShipOrders/ShipOrdersAction";
 import SpaciousTable, {
   Body,
   Data,

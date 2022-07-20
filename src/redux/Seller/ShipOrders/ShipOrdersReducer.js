@@ -1,4 +1,4 @@
-import { shopOrdersActionTypes as types } from "./ShopOrdersAction";
+import { shipOrdersActionTypes as types } from "./ShipOrdersAction";
 
 const initial = {
   pendingOrders: [],

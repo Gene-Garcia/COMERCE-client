@@ -17,7 +17,7 @@ import {
   toggleReload,
   triggerModalState,
   updateModaledOrder,
-} from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
+} from "../../../../../../../../../redux/Seller/ShipOrders/ShipOrdersAction";
 import ModalContainer from "../../../../../../../../../shared/Modal/ModalContainer";
 import OrderModal from "./utils/OrderModal";
 import { useHistory } from "react-router-dom";
