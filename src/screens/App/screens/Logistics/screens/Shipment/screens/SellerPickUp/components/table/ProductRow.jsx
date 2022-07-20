@@ -7,6 +7,10 @@ import {
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
 import {
+  toggleAllProductChecked,
+  toggleProductChecked,
+} from "../../../../../../../../../../redux/Logistics/SellerPickUp/SellerPickUpAction";
+import {
   toggleLoading,
   toggleReload,
 } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
@@ -83,7 +87,10 @@ const ProductRow = ({
   //#endregion
 
   // checkbox change
-  const checkboxChange = (e) => {};
+  const checkboxChange = (e) => {
+    console.log(e.target.checked);
+    dispatch(toggleProductChecked(businessId, e.target.checked));
+  };
 
   return (
     <>

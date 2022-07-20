@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAllProductChecked } from "../../../../../../../../../../redux/Logistics/SellerPickUp/SellerPickUpAction";
 import SpaciousTable, {
   Body,
   Data,
@@ -14,11 +15,18 @@ const PickUpTable = () => {
   // seller pick up order redux state
   const isLoading = useSelector((state) => state.SELLER_PICK_UP.isLoading);
 
+  //#region checkbox configuration
+  // redux
+  const dispatch = useDispatch();
+  const checkboxChange = (e) =>
+    dispatch(toggleAllProductChecked(e.target.checked));
+  //#endregion
+
   return (
     <SpaciousTable>
       <Head grid="grid-cols-14">
         <Heading className="col-span-1 text-center">
-          <input type="checkbox" className="" />
+          <input type="checkbox" className="" onChange={checkboxChange} />
         </Heading>
         <Heading className="col-span-1">Business ID</Heading>
         <Heading className="col-span-3">Pick Up Address</Heading>

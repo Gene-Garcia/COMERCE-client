@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import CompactTable, {
   Body,
   Data,
@@ -22,7 +22,7 @@ const CollapseParcelRow = ({ orders }) => {
             {Object.entries(orders).map(([key, products]) => (
               <Row key={key} grid="grid-cols-4">
                 {products.map((product) => (
-                  <>
+                  <Fragment key={product.productId}>
                     <Data className={`col-span-1 break-all text-xs font-light`}>
                       {key}
                     </Data>
@@ -30,7 +30,7 @@ const CollapseParcelRow = ({ orders }) => {
                       {product.productId}
                     </Data>
                     <Data className="col-span-2">{product.itemName}</Data>
-                  </>
+                  </Fragment>
                 ))}
               </Row>
             ))}
