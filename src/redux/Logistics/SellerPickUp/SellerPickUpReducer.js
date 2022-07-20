@@ -12,7 +12,7 @@ import { sellerPickUpRegistrationTypes as types } from "./SellerPickUpAction";
  *    checked: bool
  * }
  */
-const initial = { products: {}, isLoading: true };
+const initial = { products: null, isLoading: true };
 
 const sellerPickUpReducer = (state = initial, { type, payload }) => {
   switch (type) {

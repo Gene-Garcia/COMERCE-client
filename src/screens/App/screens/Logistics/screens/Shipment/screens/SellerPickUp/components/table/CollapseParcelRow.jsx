@@ -21,16 +21,11 @@ const CollapseParcelRow = ({ orders }) => {
           <Body>
             {Object.entries(orders).map(([key, products]) => (
               <Row key={key} grid="grid-cols-4">
-                <Data
-                  className={`col-span-1 break-all text-xs font-light ${
-                    "row-span-" + products.length
-                  }`}
-                >
-                  {key}
-                </Data>
-
                 {products.map((product) => (
                   <>
+                    <Data className={`col-span-1 break-all text-xs font-light`}>
+                      {key}
+                    </Data>
                     <Data className="col-span-1 break-all text-xs font-light">
                       {product.productId}
                     </Data>

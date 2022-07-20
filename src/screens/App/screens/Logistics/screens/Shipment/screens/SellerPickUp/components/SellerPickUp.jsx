@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import { batch, useDispatch, useSelector } from "react-redux";
 import axios from "../../../../../../../../../shared/caller";
 import {
-  loadForPickUpOrders,
   loadForPickUpProducts,
   resetToDefault,
   togglePageLoading,
@@ -31,6 +30,7 @@ const SellerPickUp = () => {
       await axios
         .get("/api/logistics/for-pick-up")
         .then((res) => {
+          console.log(res);
           if (res.status === 200) {
             batch(() => {
               dispatch(loadForPickUpProducts(res.data.forPickUpProducts));

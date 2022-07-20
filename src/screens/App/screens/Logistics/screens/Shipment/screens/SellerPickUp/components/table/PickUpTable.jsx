@@ -39,7 +39,9 @@ const RenderProductRows = () => {
   // seller pick up redux state
   const products = useSelector((state) => state.SELLER_PICK_UP.products);
 
-  return products && products.length > 0 ? (
+  console.log(products);
+
+  return products ? (
     Object.entries(products).map(([k, v]) => (
       <ProductRow key={k} businessId={k} product={v} />
     ))
