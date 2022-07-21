@@ -153,17 +153,17 @@ function FileInput({ name, label, helper, onChange, value, error }) {
 
   return (
     <div>
-      <label for="name" className="font-medium text-gray-400 text-sm">
+      <label htmlFor="name" className="font-medium text-gray-400 text-sm">
         {label}
       </label>
 
       <div className="flex flex-col xs:flex-row gap-3">
         <label
-          class="flex flex-col items-center w-max
+          className="flex flex-col items-center w-max
         rounded-md shadow border border-accent px-8 py-2.5 
-        text-gray-700 cursor-pointer 
+        text-slate-600 cursor-pointer 
         transition duration-200 ease-linear
-        hover:bg-accent hover:text-white"
+        hover:bg-accent/10"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -45,19 +45,19 @@ function Step({ name, id }) {
     TOGGLED: {
       circle: "bg-accent",
       number: "text-white",
-      sub: "text-black",
+      sub: "text-neutral-600",
     },
 
     IDLE: {
       circle: "bg-white",
       number: "text-gray-500",
-      sub: "text-gray-300",
+      sub: "text-neutral-400",
     },
 
     VISITED: {
       circle: "bg-accent",
       number: "text-white",
-      sub: "text-gray-700 ",
+      sub: "text-neutral-400 ",
     },
   };
 
@@ -70,13 +70,16 @@ function Step({ name, id }) {
       <div
         className={`h-9 w-9 rounded-full bg-white
                   border border-accent
-                  flex items-center justify-center`}
+                  flex items-center justify-center
+                  `}
       >
         <span
           className={`h-7 w-7 rounded-full 
         ${theme[status].circle} 
         flex items-center justify-center
-        text-sm font-bold ${theme[status].number}`}
+        text-sm font-bold ${theme[status].number}
+        transition duration-200 ease-linear
+        group-hover:ring-2 group-hover:ring-accent/50`}
         >
           {id}
         </span>
@@ -84,9 +87,9 @@ function Step({ name, id }) {
 
       <p
         className={`${theme[status].sub} mb-0
-        text-base md:text-md font-medium 
+        texd-sm font-medium  
         transition duration-150 
-        group-hover:text-accent`}
+        group-hover:text-neutral-500`}
       >
         {name}
       </p>

@@ -33,7 +33,7 @@ function TermsOfAgreement() {
       className="flex flex-col justify-between 
       gap-6 md:gap-7 xl:gap-8"
     >
-      <div className="h-96 whitespace-pre-line overflow-y-scroll bg-gray-100 p-1.5 rounded">
+      <div className="h-96 whitespace-pre-line overflow-y-scroll bg-slate-50 p-2 rounded-md border border-neutral-200">
         <p className="text-base text-black">{termsOfAgreement}</p>
       </div>
 
