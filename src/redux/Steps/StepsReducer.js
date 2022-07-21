@@ -16,24 +16,35 @@ const initial = {
 const stepsReducer = (state = initial, { type, payload }) => {
   switch (type) {
     case types.INITIALIZE_STEPS:
-      return { ...state, lowest: payload.lowest, highest: payload.highest };
+      return {
+        ...state,
+        lowest: payload.lowest,
+        highest: payload.highest,
+        active: payload.initialStep,
+        visited: payload.initialStep,
+      };
 
     case types.PROCEED_TO_NEXT_STEP:
-      const newStep = state.visited + 1;
-      if (isBetween(newStep, state.lowest, state.highest))
-        return {
-          ...state,
-          visited: newStep,
-          active: newStep,
-        };
-      else return { ...state };
+      if (isBetween(payload, state.lowest, state.highest)) {
+        if (payload <= state.visited) {
+          // The button could have been clicked again after backtracking a step
+          return { ...state, active: payload };
+        } else {
+          // the previos step is complete and new step will be opened
+          return { ...state, visited: payload, active: payload };
+        }
+      }
+
+      return { ...state };
 
     case types.CHECKOUT_STEP:
       if (isBetween(payload, state.lowest, state.highest)) {
+        // the passed step number to be opened must be valid
         if (payload <= state.visited) {
+          // opening/toggling a step must already be visited
           return { ...state, active: payload };
-        } // step to be checked is not yet visited
-      } // out of bounds step to be checked out
+        }
+      }
       return { ...state };
 
     case types.RESET_TO_DEFAULT:
