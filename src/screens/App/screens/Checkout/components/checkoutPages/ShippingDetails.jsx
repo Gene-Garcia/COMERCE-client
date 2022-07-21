@@ -1,17 +1,22 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
-import { useForm } from "../../../../../hooks/useForm";
-import { BorderedInput } from "../../../../../shared/Components/input/Inputs";
-import { ShippingCTA } from "./utils/CallToAction";
 import {
   loadShippingDetails,
   nextStep,
-} from "../../../../../redux/Checkout/CheckoutAction";
+} from "../../../../../../redux/Checkout/CheckoutAction";
+
+import { useForm } from "../../../../../../hooks/useForm";
+
+import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
+import { ShippingCTA } from "../utils/CallToAction";
+import LinedTitle from "../../../../../../shared/Components/purchase/LinedTitle";
 
 function ShippingDetails() {
   // redux
   const dispatch = useDispatch();
 
+  //#region form configuration
   // Form submit
   async function saveShippingDetails() {
     batch(() => {
@@ -89,10 +94,11 @@ function ShippingDetails() {
     validate,
     saveShippingDetails
   );
+  //#endregion
 
   return (
-    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-4 sm:gap-y-8">
-      <p className="text-lg text-gray-600 font-medium">Shipping Details</p>
+    <div className="rounded-md shadow-md p-6 flex flex-col gap-y-4 sm:gap-y-8">
+      <LinedTitle title="Shipping Details" />
 
       {/* form for shipping information */}
       <>

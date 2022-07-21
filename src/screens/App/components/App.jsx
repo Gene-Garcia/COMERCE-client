@@ -88,7 +88,7 @@ const AppContent = memo(() => {
 
   return (
     <div
-      className={`h-full ${
+      className={`${
         withSellerNavigation.includes(pathname) ||
         withLogisticsNavigation.includes(pathname)
           ? "flex  flex-col md:flex-row bg-white-tone"

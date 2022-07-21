@@ -9,6 +9,7 @@ import { BorderedInput } from "../../../../../../shared/Components/input/Inputs"
 import { PaymentCTA } from "../utils/CallToAction";
 
 function CreditCard() {
+  //#region form configuration
   // redux
   const dispatch = useDispatch();
 
@@ -86,6 +87,7 @@ function CreditCard() {
     validate,
     loadCreditCard
   );
+  //#endregion
 
   return (
     <div className="space-y-8">

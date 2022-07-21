@@ -43,29 +43,27 @@ function PayPal() {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-6">
-        <p className="">
-          Payment through{" "}
-          <span className="text-accent font-semibold text-md">PayPal</span> will
-          require you to login to your valid
-          <span className="text-accent font-semibold text-md">
-            {" "}
-            PayPal account
-          </span>
-          .
-        </p>
+      <p className="">
+        Payment through{" "}
+        <span className="text-accent font-semibold text-md">PayPal</span>{" "}
+        requires you to login to your valid
+        <span className="text-accent font-semibold text-md">
+          {" "}
+          PayPal account
+        </span>
+        .
+      </p>
 
-        <BorderedInput
-          label="PayPal Email"
-          type="email"
-          placeholder="Enter your valid and active PayPal email"
-          name="payPalEmail"
-          className="w-3/4"
-          onChange={handleInput}
-          value={values.payPalEmail}
-          error={errors.payPalEmail}
-        />
-      </div>
+      <BorderedInput
+        label="PayPal Email"
+        type="email"
+        placeholder="Enter your valid and active PayPal email"
+        name="payPalEmail"
+        className="w-3/4"
+        onChange={handleInput}
+        value={values.payPalEmail}
+        error={errors.payPalEmail}
+      />
 
       <PaymentCTA submit={handleFormSubmit} type="PP" />
     </div>

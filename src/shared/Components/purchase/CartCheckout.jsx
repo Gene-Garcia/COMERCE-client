@@ -4,6 +4,7 @@ import { prepareUrlForProducts } from "../../Route/urlParser";
 import { formatPrice } from "../../utils/price";
 import { FormButton } from "../button/ButtonBase";
 import CheckoutItem from "./CheckoutItem";
+import LinedTitle from "./LinedTitle";
 
 /*
  * The CartCheckout component will hold the current checkouted product which can be
@@ -20,22 +21,20 @@ import CheckoutItem from "./CheckoutItem";
  */
 function CartCheckout({ editable }) {
   return (
-    <>
-      <p className="text-lg text-gray-600 font-medium">Checkout Summary</p>
+    <div className="p-6 shadow rounded flex flex-col gap-3 sm:gap-4 md:gap-7 lg:gap-8 2xl:gap-10">
+      <LinedTitle title="Checkout Summary" />
 
       {/* items */}
-      <div className="mt-6 flex flex-col gap-y-3">
+      <div className="space-y-3">
         <RenderCheckoutItems editable={editable} />
       </div>
 
-      <>
-        <CheckoutPrices />
-      </>
+      <CheckoutPrices />
 
-      <div className={`${editable ? "flex" : "hidden"} mt-8`}>
+      <div className={`${editable ? "flex" : "hidden"}`}>
         <CheckoutCTAContainer />
       </div>
-    </>
+    </div>
   );
 }
 export default CartCheckout;
@@ -61,9 +60,8 @@ const CheckoutPrices = () => {
   const shippingFee = useSelector((state) => state.SHOPPING_CART.shippingFee);
 
   return (
-    <div>
-      <div className="my-7 border-b border-3 border-gray-300"></div>
-      <div className="">
+    <>
+      <div className="border-b border-t border-gray-300 py-3">
         {/* sub total */}
         <div className="flex flex-row justify-between items-center text-base">
           <p className="text-gray-400 font-regular">Sub Total</p>
@@ -80,7 +78,7 @@ const CheckoutPrices = () => {
           )}`}</p>
         </div>
       </div>
-      <div className="my-7 border-b border-3 border-gray-300"></div>
+
       <div className="flex flex-row justify-between items-center">
         <div>
           <p className="text-lg font-medium text-gray-700">Grand Total</p>
@@ -93,7 +91,7 @@ const CheckoutPrices = () => {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

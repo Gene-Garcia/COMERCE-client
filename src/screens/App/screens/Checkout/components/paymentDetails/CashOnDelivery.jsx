@@ -23,7 +23,7 @@ function CashOnDelivery() {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-3 font-regular">
+      <div className="space-y-3.5 font-regular">
         <p>
           You have selected
           <span className="font-semibold text-accent"> cash-on-delivery </span>

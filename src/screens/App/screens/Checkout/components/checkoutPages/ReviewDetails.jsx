@@ -1,24 +1,30 @@
 import React, { useState } from "react";
-import { formatDate } from "../../../../../shared/utils/date";
-import {
-  displayPaymentInfo,
-  methods,
-} from "../../../../../shared/utils/payment";
-import { formatPrice } from "../../../../../shared/utils/price";
-import { getShipmentETAs } from "../../../../../shared/utils/shipping";
-import { ReviewCTA } from "./utils/CallToAction";
-import axios from "../../../../../shared/caller";
 import { useHistory } from "react-router";
+
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
   setSeverity,
-} from "../../../../../redux/Alert/AlertAction";
+} from "../../../../../../redux/Alert/AlertAction";
+
+import axios from "../../../../../../shared/axios";
+
+import { formatDate } from "../../../../../../shared/utils/date";
+import {
+  displayPaymentInfo,
+  methods,
+} from "../../../../../../shared/utils/payment";
+import { formatPrice } from "../../../../../../shared/utils/price";
+import { getShipmentETAs } from "../../../../../../shared/utils/shipping";
+
+import { ReviewCTA } from "../utils/CallToAction";
+import LinedTitle from "../../../../../../shared/Components/purchase/LinedTitle";
 
 function ReviewDetails() {
   // history
   const history = useHistory();
 
+  //#region redux configurations
   // redux
   const dispatch = useDispatch();
 
@@ -33,6 +39,7 @@ function ReviewDetails() {
   const subTotal = useSelector((s) => s.SHOPPING_CART.subTotal);
   const grandTotal = useSelector((s) => s.SHOPPING_CART.grandTotal);
   const cartItems = useSelector((s) => s.SHOPPING_CART.cartItems);
+  //#endregion
 
   // helper method to get 5-7 day estimation of delivery date.
   const [early, late] = getShipmentETAs();
@@ -40,7 +47,7 @@ function ReviewDetails() {
   // loading state
   const [loading, setLoading] = useState(false);
 
-  // API request to current checkout
+  //#region API request to current checkout
   async function placeOrder() {
     // when we place order place order button will be loading and unclickable
     setLoading(true);
@@ -84,10 +91,15 @@ function ReviewDetails() {
           });
       });
   }
+  //#endregion
 
   return (
-    <div className="rounded-md shadow-md py-4 px-5 flex flex-col gap-y-8">
-      <ReviewBody title="Estimated Delivery Time">
+    <div className="rounded-md shadow p-6 grid grid-cols-2 gap-6 md:gap-8">
+      <div className="col-span-2">
+        <LinedTitle title="Review Checkout" />
+      </div>
+
+      <ReviewBody className="col-span-2" title="Estimated Delivery Time">
         <p className="font-medium">
           Receive item by{" "}
           <span className="text-accent">
@@ -96,7 +108,7 @@ function ReviewDetails() {
         </p>
       </ReviewBody>
 
-      <ReviewBody title="Shipping Address">
+      <ReviewBody className="col-span-2 sm:col-span-1" title="Shipping Address">
         <p>{`Ship to ${shippingDetails.firstName} ${shippingDetails.lastName}`}</p>
         <p>{shippingDetails.streetAddress}</p>
         <p>
@@ -106,7 +118,7 @@ function ReviewDetails() {
         <p>Zip Code</p>
       </ReviewBody>
 
-      <ReviewBody title="Payment Details">
+      <ReviewBody className="col-span-2 sm:col-span-1" title="Payment Details">
         <p className="font-medium mb-2.5">
           Pay order with{" "}
           <span className="text-accent">{methods[toggledPayment]}</span>
@@ -118,7 +130,7 @@ function ReviewDetails() {
         )}
       </ReviewBody>
 
-      <ReviewBody title="Summary">
+      <ReviewBody className="col-span-2" title="Summary">
         <div className="flex flex-row justify-between font-medium">
           <p className="text-gray-500">Subtotal before shipping fee</p>
           <p>{`₱${formatPrice(subTotal)}`}</p>
@@ -135,17 +147,22 @@ function ReviewDetails() {
         </div>
       </ReviewBody>
 
-      {/* CTA of review */}
-      <ReviewCTA submit={placeOrder} loading={loading} />
+      <div className="col-span-2">
+        {/* CTA of review */}
+        <ReviewCTA submit={placeOrder} loading={loading} />
+      </div>
     </div>
   );
 }
 export default ReviewDetails;
 
-function ReviewBody({ title, children }) {
+function ReviewBody({ title, children, className }) {
   return (
-    <div className="space-y-3">
-      <p className="bg-gray-100 rounded-sm px-2 py-1 text-md font-semibold text-gray-500">
+    <div className={`space-y-2.5 ${className}`}>
+      <p
+        className="bg-neutral-100 rounded-sm px-2 py-1 
+            text-md font-semibold text-neutral-500"
+      >
         {title}
       </p>
 

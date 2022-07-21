@@ -1,18 +1,9 @@
 import React, { useEffect } from "react";
-import axios from "../../../../../shared/caller";
-import Title from "../../../../../shared/Components/pages/Title";
-import useQuery from "../../../../../hooks/useQuery";
-import CartCheckout from "../../../../../shared/Components/purchase/CartCheckout";
-import Container from "../../../../../shared/Components/pages/Container";
-import StepIndicators from "./utils/StepIndicators";
-import ShippingDetails from "./ShippingDetails";
-import PaymentDetails from "./PaymentDetails";
-import ReviewDetails from "./ReviewDetails";
-import { parseUrlForProducts } from "../../../../../shared/Route/urlParser";
-import Loading from "../../../../../shared/Loading/Loading";
+
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../redux/Alert/AlertAction";
 import { resetToDefault as resetCheckoutToDefault } from "../../../../../redux/Checkout/CheckoutAction";
@@ -22,6 +13,21 @@ import {
   setLoading as setShoppingCartLoading,
   resetToDefault as resetShoppingCartToDefault,
 } from "../../../../../redux/ShoppingCart/ShoppingCartAction";
+
+import useQuery from "../../../../../hooks/useQuery";
+
+import axios from "../../../../../shared/axios";
+
+import Title from "../../../../../shared/Components/pages/Title";
+import Container from "../../../../../shared/Components/pages/Container";
+import StepIndicators from "./utils/StepIndicators";
+import CheckoutSummary from "./utils/CheckoutSummary";
+
+import ShippingDetails from "./checkoutPages/ShippingDetails";
+import PaymentDetails from "./checkoutPages/PaymentDetails";
+import ReviewDetails from "./checkoutPages/ReviewDetails";
+
+import { parseUrlForProducts } from "../../../../../shared/Route/urlParser";
 
 /*
  * The checkout method is able to receive checkouted product through the url parameter.
@@ -39,9 +45,6 @@ import {
 function Checkout({ history }) {
   // redux
   const dispatch = useDispatch();
-
-  // redux shopping cart reducer and states
-  const shoppingCartLoading = useSelector((s) => s.SHOPPING_CART.loading);
 
   // to get URL stored in product id
   const query = useQuery();
@@ -61,10 +64,18 @@ function Checkout({ history }) {
           }
         })
         .catch((err) => {
-          console.error(err);
           if (!err.response)
             batch(() => {
               dispatch(setShoppingCartLoading(false));
+              dispatch(
+                setMessages([
+                  {
+                    message: "",
+                    severity: "",
+                  },
+                ])
+              );
+
               dispatch(setSeverity("error"));
               dispatch(setMessage("Something went wrong. Please try again."));
             });
@@ -104,49 +115,15 @@ function Checkout({ history }) {
       <Title title="Checkout" />
 
       <Container>
-        <div className="flex flex-col lg:flex-row justify-between w-full gap-x-12 gap-y-8">
-          {/* steps are: shipping, payment, and review */}
-          <div className="w-full lg:w-3/5 space-y-8">
-            <div className="flex flex-row items-center gap-x-7">
-              <p className="text-lg text-gray-600 font-medium">
-                Checkout Details
-              </p>
-
-              <p className="flex flex-row items-center gap-x-1 text-gray-400 font-medium ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                </svg>
-                <span>Your data is protected</span>
-              </p>
-            </div>
-
-            <div>
-              <StepIndicators />
-            </div>
-
-            <div>
-              <CheckoutStepsContainer />
-            </div>
+        <div className="grid grid-cols-12 lg:grid-rows-12 grid-flow-row lg:grid-flow-col gap-4 md:gap-5 xl:gap-8 2xl:gap-12">
+          <div className="order-1 col-span-12 lg:col-span-7 xl:col-span-8 lg:row-span-1">
+            <StepIndicators />
           </div>
-
-          {/* checkout summary */}
-          <div className="lg:sticky lg:top-3 w-full lg:w-2/5 place-self-start rounded-lg shadow-lg p-8">
-            {shoppingCartLoading ? (
-              <Loading />
-            ) : (
-              <CartCheckout editable={false} />
-            )}
+          <div className="order-3 lg:order-2 col-span-12 lg:col-span-7 xl:col-span-8 lg:row-span-11">
+            <CheckoutStepsContainer />
+          </div>
+          <div className="order-2 lg:order-3 col-span-12 lg:col-span-5 xl:col-span-4 lg:row-span-3">
+            <CheckoutSummary />
           </div>
         </div>
       </Container>
@@ -162,20 +139,9 @@ const CheckoutStepsContainer = () => {
 
   return (
     <>
-      {/* we render all step components and just set them as hidden, even though we can use 
-    function that only renders a specific step. We do this so that when we progress to step
-    and choose to view finished step, the data there is still present */}
-      <div className={toggledStep === "SD" ? "block" : "hidden"}>
-        <ShippingDetails />
-      </div>
-
-      <div className={toggledStep === "PD" ? "block" : "hidden"}>
-        <PaymentDetails />
-      </div>
-
-      <div className={toggledStep === "RD" ? "block" : "hidden"}>
-        <ReviewDetails />
-      </div>
+      {toggledStep === "SD" && <ShippingDetails />}
+      {toggledStep === "PD" && <PaymentDetails />}
+      {toggledStep === "RD" && <ReviewDetails />}
     </>
   );
 };
