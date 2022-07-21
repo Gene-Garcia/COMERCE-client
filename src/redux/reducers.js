@@ -16,9 +16,11 @@ import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/Logi
 import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
 import sellerPickUpReducer from "./Logistics/SellerPickUp/SellerPickUpReducer";
 import withMeReducer from "./Logistics/WithMe/WithMeReducer";
+import stepsReducer from "./Steps/StepsReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
+  STEPS: stepsReducer,
 
   PAGINATION: paginationReducer,
 
