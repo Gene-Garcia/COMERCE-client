@@ -281,12 +281,12 @@ function SignUp({ history }) {
 
             <Link
               to="/login/user"
-              className="text-gray-400 font-medium text-base
-                     transition duration-150 ease-linear
-                     hover:text-gray-800
-                     mx-auto"
+              className="block w-full text-center
+                    text-zinc-400 text-sm 
+                    transition duration-150 ease-linear 
+                    hover:text-neutral-500"
             >
-              Already have an account?
+              already have an account?
             </Link>
           </div>
         </div>

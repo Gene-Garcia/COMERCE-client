@@ -16,7 +16,7 @@ const Form = () => {
         <h1 className="text-2xl text-gray-800 font-semibold font-serif">
           Logistics Sign Up
         </h1>
-        <p className=" xs:text-lg text-gray-500 font-medium">Welcome Back!</p>
+        <p className=" xs:text-lg text-gray-500 font-medium">Let's deliver!</p>
       </div>
 
       <RenderAppropriateStep />

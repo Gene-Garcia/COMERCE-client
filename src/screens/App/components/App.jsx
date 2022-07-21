@@ -91,7 +91,7 @@ const AppContent = memo(() => {
       className={`${
         withSellerNavigation.includes(pathname) ||
         withLogisticsNavigation.includes(pathname)
-          ? "flex  flex-col md:flex-row bg-white-tone"
+          ? "h-full flex flex-col md:flex-row bg-white-tone"
           : "bg-white"
       }`}
     >

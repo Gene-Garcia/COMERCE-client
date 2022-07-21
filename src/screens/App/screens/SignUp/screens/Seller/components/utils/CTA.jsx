@@ -4,8 +4,8 @@ import { FormButton } from "../../../../../../../../shared/Components/button/But
 
 function SecondaryButton({ title, link = "/login/seller" }) {
   return (
-    <a
-      href={link}
+    <Link
+      to={link}
       className="order-first lg:order-last
       self-stretch px-5
       font-regular text-base font-sans lowercase text-neutral-300 
@@ -13,10 +13,10 @@ function SecondaryButton({ title, link = "/login/seller" }) {
       flex justify-center items-center 
       transition duration-200 ease-linear 
       hover:text-neutral-400
-      border border-transparent hover:border-neutral-300 "
+      border border-transparent hover:border-neutral-300"
     >
       {title}
-    </a>
+    </Link>
   );
 }
 
@@ -91,13 +91,15 @@ function BusinessInfoCTA({ onClick }) {
 
 export { TOACTA, AccountInfoCTA, BusinessInfoCTA };
 
-function ToLogin() {
+const ToLogin = () => {
   return (
     <Link
       to="/login/seller"
-      className="text-zinc-400 text-sm transition duration-150 ease-linear hover:text-neutral-500"
+      className="text-zinc-400 text-sm 
+      transition duration-150 ease-linear 
+      hover:text-neutral-500"
     >
       already have an account?
     </Link>
   );
-}
+};

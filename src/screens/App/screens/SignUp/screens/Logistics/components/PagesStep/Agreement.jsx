@@ -19,7 +19,7 @@ const Agreement = () => {
   return (
     <>
       {/* form */}
-      <div className="bg-gray-100 rounded shadow-sm p-2 h-72 overflow-y-auto whitespace-pre-line">
+      <div className="bg-slate-50 rounded border border-neutral-200 shadow-sm p-2 h-80 overflow-y-auto whitespace-pre-line">
         {agreement}
       </div>
 

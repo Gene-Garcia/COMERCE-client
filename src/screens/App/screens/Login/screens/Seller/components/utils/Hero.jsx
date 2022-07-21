@@ -10,9 +10,9 @@ function Hero() {
           <img
             alt="COMERCE Logo"
             src={comerceWhite}
-            className="w-16 md:w-24 lg:w-20 xl:w-24"
+            className="h-auto w-10 sm:w-14 md:w-20 xl:w-24"
           />
-          <h2 className="hidden sm:block font-mono text-white text-2xl md:text-3xl xl:text-4xl">
+          <h2 className="tracking-wide leading-none hidden sm:block font-mono text-white text-2xl md:text-3xl xl:text-4xl">
             COMERCE
           </h2>
         </div>

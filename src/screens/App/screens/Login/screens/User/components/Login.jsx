@@ -58,6 +58,7 @@ function Login({ history }) {
       });
   }
 
+  //#region form configuration
   function validate(formData, setErrors) {
     let tempErrs = { ...errors };
 
@@ -85,6 +86,7 @@ function Login({ history }) {
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, LoginApi);
+  //#endregion
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -184,7 +186,7 @@ function Login({ history }) {
                 <input
                   type="checkbox"
                   id="rememberMe"
-                  className="rouned-xl border"
+                  className="rounded-xl border accent-accent"
                 />
                 <label
                   for="rememberMe"
@@ -202,7 +204,7 @@ function Login({ history }) {
               </Link>
             </div>
 
-            <div className="w-min ml-auto lg:ml-0">
+            <div className="w-max ml-auto lg:ml-0">
               <FormButton
                 size="medium"
                 isLoading={isLoading}
@@ -211,20 +213,19 @@ function Login({ history }) {
                 onClick={handleFormSubmit}
                 textColor="text-white"
               >
-                <span className="text-white font-semibold text-base ">
-                  LOGIN
-                </span>
+                LOGIN
               </FormButton>
             </div>
           </div>
 
           <Link
             to="/sign-up/user"
-            className="text-gray-400 font-medium text-base
-                     transition duration-150 ease-linear
-                     hover:text-gray-800"
+            className="block w-full text-center
+                    text-zinc-400 text-sm 
+                    transition duration-150 ease-linear 
+                    hover:text-neutral-500"
           >
-            Don't have an account?
+            don't have an account?
           </Link>
         </div>
       </div>

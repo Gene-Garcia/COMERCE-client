@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { resetToDefault } from "../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
 import Form from "./utils/Form";
 import Steps from "./utils/Steps";
 
 const SignUp = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // clean up
+  useEffect(() => {
+    return () => dispatch(resetToDefault());
+  }, []);
+
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gradient-to-bl from-accent via-accent-tone to-accent-tint">
       <div
