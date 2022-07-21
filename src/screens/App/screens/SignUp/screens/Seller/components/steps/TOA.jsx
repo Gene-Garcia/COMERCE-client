@@ -1,13 +1,9 @@
 import React from "react";
 import { batch, useDispatch } from "react-redux";
-import {
-  setMessage,
-  setSeverity,
-} from "../../../../../../../../redux/Alert/AlertAction";
-import {
-  agreeToTOA,
-  proceedToNextStep,
-} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import { setMessages } from "../../../../../../../../redux/Alert/AlertAction";
+import { agreeToTOA } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import { proceedToNextStep } from "../../../../../../../../redux/Steps/StepsAction";
+
 import termsOfAgreement from "../data/termsOfAgreement";
 import { TOACTA } from "../utils/CTA";
 
@@ -20,10 +16,16 @@ function TermsOfAgreement() {
     batch(() => {
       dispatch(agreeToTOA(true));
 
-      dispatch(setSeverity("information"));
-      dispatch(setMessage("You have agreed with COMERCE terms of agreement."));
+      dispatch(
+        setMessages([
+          {
+            message: "You have agreed with COMERCE terms of agreement.",
+            severity: "information",
+          },
+        ])
+      );
 
-      dispatch(proceedToNextStep(1));
+      dispatch(proceedToNextStep(2));
     });
 
   return (

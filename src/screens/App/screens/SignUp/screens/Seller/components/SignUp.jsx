@@ -1,19 +1,36 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { resetToDefault as resetSellerRegistrationToDefault } from "../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import {
+  initializeSteps,
+  resetStepReduxToDefault,
+} from "../../../../../../../redux/Steps/StepsAction";
+
 import RegistrationSteps from "./RegistrationSteps";
 import AccountInfo from "./steps/AccountInfo";
 import BusinessInfo from "./steps/BusinessInfo";
+
 import TermsOfAgreement from "./steps/TOA";
+
 import Title from "./utils/Title";
 
 function SignUp() {
   // redux
   const dispatch = useDispatch();
 
-  // clean up once user leaves page
   useEffect(() => {
-    return () => dispatch(resetSellerRegistrationToDefault());
+    // configure and initialize steps redux
+    dispatch(initializeSteps(1, 3, 1));
+  }, []);
+
+  // clean up
+  useEffect(() => {
+    return () => {
+      batch(() => {
+        dispatch(resetSellerRegistrationToDefault());
+        dispatch(resetStepReduxToDefault());
+      });
+    };
   }, []);
 
   return (
@@ -48,39 +65,27 @@ export default SignUp;
 // Single Responsibility Principle
 
 const FormContent = () => {
-  // redux seller registration reducer & states
-  const activeStepId = useSelector(
-    (state) => state.SELLER_REGISTRATION.activeStepId
-  );
+  // steps redux state
+  const active = useSelector((state) => state.STEPS.active);
 
   return (
     <>
-      {activeStepId === 0 && <TermsOfAgreement />}
-      {activeStepId === 1 && <BusinessInfo />}
-      {activeStepId === 2 && <AccountInfo />}
+      {active === 1 && <TermsOfAgreement />}
+      {active === 2 && <BusinessInfo />}
+      {active === 3 && <AccountInfo />}
     </>
   );
 };
 
 const HeadingContent = () => {
-  // redux seller registration reducer & states
-  const activeStepId = useSelector(
-    (state) => state.SELLER_REGISTRATION.activeStepId
-  );
+  // steps redux state
+  const active = useSelector((state) => state.STEPS.active);
 
   return (
     <>
-      {activeStepId === 0 && <Title name="Terms of Agreement" />}
-      {activeStepId === 1 && <Title name="Business Information" />}
-      {activeStepId === 2 && <Title name="Account Registration" />}
+      {active === 1 && <Title name="Terms of Agreement" />}
+      {active === 2 && <Title name="Business Information" />}
+      {active === 3 && <Title name="Account Registration" />}
     </>
-  );
-};
-
-const ConditionalRegistrationSteps = () => {
-  return (
-    <div className="block md:hidden">
-      <RegistrationSteps />
-    </div>
   );
 };

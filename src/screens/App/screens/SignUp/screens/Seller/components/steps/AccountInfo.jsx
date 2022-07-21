@@ -1,13 +1,10 @@
 import React from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../../../../../../hooks/useForm";
-import {
-  setMessage,
-  setSeverity,
-} from "../../../../../../../../redux/Alert/AlertAction";
+import { setMessages } from "../../../../../../../../redux/Alert/AlertAction";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { AccountInfoCTA } from "../utils/CTA";
-import axios from "../../../../../../../../shared/caller";
+import axios from "../../../../../../../../shared/axios";
 import { useHistory } from "react-router-dom";
 
 function AccountInfo() {
@@ -42,14 +39,14 @@ function AccountInfo() {
       .post("/api/signup", data)
       .then((res) => {
         if (res.status === 200) {
-          batch(() => {
-            dispatch(setSeverity("success"));
-            dispatch(
-              setMessage(
-                "Account created succesfully. We will now redirect to the login page."
-              )
-            );
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Seller account created",
+                severity: "success",
+              },
+            ])
+          );
 
           history.push("/login/seller");
         }
@@ -59,19 +56,28 @@ function AccountInfo() {
         setIsLoading(false);
 
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage("Something went wrong. Please try again."));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Something went wrong. Try again.",
+                severity: "error",
+              },
+            ])
+          );
         else if (err.response.status === 403) history.push("/forbidden");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
       });
   };
 
+  //#region form configuration
   const init = {
     firstName: "",
     lastName: "",
@@ -79,6 +85,7 @@ function AccountInfo() {
     confirmEmail: "",
     password: "",
   };
+
   const validate = (data, setErrors) => {
     let temp = { ...errors };
 
@@ -112,6 +119,7 @@ function AccountInfo() {
     isLoading,
     setIsLoading,
   } = useForm(init, init, validate, createAccountAPI);
+  //#endregion
 
   return (
     <div

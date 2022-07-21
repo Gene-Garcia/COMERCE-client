@@ -1,16 +1,14 @@
 import React from "react";
+
+import { batch, useDispatch } from "react-redux";
+import { setMessages } from "../../../../../../../../redux/Alert/AlertAction";
+import { loadBusinessDetails } from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import { proceedToNextStep } from "../../../../../../../../redux/Steps/StepsAction";
+
 import { useForm } from "../../../../../../../../hooks/useForm";
+
 import { BusinessInfoCTA } from "../utils/CTA";
 import { LinedInput } from "../../../../../../../../shared/Components/input/Inputs";
-import { batch, useDispatch } from "react-redux";
-import {
-  setMessage,
-  setSeverity,
-} from "../../../../../../../../redux/Alert/AlertAction";
-import {
-  loadBusinessDetails,
-  proceedToNextStep,
-} from "../../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
 
 function BusinessInfo() {
   // redux
@@ -26,13 +24,20 @@ function BusinessInfo() {
     batch(() => {
       dispatch(loadBusinessDetails(values));
 
-      dispatch(setSeverity("information"));
-      dispatch(setMessage("Business information has been saved"));
+      dispatch(
+        setMessages([
+          {
+            message: "Business information has been saved",
+            severity: "information",
+          },
+        ])
+      );
 
-      dispatch(proceedToNextStep(2));
+      dispatch(proceedToNextStep(3));
     });
   };
 
+  //#region form configuration
   const init = {
     businessEmail: "",
     businessLogoAddress: "",
@@ -69,6 +74,7 @@ function BusinessInfo() {
     validate,
     createBusiness
   );
+  //#endregion
 
   return (
     <div
