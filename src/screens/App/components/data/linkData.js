@@ -2,6 +2,7 @@ const userNavLinks = [
   { name: "Home", to: "/" },
   { name: "Catalogue", to: "/catalogue" },
   { name: "be a Seller", to: "/sign-up/seller" },
+  { name: "be a Deliverer", to: "/sign-up/logistics" },
 ];
 
 const sellerNavLinks = {
