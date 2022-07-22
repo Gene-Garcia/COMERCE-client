@@ -1,47 +1,31 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { stepTheme } from "./theme";
 
-const Step = ({ toggle, number, name, first }) => {
-  // redux logistics registration reducer & states
-  const activeStepNumber = useSelector(
-    (state) => state.LOGISTICS_REGISTRATION.activeStepNumber
-  );
-  const visitedStepNumber = useSelector(
-    (state) => state.LOGISTICS_REGISTRATION.visitedStepNumber
-  );
-
-  const toggled = number === activeStepNumber;
-  const passed = number <= visitedStepNumber;
-
+const Step = ({ id, status, toggle, name, first }) => {
   return (
     <>
       {/* if the Step is the first step then it must not have an associated divider */}
-      {!first && <Divider passed={passed} />}
+      {!first && <Divider passed={status !== "IDLE"} />}
 
-      <button className="group gap-0.5" onClick={toggle}>
-        <div
-          className={`relative
-            w-9 h-9 rounded-full 
-            border-2 border-accent
-            ${passed ? "bg-accent" : "bg-white"}
-            flex items-center justify-center
-            transition duration-150 ease-linear
-            group-hover:ring-1 group-hover:ring-accent/70 group-hover:ring-offset-2`}
+      <button
+        className={`gap-0.5 relative
+                    w-9 h-9 rounded-full border
+                    flex items-center justify-center
+                    transition duration-150 ease-linear
+                    ${stepTheme[status].BUTTON}`}
+        onClick={toggle}
+      >
+        <span
+          className={`relative font-semibold text-base ${stepTheme[status].NUMBER}`}
         >
-          <span
-            className={`relative font-semibold text-md
-                ${passed ? "text-white" : "text-accent"}`}
-          >
-            {number}
-          </span>
+          {id}
+        </span>
 
-          <span
-            className={`absolute -bottom-6 text-sm font-medium 
-        ${toggled ? "text-slate-600" : "text-slate-400"}`}
-          >
-            {name}
-          </span>
-        </div>
+        <span
+          className={`absolute -bottom-6 text-sm font-medium ${stepTheme[status].TEXT}`}
+        >
+          {name}
+        </span>
       </button>
     </>
   );

@@ -1,12 +1,13 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
-import {
-  loadPersonalData,
-  nextStep,
-} from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { loadPersonalData } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { proceedToNextStep } from "../../../../../../../../redux/Steps/StepsAction";
+
+import { useForm } from "../../../../../../../../hooks/useForm";
+
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { PersonalCTA } from "./CallToAction";
-import { useForm } from "../../../../../../../../hooks/useForm";
 
 const Personal = () => {
   // redux
@@ -16,7 +17,7 @@ const Personal = () => {
   const SubmitLogisticsRegistration = () => {
     batch(() => {
       dispatch(loadPersonalData(values));
-      dispatch(nextStep(4));
+      dispatch(proceedToNextStep(4));
     });
   };
 

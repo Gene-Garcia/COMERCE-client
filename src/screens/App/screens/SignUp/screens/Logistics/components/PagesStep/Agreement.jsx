@@ -1,9 +1,9 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
-import {
-  agree,
-  nextStep,
-} from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { agree } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { proceedToNextStep } from "../../../../../../../../redux/Steps/StepsAction";
+
 import { AgreementCTA } from "./CallToAction";
 
 const Agreement = () => {
@@ -13,7 +13,7 @@ const Agreement = () => {
   const agreeToAGreement = () =>
     batch(() => {
       dispatch(agree(true));
-      dispatch(nextStep(2));
+      dispatch(proceedToNextStep(2));
     });
 
   return (

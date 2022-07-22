@@ -1,65 +1,52 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import Step, { Divider } from "./Step";
-import comerceBlueLogo from "../../../../../../../../shared/images/comerce-logo-blue.webp";
+
+import { useDispatch, useSelector } from "react-redux";
 import { toggleStep } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { checkoutStep } from "../../../../../../../../redux/Steps/StepsAction";
+
+import Step from "./Step";
 
 const Steps = () => {
-  // redux
+  // dispatch
   const dispatch = useDispatch();
+
+  // step redux states
+  const active = useSelector((state) => state.STEPS.active);
+  const visited = useSelector((state) => state.STEPS.visited);
 
   return (
     <div
-      className={`bg-white w-full shadow-2xl rounded-t-2xl py-4 flex flex-col gap-4`}
+      className="min-w-[25rem] px-8 xs:px-14 sm:px-20 md:px-24 
+                h-full flex flex-row items-center justify-center"
     >
-      <div className="place-self-center">
-        {/* logo */}
-        <div className="flex flex-row items-center gap-4">
-          <img
-            alt="COMERCE express Logo"
-            src={comerceBlueLogo}
-            className="h-max w-14"
-          />
+      <Step
+        id={1}
+        status={1 === active ? "ACTIVE" : 1 <= visited ? "VISITED" : "IDLE"}
+        toggle={() => dispatch(checkoutStep(1))}
+        name="Agreement"
+        first={true}
+      />
 
-          <div className="flex flex-col gap-0 justify-end items-end">
-            <h2 className="font-mono text-accent text-2xl my-0">COMERCE</h2>
-            <p className="text-right font-medium text-accent text-lg my-0">
-              express
-            </p>
-          </div>
-        </div>
-      </div>
+      <Step
+        id={2}
+        status={2 === active ? "ACTIVE" : 2 <= visited ? "VISITED" : "IDLE"}
+        toggle={() => dispatch(checkoutStep(2))}
+        name="Vehicle"
+      />
 
-      <hr />
+      <Step
+        id={3}
+        status={3 === active ? "ACTIVE" : 3 <= visited ? "VISITED" : "IDLE"}
+        toggle={() => dispatch(checkoutStep(3))}
+        name="Personal"
+      />
 
-      <div className="overflow-x-auto pt-1 pb-7">
-        <div className="min-w-[25rem] px-8 xs:px-14 sm:px-20 md:px-24 h-full flex flex-row items-center justify-center">
-          <Step
-            toggle={() => dispatch(toggleStep(1))}
-            number={1}
-            name="Agreement"
-            first={true}
-          />
-
-          <Step
-            toggle={() => dispatch(toggleStep(2))}
-            number={2}
-            name="Vehicle"
-          />
-
-          <Step
-            toggle={() => dispatch(toggleStep(3))}
-            number={3}
-            name="Personal"
-          />
-
-          <Step
-            toggle={() => dispatch(toggleStep(4))}
-            number={4}
-            name="Account"
-          />
-        </div>
-      </div>
+      <Step
+        id={4}
+        status={4 === active ? "ACTIVE" : 4 <= visited ? "VISITED" : "IDLE"}
+        toggle={() => dispatch(checkoutStep(4))}
+        name="Account"
+      />
     </div>
   );
 };
