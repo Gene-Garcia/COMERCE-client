@@ -17,7 +17,7 @@ export default Container;
 
 function SellerContainer({ children }) {
   return (
-    <div className="p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8 bg-white-tone">
+    <div className=" p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8 bg-white-tone">
       {children}
     </div>
   );
@@ -26,9 +26,7 @@ function SellerContainer({ children }) {
 const LogisticsContainer = ({ children }) => {
   return (
     <>
-      <div className="p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8 bg-white-tone">
-        {children}
-      </div>
+      <div className="p-2 xs:p-4 sm:p-5 lg:p-6 2xl:p-8">{children}</div>
     </>
   );
 };

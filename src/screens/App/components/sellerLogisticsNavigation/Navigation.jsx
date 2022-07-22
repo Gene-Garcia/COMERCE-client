@@ -8,36 +8,32 @@ import { Link } from "react-router-dom";
 function Navigation({ links }) {
   const { width } = useWindow();
 
-  return width >= 768 ? <Sidebar links={links} /> : <Navbar links={links} />;
+  return width >= 1024 ? <Sidebar links={links} /> : <Navbar links={links} />;
 }
 export default Navigation;
 
 function Sidebar({ links }) {
   return (
     <div
-      className="fixed h-screen bg-accent-shade
- md:w-52 lg:w-56 2xl:w-60"
+      className="h-screen overflow-y-auto bg-accent-shade/95 
+                  px-2 lg:px-4 py-6 lg:py-10 
+                  flex flex-col justify-between gap-3"
     >
-      <div
-        className=" px-2 lg:px-4 py-6 lg:py-10 
-  flex flex-col justify-center md:gap-1 lg:gap-6"
+      <Link
+        to="/"
+        className="flex md:flex-col lg:flex-row md:gap-1 lg:gap-3 items-center justify-center"
       >
-        <Link
-          to="/"
-          className="flex md:flex-col lg:flex-row md:gap-1 lg:gap-3 items-center justify-center"
-        >
-          <img src={comerceWhite} alt="COMERCE Logo" className="w-9 lg:w-11" />
-          <h2 className="md:text-lg lg:text-2xl text-gray-50 text-opacity-90 font-mono">
-            COMERCE
-          </h2>
-        </Link>
+        <img src={comerceWhite} alt="COMERCE Logo" className="w-8 lg:w-11" />
+        <h2 className="tracking-wide md:text-lg lg:text-2xl text-gray-50 text-opacity-90 font-mono">
+          COMERCE
+        </h2>
+      </Link>
 
-        {/* links */}
-        <div className="divide-y divide-gray-500">
-          {Object.entries(links).map(([k, v]) => (
-            <SidebarGroup key={k} groupName={v.name} links={v.links} />
-          ))}
-        </div>
+      {/* links */}
+      <div className="divide-y divide-gray-500">
+        {Object.entries(links).map(([k, v]) => (
+          <SidebarGroup key={k} groupName={v.name} links={v.links} />
+        ))}
       </div>
     </div>
   );
@@ -45,13 +41,19 @@ function Sidebar({ links }) {
 
 function Navbar({ links }) {
   return (
-    <div className="bg-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 flex flex-row justify-between items-center">
-      <Link className="w-10" to="/">
+    <div
+      className="bg-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 
+                flex flex-row justify-between items-center"
+    >
+      <Link className="flex items-center justify-center gap-2" to="/">
         <img
           src={comerceWhite}
           alt="COMERCE logo"
-          className="w-full object-contain"
+          className="w-8 sm:w-10 object-contain"
         />
+        <h2 className="hidden md:block text-base tracking-wide text-gray-50 text-opacity-90 font-mono">
+          COMERCE
+        </h2>
       </Link>
 
       {/* link */}
