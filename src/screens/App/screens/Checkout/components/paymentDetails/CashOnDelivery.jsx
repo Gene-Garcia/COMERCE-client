@@ -1,11 +1,11 @@
 import React from "react";
+
+import { batch, useDispatch, useSelector } from "react-redux";
+import { loadPaymentDetails } from "../../../../../../redux/Checkout/CheckoutAction";
+import { proceedToNextStep } from "../../../../../../redux/Steps/StepsAction";
+
 import { PaymentCTA } from "../utils/CallToAction";
 import { formatPrice } from "../../../../../../shared/utils/price";
-import { batch, useDispatch, useSelector } from "react-redux";
-import {
-  loadPaymentDetails,
-  nextStep,
-} from "../../../../../../redux/Checkout/CheckoutAction";
 
 function CashOnDelivery() {
   // redux
@@ -14,7 +14,7 @@ function CashOnDelivery() {
   const loadCashOnDelivery = () => {
     batch(() => {
       dispatch(loadPaymentDetails("COD", null));
-      dispatch(nextStep(false, 3, "RD"));
+      dispatch(proceedToNextStep(3));
     });
   };
 

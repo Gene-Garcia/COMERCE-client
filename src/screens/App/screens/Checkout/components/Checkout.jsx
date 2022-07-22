@@ -13,6 +13,10 @@ import {
   setLoading as setShoppingCartLoading,
   resetToDefault as resetShoppingCartToDefault,
 } from "../../../../../redux/ShoppingCart/ShoppingCartAction";
+import {
+  initializeSteps,
+  resetStepReduxToDefault,
+} from "../../../../../redux/Steps/StepsAction";
 
 import useQuery from "../../../../../hooks/useQuery";
 
@@ -60,6 +64,9 @@ function Checkout({ history }) {
               dispatch(loadCartItems(res.data.products));
               dispatch(checkoutAllCartItems());
               dispatch(setShoppingCartLoading(false));
+
+              // setup steps
+              dispatch(initializeSteps(1, 3, 1));
             });
           }
         })
@@ -107,6 +114,7 @@ function Checkout({ history }) {
       batch(() => {
         dispatch(resetCheckoutToDefault());
         dispatch(resetShoppingCartToDefault());
+        dispatch(resetStepReduxToDefault());
       });
   }, []);
 
@@ -137,11 +145,14 @@ const CheckoutStepsContainer = () => {
   // redux: checkout reducer
   const toggledStep = useSelector((state) => state.CHECKOUT.toggledStep);
 
+  // step redux state
+  const active = useSelector((state) => state.STEPS.active);
+
   return (
     <>
-      {toggledStep === "SD" && <ShippingDetails />}
-      {toggledStep === "PD" && <PaymentDetails />}
-      {toggledStep === "RD" && <ReviewDetails />}
+      {active === 1 && <ShippingDetails />}
+      {active === 2 && <PaymentDetails />}
+      {active === 3 && <ReviewDetails />}
     </>
   );
 };

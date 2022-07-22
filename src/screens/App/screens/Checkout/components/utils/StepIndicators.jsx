@@ -1,11 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleStep } from "../../../../../../redux/Checkout/CheckoutAction";
+import { checkoutStep } from "../../../../../../redux/Steps/StepsAction";
+
 import LinedTitle from "../../../../../../shared/Components/purchase/LinedTitle";
+import { stepTheme } from "./theme";
 
 function StepIndicators() {
-  // reduc checkout reducer
-  const toggledStep = useSelector((state) => state.CHECKOUT.toggledStep);
+  // step redux state
+  const active = useSelector((state) => state.STEPS.active);
+  const visited = useSelector((state) => state.STEPS.visited);
 
   return (
     <div className="shadow rounded-md p-6 space-y-4">
@@ -14,26 +17,23 @@ function StepIndicators() {
       <div className="flex flex-col xs:flex-row justify-around">
         {/* shipping */}
         <Indicator
-          number="1"
           stepName="Shipping"
-          active={toggledStep === "SD"}
-          id="SD"
+          status={1 === active ? "ACTIVE" : 1 <= visited ? "VISITED" : "IDLE"}
+          id={1}
         />
 
         {/* payment */}
         <Indicator
-          number="2"
           stepName="Payment"
-          active={toggledStep === "PD"}
-          id="PD"
+          status={2 === active ? "ACTIVE" : 2 <= visited ? "VISITED" : "IDLE"}
+          id={2}
         />
 
         {/* review */}
         <Indicator
-          number="3"
           stepName="Review"
-          active={toggledStep === "RD"}
-          id="RD"
+          status={3 === active ? "ACTIVE" : 3 <= visited ? "VISITED" : "IDLE"}
+          id={3}
         />
       </div>
     </div>
@@ -41,34 +41,30 @@ function StepIndicators() {
 }
 export default StepIndicators;
 
-function Indicator({ id, number, stepName: name, active }) {
+function Indicator({ id, stepName: name, status }) {
   // redux
   const dispatch = useDispatch();
 
   return (
     <button
-      onClick={() => dispatch(toggleStep(id, number))}
-      className="flex items-center gap-x-2.5 group"
+      onClick={() => dispatch(checkoutStep(id))}
+      className={`flex items-center gap-x-2.5 ${stepTheme[status].BUTTON}`}
     >
       <div
-        className={`h-8 w-8 bg-opacity-90 rounded-full border
-        flex items-center justify-center
-        text-base font-bold 
-        ${
-          active
-            ? "bg-accent border-transparent text-white"
-            : "border-accent text-gray-500"
-        } 
-            transition duration-200 ease-linear
-            group-hover:ring-2 group-hover:ring-accent/50 group-hover:ring-offset-2`}
+        className={`h-8 w-8 rounded-full border
+                  flex items-center justify-center
+                  text-base font-bold 
+                  transition duration-200 ease-linear
+                  group-hover:ring-2 group-hover:ring-accent/50 group-hover:ring-offset
+                  ${stepTheme[status].NUMBER}`}
       >
-        {number}
+        {id}
       </div>
 
       <p
-        className="font-semibold text-slate-600 text-sm 
+        className={`font-semibold text-sm 
                   transition duration-200 ease-linear
-                  group-hover:text-slate-800"
+                  ${stepTheme[status].TEXT}`}
       >
         {name}
       </p>

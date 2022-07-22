@@ -1,25 +1,26 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
+import { loadPaymentDetails } from "../../../../../../redux/Checkout/CheckoutAction";
+import { proceedToNextStep } from "../../../../../../redux/Steps/StepsAction";
+
 import { useForm } from "../../../../../../hooks/useForm";
-import {
-  loadPaymentDetails,
-  nextStep,
-} from "../../../../../../redux/Checkout/CheckoutAction";
+
 import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
 import { PaymentCTA } from "../utils/CallToAction";
 
 function CreditCard() {
-  //#region form configuration
   // redux
   const dispatch = useDispatch();
 
   async function loadCreditCard() {
     batch(() => {
       dispatch(loadPaymentDetails("CC", values));
-      dispatch(nextStep(false, 3, "RD"));
+      dispatch(proceedToNextStep(3));
     });
   }
 
+  //#region form configuration
   function validate(data, setErrors) {
     let tempErrs = { ...errors };
 

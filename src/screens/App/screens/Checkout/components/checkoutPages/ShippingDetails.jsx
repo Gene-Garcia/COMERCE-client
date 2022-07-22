@@ -1,10 +1,8 @@
 import React from "react";
 
 import { batch, useDispatch } from "react-redux";
-import {
-  loadShippingDetails,
-  nextStep,
-} from "../../../../../../redux/Checkout/CheckoutAction";
+import { loadShippingDetails } from "../../../../../../redux/Checkout/CheckoutAction";
+import { proceedToNextStep } from "../../../../../../redux/Steps/StepsAction";
 
 import { useForm } from "../../../../../../hooks/useForm";
 
@@ -16,15 +14,16 @@ function ShippingDetails() {
   // redux
   const dispatch = useDispatch();
 
-  //#region form configuration
   // Form submit
   async function saveShippingDetails() {
     batch(() => {
       dispatch(loadShippingDetails(values));
-      dispatch(nextStep(false, 2, "PD"));
+      // dispatch(nextStep(false, 2, "PD"));
+      dispatch(proceedToNextStep(2));
     });
   }
 
+  //#region form configuration
   function validate(data, setError) {
     let tempErrs = { ...errors };
 

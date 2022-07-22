@@ -5,7 +5,7 @@ function Container({ children, xSpacing }) {
 
   return (
     <div
-      className={`container mx-auto mt-4 sm:mt-6 md:mt-8 lg:mt-16 pb-12 overflow-hidden ${
+      className={`container mx-auto mt-4 sm:mt-6 md:mt-8 lg:mt-16 pb-6 overflow-hidden ${
         xSpacing ? xSpacing : defaultXSpacing
       }`}
     >
