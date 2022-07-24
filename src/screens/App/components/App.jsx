@@ -103,8 +103,7 @@ const AppContent = memo(() => {
       {/* navigation  */}
       <div
         className={`${
-          withSidebarNavigation.includes(pathName) &&
-          "lg:basis-1/2 xl:basis-[28%] 2xl:basis-[15%]"
+          withSidebarNavigation.includes(pathName) && "shrink-0 w-full lg:w-64"
         }`}
       >
         {withSellerNavigation.includes(pathName) ? (

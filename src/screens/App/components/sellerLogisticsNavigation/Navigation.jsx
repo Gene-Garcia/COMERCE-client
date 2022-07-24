@@ -8,16 +8,23 @@ import { Link } from "react-router-dom";
 function Navigation({ links }) {
   const { width } = useWindow();
 
-  return width >= 1024 ? <Sidebar links={links} /> : <Navbar links={links} />;
+  return (
+    <>
+      <Sidebar links={links} />
+      <Navbar links={links} />
+    </>
+  );
+
+  // return width >= 1024 ? <Sidebar links={links} /> : <Navbar links={links} />;
 }
 export default Navigation;
 
 function Sidebar({ links }) {
   return (
     <div
-      className="h-screen overflow-y-auto bg-accent-shade/95 
+      className={`h-screen overflow-y-auto bg-accent-shade/95 
                   px-2 lg:px-4 py-6 lg:py-10 
-                  flex flex-col justify-between gap-3"
+                  hidden lg:flex flex-col justify-start gap-3 `}
     >
       <Link
         to="/"
@@ -42,8 +49,8 @@ function Sidebar({ links }) {
 function Navbar({ links }) {
   return (
     <div
-      className="bg-accent-shade p-3 sm:p-4 gap-6 sm:gap-2 
-                flex flex-row justify-between items-center"
+      className={`bg-accent-shade p-2 sm:p-4 gap-6 sm:gap-2 
+                flex lg:hidden flex-row justify-between items-center`}
     >
       <Link className="flex items-center justify-center gap-2" to="/">
         <img
