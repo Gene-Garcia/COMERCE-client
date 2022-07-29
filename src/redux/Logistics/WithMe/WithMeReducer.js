@@ -6,6 +6,10 @@ const initial = {
   logisticsType: logisticsType.SELLER_PICK_UP,
   isLoading: true,
   reload: false, // only for toggle
+
+  // modal for posting attempt
+  logisticsInModal: "", // logistics id
+  isModalOpen: false,
 };
 
 const withMeReducer = (state = initial, { type, payload }) => {
@@ -47,6 +51,18 @@ const withMeReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         reload: !state.reload,
+      };
+
+    case types.SET_LOGISTICS_IN_MODAL:
+      return {
+        ...state,
+        logisticsInModal: payload,
+      };
+
+    case types.TOGGLE_ATTEMPT_MODAL:
+      return {
+        ...state,
+        isModalOpen: payload,
       };
 
     case types.RESET_TO_DEFAULT:

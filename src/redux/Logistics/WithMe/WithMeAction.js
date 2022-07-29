@@ -5,6 +5,10 @@ const withMeActionTypes = {
   CHECK_ALL_LOGISTICS: "CHECK_ALL_LOGISTICS",
   UPDATE_LOGISTICS_TYPE: "UPDATE_LOGISTICS_TYPE",
   TOGGLE_RELOAD: "TOGGLE_RELOAD",
+
+  SET_LOGISTICS_IN_MODAL: "SET_LOGISTICS_IN_MODAL",
+  TOGGLE_ATTEMPT_MODAL: "TOGGLE_ATTEMPT_MODAL",
+
   RESET_TO_DEFAULT: "RESET_TO_DEFAULT",
 };
 
@@ -35,6 +39,20 @@ const toggleReload = () => {
   return { type: withMeActionTypes.TOGGLE_RELOAD };
 };
 
+const setLogisticsInModal = (logisticsId) => {
+  return {
+    type: withMeActionTypes.SET_LOGISTICS_IN_MODAL,
+    payload: logisticsId,
+  };
+};
+
+const toggleAttemptModal = (isOpen) => {
+  return {
+    type: withMeActionTypes.TOGGLE_ATTEMPT_MODAL,
+    payload: isOpen,
+  };
+};
+
 const resetToDefault = () => {
   return { type: withMeActionTypes.RESET_TO_DEFAULT };
 };
@@ -47,5 +65,7 @@ export {
   checkAllLogistics,
   updateLogisticsType,
   toggleReload,
+  setLogisticsInModal,
+  toggleAttemptModal,
   resetToDefault,
 };
