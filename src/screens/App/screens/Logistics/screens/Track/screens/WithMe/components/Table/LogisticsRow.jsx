@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { checkLogistic } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
+import { batch, useDispatch } from "react-redux";
+import {
+  checkLogistic,
+  setLogisticsInModal,
+  toggleAttemptModal,
+} from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import {
   Data,
   Row,
@@ -23,6 +27,8 @@ const LogisticsRow = ({
     checked,
   },
 }) => {
+  const dispatch = useDispatch();
+
   //#region Toggle table configuration
   const [toggled, setToggled] = useState({
     ORDERS: false,
@@ -35,10 +41,16 @@ const LogisticsRow = ({
   //#endregion
 
   //#region checkbox configurations
-  const dispatch = useDispatch();
   const checkboxChange = (e) =>
     dispatch(checkLogistic(logisticsId, e.target.checked));
   //#endregion
+
+  const openAttemptModal = () => {
+    batch(() => {
+      dispatch(setLogisticsInModal(logisticsId));
+      dispatch(toggleAttemptModal(true));
+    });
+  };
 
   return (
     <>
@@ -88,6 +100,11 @@ const LogisticsRow = ({
               text="SHOW ORDERS"
               type="BUTTON"
               onClick={() => toggleCollapse("ORDERS", !toggled.ORDERS)}
+            />
+            <Action
+              text="ADD ATTEMPT"
+              type="BUTTON"
+              onClick={openAttemptModal}
             />
             <Action text="FINISHED" type="BUTTON" onClick={() => {}} />
           </ActionGroup>

@@ -13,6 +13,7 @@ import {
 import { setMessages } from "../../../../../../../../../redux/Alert/AlertAction";
 import { useHistory } from "react-router-dom";
 import { logisticsType } from "../../../../../../../../../shared/utils/logisticsType";
+import AttemptModal from "./modal/AttemptModal";
 
 const WithMe = () => {
   const history = useHistory();
@@ -80,18 +81,22 @@ const WithMe = () => {
   //#endregion
 
   return (
-    <LogisticsContainer>
-      <LogisticsTitle title="With Me" />
-      <div className="my-6 xs:my-10 border-b border-gray-300"></div>
+    <>
+      <AttemptModal />
 
-      <LogisticTypeButtons />
+      <LogisticsContainer>
+        <LogisticsTitle title="With Me" />
+        <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
-      <div className="overflow-x-auto">
-        <div className="min-w-[65rem]">
-          <LogisticsTable />
+        <LogisticTypeButtons />
+
+        <div className="overflow-x-auto">
+          <div className="min-w-[80rem]">
+            <LogisticsTable />
+          </div>
         </div>
-      </div>
-    </LogisticsContainer>
+      </LogisticsContainer>
+    </>
   );
 };
 
