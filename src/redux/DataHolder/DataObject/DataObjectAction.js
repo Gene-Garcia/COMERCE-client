@@ -7,28 +7,28 @@ const dataObjectActionTypes = {
 
 const loadDataObject = (data, withChecked) => {
   return {
-    type: dataArrayActionTypes.LOAD_DATA_OBJECT,
+    type: dataObjectActionTypes.LOAD_DATA_OBJECT,
     payload: { data, withChecked },
   };
 };
 
 const toggleAllCheck = (isChecked) => {
   return {
-    type: dataArrayActionTypes.TOGGLE_ALL_CHECK,
+    type: dataObjectActionTypes.TOGGLE_ALL_CHECK,
     payload: isChecked,
   };
 };
 
 const toggleCheck = (isChecked, objectKey) => {
   return {
-    type: dataArrayActionTypes.TOGGLE_CHECK,
+    type: dataObjectActionTypes.TOGGLE_CHECK,
     payload: { isChecked, objectKey },
   };
 };
 
 const resetDataObjectRedux = () => {
   return {
-    type: dataArrayActionTypes.RESET_DATA_OBJECT_REDUX,
+    type: dataObjectActionTypes.RESET_DATA_OBJECT_REDUX,
   };
 };
 
