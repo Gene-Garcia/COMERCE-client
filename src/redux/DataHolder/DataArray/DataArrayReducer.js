@@ -1,3 +1,5 @@
+import { dataArrayActionTypes as types } from "./DataArrayAction";
+
 const initial = {
   data: [],
   isLoading: true,
@@ -6,7 +8,7 @@ const initial = {
 const dataArrayReducer = (state = initial, { type, payload }) => {
   switch (type) {
     // {withCheck, data}
-    case "LOAD_DATA_ARRAY":
+    case types.LOAD_DATA_ARRAY:
       if (payload.withCheck) {
         return {
           ...state,
@@ -17,14 +19,14 @@ const dataArrayReducer = (state = initial, { type, payload }) => {
       }
 
     // isChecked
-    case "TOGGLE_ALL_CHECK":
+    case types.TOGGLE_ALL_CHECK:
       return {
         ...state,
         data: state.data.map((e) => ({ ...e, checked: payload })),
       };
 
     // {isChecked, idName, id}
-    case "TOGGLE_CHECK":
+    case types.TOGGLE_CHECK:
       return {
         ...state,
         data: state.data.map((e) => ({
@@ -34,10 +36,12 @@ const dataArrayReducer = (state = initial, { type, payload }) => {
         })),
       };
 
-    case "RESET_DATA_ARRAY_REDUX":
+    case types.RESET_DATA_ARRAY_REDUX:
       return { ...initial };
 
     default:
       return { ...state };
   }
 };
+
+export default dataArrayReducer;

@@ -1,3 +1,5 @@
+import { dataObjectActionTypes as types } from "./DataObjectAction";
+
 const initial = {
   data: null,
   isLoading: true,
@@ -6,7 +8,7 @@ const initial = {
 const dataObjectReducer = (state = initial, { type, payload }) => {
   switch (type) {
     // {withCheck, data}
-    case "LOAD_DATA_OBJECT":
+    case types.LOAD_DATA_OBJECT:
       if (payload.withCheck) {
         let data = {};
         for (let k in payload.data) {
@@ -25,7 +27,7 @@ const dataObjectReducer = (state = initial, { type, payload }) => {
       }
 
     // isChecked
-    case "TOGGLE_ALL_CHECK":
+    case types.TOGGLE_ALL_CHECK:
       let allChecked = {};
       for (let k in state.data) {
         allChecked[k] = {
@@ -40,7 +42,7 @@ const dataObjectReducer = (state = initial, { type, payload }) => {
       };
 
     // {isChecked, objectKey or id}
-    case "TOGGLE_CHECK":
+    case types.TOGGLE_CHECK:
       let objChecked = {};
       for (let k in state.data) {
         objChecked[k] = {
@@ -55,10 +57,12 @@ const dataObjectReducer = (state = initial, { type, payload }) => {
         data: objChecked,
       };
 
-    case "RESET_DATA_ARRAY_REDUX":
+    case types.RESET_DATA_OBJECT_REDUX:
       return { ...initial };
 
     default:
       return { ...state };
   }
 };
+
+export default dataObjectReducer;

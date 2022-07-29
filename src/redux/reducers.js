@@ -17,10 +17,16 @@ import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
 import sellerPickUpReducer from "./Logistics/SellerPickUp/SellerPickUpReducer";
 import withMeReducer from "./Logistics/WithMe/WithMeReducer";
 import stepsReducer from "./Steps/StepsReducer";
+import dataArrayReducer from "./DataHolder/DataArray/DataArrayReducer";
+import dataObjectReducer from "./DataHolder/DataObject/DataObjectReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
   STEPS: stepsReducer,
+
+  // data holder
+  DATA_ARRAY: dataArrayReducer,
+  DATA_OBJECT: dataObjectReducer,
 
   PAGINATION: paginationReducer,
 
