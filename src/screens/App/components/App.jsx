@@ -118,7 +118,8 @@ const AppContent = memo(() => {
       {/* content */}
       <div
         className={`${
-          withSidebarNavigation.includes(pathName) && "shrink grow "
+          withSidebarNavigation.includes(pathName) &&
+          "shrink grow overflow-x-hidden"
         }`}
       >
         {withSellerNavigation.includes(pathName) && <BusinessHeader />}
