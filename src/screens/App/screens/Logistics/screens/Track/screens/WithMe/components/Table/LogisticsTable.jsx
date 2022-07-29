@@ -24,18 +24,18 @@ const LogisticsTable = () => {
 
   return (
     <SpaciousTable>
-      <Head grid="grid-cols-16">
+      <Head grid="grid-cols-14">
         <Heading className="col-span-1 text-center">
           <input type="checkbox" onChange={checkboxChange} />
         </Heading>
         <Heading className="col-span-1">Logistics ID</Heading>
         <Heading className="col-span-1">Start</Heading>
-        <Heading className="col-span-4">Order(s)</Heading>
-        <Heading className="col-span-2">Address</Heading>
-        <Heading className="col-span-1">Name</Heading>
-        <Heading className="col-span-2">Contact</Heading>
-        <Heading className="col-span-3">Attempt(s)</Heading>
-        <Heading className="col-span-1">Actions</Heading>
+        {/* <Heading className="col-span-3">Order(s)</Heading> */}
+        <Heading className="col-span-3">Address</Heading>
+        <Heading className="col-span-2">Name</Heading>
+        <Heading className="col-span-1">Contact</Heading>
+        <Heading className="col-span-2">Attempt(s)</Heading>
+        <Heading className="col-span-3">Actions</Heading>
       </Head>
 
       <Body>{isLoading ? <LogisticsSkeleton /> : <RenderLogisticsRow />}</Body>

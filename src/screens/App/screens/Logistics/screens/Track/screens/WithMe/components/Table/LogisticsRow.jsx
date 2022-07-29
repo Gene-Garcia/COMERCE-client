@@ -11,6 +11,7 @@ import {
 } from "../../../../../../../../../../shared/Components/table/TableActions";
 import { formatDate } from "../../../../../../../../../../shared/utils/date";
 import { AttemptsCollapseData, OrderCollapseData } from "./CollapseData";
+import CollapseOrders from "./CollapseOrders";
 
 const LogisticsRow = ({
   data: {
@@ -40,69 +41,68 @@ const LogisticsRow = ({
   //#endregion
 
   return (
-    <Row grid="grid-cols-16">
-      <Data className="col-span-1 text-center">
-        <input type="checkbox" onChange={checkboxChange} checked={checked} />
-      </Data>
+    <>
+      <Row grid="grid-cols-14">
+        <Data className="col-span-1 text-center">
+          <input type="checkbox" onChange={checkboxChange} checked={checked} />
+        </Data>
 
-      <Data className="col-span-1 break-all text-xs font-light leading-none">
-        {logisticsId}
-      </Data>
-      <Data className="col-span-1 text-sm break-all">
-        {formatDate(dateStarted, true)}
-      </Data>
+        <Data className="col-span-1 break-all text-xs font-light leading-none">
+          {logisticsId}
+        </Data>
+        <Data className="col-span-1 break-words">
+          {formatDate(dateStarted, true)}
+        </Data>
 
-      <Data className="col-span-4">
-        {toggled.ORDERS ? (
-          <OrderCollapseData data={orders} toggleCollapse={toggleCollapse} />
-        ) : (
-          <button
-            onClick={() => toggleCollapse("ORDERS", true)}
-            className="text-gray-600 font-medium text-sm
+        <Data className="col-span-3">
+          {`${address.street}, ${address.barangay}, ${address.cityMunicipality}, ${address.province}`}
+        </Data>
+        <Data className="col-span-2">{businessName}</Data>
+        <Data className="col-span-1 break-all">{contactNumber}</Data>
+
+        <Data className="col-span-2">
+          {toggled.ATTEMPTS ? (
+            <AttemptsCollapseData
+              data={attempts}
+              toggleCollapse={toggleCollapse}
+            />
+          ) : attempts && attempts.length > 0 ? (
+            <button
+              onClick={() => toggleCollapse("ATTEMPTS", true)}
+              className="text-gray-600 font-medium text-sm
                      bg-gray-200 px-3.5 py-1 rounded-md
                      transition duration-200 ease-linear
                      hover:ring-2 hover:ring-gray-200 hover:ring-offset-2
                      active:bg-gray-400 active:ring-0 active:text-white"
-          >
-            Show Orders
-          </button>
-        )}
-      </Data>
+            >
+              Show Attempts
+            </button>
+          ) : (
+            <p className="break-all font-medium text-gray-500">No Attempts</p>
+          )}
+        </Data>
 
-      <Data className="col-span-2">
-        {`${address.street}, ${address.barangay}, ${address.cityMunicipality}, ${address.province}`}
-      </Data>
-      <Data className="col-span-1">{businessName}</Data>
-      <Data className="col-span-2 break-all">{contactNumber}</Data>
+        <Data className="col-span-3">
+          <ActionGroup>
+            <Action
+              text="SHOW ORDERS"
+              type="BUTTON"
+              onClick={() => toggleCollapse("ORDERS", !toggled.ORDERS)}
+            />
+            <Action text="FINISHED" type="BUTTON" onClick={() => {}} />
+          </ActionGroup>
+        </Data>
+      </Row>
 
-      <Data className="col-span-3">
-        {toggled.ATTEMPTS ? (
-          <AttemptsCollapseData
-            data={attempts}
-            toggleCollapse={toggleCollapse}
-          />
-        ) : attempts && attempts.length > 0 ? (
-          <button
-            onClick={() => toggleCollapse("ATTEMPTS", true)}
-            className="text-gray-600 font-medium text-sm
-                     bg-gray-200 px-3.5 py-1 rounded-md
-                     transition duration-200 ease-linear
-                     hover:ring-2 hover:ring-gray-200 hover:ring-offset-2
-                     active:bg-gray-400 active:ring-0 active:text-white"
-          >
-            Show Attempts
-          </button>
-        ) : (
-          <p className="break-all font-medium text-gray-500">No Attempts</p>
-        )}
-      </Data>
-
-      <Data className="col-span-1">
-        <ActionGroup>
-          <Action text="FINISHED" type="BUTTON" onClick={() => {}} />
-        </ActionGroup>
-      </Data>
-    </Row>
+      {toggled.ORDERS && (
+        <Row grid="grid-cols-12">
+          <Data className="col-span-6"></Data>
+          <Data className="col-span-6">
+            <OrderCollapseData data={orders} toggleCollapse={toggleCollapse} />
+          </Data>
+        </Row>
+      )}
+    </>
   );
 };
 export default LogisticsRow;

@@ -28,7 +28,8 @@ const WithMe = () => {
       await axios
         .get(`/api/logistics/with-me/${logisticsType}`)
         .then((res) => {
-          if (res.status) {
+          console.log(res);
+          if (res.status === 200) {
             batch(() => {
               dispatch(loadLogistics(res.data.logistics));
               dispatch(toggleLoading(false));

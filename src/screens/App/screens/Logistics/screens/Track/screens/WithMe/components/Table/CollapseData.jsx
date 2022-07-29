@@ -10,7 +10,7 @@ import { formatDate } from "../../../../../../../../../../shared/utils/date";
 
 const OrderCollapseData = ({ data: orders, toggleCollapse }) => {
   return (
-    <>
+    <div className="flex flex-col gap-0.5">
       <Close onClick={() => toggleCollapse("ORDERS", false)} />
 
       {/* table */}
@@ -29,21 +29,21 @@ const OrderCollapseData = ({ data: orders, toggleCollapse }) => {
                 <Data className="col-span-1 text-xs font-light break-all">
                   {orderId}
                 </Data>
-                <Data className="col-span-1 break-words text-center">
-                  {products.length}
+                <Data className="col-span-1 break-words text-md font-medium text-center">
+                  {products.length} pc(s)
                 </Data>
-                <Data className="col-span-2 text-sm break-all">
-                  {formatDate(orderDate)}
+                <Data className="col-span-2 break-words">
+                  {formatDate(orderDate, 1)}
                 </Data>
-                <Data className="col-span-2 text-sm break-all">
-                  {formatDate(ETADate)}
+                <Data className="col-span-2 break-words">
+                  {formatDate(ETADate, 1)}
                 </Data>
               </Row>
             )
           )}
         </Body>
       </CompactTable>
-    </>
+    </div>
   );
 };
 
@@ -78,7 +78,8 @@ const Close = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="py-1 px-1.5 bg-white-tone rounded 
+      className="place-self-end
+            py-1 px-1.5 bg-white-tone rounded 
             inline-flex gap-1 items-center 
             text-xs font-medium text-black
             transition duration-200 ease-linear

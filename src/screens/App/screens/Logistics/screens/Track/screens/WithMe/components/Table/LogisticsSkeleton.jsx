@@ -9,7 +9,7 @@ import {
 const LogisticsSkeleton = () => {
   const dummy = [0, 0, 0, 0, 0];
   return dummy.map((e, i) => (
-    <SkeletonRow key={i} grid="grid-cols-16">
+    <SkeletonRow key={i} grid="grid-cols-14">
       <Data className="col-span-1">
         <SkeletonForText />
       </Data>
@@ -22,7 +22,7 @@ const LogisticsSkeleton = () => {
         <SkeletonForText />
       </Data>
 
-      <Data className="col-span-4">
+      <Data className="col-span-3">
         <SkeletonForText />
       </Data>
 
@@ -39,10 +39,6 @@ const LogisticsSkeleton = () => {
       </Data>
 
       <Data className="col-span-3">
-        <SkeletonForText />
-      </Data>
-
-      <Data className="col-span-1">
         <SkeletonForText />
       </Data>
     </SkeletonRow>
