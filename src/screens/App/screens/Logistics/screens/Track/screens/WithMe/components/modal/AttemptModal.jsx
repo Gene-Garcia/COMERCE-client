@@ -1,29 +1,124 @@
 import React, { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+
+import { useHistory } from "react-router-dom";
+
 import { batch, useDispatch, useSelector } from "react-redux";
+import { setMessages } from "../../../../../../../../../../redux/Alert/AlertAction";
+
 import {
   setLogisticsInModal,
   toggleAttemptModal,
+  toggleLoading,
+  toggleReload,
 } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
-import {
-  BorderedInput,
-  LinedInput,
-} from "../../../../../../../../../../shared/Components/input/Inputs";
+
+import { Dialog, Transition } from "@headlessui/react";
+
+import { useForm } from "../../../../../../../../../../hooks/useForm";
+import axios from "../../../../../../../../../../shared/axios";
+
+import { BorderedInput } from "../../../../../../../../../../shared/Components/input/Inputs";
 import { FormButton } from "../../../../../../../../../../shared/Components/button/ButtonBase";
 
 const AttemptModal = () => {
+  const history = useHistory();
+
   // redux
   const dispatch = useDispatch();
 
   // with-me redux states
   const isModalOpen = useSelector((state) => state.WITH_ME.isModalOpen);
+  const logisticsInModal = useSelector(
+    (state) => state.WITH_ME.logisticsInModal
+  );
 
   const closeModal = () => {
+    resetForms();
+    setIsLoading(false);
     batch(() => {
       dispatch(setLogisticsInModal(""));
       dispatch(toggleAttemptModal(false));
     });
   };
+
+  const APISaveAttempt = async () => {
+    await axios
+      .patch("/api/logistics/delivery/attempt", {
+        logisticsId: logisticsInModal,
+        reason: values.reason,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setIsLoading(false);
+          resetForms();
+          batch(() => {
+            dispatch(setLogisticsInModal(""));
+            dispatch(toggleAttemptModal(false));
+            dispatch(toggleLoading(true));
+            dispatch(toggleReload());
+            dispatch(
+              setMessages([
+                {
+                  message: res.data.message,
+                  severity: "success",
+                },
+              ])
+            );
+          });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+
+        if (!err.response)
+          batch(() => {
+            dispatch(
+              setMessages([
+                {
+                  message:
+                    "Something went wrong in retrieving your orders. Refresh your browser or try again later.",
+                  severity: "error",
+                },
+              ])
+            );
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("unathorized");
+        else
+          batch(() => {
+            dispatch(
+              setMessages([
+                {
+                  message: err.response.data.message,
+                  severity: "error",
+                },
+              ])
+            );
+          });
+      });
+  };
+
+  //#region use form configuration
+  const validate = (data, setErrors) => {
+    let temp = { ...errors };
+
+    if ("reason" in data)
+      temp["reason"] = data["reason"] ? "" : "Reason is required";
+
+    setErrors({ ...temp });
+  };
+
+  const init = { reason: "" };
+  const {
+    values,
+    errors,
+    isLoading,
+    setIsLoading,
+    handleFormSubmit,
+    handleInput,
+    resetForms,
+  } = useForm(init, init, validate, APISaveAttempt);
+  //#endregion
 
   return (
     <Transition appear show={isModalOpen} as={Fragment}>
@@ -63,13 +158,16 @@ const AttemptModal = () => {
                     as="h2"
                     className="grow shrink 
                                 text-xl font-serif font-semibold 
-                                leading-6 text-slate-900"
+                                leading-6 text-neutral-800"
                   >
                     Record Failed Attempt
                   </Dialog.Title>
 
                   <button
-                    className="ml-auto justify-self-end p-1.5 text-rose-600"
+                    className="ml-auto justify-self-end p-1 text-rose-600
+                              bg-rose-50 rounded-md
+                              transition duration-150 ease-linear
+                              hover:bg-rose-100"
                     onClick={closeModal}
                   >
                     <svg
@@ -89,34 +187,31 @@ const AttemptModal = () => {
                   </button>
                 </div>
 
-                <p className="text-base font-medium text-neutral-500 mt-2">
+                <p className="text-sm font-medium text-neutral-500 mt-2">
                   <span
                     className="bg-neutral-100 rounded-md px-3 py-1 
-                  text-gray-800 break-all"
+                  text-gray-700 break-all"
                   >
-                    62d80998f809fd1328fef16f
+                    {logisticsInModal}
                   </span>
                 </p>
 
                 <div className="mt-6 space-y-5">
                   <BorderedInput
                     type="textarea"
-                    name=""
-                    value=""
-                    onChange={() => {}}
-                    placeholder="Elaborate reason"
+                    name="reason"
+                    value={values.reason}
+                    onChange={handleInput}
+                    placeholder="Summarize reason"
                     label="Reason"
-                    error=""
+                    error={errors.reason}
                   />
 
                   <BorderedInput
                     type="text"
-                    name=""
                     value={new Date()}
                     onChange={() => {}}
-                    placeholder=""
                     label="Attempt Date"
-                    error=""
                   />
 
                   <div className="w-max">
@@ -124,8 +219,8 @@ const AttemptModal = () => {
                     <FormButton
                       text="Save Record"
                       uppercase="uppercase"
-                      onClick={closeModal}
-                      isLoading={false}
+                      onClick={handleFormSubmit}
+                      isLoading={isLoading}
                       textColor="text-white"
                     />
                   </div>

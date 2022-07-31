@@ -22,6 +22,7 @@ const WithMe = () => {
 
   // with me redux state
   const logisticsType = useSelector((state) => state.WITH_ME.logisticsType);
+  const reload = useSelector((state) => state.WITH_ME.reload);
 
   //#region API request configuration
   useEffect(() => {
@@ -69,7 +70,7 @@ const WithMe = () => {
     }
 
     getLogistics();
-  }, [logisticsType]);
+  }, [logisticsType, reload]);
   //#endregion
 
   //#region Cleanup
