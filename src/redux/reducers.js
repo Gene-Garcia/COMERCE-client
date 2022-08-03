@@ -19,6 +19,7 @@ import withMeReducer from "./Logistics/WithMe/WithMeReducer";
 import stepsReducer from "./Steps/StepsReducer";
 import dataArrayReducer from "./DataHolder/DataArray/DataArrayReducer";
 import dataObjectReducer from "./DataHolder/DataObject/DataObjectReducer";
+import orderModalReducer from "./OrderModal/OrderModalReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
@@ -27,6 +28,8 @@ const reducers = combineReducers({
   // data holder
   DATA_ARRAY: dataArrayReducer,
   DATA_OBJECT: dataObjectReducer,
+
+  ORDER_MODAL: orderModalReducer,
 
   PAGINATION: paginationReducer,
 
