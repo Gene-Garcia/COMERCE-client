@@ -7,7 +7,7 @@ import { orderModalActionTypes as types } from "./OrderModalAction";
  */
 
 const initial = {
-  isOpen: false,
+  isOpen: true,
   orderId: "",
   isLoading: false,
 };
