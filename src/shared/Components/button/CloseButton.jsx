@@ -4,7 +4,7 @@ const CloseButton = ({ name, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-0.5
+      className="flex items-center justify-center gap-0.5
                 bg-rose-50 p-1 rounded
                 text-sm uppercase font-semibold
                 group transition duration-150 ease-linear
@@ -25,7 +25,7 @@ const CloseButton = ({ name, onClick }) => {
           d="M6 18L18 6M6 6l12 12"
         />
       </svg>
-      <span className="text-gray-600">{name}</span>
+      {name && <span className="text-gray-600">{name}</span>}
     </button>
   );
 };
