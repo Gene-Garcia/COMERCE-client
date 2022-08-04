@@ -12,6 +12,13 @@ const OrderField = ({ label, value, width = "w-max" }) => {
     </div>
   );
 };
+
+const SkeletonOrderField = ({ width = "w-max" }) => {
+  return (
+    <div className={`animate-pulse h-8 rounded ${width} bg-slate-200`}></div>
+  );
+};
+
 const SummaryField = ({ label, value }) => {
   return (
     <>
@@ -21,4 +28,4 @@ const SummaryField = ({ label, value }) => {
   );
 };
 
-export { OrderField, SummaryField };
+export { OrderField, SkeletonOrderField, SummaryField };
