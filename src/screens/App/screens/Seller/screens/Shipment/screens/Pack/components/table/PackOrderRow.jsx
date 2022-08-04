@@ -47,58 +47,27 @@ const OrderPackRow = ({ order }) => {
     checked,
   } = order;
 
-  // date difference
-  const [diff, status] = dateDifference(new Date(), ETADate);
-
-  const history = useHistory();
-
   // redux
   const dispatch = useDispatch();
 
-  const OpenWaybillModal = async () => {
-    dispatch(toggleModal(true));
+  const openWaybillModal = () => {
+    // get all productIds
+    const productIds = orders.map((order) => order._product._id);
 
-    // build products paramaters, separated by
-    const productIds = orders.map((order) => order._product._id).join("+");
-
-    await axios
-      .get(
-        `/api/logistics/waybill/seller/order/${orderId}/products/${productIds}`
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(
-            setWaybills({
-              orders: [...res.data.waybillOrders],
-              business: res.data.business,
-            })
-          );
-        } else {
-          dispatch(toggleModal(false));
-        }
-      })
-      .catch((err) => {
-        if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong. Please refresh your browser and try again."
-              )
-            );
-            dispatch(toggleModal(false));
-          });
-        else if (err.response.status === 401) history.push("/unauthorized");
-        else if (err.response.status === 403) history.push("/forbidden");
-        else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-            dispatch(toggleModal(false));
-          });
-      });
+    batch(() => {
+      dispatch(toggleModal(true));
+      dispatch(
+        setWaybills([
+          {
+            orderId: orderId,
+            productIds,
+          },
+        ])
+      );
+    });
   };
 
+  // checkbox configuration
   const onCheckboxChange = (e) => {
     dispatch(toggleOrderCheck(orderId, e.target.checked));
   };
@@ -117,10 +86,12 @@ const OrderPackRow = ({ order }) => {
       </Data>
       <Data className="col-span-1 break-words">{formatDate(orderDate, 1)}</Data>
       <Data className="col-span-1 break-words">{formatDate(ETADate, 1)}</Data>
-      <Data className="col-span-2"> {`${status} ${diff} day(s)`}</Data>
+      <Data className="col-span-2">
+        {dateDifference(new Date(), ETADate, true)}
+      </Data>
       <Data className="col-span-1">
         <ActionGroup>
-          <Action type="BUTTON" text="Print Bill" onClick={OpenWaybillModal} />
+          <Action type="BUTTON" text="Print Bill" onClick={openWaybillModal} />
         </ActionGroup>
       </Data>
     </Row>
