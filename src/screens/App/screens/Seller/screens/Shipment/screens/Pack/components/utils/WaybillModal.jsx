@@ -1,21 +1,35 @@
-import React, { createRef, forwardRef, useRef } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import React, {
+  createRef,
+  forwardRef,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import Loading from "../../../../../../../../../../shared/Loading/Loading";
+import { Dialog, Transition } from "@headlessui/react";
+import { useReactToPrint } from "react-to-print";
+import { useHistory } from "react-router-dom";
+
+import axios from "../../../../../../../../../../shared/axios";
+
+import { batch, useDispatch, useSelector } from "react-redux";
 import {
   filterOrders,
+  resetToDefault,
   setWaybills,
   toggleModal,
 } from "../../../../../../../../../../redux/Seller/PackOrders/PackOrdersActions";
-
-import { useReactToPrint } from "react-to-print";
-import WaybillLayout from "./WaybillLayout";
-import axios from "../../../../../../../../../../shared/caller";
-import { useHistory } from "react-router-dom";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../../../../redux/Alert/AlertAction";
+
+import WaybillLayout from "./WaybillLayout";
+
+import Loading from "../../../../../../../../../../shared/Loading/Loading";
+import CloseButton from "../../../../../../../../../../shared/Components/button/CloseButton";
 
 /*
  * will overlay a transparent background to the current page
@@ -23,14 +37,150 @@ import {
  * unlike bootstrap's modal that closes the model when background is clicked
  */
 
+// inside a wrapper so that only be rendered when modal is actually open
 function WaybillModal() {
+  // redux
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    batch(() => {
+      dispatch(setWaybills([]));
+      dispatch(toggleModal(false));
+    });
+  };
+
+  // redux pack orders state
+  const isModalOpen = useSelector((state) => state.PACK_ORDERS.isModalOpen);
+
+  return (
+    <Transition appear show={isModalOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel
+                className="w-full max-w-lg rounded-2xl bg-white p-6 
+                          text-left align-middle 
+                          shadow-xl transition-all
+                          transform overflow-hidden
+                          space-y-4"
+              >
+                <div className="flex items-center justify-between">
+                  <Dialog.Title
+                    as="h2"
+                    className="text-lg font-semibold font-serif leading-6 text-gray-900"
+                  >
+                    Payment successful
+                  </Dialog.Title>
+
+                  <CloseButton onClick={closeModal} />
+                </div>
+
+                <Modal />
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+}
+export default WaybillModal;
+
+const Modal = () => {
   const history = useHistory();
 
   //redux
   const dispatch = useDispatch();
 
   // redux pack orders state
-  const waybills = useSelector((s) => s.PACK_ORDERS.waybills);
+  const waybillIds = useSelector((s) => s.PACK_ORDERS.waybillIds);
+
+  const [waybills, setWaybillsData] = useState(false);
+
+  // API to get all waybills
+  useEffect(() => {
+    const getWaybills = async () => {
+      //#region build order id and product ids
+      let orderIdsArr = []; // ["1", "6", "61"]; // 1+6+61
+      let productIdsArr = []; // []; //2+1+12-1-2+5+6
+
+      waybillIds.forEach(({ orderId: oId, productIds: pIds }) => {
+        orderIdsArr.push(oId);
+        productIdsArr.push(pIds.join("+"));
+      });
+
+      let orderIds = orderIdsArr.join("+");
+      let productIds = productIdsArr.join("-");
+      //#endregion
+
+      //#region API
+      await axios
+        .get(`/api/logistics/waybill/orders/${orderIds}/products/${productIds}`)
+        .then((res) => {
+          if (res.status === 200) {
+            setWaybillsData({
+              business: res.data.business,
+              orders: res.data.waybillOrders,
+            });
+          }
+        })
+        .catch((err) => {
+          if (!err.response)
+            batch(() => {
+              dispatch(
+                setMessages([
+                  {
+                    message:
+                      "Something went wrong. Please refresh your browser and try again.",
+                    severity: "error",
+                  },
+                ])
+              );
+              dispatch(toggleModal(false));
+              dispatch(setWaybills([]));
+            });
+          else if (err.response.status === 401) history.push("/unauthorized");
+          else if (err.response.status === 403) history.push("/forbidden");
+          else
+            batch(() => {
+              dispatch(
+                setMessages([
+                  {
+                    message: setMessage(err.response.data.error),
+                    severity: "error",
+                  },
+                ])
+              );
+              dispatch(toggleModal(false));
+              dispatch(setWaybills([]));
+            });
+        });
+      //#endregion
+    };
+
+    getWaybills();
+  }, []);
 
   // react-to-print
   const waybillsRef = useRef();
@@ -47,9 +197,9 @@ function WaybillModal() {
       productIds: order.orderedProducts.map((product) => product._product._id),
     }));
 
-    // API;
+    //#region  API;
     axios
-      .patch("/api/logistics/orders/pack", {
+      .patch("/api/logistics/pack", {
         orders,
       })
       .then((res) => {
@@ -60,8 +210,9 @@ function WaybillModal() {
             // remove the updated orders
             dispatch(filterOrders(res.data.updatedOrders));
 
-            dispatch(setSeverity("success"));
-            dispatch(setMessage(res.data.message));
+            // dispatch(setSeverity("success"));
+            // dispatch(setMessage(res.data.message));
+            dispatch(setMessages(res.data.messages));
           });
         else if (res.status === 200)
           batch(() => {
@@ -70,7 +221,6 @@ function WaybillModal() {
           });
       })
       .catch((err) => {
-        console.log(err);
         if (!err.response)
           batch(() => {
             dispatch(setSeverity("error"));
@@ -88,118 +238,22 @@ function WaybillModal() {
             dispatch(setMessage(err.response.data.error));
           });
       });
+    //#endregion
   };
 
   return (
-    <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
-      <div className="mx-auto w-max h-screen flex items-center">
-        {/* content */}
-        <div className="bg-white-tint shadow-lg rounded-lg border border-accent border-opacity-30">
-          <div className="inline-flex justify-between w-full">
-            <PrintModal printWayBill={updateOrderStatusAPI} />
-            <CloseModal />
-          </div>
-
-          <div className="h-[15cm] overflow-y-auto mx-3 mb-3 rounded">
-            {waybills ? (
-              <RenderWaybillContent waybills={waybills} ref={waybillsRef} />
-            ) : (
-              <div className="flex w-full h-full justify-center items-center">
-                <Loading />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-export default WaybillModal;
-
-const RenderWaybillContent = forwardRef(({ waybills }, ref) => {
-  return (
-    <div ref={ref} className="space-y-36">
-      {waybills.orders.map((order) => (
-        <WaybillContent
-          key={order._id}
-          order={order}
-          business={waybills.business}
-        />
-      ))}{" "}
-    </div>
-  );
-});
-
-const WaybillContent = ({ order, business }) => {
-  return (
-    <div
-      className="h-[15cm] w-[10cm] 
-                grid grid-cols-3 auto-rows-auto 
-                divide-y divide-x divide-gray-400
-                border-r border-b border-gray-400 rounded"
-    >
-      <WaybillLayout order={order} business={business} />
-    </div>
-  );
-};
-
-function CloseModal() {
-  // redux
-  const dispatch = useDispatch();
-
-  const close = () => {
-    batch(() => {
-      dispatch(toggleModal(false));
-      dispatch(setWaybills(null));
-    });
-  };
-
-  return (
-    <div className=" p-3">
+    <>
       <button
-        onClick={close}
-        className="py-1 px-1.5 bg-white-tone rounded 
-                inline-flex gap-1 items-center 
-                text-sm font-semibold text-black
-                transition duration-200 ease-linear
-                hover:shadow-md hover:bg-gray-200
-                active:bg-red-100"
+        onClick={updateOrderStatusAPI}
+        className="text-white font-semibold text-sm
+                   flex items-center justify-center gap-1
+                   bg-accent/80 rounded p-2
+                   transition duration-200 ease-linear
+                   hover:bg-accent"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-red-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        CLOSE
-      </button>
-    </div>
-  );
-}
-
-const PrintModal = ({ printWayBill }) => {
-  return (
-    <div className=" p-3 ">
-      <button
-        onClick={printWayBill}
-        className="py-1 px-1.5 bg-white-tone rounded 
-              inline-flex gap-1 items-center 
-              text-sm font-semibold text-black
-              transition duration-200 ease-linear
-              hover:shadow-md hover:bg-gray-200
-              active:bg-blue-100"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-accent"
+          className="h-5 w-5 "
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -213,6 +267,34 @@ const PrintModal = ({ printWayBill }) => {
         </svg>
         PRINT
       </button>
-    </div>
+
+      <div
+        className="h-[15.5cm] overflow-y-auto mb-3 
+                 py-2 rounded bg-neutral-100"
+      >
+        <RenderWaybillContent waybills={waybills} ref={waybillsRef} />
+      </div>
+    </>
   );
 };
+
+const RenderWaybillContent = forwardRef(({ waybills }, ref) => {
+  return waybills ? (
+    <div
+      ref={ref}
+      className="w-full flex flex-col items-center justify-center gap-36"
+    >
+      {waybills.orders.map((order) => (
+        <WaybillLayout
+          key={order._id}
+          order={order}
+          business={waybills.business}
+        />
+      ))}
+    </div>
+  ) : (
+    <div className="flex w-full h-full justify-center items-center">
+      <Loading />
+    </div>
+  );
+});
