@@ -151,11 +151,6 @@ const routes = {
             path: "/seller/shipment/pack",
             name: "Pack Orders",
           },
-
-          FULFILLED: {
-            path: "/seller/shipment/fulfilled",
-            name: "Manage Fulfilled Shipment",
-          },
         },
       },
 

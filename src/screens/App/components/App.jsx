@@ -157,7 +157,6 @@ const AppContent = memo(() => {
           <Route {...route.SELLER.subroutes.MANAGE.subroutes.INVENTORY} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.ORDERS} />
           <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.PACK} />
-          <Route {...route.SELLER.subroutes.SHIPMENT.subroutes.FULFILLED} />
           <Route {...route.SELLER.subroutes.ORDERS.subroutes.MASTER} />
           <Route {...route.SELLER.subroutes.SETTINGS.subroutes.BUSINESS} />
 
