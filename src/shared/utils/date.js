@@ -49,16 +49,21 @@ function formatDate(d, full) {
  * Converts and gets the difference between two dates
  *
  */
-const dateDifference = (d1, d2) => {
+const dateDifference = (d1, d2, formatAsString = false) => {
   const x = new Date(d1);
   const y = new Date(d2);
 
   const diffTime = Math.abs(x - y);
 
-  return [
-    Math.ceil(diffTime / (1000 * 60 * 60 * 24)),
-    x > y ? "Delayed for" : "Ahead for",
-  ];
+  if (formatAsString)
+    return `${Math.ceil(diffTime / (1000 * 60 * 60 * 24))} day(s) ${
+      x > y ? "delayed" : "ahead"
+    }`;
+  else
+    return [
+      Math.ceil(diffTime / (1000 * 60 * 60 * 24)),
+      x > y ? "Delayed for" : "Ahead for",
+    ];
 };
 
 export { formatDate, dateDifference };

@@ -24,7 +24,7 @@ const OrderTable = () => {
 
   return (
     <SpaciousTable>
-      <Head grid="grid-cols-12">
+      <Head grid="grid-cols-15">
         <Heading className="col-span-1 text-center">
           <input
             type="checkbox"
@@ -32,10 +32,12 @@ const OrderTable = () => {
             onChange={onCheckboxChange}
           />
         </Heading>
-        <Heading className="col-span-1">Order ID</Heading>
-        <Heading className="col-span-4">Items</Heading>
+        <Heading className="col-span-1">ID</Heading>
+        <Heading className="col-span-3">Customer</Heading>
+        <Heading className="col-span-2">Date Ordered</Heading>
+        <Heading className="col-span-2">Lead Order Time</Heading>
         <Heading className="col-span-2">Address</Heading>
-        <Heading className="col-span-2">Mode of Payment</Heading>
+        <Heading className="col-span-2">Payment</Heading>
         <Heading className="col-span-2">Actions</Heading>
       </Head>
 
