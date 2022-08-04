@@ -4,8 +4,10 @@ import { toggleAllOrderCheck } from "../../../../../../../../../../redux/Seller/
 
 import SpaciousTable, {
   Body,
+  Data,
   Head,
   Heading,
+  Row,
 } from "../../../../../../../../../../shared/Components/table/SpaciousTable";
 import OrderPackRow from "./PackOrderRow";
 import PackOrderSkeleton from "./PackOrderSkeleton";
@@ -45,6 +47,14 @@ const RenderPackOrders = () => {
   // redux pack orders
   const orders = useSelector((s) => s.PACK_ORDERS.orders);
 
-  return orders.map((order) => <OrderPackRow key={order._id} order={order} />);
+  return orders && orders.length > 0 ? (
+    orders.map((order) => <OrderPackRow key={order._id} order={order} />)
+  ) : (
+    <Row grid="grid-cols-1">
+      <Data className="col-span-1 text-center text-md font-medium py-8 text-neutral-800">
+        No pending orders to be packed.
+      </Data>
+    </Row>
+  );
 };
 export default PackOrderTable;
