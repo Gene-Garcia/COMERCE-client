@@ -4,8 +4,6 @@ import {
   checkThisOrder,
   togglePageLoading,
   toggleReload,
-  triggerModalState,
-  updateModaledOrder,
 } from "../../../../../../../../../../redux/Seller/ShipOrders/ShipOrdersAction";
 import { formatPrice } from "../../../../../../../../../../shared/utils/price";
 import axios from "../../../../../../../../../../shared/caller";
@@ -27,6 +25,11 @@ import CompactTable, {
   Row as CTRow,
 } from "../../../../../../../../../../shared/Components/table/CompactTable";
 import DesignedPayment from "../../../../../../../../../../shared/Components/payment/DesignedPayment";
+import {
+  setModalOrderId,
+  toggleModalLoading,
+  toggleOrderModal,
+} from "../../../../../../../../../../redux/OrderModal/OrderModalAction";
 
 const OrderRow = ({ order }) => {
   // history
@@ -39,37 +42,13 @@ const OrderRow = ({ order }) => {
     dispatch(checkThisOrder(order._id, e.target.checked));
   };
 
-  // API to load modalOrder
-  async function getOrder() {
-    await axios
-      .get(`/api/seller/orders/order/${order._id}`)
-      .then((res) => {
-        if (res.status === 200) {
-          batch(() => {
-            dispatch(triggerModalState(true));
-            dispatch(updateModaledOrder(res.data.order));
-          });
-        }
-      })
-      .catch((err) => {
-        if (!err.response)
-          dispatch(
-            setMessages({
-              message:
-                "Something went wrong. Please refresh the page and try again.",
-              severity: "error",
-            })
-          );
-        else if (err.response.status === 401) history.push("/unauthorized");
-        else if (err.response.status === 403) history.push("/forbidden");
-        else
-          dispatch(
-            setMessages({
-              message: err.response.data.error,
-              severity: "error",
-            })
-          );
-      });
+  // toggle order modal
+  async function openOrderModal() {
+    batch(() => {
+      dispatch(toggleModalLoading(true));
+      dispatch(toggleOrderModal(true));
+      dispatch(setModalOrderId(order._id));
+    });
   }
 
   // API ship this order
@@ -142,7 +121,7 @@ const OrderRow = ({ order }) => {
       </Data>
       <Data className="col-span-2">
         <ActionGroup>
-          <Action type="BUTTON" text="Info" onClick={getOrder} />
+          <Action type="BUTTON" text="Details" onClick={openOrderModal} />
           <Action type="BUTTON" text="Ship" onClick={shipOrder} />
         </ActionGroup>
       </Data>

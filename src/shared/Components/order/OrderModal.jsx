@@ -1,5 +1,5 @@
 import React, { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleOrderModal } from "../../../redux/OrderModal/OrderModalAction";
 import { formatPrice } from "../../utils/price";
