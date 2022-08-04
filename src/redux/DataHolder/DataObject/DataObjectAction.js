@@ -2,6 +2,7 @@ const dataObjectActionTypes = {
   LOAD_DATA_OBJECT: "LOAD_DATA_OBJECT",
   TOGGLE_ALL_CHECK: "TOGGLE_ALL_CHECK",
   TOGGLE_CHECK: "TOGGLE_CHECK",
+  TOGGLE_RELOAD: "TOGGLE_RELOAD",
   RESET_DATA_OBJECT_REDUX: "RESET_DATA_OBJECT_REDUX",
 };
 
@@ -26,6 +27,12 @@ const toggleCheck = (isChecked, objectKey) => {
   };
 };
 
+const toggleReload = () => {
+  return {
+    type: dataObjectActionTypes.TOGGLE_RELOAD,
+  };
+};
+
 const resetDataObjectRedux = () => {
   return {
     type: dataObjectActionTypes.RESET_DATA_OBJECT_REDUX,
@@ -37,5 +44,6 @@ export {
   loadDataObject,
   toggleAllCheck,
   toggleCheck,
+  toggleReload,
   resetDataObjectRedux,
 };

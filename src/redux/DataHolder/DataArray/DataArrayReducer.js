@@ -3,6 +3,8 @@ import { dataArrayActionTypes as types } from "./DataArrayAction";
 const initial = {
   data: [],
   isLoading: true,
+
+  reload: false,
 };
 
 const dataArrayReducer = (state = initial, { type, payload }) => {
@@ -34,6 +36,12 @@ const dataArrayReducer = (state = initial, { type, payload }) => {
           checked:
             e[payload.idName] === payload.id ? payload.isChecked : e.checked,
         })),
+      };
+
+    case types.TOGGLE_RELOAD:
+      return {
+        ...state,
+        reload: !state.reload,
       };
 
     case types.RESET_DATA_ARRAY_REDUX:

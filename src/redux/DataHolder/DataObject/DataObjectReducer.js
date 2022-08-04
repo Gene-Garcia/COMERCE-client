@@ -3,6 +3,8 @@ import { dataObjectActionTypes as types } from "./DataObjectAction";
 const initial = {
   data: null,
   isLoading: true,
+
+  reload: false,
 };
 
 const dataObjectReducer = (state = initial, { type, payload }) => {
@@ -55,6 +57,12 @@ const dataObjectReducer = (state = initial, { type, payload }) => {
       return {
         ...state,
         data: objChecked,
+      };
+
+    case types.TOGGLE_RELOAD:
+      return {
+        ...state,
+        reload: !state.reload,
       };
 
     case types.RESET_DATA_OBJECT_REDUX:
