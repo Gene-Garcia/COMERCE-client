@@ -4,6 +4,8 @@ import {
   checkLogistic,
   setLogisticsInModal,
   toggleAttemptModal,
+  toggleLoading,
+  toggleReload,
 } from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
 import {
   Data,
@@ -16,6 +18,9 @@ import {
 import { formatDate } from "../../../../../../../../../../shared/utils/date";
 import { AttemptsCollapseData, OrderCollapseData } from "./CollapseData";
 import CollapseOrders from "./CollapseOrders";
+import axios from "../../../../../../../../../../shared/axios";
+import { setMessages } from "../../../../../../../../../../redux/Alert/AlertAction";
+import { useHistory } from "react-router-dom";
 
 const LogisticsRow = ({
   data: {
@@ -27,6 +32,7 @@ const LogisticsRow = ({
     checked,
   },
 }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   //#region Toggle table configuration
@@ -50,6 +56,56 @@ const LogisticsRow = ({
       dispatch(setLogisticsInModal(logisticsId));
       dispatch(toggleAttemptModal(true));
     });
+  };
+
+  const APISuccessPickUp = async () => {
+    await axios
+      .patch("/api/logistics/orders/pick-up/success", { logisticsId })
+      .then((res) => {
+        if (res.status === 201) {
+          batch(() => {
+            dispatch(
+              setMessages([
+                {
+                  message: res.data.message,
+                  severity: "success",
+                },
+              ])
+            );
+
+            dispatch(toggleReload());
+          });
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          batch(() => {
+            dispatch(
+              setMessages([
+                {
+                  message:
+                    "Something went wrong in retrieving your orders. Refresh your browser or try again later.",
+                  severity: "error",
+                },
+              ])
+            );
+            dispatch(toggleLoading(false));
+          });
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("unathorized");
+        else
+          batch(() => {
+            dispatch(
+              setMessages([
+                {
+                  message: err.response.data.message,
+                  severity: "error",
+                },
+              ])
+            );
+            dispatch(toggleLoading(false));
+          });
+      });
   };
 
   return (
@@ -106,7 +162,7 @@ const LogisticsRow = ({
               type="BUTTON"
               onClick={openAttemptModal}
             />
-            <Action text="FINISHED" type="BUTTON" onClick={() => {}} />
+            <Action text="FINISHED" type="BUTTON" onClick={APISuccessPickUp} />
           </ActionGroup>
         </Data>
       </Row>
