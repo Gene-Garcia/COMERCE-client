@@ -15,7 +15,8 @@ import SellerRoute from "./screens/Seller/route";
 import LogisticsRoute from "./screens/Logistics/route";
 
 const route = {
-  HOME: HomeRoute,
+  // HOME: HomeRoute,
+  HOME: CatalogueRoute,
   CATALOGUE: CatalogueRoute,
   CatalogueRoute,
   SIGN_UP: SignUpRoute,
