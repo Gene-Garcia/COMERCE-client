@@ -1,4 +1,20 @@
 import React, { useState } from "react";
+import { batch, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import {
+  setMessage,
+  setMessages,
+  setSeverity,
+} from "../../../../../../../../../../redux/Alert/AlertAction";
+import {
+  toggleAllProductChecked,
+  toggleProductChecked,
+} from "../../../../../../../../../../redux/Logistics/SellerPickUp/SellerPickUpAction";
+import {
+  toggleLoading,
+  toggleReload,
+} from "../../../../../../../../../../redux/Logistics/WithMe/WithMeAction";
+import axios from "../../../../../../../../../../shared/axios";
 import {
   Data,
   Row,
@@ -20,14 +36,72 @@ const ProductRow = ({
     orders,
     checked,
   },
+  product,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const history = useHistory();
+
+  // redux
+  const dispatch = useDispatch();
+
+  //#region API to PICK UP ORDER
+  const PickUpOrderAPI = async () => {
+    await axios
+      .post("/api/logistics/orders/pick-up", {
+        products: { [businessId]: product },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          batch(() => {
+            dispatch(setMessages(res.data.messages));
+            dispatch(toggleLoading(true));
+            dispatch(toggleReload());
+          });
+        }
+      })
+      .catch((err) => {
+        if (!err.response)
+          dispatch(
+            setMessages([
+              {
+                message:
+                  "Something went wrong in retrieving your orders. Try again",
+                severity: "error",
+              },
+            ])
+          );
+        else if (err.response.status === 403) history.push("/forbidden");
+        else if (err.response.status === 401) history.push("unathorized");
+        else
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
+      });
+  };
+  //#endregion
+
+  // checkbox change
+  const checkboxChange = (e) => {
+    console.log(e.target.checked);
+    dispatch(toggleProductChecked(businessId, e.target.checked));
+  };
 
   return (
     <>
       <Row grid="grid-cols-14">
         <Data className="col-span-1 text-center">
-          <input type="checkbox" checked={checked} className="" />
+          <input
+            type="checkbox"
+            checked={checked}
+            className=""
+            onChange={checkboxChange}
+          />
         </Data>
         <Data className="col-span-1 font-light text-xs break-all">
           {businessId}
@@ -45,11 +119,9 @@ const ProductRow = ({
             <Action
               type="BUTTON"
               text="Show Parcels"
-              onClick={() => {
-                setCollapsed((prev) => !prev);
-              }}
+              onClick={() => setCollapsed((prev) => !prev)}
             />
-            <Action type="BUTTON" text="Pick Up" onClick={() => {}} />
+            <Action type="BUTTON" text="Pick Up" onClick={PickUpOrderAPI} />
           </ActionGroup>
         </Data>
       </Row>

@@ -173,7 +173,7 @@ function AddProduct() {
           placeholder="Name of your new product"
           border="py-1.5 border-b-2 rounded-t shadow"
           inputStyle="bg-transparent rounded-t-sm px-2 text-lg"
-          focusWithin="focus-within:border-my-accent"
+          focusWithin="focus-within:border-accent"
         />
 
         <div
@@ -192,7 +192,7 @@ function AddProduct() {
             icon={
               <span
                 className="rounded bg-white px-1
-                text-my-accent font-semibold text-md "
+                text-accent font-semibold text-md "
               >
                 PHP
               </span>
@@ -227,7 +227,7 @@ function AddProduct() {
             icon={
               <span
                 className="rounded bg-white px-2 py-1.5
-                text-my-accent font-semibold text-md "
+                text-accent font-semibold text-md "
               >
                 PHP
               </span>
@@ -320,7 +320,7 @@ function GalleryInput({ name, value, error, onChange }) {
   return (
     <div className="space-y-2">
       {/* preview of image */}
-      <div className="h-28 lg:h-36 xl:h-40 bg-my-white-tint bg-opacity-70 rounded flex items-center p-4">
+      <div className="h-28 lg:h-36 xl:h-40 bg-white-tint bg-opacity-70 rounded flex items-center p-4">
         {!value || value === "" ? (
           <span className="font-medium text-base text-gray-500">
             Preview of the image
@@ -335,7 +335,7 @@ function GalleryInput({ name, value, error, onChange }) {
       </div>
 
       <div className="flex flex-col xs:flex-row gap-4">
-        <label className="h-14 lg:h-16 w-14 lg:w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-my-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-my-accent">
+        <label className="h-14 lg:h-16 w-14 lg:w-16 flex items-center justify-center cursor-pointer text-gray-800 bg-white-tint transition duration-200 ease-linear hover:bg-gray-200 hover:shadow active:text-accent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-7 lg:h-8 w-7 lg:w-8"

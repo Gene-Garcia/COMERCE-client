@@ -116,7 +116,7 @@ const ContactInformationCard = () => {
           border="py-1.5 border-b-2 rounded-t shadow"
           label="Business Email"
           error={errors.businessEmail}
-          focusWithin="focus-within:border-my-accent"
+          focusWithin="focus-within:border-accent"
         />
 
         <InputFirst
@@ -128,8 +128,8 @@ const ContactInformationCard = () => {
           border="py-1.5 border-b-2 rounded-t shadow"
           label="Contact Number"
           error={errors.contactNumber}
-          focusWithin="focus-within:border-my-accent"
-          icon={<div className="px-2 text-my-accent font-semibold">+63</div>}
+          focusWithin="focus-within:border-accent"
+          icon={<div className="px-2 text-accent font-semibold">+63</div>}
         />
       </div>
 

@@ -1,12 +1,9 @@
-import { shopOrdersActionTypes as types } from "./ShopOrdersAction";
+import { shipOrdersActionTypes as types } from "./ShipOrdersAction";
 
 const initial = {
   pendingOrders: [],
 
   isLoading: true,
-
-  isModalOpen: false,
-  modalOrder: null,
 
   reload: false, // a state variable which will be used as a dependency in re-requesting pending orders
 };
@@ -18,12 +15,6 @@ const shipOrdersReducer = (state = initial, { type, payload }) => {
 
     case types.TOGGLE_PAGE_LOADING:
       return { ...state, isLoading: payload };
-
-    case types.UPDATE_MODALED_ORDER:
-      return { ...state, modalOrder: payload };
-
-    case types.TRIGGER_MODAL_STATE:
-      return { ...state, isModalOpen: payload };
 
     case types.CHECK_THIS_ORDER:
       return {

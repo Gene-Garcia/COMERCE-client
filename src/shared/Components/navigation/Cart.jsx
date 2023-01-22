@@ -26,7 +26,7 @@ function Cart() {
   return (
     <Link
       to="/user/cart"
-      className="rounded-full inline-flex items-center justify-center gap-0.5 h-6 w-11 bg-my-accent text-white transition duration-200 ease-linear hover:ring-4 hover:ring-my-accent hover:ring-opacity-20 active:ring-2 active:ring-offset-2 active:ring-opacity-60"
+      className="rounded-full inline-flex items-center justify-center gap-0.5 h-6 w-11 bg-accent text-white transition duration-200 ease-linear hover:ring-4 hover:ring-accent hover:ring-opacity-20 active:ring-2 active:ring-offset-2 active:ring-opacity-60"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

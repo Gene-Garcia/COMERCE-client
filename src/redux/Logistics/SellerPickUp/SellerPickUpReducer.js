@@ -12,7 +12,7 @@ import { sellerPickUpRegistrationTypes as types } from "./SellerPickUpAction";
  *    checked: bool
  * }
  */
-const initial = { products: {}, isLoading: true };
+const initial = { products: null, isLoading: true };
 
 const sellerPickUpReducer = (state = initial, { type, payload }) => {
   switch (type) {
@@ -27,34 +27,44 @@ const sellerPickUpReducer = (state = initial, { type, payload }) => {
 
     case types.TOGGLE_PRODUCT_CHECKED:
       // iterate each products and find the matching business id
-      const products = state.products;
-      for (let k in products) {
-        if (products.hasOwnProperty(k)) {
-          if (k === payload.businessId) {
-            products[k].checked = payload.isChecked;
+      // const products = state.products;
+      // for (let k in products) {
+      //   if (products.hasOwnProperty(k)) {
+      //     if (k === payload.businessId) {
+      //       products[payload.businessId].checked = payload.isChecked;
 
-            break;
-          }
-        }
-      }
+      //       break;
+      //     }
+      //   }
+      // }
 
       return {
         ...state,
-        products: products,
+        products: {
+          ...state.products,
+          [payload.businessId]: {
+            ...state.products[payload.businessId],
+            checked: payload.isChecked,
+          },
+        },
       };
 
     case types.TOGGLE_ALL_PRODUCT_CHECKED:
       // iterate each products and update checked
-      const products2 = state.products;
-      for (let k in products) {
-        if (products.hasOwnProperty(k)) {
-          products[k].checked = payload.isChecked;
-        }
-      }
+      // const products2 = state.products;
+      // for (let k in products2) {
+      //   if (products2.hasOwnProperty(k)) {
+      //     products2[k].checked = payload.isChecked;
+      //   }
+      // }
+      let checkedProducts = { ...state.products };
+      Object.keys(checkedProducts).forEach((k, i) => {
+        checkedProducts[k].checked = payload;
+      });
 
       return {
         ...state,
-        products: products2,
+        products: checkedProducts,
       };
 
     case types.FILTER_FOR_PICKUP_PRODUCTS:

@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
-import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
-import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
-import OrderTable from "./table/OrderTable";
-import axios from "../../../../../../../../../shared/caller";
+
 import { batch, useDispatch, useSelector } from "react-redux";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../../../redux/Alert/AlertAction";
 import {
@@ -14,12 +11,20 @@ import {
   resetToDefault,
   togglePageLoading,
   toggleReload,
-  triggerModalState,
-  updateModaledOrder,
-} from "../../../../../../../../../redux/Seller/ShipOrders/ShopOrdersAction";
-import ModalContainer from "../../../../../../../../../shared/Modal/ModalContainer";
-import OrderModal from "./utils/OrderModal";
+} from "../../../../../../../../../redux/Seller/ShipOrders/ShipOrdersAction";
+import { resetReduxOrderModal } from "../../../../../../../../../redux/OrderModal/OrderModalAction";
+
 import { useHistory } from "react-router-dom";
+
+import axios from "../../../../../../../../../shared/caller";
+
+import OrderModal from "../../../../../../../../../shared/Components/order/OrderModal";
+
+import { SellerContainer } from "../../../../../../../../../shared/Components/pages/Container";
+import { SellerTitle } from "../../../../../../../../../shared/Components/pages/Title";
+import HeaderButton from "../../../../../../../../../shared/Components/seller/HeaderButton";
+
+import OrderTable from "./table/OrderTable";
 
 const Orders = ({ history }) => {
   // redux
@@ -69,12 +74,17 @@ const Orders = ({ history }) => {
 
   // clean up
   useEffect(() => {
-    return () => dispatch(resetToDefault());
+    return () => {
+      batch(() => {
+        dispatch(resetToDefault());
+        dispatch(resetReduxOrderModal());
+      });
+    };
   }, []);
 
   return (
     <SellerContainer>
-      <RenderOrderModal />
+      <OrderModal />
 
       <div className="flex flex-col xs:flex-row justify-between items-center gap-4 xs:gap-0">
         <SellerTitle title="Orders for Shipment" />
@@ -87,7 +97,7 @@ const Orders = ({ history }) => {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div className="overflow-auto">
-        <div className="min-w-rr60 ">
+        <div className="min-w-[70rem] ">
           <OrderTable />
         </div>
       </div>
@@ -95,30 +105,6 @@ const Orders = ({ history }) => {
   );
 };
 export default Orders;
-
-// single responsibility principle
-const RenderOrderModal = () => {
-  // redux
-  const dispatch = useDispatch();
-
-  // redux ship orders reducer & state
-  const isModalOpen = useSelector((state) => state.SHIP_ORDERS.isModalOpen);
-
-  return (
-    isModalOpen && (
-      <ModalContainer
-        close={() => {
-          batch(() => {
-            dispatch(triggerModalState(false));
-            dispatch(updateModaledOrder(null));
-          });
-        }}
-      >
-        <OrderModal />
-      </ModalContainer>
-    )
-  );
-};
 
 const ShipSelectedButton = () => {
   const history = useHistory();
@@ -149,31 +135,32 @@ const ShipSelectedButton = () => {
     await axios
       .patch("/api/seller/logistics/ship", { orders: data })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           batch(() => {
-            dispatch(setSeverity("information"));
-            dispatch(setMessage(res.data.message));
+            dispatch(togglePageLoading(true));
+            dispatch(setMessages(res.data.messages));
             dispatch(toggleReload());
           });
         }
       })
       .catch((err) => {
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong. Please refresh the page and try again."
-              )
-            );
-          });
+          dispatch(
+            setMessages({
+              message:
+                "Something went wrong. Please refresh the page and try again.",
+              severity: "error",
+            })
+          );
         else if (err.response.status === 401) history.push("/unauthorized");
         else if (err.response.status === 403) history.push("/forbidden");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages({
+              message: err.response.data.error,
+              severity: "error",
+            })
+          );
       });
   }
 

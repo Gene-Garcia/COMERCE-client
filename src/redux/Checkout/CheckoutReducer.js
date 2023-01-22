@@ -1,12 +1,6 @@
 import { checkoutActionTypes as types } from "./CheckoutAction";
 
 const initial = {
-  // changes on proceeding to the next step, or clicking a step indicator, whenever that step is visited.
-  toggledStep: "SD",
-  // helps in enabling a step indicator link to be clicked by the user. This allows navigating back to a step component.
-  // For example, going back to shipping details component to change something.
-  visitedStep: 1,
-
   // data object to hold the shipping details crated in shipping form component
   shippingDetails: {},
 
@@ -18,35 +12,6 @@ const initial = {
 
 const checkoutReducer = (state = initial, { type, payload }) => {
   switch (type) {
-    /*
-     * changes the toggled step to the next step, SD (shippingdetails) --> (paymentdetails) --> (reviewdetails)
-     * changes the visited step, which means that this step has been finished and be revisited later
-     *
-     * toggled step is the variable that determines which component will be displayed
-     * visited step is crucial for determining which step is finished and can be clicked
-     */
-    case types.NEXT_STEP:
-      if (!payload.isFinalStep)
-        return {
-          ...state,
-          toggledStep: payload.nextStepId,
-          visitedStep: payload.nextStepNumber,
-        };
-      else return { ...state };
-
-    /*
-     * changes the current toggled step that chanes the rendered component through
-     * changing the toggled step variable
-     */
-    case types.TOGGLE_STEP:
-      return {
-        ...state,
-        toggledStep:
-          payload.stepNumber <= state.visitedStep
-            ? payload.stepId
-            : state.toggledStep,
-      };
-
     case types.LOAD_SHIPPING_DETAILS:
       return { ...state, shippingDetails: { ...payload } };
 

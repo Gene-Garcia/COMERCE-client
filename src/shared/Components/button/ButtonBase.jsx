@@ -19,11 +19,11 @@ const baseTheme = `
 
 // accent base
 const accentAnimation = `
-  hover:ring-2 hover:ring-my-accent hover:ring-offset-2 hover:ring-opacity-70
-  active:bg-my-accent-mono
-  active:ring-2 active:ring-my-accent active:ring-opacity-40 active:ring-offset-0`;
-const accentBaseBgColor = "bg-my-accent shadow";
-const accentLoadingState = "bg-my-accent bg-opacity-50 cursor-not-allowed";
+  hover:ring-2 hover:ring-accent hover:ring-offset-2 hover:ring-opacity-70
+  active:bg-accent-mono
+  active:ring-2 active:ring-accent active:ring-opacity-40 active:ring-offset-0`;
+const accentBaseBgColor = "bg-accent shadow";
+const accentLoadingState = "bg-accent bg-opacity-50 cursor-not-allowed";
 
 // secondary base - outlined:white bg
 const secondaryAnimation = `
@@ -201,7 +201,7 @@ function ProductButton({
 
 function LoadingUtility({ textColor }) {
   return (
-    <svg className={`animate-spin h-5 w-5 ${textColor}`} viewBox="0 0 24 24">
+    <svg className={`animate-spin h-4 w-4 ${textColor}`} viewBox="0 0 24 24">
       <circle
         className="opacity-0"
         cx="12"

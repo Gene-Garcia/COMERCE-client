@@ -12,7 +12,7 @@ export default FilterButton;
 const FilterBody = ({ children, name }) => {
   return (
     <div className="flex flex-col gap-y-1">
-      <span className="text-sm font-semibold text-my-accent text-opacity-60">
+      <span className="text-sm font-semibold text-accent text-opacity-60">
         {name}
       </span>
 

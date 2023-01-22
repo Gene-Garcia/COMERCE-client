@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeCurrentStep } from "../../../../../../../redux/Seller/SellerRegistration/SellerRegistrationAction";
+import { checkoutStep } from "../../../../../../../redux/Steps/StepsAction";
 
 function RegistrationSteps() {
   return (
@@ -11,88 +11,87 @@ function RegistrationSteps() {
     items-center justify-center md:justify-start"
       >
         {/* Steps */}
-        <Step id={0} sub="Agreement" />
+        <Step id={1} name="Agreement" />
 
-        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+        <div className="hidden md:block w-0.5 h-12 bg-accent"></div>
 
-        <Step id={1} sub="Business" />
+        <Step id={2} name="Business" />
 
-        <div className="hidden md:block w-0.5 h-12 bg-my-accent"></div>
+        <div className="hidden md:block w-0.5 h-12 bg-accent"></div>
 
-        <Step id={2} sub="Account" />
+        <Step id={3} name="Account" />
       </div>
 
-      <div className="block md:hidden m-auto h-0.5 w-1/2 bg-my-accent"></div>
+      <div className="block md:hidden m-auto h-0.5 w-1/2 bg-accent"></div>
     </div>
   );
 }
 export default RegistrationSteps;
 
-function Step({ sub, id }) {
+function Step({ name, id }) {
   // redux
   const dispatch = useDispatch();
 
-  // redux seller registration reducer & state
-  const activeStepId = useSelector(
-    (state) => state.SELLER_REGISTRATION.activeStepId
-  );
-  const visitedStep = useSelector(
-    (state) => state.SELLER_REGISTRATION.visitedStep
-  );
+  // steps redux states
+  const active = useSelector((state) => state.STEPS.active);
+  const visited = useSelector((state) => state.STEPS.visited);
 
   let status;
-  if (activeStepId === id) status = "toggled";
-  else if (activeStepId !== id && id <= visitedStep) status = "visited";
-  else status = "idle";
+  if (active === id) status = "TOGGLED";
+  else if (id <= visited) status = "VISITED";
+  else status = "IDLE";
 
   const theme = {
-    toggled: {
-      circle: "bg-my-accent",
+    TOGGLED: {
+      circle: "bg-accent",
       number: "text-white",
-      sub: "text-black",
+      sub: "text-neutral-600",
     },
 
-    idle: {
+    IDLE: {
       circle: "bg-white",
       number: "text-gray-500",
-      sub: "text-gray-300",
+      sub: "text-neutral-400",
     },
 
-    visited: {
-      circle: "bg-my-accent",
+    VISITED: {
+      circle: "bg-accent",
       number: "text-white",
-      sub: "text-gray-700 ",
+      sub: "text-neutral-400 ",
     },
   };
 
   return (
     <div
-      onClick={() => dispatch(changeCurrentStep(id))}
+      onClick={() => dispatch(checkoutStep(id))}
       className="group cursor-pointer
       flex flex-col items-center gap-1"
     >
       <div
         className={`h-9 w-9 rounded-full bg-white
-                  border border-my-accent
-                  flex items-center justify-center`}
+                  border border-accent
+                  flex items-center justify-center
+                  `}
       >
         <span
           className={`h-7 w-7 rounded-full 
         ${theme[status].circle} 
         flex items-center justify-center
-        text-sm font-bold ${theme[status].number}`}
+        text-sm font-bold ${theme[status].number}
+        transition duration-200 ease-linear
+        group-hover:ring-2 group-hover:ring-accent/50`}
         >
-          {id + 1}
+          {id}
         </span>
       </div>
 
       <p
         className={`${theme[status].sub} mb-0
-        text-base md:text-md font-medium 
+        texd-sm font-medium  
         transition duration-150 
-        group-hover:text-my-accent`}
+        group-hover:text-neutral-500`}
       >
-        {sub}
+        {name}
       </p>
     </div>
   );

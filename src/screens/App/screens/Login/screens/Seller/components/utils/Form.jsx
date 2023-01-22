@@ -63,6 +63,7 @@ function Form() {
       });
   };
 
+  //#region form configuration
   const validation = (data, setErrors) => {
     let temp = { ...errors };
 
@@ -83,6 +84,7 @@ function Form() {
     isLoading,
     setIsLoading,
   } = useForm(init, init, validation, LoginAPI);
+  //#endregion
 
   return (
     <div className="w-full xs:w-4/5 sm:w-seventy md:w-3/5 xl:w-1/2 h-full p-7 md:p-10 flex flex-col justify-center gap-12 xs:gap-16">
@@ -114,7 +116,7 @@ function Form() {
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-my-accent mx-2"
+              className="h-5 w-5 text-accent mx-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -142,7 +144,7 @@ function Form() {
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
+                className="h-5 w-5 text-accent mx-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -157,14 +159,37 @@ function Form() {
             }
           />
 
-          <div className="text-right">
+          {/* <div className="text-right">
             <Link
               to="/password/forgot"
-              className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+              className="text-accent text-sm font-medium transition ease-linear hover:text-gray-600"
             >
               Forgot Password
             </Link>
+          </div> */}
+        </div>
+
+        <div className="flex flex-row justify-between gap-4 items-center">
+          <div className="inline-flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              className="rounded-xl border accent-accent"
+            />
+            <label
+              for="rememberMe"
+              className="text-sm font-medium text-gray-600"
+            >
+              Remember Me
+            </label>
           </div>
+
+          <Link
+            to="/password/forgot"
+            className="text-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+          >
+            Forgot Password
+          </Link>
         </div>
 
         <FormButton
@@ -176,17 +201,15 @@ function Form() {
           textColor="text-white"
         />
 
-        <div className="flex flex-row items-center justify-center gap-2">
-          <p className="text-gray-400 mb-0 text-sm lg:text-base">
-            don't have an account?
-          </p>
-          <Link
-            to="/sign-up/seller"
-            className="px-0.5 text-my-accent font-medium xs:text-md lg:text-lg border-b border-transparent transition ease-linear hover:border-my-accent "
-          >
-            Sign Up
-          </Link>
-        </div>
+        <Link
+          to="/sign-up/seller"
+          className="block w-full text-center
+                    text-zinc-400 text-sm 
+                    transition duration-150 ease-linear 
+                    hover:text-neutral-500"
+        >
+          don't have an account?
+        </Link>
       </div>
     </div>
   );

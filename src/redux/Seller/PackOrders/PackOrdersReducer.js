@@ -4,8 +4,9 @@ import { packOrdersActionTypes as types } from "./PackOrdersActions";
 const initial = {
   orders: [],
   isLoading: true,
+
   isModalOpen: false,
-  waybills: null,
+  waybillIds: [],
 };
 
 const packOrdersReducer = (state = initial, { type, payload }) => {
@@ -40,7 +41,7 @@ const packOrdersReducer = (state = initial, { type, payload }) => {
       return { ...state, isModalOpen: payload };
 
     case types.SET_WAYBILLS:
-      return { ...state, waybills: payload };
+      return { ...state, waybillIds: payload };
 
     case types.FILTER_ORDERS:
       return {

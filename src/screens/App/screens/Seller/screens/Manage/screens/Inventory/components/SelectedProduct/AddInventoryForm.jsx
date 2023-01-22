@@ -148,7 +148,7 @@ function AddInventoryForm() {
           className="text-gray-700 rounded p-2 
         place-self-end
         transition duration-150 ease-linear
-        active:text-my-accent hover:bg-gray-200"
+        active:text-accent hover:bg-gray-200"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -74,7 +74,7 @@ const Pack = () => {
 
   return (
     <>
-      <WaybillModalWrapper />
+      <WaybillModal />
 
       <SellerContainer>
         <div className="flex flex-col xs:flex-row gap-4 xs:gap-0 items-center justify-between">
@@ -98,13 +98,6 @@ const Pack = () => {
 };
 export default Pack;
 
-const WaybillModalWrapper = () => {
-  // redux pack order reducer & state
-  const isModalOpen = useSelector((s) => s.PACK_ORDERS.isModalOpen);
-
-  return isModalOpen ? <WaybillModal /> : <></>;
-};
-
 const PrintSelectedHeaderButton = () => {
   // redux pack order state
   const orders = useSelector((s) => s.PACK_ORDERS.orders);
@@ -112,73 +105,29 @@ const PrintSelectedHeaderButton = () => {
   // redux
   const dispatch = useDispatch();
 
-  const history = useHistory();
-
   const printSelected = async () => {
     //#region build paramaters of selected orders
-    const productIds = [];
+    const waybilldIds = [];
 
-    const orderIds = [];
     orders.forEach((order) => {
       if (order.checked) {
-        const tempProductIds = order.orderedProducts.map(
+        const productIds = order.orderedProducts.map(
           (product) => product._product._id
         );
 
-        productIds.push(tempProductIds.join("+"));
-
-        orderIds.push(order._id);
-
-        console.log(productIds);
-        console.log(orderIds);
+        if (productIds && productIds.length > 0)
+          waybilldIds.push({
+            orderId: order._id,
+            productIds: productIds,
+          });
       }
     });
 
-    if (orderIds.length > 0 && productIds.length > 0) {
-      dispatch(toggleModal(true));
-
-      const joinedOrderIds = orderIds.join("+");
-      const joinedProductIds = productIds.join("-");
-      //#endregion
-
-      //#region api
-      await axios
-        .get(
-          `/api/logistics/waybill/seller/order/${joinedOrderIds}/products/${joinedProductIds}`
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            dispatch(
-              setWaybills({
-                orders: [...res.data.waybillOrders],
-                business: res.data.business,
-              })
-            );
-          } else {
-            dispatch(toggleModal(false));
-          }
-        })
-        .catch((err) => {
-          if (!err.response)
-            batch(() => {
-              dispatch(setSeverity("error"));
-              dispatch(
-                setMessage(
-                  "Something went wrong. Please refresh your browser and try again."
-                )
-              );
-              dispatch(toggleModal(false));
-            });
-          else if (err.response.status === 401) history.push("/unauthorized");
-          else if (err.response.status === 403) history.push("/forbidden");
-          else
-            batch(() => {
-              dispatch(setSeverity("error"));
-              dispatch(setMessage(err.response.data.error));
-              dispatch(toggleModal(false));
-            });
-        });
-      //#endregion
+    if (waybilldIds) {
+      batch(() => {
+        dispatch(toggleModal(true));
+        dispatch(setWaybills(waybilldIds));
+      });
     }
   };
 

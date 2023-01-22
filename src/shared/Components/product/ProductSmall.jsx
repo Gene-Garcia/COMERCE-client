@@ -21,7 +21,7 @@ function ProductSmall({ data }) {
   const productLink = `/catalogue/item/${productId}`;
 
   return (
-    <div className="flex flex-col w-72 xl:w-80 max-w-xs h-rr28 rounded-md shadow-lg">
+    <div className="flex flex-col w-72 xl:w-80 max-w-xs h-[28rem] rounded-md shadow-lg">
       {/* image */}
       <Link
         to={productLink}

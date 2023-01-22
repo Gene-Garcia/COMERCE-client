@@ -107,7 +107,7 @@ function ResetPassword({ history }) {
           <p>
             Thank you,
             <br />
-            <span className="font-semibold text-my-accent text-md">
+            <span className="font-semibold text-accent text-md">
               COMERCE Team
             </span>
           </p>
@@ -146,7 +146,7 @@ function ResetPassword({ history }) {
             ></FormButton>
 
             <Link
-              className="transition bg-transparent text-black font-semibold rounded-md px-4 py-1.5 border border-black hover:text-my-accent hover:border-my-accent active:ring active:ring-my-accent-mono active:ring-offset-2 active:ring-opacity-80"
+              className="transition bg-transparent text-black font-semibold rounded-md px-4 py-1.5 border border-black hover:text-accent hover:border-accent active:ring active:ring-accent-mono active:ring-offset-2 active:ring-opacity-80"
               to="/password/forgot"
             >
               Resend Token

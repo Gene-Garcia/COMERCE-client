@@ -10,14 +10,20 @@ const ShipOrdersSkeleton = () => {
   return (
     <>
       {dummy.map((e, i) => (
-        <SkeletonRow key={i} grid="grid-cols-12">
+        <SkeletonRow key={i} grid="grid-cols-15">
           <Data className="col-span-1">
             <SkeletonForText />
           </Data>
           <Data className="col-span-1">
             <SkeletonForText />
           </Data>
-          <Data className="col-span-4">
+          <Data className="col-span-3">
+            <SkeletonForText />
+          </Data>
+          <Data className="col-span-2">
+            <SkeletonForText />
+          </Data>
+          <Data className="col-span-2">
             <SkeletonForText />
           </Data>
           <Data className="col-span-2">

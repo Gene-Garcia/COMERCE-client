@@ -92,7 +92,7 @@ const ProductQuantityModifer = memo(({ productId, quantity }) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-my-accent"
+            className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-accent"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -122,7 +122,7 @@ const ProductQuantityModifer = memo(({ productId, quantity }) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-my-accent"
+            className="h-4 w-4 text-gray-600 transition duration-150 ease-linear group-hover:text-accent"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -207,12 +207,12 @@ const CartProductActionButtons = memo(({ cartId, productId }) => {
                           inline-flex items-center justify-center flex-wrap 
                           rounded
                           transition duration-250 ease-linear"
-        rootAnimation="hover:ring-2 hover:ring-my-accent hover:ring-offset-2 hover:ring-opacity-70
+        rootAnimation="hover:ring-2 hover:ring-accent hover:ring-offset-2 hover:ring-opacity-70
                           active:bg-gray-100
-                          active:ring-2 active:ring-my-accent active:ring-opacity-40 active:ring-offset-0"
-        rootBaseBgColor="border border-my-accent bg-transparent"
+                          active:ring-2 active:ring-accent active:ring-opacity-40 active:ring-offset-0"
+        rootBaseBgColor="border border-accent bg-transparent"
         textDesign="font-sans text-sm font-medium tracking-wide leading-none"
-        textColor="text-my-accent"
+        textColor="text-accent"
       />
 
       <ButtonBase

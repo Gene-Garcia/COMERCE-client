@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
+
 import { batch, useDispatch, useSelector } from "react-redux";
-import { useForm } from "../../../../../../../../hooks/useForm";
-import { loadAccountData } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
-import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
-import { AccountCTA } from "./CallToAction";
-import axios from "../../../../../../../../shared/caller";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../../redux/Alert/AlertAction";
-import { useHistory } from "react-router-dom";
+import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
+
+import axios from "../../../../../../../../shared/axios";
+
+import { useForm } from "../../../../../../../../hooks/useForm";
+
+import { AccountCTA } from "./CallToAction";
 
 const Account = () => {
   const history = useHistory();
@@ -56,14 +60,14 @@ const Account = () => {
         if (res.status === 201) {
           setIsLoading(false);
 
-          batch(() => {
-            dispatch(setSeverity("success"));
-            dispatch(
-              setMessage(
-                "Account created successfully. We have redirected to the page where you can login"
-              )
-            );
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Logistics account created.",
+                severity: "success",
+              },
+            ])
+          );
 
           history.push("/login/logistics");
         }
@@ -72,25 +76,30 @@ const Account = () => {
         setIsLoading(false);
 
         if (!err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(
-              setMessage(
-                "Something went wrong in your registration. Please refresh the page and try again."
-              )
-            );
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Invalid registration. Try again.",
+                severity: "error",
+              },
+            ])
+          );
         else if (err.response.status === 403) history.push("/forbidden");
         else if (err.response.status === 401) history.push("unauthorized");
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
       });
     // dispatch(loadAccountData(values));
   };
 
+  //#region form configurations
   const validate = (data, setErrors) => {
     const temp = { ...errors };
 
@@ -114,6 +123,7 @@ const Account = () => {
     setIsLoading,
     isLoading,
   } = useForm(initial, initial, validate, SubmitLogisticsRegistration);
+  //#endregion
 
   return (
     <>

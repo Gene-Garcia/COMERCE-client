@@ -170,7 +170,7 @@ function SignUp({ history }) {
                 icon={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-my-accent mx-2"
+                    className="h-5 w-5 text-accent mx-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -198,7 +198,7 @@ function SignUp({ history }) {
                 icon={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-my-accent mx-2"
+                    className="h-5 w-5 text-accent mx-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -226,7 +226,7 @@ function SignUp({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -253,7 +253,7 @@ function SignUp({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -281,12 +281,12 @@ function SignUp({ history }) {
 
             <Link
               to="/login/user"
-              className="text-gray-400 font-medium text-base
-                     transition duration-150 ease-linear
-                     hover:text-gray-800
-                     mx-auto"
+              className="block w-full text-center
+                    text-zinc-400 text-sm 
+                    transition duration-150 ease-linear 
+                    hover:text-neutral-500"
             >
-              Already have an account?
+              already have an account?
             </Link>
           </div>
         </div>
@@ -308,7 +308,7 @@ const Hero = () => {
 
       <div
         className="w-thirty hidden lg:flex items-center justify-center 
-                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
+                 bg-gradient-to-br from-accent via-accent-tin to-accent-tone"
       >
         <div
           className="w-3/4 2xl:w-3/5 
@@ -320,7 +320,7 @@ const Hero = () => {
             className="w-full h-20 bg-white rounded-lg shadow-lg
                      flex items-center justify-center
                      font-serif text-lg 
-                     text-my-accent font-semibold"
+                     text-accent font-semibold"
           >
             Browse Products
           </Link>

@@ -82,7 +82,7 @@ const OrdersMaster = () => {
       <OrderStatusDropdown />
 
       <div className="mt-8 overflow-auto">
-        <div className="min-w-rr60">
+        <div className="min-w-table-60">
           <OrderTable />
         </div>
       </div>

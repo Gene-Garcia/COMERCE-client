@@ -9,7 +9,7 @@ function ProductInventories() {
   );
 
   return (
-    <div className="bg-my-white-tint rounded">
+    <div className="bg-white-tint rounded">
       <div
         className="w-full p-3 border-b border-gray-200
       flex flex-col sm:flex-row md:flex-col xl:flex-row 
@@ -71,7 +71,7 @@ function InventoryButton({
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 transition duration-100 ease-linear group-hover:text-my-accent"
+          className="h-5 w-5 transition duration-100 ease-linear group-hover:text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

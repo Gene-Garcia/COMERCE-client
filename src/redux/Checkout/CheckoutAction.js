@@ -1,7 +1,5 @@
 // Action types
 const checkoutActionTypes = {
-  NEXT_STEP: "NEXT_STEP",
-  TOGGLE_STEP: "TOGGLE_STEP",
   TOGGLE_PAYMENT_OPTION: "TOGGLE_PAYMENT_OPTION",
   LOAD_SHIPPING_DETAILS: "LOAD_SHIPPING_DETAILS",
   LOAD_PAYMENT_DETAILS: "LOAD_PAYMENT_DETAILS",
@@ -12,19 +10,6 @@ const checkoutActionTypes = {
 };
 
 // Action
-const nextStep = (isFinalStep, nextStepNumber, nextStepId) => {
-  return {
-    type: checkoutActionTypes.NEXT_STEP,
-    payload: { isFinalStep, nextStepNumber, nextStepId },
-  };
-};
-
-const toggleStep = (stepId, stepNumber) => {
-  return {
-    type: checkoutActionTypes.TOGGLE_STEP,
-    payload: { stepId, stepNumber },
-  };
-};
 
 const togglePaymentOption = (paymentOptionId) => {
   return {
@@ -61,8 +46,6 @@ const resetToDefault = () => {
 
 export {
   checkoutActionTypes,
-  nextStep,
-  toggleStep,
   togglePaymentOption,
   loadShippingDetails,
   loadPaymentDetails,

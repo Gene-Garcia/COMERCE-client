@@ -72,11 +72,11 @@ function Inventory({ history }) {
       <div className="my-6 xs:my-10 border-b border-gray-300"></div>
 
       <div className="flex flex-col lg:flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
-        <div className="h-min lg:w-fiftyfive 2xl:w-3/5 overflow-auto">
+        <div className="h-min lg:w-fifty-five 2xl:w-3/5 overflow-auto">
           <InventoryTable />
         </div>
 
-        <div className="w-full lg:w-fourtyfive 2xl:w-2/5 space-y-6">
+        <div className="w-full lg:w-fourty-five 2xl:w-2/5 space-y-6">
           <ProductInventoryContainer />
         </div>
       </div>
@@ -100,10 +100,10 @@ const ProductInventoryContainer = () => {
     </>
   ) : (
     <div
-      className="h-64 rounded-md bg-my-white-tint
+      className="h-64 rounded-md bg-white-tint
     flex flex-col justify-center items-center"
     >
-      <h1 className="font-mono text-my-accent text-2xl filter drop-shadow-md">
+      <h1 className="font-mono text-accent text-2xl filter drop-shadow-md">
         COMERCE
       </h1>
       <p className="font-medium text-gray-500 text-lg">Select a product</p>

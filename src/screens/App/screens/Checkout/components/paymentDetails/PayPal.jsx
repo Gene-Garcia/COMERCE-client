@@ -1,10 +1,11 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
+import { loadPaymentDetails } from "../../../../../../redux/Checkout/CheckoutAction";
+import { proceedToNextStep } from "../../../../../../redux/Steps/StepsAction";
+
 import { useForm } from "../../../../../../hooks/useForm";
-import {
-  loadPaymentDetails,
-  nextStep,
-} from "../../../../../../redux/Checkout/CheckoutAction";
+
 import { BorderedInput } from "../../../../../../shared/Components/input/Inputs";
 import { PaymentCTA } from "../utils/CallToAction";
 
@@ -15,10 +16,11 @@ function PayPal() {
   function loadPayPal() {
     batch(() => {
       dispatch(loadPaymentDetails("PP", values));
-      dispatch(nextStep(false, 3, "RD"));
+      dispatch(proceedToNextStep(3));
     });
   }
 
+  //#region form configuration
   function validate(data, setErrors) {
     let tempErrs = { ...errors };
 
@@ -40,32 +42,31 @@ function PayPal() {
     validate,
     loadPayPal
   );
+  //#endregion
 
   return (
     <div className="space-y-8">
-      <div className="space-y-6">
-        <p className="">
-          Payment through{" "}
-          <span className="text-my-accent font-semibold text-md">PayPal</span>{" "}
-          will require you to login to your valid
-          <span className="text-my-accent font-semibold text-md">
-            {" "}
-            PayPal account
-          </span>
-          .
-        </p>
+      <p className="">
+        Payment through{" "}
+        <span className="text-accent font-semibold text-md">PayPal</span>{" "}
+        requires you to login to your valid
+        <span className="text-accent font-semibold text-md">
+          {" "}
+          PayPal account
+        </span>
+        .
+      </p>
 
-        <BorderedInput
-          label="PayPal Email"
-          type="email"
-          placeholder="Enter your valid and active PayPal email"
-          name="payPalEmail"
-          className="w-3/4"
-          onChange={handleInput}
-          value={values.payPalEmail}
-          error={errors.payPalEmail}
-        />
-      </div>
+      <BorderedInput
+        label="PayPal Email"
+        type="email"
+        placeholder="Enter your valid and active PayPal email"
+        name="payPalEmail"
+        className="w-3/4"
+        onChange={handleInput}
+        value={values.payPalEmail}
+        error={errors.payPalEmail}
+      />
 
       <PaymentCTA submit={handleFormSubmit} type="PP" />
     </div>

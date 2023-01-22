@@ -1,10 +1,11 @@
 import React from "react";
+
 import { batch, useDispatch } from "react-redux";
+import { loadVehicleData } from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+import { proceedToNextStep } from "../../../../../../../../redux/Steps/StepsAction";
+
 import { useForm } from "../../../../../../../../hooks/useForm";
-import {
-  loadVehicleData,
-  nextStep,
-} from "../../../../../../../../redux/Logistics/LogisticsRegistration/LogisticsRegistrationAction";
+
 import { EmbossedInput } from "../../../../../../../../shared/Components/input/Inputs";
 import { VehicleCTA } from "./CallToAction";
 
@@ -15,7 +16,7 @@ const Vehicle = () => {
   const SubmitVehicleForm = async () => {
     batch(() => {
       dispatch(loadVehicleData(values));
-      dispatch(nextStep(3));
+      dispatch(proceedToNextStep(3));
     });
   };
 

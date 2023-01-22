@@ -12,7 +12,7 @@ const ModalContainer = ({ children, close }) => {
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
-        <div className="bg-my-white-tint shadow-lg rounded-md border border-my-accent border-opacity-30">
+        <div className="bg-white-tint shadow-lg rounded-md border border-accent border-opacity-30">
           {/* close button */}
           <CloseButton onClick={close} />
 
@@ -28,7 +28,7 @@ const CloseButton = ({ onClick }) => {
     <div className="flex justify-end p-3 ">
       <button
         onClick={onClick}
-        className="py-1 px-1.5 bg-my-white-tone rounded 
+        className="py-1 px-1.5 bg-white-tone rounded 
 inline-flex gap-1 items-center 
 text-sm font-semibold text-black
 transition duration-200 ease-linear

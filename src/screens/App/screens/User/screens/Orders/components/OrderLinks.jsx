@@ -36,7 +36,7 @@ function OrderLink({ order }) {
     >
       {/* id and date */}
       <div className="flex-grow">
-        <p className="transition duration-200 font-medium text-sm text-gray-700 group-hover:text-my-accent">
+        <p className="transition duration-200 font-medium text-sm text-gray-700 group-hover:text-accent">
           {order._id}
         </p>
 
@@ -59,7 +59,7 @@ function OrderLink({ order }) {
       <div className="hidden xl:block">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="transition duration-300 h-5 w-5 group-hover:text-my-accent"
+          className="transition duration-300 h-5 w-5 group-hover:text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -90,7 +90,7 @@ function ForgotPassword({ history }) {
           <p>
             Thank you,
             <br />
-            <span className="font-semibold text-my-accent text-md">
+            <span className="font-semibold text-accent text-md">
               COMERCE Team
             </span>
           </p>
@@ -109,7 +109,7 @@ function ForgotPassword({ history }) {
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-my-accent mx-2"
+                className="h-5 w-5 text-accent mx-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

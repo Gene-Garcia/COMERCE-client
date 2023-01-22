@@ -8,15 +8,15 @@ function Search({ bgType }) {
       button: "text-gray-50 ",
     },
     contrast: {
-      root: "focus-within:border-my-accent ",
+      root: "focus-within:border-accent ",
       input: "text-gray-700 ",
-      button: "text-my-accent",
+      button: "text-accent",
     },
   };
 
   return (
     <div
-      className={`bg-transparent w-full inline-flex items-center justify-center rounded border border-gray-200 transition ease-linear  ${themes[bgType].root}`}
+      className={`bg-white w-full inline-flex items-center justify-center rounded border border-gray-200 transition ease-linear  ${themes[bgType].root}`}
     >
       <input
         className={`bg-transparent text-sm w-full py-1.5 px-3 focus:outline-none ${themes[bgType].input} `}

@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import comerceLogoBlue from "../../../../../../../../../../shared/images/comerce-logo-blue.webp";
 import barcode from "../../../../../../../../../../shared/images/barcode.png";
 import qrcode from "../../../../../../../../../../shared/images/qrcode.webp";
@@ -11,7 +10,12 @@ const WaybillLayout = ({ order, business }) => {
   const { shipmentDetails } = order;
 
   return (
-    <>
+    <div
+      className="h-[15cm] w-[10cm] 
+                grid grid-cols-3 auto-rows-auto 
+                divide-y divide-x divide-gray-400
+                border-r border-b border-gray-400 rounded"
+    >
       {/* comerce logo */}
       <div
         className="col-span-2 
@@ -127,7 +131,7 @@ const WaybillLayout = ({ order, business }) => {
           Costa, Makati
         </p>
       </div>
-    </>
+    </div>
   );
 };
 export default WaybillLayout;

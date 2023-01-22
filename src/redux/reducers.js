@@ -15,9 +15,21 @@ import ordersMasterReducer from "./Seller/OrdersMaster/OrdersMasterReducer";
 import logisticsRegistrationReducer from "./Logistics/LogisticsRegistration/LogisticsRegistrationReducer";
 import packOrdersReducer from "./Seller/PackOrders/PackOrdersReducer";
 import sellerPickUpReducer from "./Logistics/SellerPickUp/SellerPickUpReducer";
+import withMeReducer from "./Logistics/WithMe/WithMeReducer";
+import stepsReducer from "./Steps/StepsReducer";
+import dataArrayReducer from "./DataHolder/DataArray/DataArrayReducer";
+import dataObjectReducer from "./DataHolder/DataObject/DataObjectReducer";
+import orderModalReducer from "./OrderModal/OrderModalReducer";
 
 const reducers = combineReducers({
   ALERT: alertReducer,
+  STEPS: stepsReducer,
+
+  // data holder
+  DATA_ARRAY: dataArrayReducer,
+  DATA_OBJECT: dataObjectReducer,
+
+  ORDER_MODAL: orderModalReducer,
 
   PAGINATION: paginationReducer,
 
@@ -41,6 +53,7 @@ const reducers = combineReducers({
 
   // Logistics reducers
   LOGISTICS_REGISTRATION: logisticsRegistrationReducer,
+  WITH_ME: withMeReducer,
   SELLER_PICK_UP: sellerPickUpReducer,
 });
 export default reducers;

@@ -18,7 +18,7 @@ function InformationModal() {
     <div className="fixed z-20 inset-0 overflow-auto bg-gray-500 bg-opacity-30">
       <div className="mx-auto w-max h-screen flex items-center">
         {/* content */}
-        <div className="bg-my-white-tint shadow-lg rounded-md border border-my-accent border-opacity-30">
+        <div className="bg-white-tint shadow-lg rounded-md border border-accent border-opacity-30">
           {/* close button */}
           <CloseModal />
 
@@ -45,7 +45,7 @@ function CloseModal() {
             dispatch(updateInformationModalProduct(null));
           })
         }
-        className="py-1 px-1.5 bg-my-white-tone rounded 
+        className="py-1 px-1.5 bg-white-tone rounded 
   inline-flex gap-1 items-center 
   text-sm font-semibold text-black
   transition duration-200 ease-linear
@@ -82,7 +82,7 @@ function Label({ label }) {
 
 function InventoryTable({ inventory }) {
   return (
-    <div className="bg-my-white-tone rounded p-1.5">
+    <div className="bg-white-tone rounded p-1.5">
       <table className="w-full">
         <thead className="">
           <tr className="text-sm font-medium text-gray-400 text-center">
@@ -95,7 +95,7 @@ function InventoryTable({ inventory }) {
         <tbody>
           {inventory.map((e, i) => (
             <tr key={i} className="text-center">
-              <td className="text-my-accent font-medium">{e.onHand}</td>
+              <td className="text-accent font-medium">{e.onHand}</td>
               <td>{e.quantity}</td>
               <td className="text-sm">{formatDate(e.dateStored)}</td>
             </tr>
@@ -114,7 +114,7 @@ const InformationContainer = () => {
   return product ? (
     <>
       <div className="flex-shrink space-y-4">
-        <div className="bg-my-white-tone rounded-l-3xl rounded-t-3xl shadow-md w-52 h-52 overflow-hidden">
+        <div className="bg-white-tone rounded-l-3xl rounded-t-3xl shadow-md w-52 h-52 overflow-hidden">
           <img
             src={product.imageAddress}
             className="m-auto object-contain w-min h-min"
@@ -144,7 +144,7 @@ const InformationContainer = () => {
         <div className="inline-flex gap-16">
           <div>
             <Label label="Wholesale Price" />
-            <p className="font-medium text-lg text-my-accent">
+            <p className="font-medium text-lg text-accent">
               {formatPrice(product.wholesalePrice)}
             </p>
             <i className="text-base text-gray-500">
@@ -154,7 +154,7 @@ const InformationContainer = () => {
 
           <div>
             <Label label="Retail Price" />
-            <p className="font-medium text-lg text-my-accent">
+            <p className="font-medium text-lg text-accent">
               {formatPrice(product.retailPrice)}
             </p>
           </div>

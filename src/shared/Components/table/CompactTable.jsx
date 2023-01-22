@@ -2,13 +2,7 @@ import React from "react";
 
 // <table>
 const CompactTable = ({ children, elevate = "rounded-lg shadow-md" }) => {
-  return (
-    <div
-      className={`bg-my-white-tint w-full ${elevate} border border-gray-300`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`bg-white-tint w-full ${elevate}`}>{children}</div>;
 };
 
 // <head> <tr </tr> </head>
@@ -17,7 +11,7 @@ const Head = ({ children, grid }) => {
     <div className="bg-gray-100 rounded-t-lg">
       <div
         className={`grid ${grid} w-full rounded-t-lg bg-gray-100
-                    border-b border-gray-300
+                    border border-gray-300
                    text-sm font-semibold text-gray-500`}
       >
         {children}
@@ -28,7 +22,7 @@ const Head = ({ children, grid }) => {
 
 // <th>
 const Heading = ({ children, className }) => {
-  return <div className={`p-2.5 my-auto ${className}`}>{children}</div>;
+  return <div className={`px-2 py-1 my-auto ${className}`}>{children}</div>;
 };
 
 // <body>
@@ -43,7 +37,7 @@ const Row = ({ children, grid }) => {
       className={`grid ${grid} w-full 
                   bg-gray-100 odd:bg-transparent
                  transition duration-250 ease-linear hover:bg-gray-200
-                 border-b border-gray-300`}
+                 border-b border-l border-r border-gray-300`}
     >
       {children}
     </div>

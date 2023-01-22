@@ -5,8 +5,11 @@ const Action = ({ text, type = "BUTTON", onClick, href = "#" }) => {
     <button
       onClick={onClick}
       className="uppercase font-medium text-center text-sm 
-                text-white bg-gray-400
-                min-w-18 px-2.5 py-0.5 rounded-full"
+                text-gray-600 bg-gray-300
+                min-w-[4.5rem] px-2.5 py-0.5 rounded-full
+                transition duration-200 ease-linear
+                hover:ring-2 hover:ring-gray-300 hover:ring-offset-2
+                active:bg-gray-400 active:text-white active:ring-0"
     >
       {text}
     </button>

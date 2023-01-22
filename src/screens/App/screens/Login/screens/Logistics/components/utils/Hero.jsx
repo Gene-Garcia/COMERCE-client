@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div
       className={`w-2/5 h-full shadow-xl rounded-2xl p-14
-      bg-gradient-to-bl from-my-accent via-my-accent-tone to-my-accent-tint 
+      bg-gradient-to-bl from-accent via-accent-tone to-accent-tint 
       flex flex-col justify-between items-center`}
     >
       {/* logo */}
@@ -41,11 +41,11 @@ const HeroLink = ({ to, text, onClick }) => {
       onClick={onClick}
       className={`bg-white rounded-full w-36 h-8
       group transition duration-150 ease-linear
-      hover:bg-my-accent
-      hover:ring-1 hover:ring-my-accent hover:ring-offset-2`}
+      hover:bg-accent
+      hover:ring-1 hover:ring-accent hover:ring-offset-2`}
     >
       <div
-        className={`bg-my-accent rounded-full h-full w-34 
+        className={`bg-accent rounded-full h-full w-[8.5rem] 
           ml-auto
           relative flex items-center justify-center
           transition duration-150 ease-linear
@@ -54,7 +54,7 @@ const HeroLink = ({ to, text, onClick }) => {
         <span
           className={`text-white font-semibold
           transition duration-150 ease-linear
-          group-hover:text-my-accent`}
+          group-hover:text-accent`}
         >
           {text}
         </span>

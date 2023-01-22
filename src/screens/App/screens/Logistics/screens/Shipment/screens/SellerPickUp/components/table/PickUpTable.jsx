@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAllProductChecked } from "../../../../../../../../../../redux/Logistics/SellerPickUp/SellerPickUpAction";
 import SpaciousTable, {
   Body,
   Data,
@@ -14,11 +15,18 @@ const PickUpTable = () => {
   // seller pick up order redux state
   const isLoading = useSelector((state) => state.SELLER_PICK_UP.isLoading);
 
+  //#region checkbox configuration
+  // redux
+  const dispatch = useDispatch();
+  const checkboxChange = (e) =>
+    dispatch(toggleAllProductChecked(e.target.checked));
+  //#endregion
+
   return (
     <SpaciousTable>
       <Head grid="grid-cols-14">
         <Heading className="col-span-1 text-center">
-          <input type="checkbox" className="" />
+          <input type="checkbox" className="" onChange={checkboxChange} />
         </Heading>
         <Heading className="col-span-1">Business ID</Heading>
         <Heading className="col-span-3">Pick Up Address</Heading>
@@ -39,9 +47,19 @@ const RenderProductRows = () => {
   // seller pick up redux state
   const products = useSelector((state) => state.SELLER_PICK_UP.products);
 
-  return Object.entries(products).map(([k, v]) => (
-    <ProductRow key={k} businessId={k} product={v} />
-  ));
+  console.log(products);
+
+  return products ? (
+    Object.entries(products).map(([k, v]) => (
+      <ProductRow key={k} businessId={k} product={v} />
+    ))
+  ) : (
+    <Row grid="grid-cols-1">
+      <Data className="col-span-1 text-center py-9 font-medium text-gray-800">
+        No pending orders for pick up.
+      </Data>
+    </Row>
+  );
 
   // return products.map((product) => <ProductRow key={order._id} order={order} />);
 };

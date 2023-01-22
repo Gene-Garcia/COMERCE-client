@@ -9,6 +9,7 @@ import { FormButton } from "../../../../../../../shared/Components/button/Button
 import { batch, useDispatch } from "react-redux";
 import {
   setMessage,
+  setMessages,
   setSeverity,
 } from "../../../../../../../redux/Alert/AlertAction";
 import comerceBlue from "../../../../../../../shared/images/comerce-logo-blue.webp";
@@ -37,18 +38,27 @@ function Login({ history }) {
         setIsLoading(false);
 
         if (err.response)
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage(err.response.data.error));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: err.response.data.error,
+                severity: "error",
+              },
+            ])
+          );
         else
-          batch(() => {
-            dispatch(setSeverity("error"));
-            dispatch(setMessage("Something went wrong. Try again."));
-          });
+          dispatch(
+            setMessages([
+              {
+                message: "Something went wrong. Try again.",
+                severity: "error",
+              },
+            ])
+          );
       });
   }
 
+  //#region form configuration
   function validate(formData, setErrors) {
     let tempErrs = { ...errors };
 
@@ -76,6 +86,7 @@ function Login({ history }) {
     isLoading,
     setIsLoading,
   } = useForm(initialState, initialState, validate, LoginApi);
+  //#endregion
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -128,7 +139,7 @@ function Login({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -155,7 +166,7 @@ function Login({ history }) {
               icon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-my-accent mx-2"
+                  className="h-5 w-5 text-accent mx-2"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -175,7 +186,7 @@ function Login({ history }) {
                 <input
                   type="checkbox"
                   id="rememberMe"
-                  className="rouned-xl border"
+                  className="rounded-xl border accent-accent"
                 />
                 <label
                   for="rememberMe"
@@ -187,13 +198,13 @@ function Login({ history }) {
 
               <Link
                 to="/password/forgot"
-                className="text-my-accent text-sm font-medium transition ease-linear hover:text-gray-600"
+                className="text-accent text-sm font-medium transition ease-linear hover:text-gray-600"
               >
                 Forgot Password
               </Link>
             </div>
 
-            <div className="w-min ml-auto lg:ml-0">
+            <div className="w-max ml-auto lg:ml-0">
               <FormButton
                 size="medium"
                 isLoading={isLoading}
@@ -202,20 +213,19 @@ function Login({ history }) {
                 onClick={handleFormSubmit}
                 textColor="text-white"
               >
-                <span className="text-white font-semibold text-base ">
-                  LOGIN
-                </span>
+                LOGIN
               </FormButton>
             </div>
           </div>
 
           <Link
             to="/sign-up/user"
-            className="text-gray-400 font-medium text-base
-                     transition duration-150 ease-linear
-                     hover:text-gray-800"
+            className="block w-full text-center
+                    text-zinc-400 text-sm 
+                    transition duration-150 ease-linear 
+                    hover:text-neutral-500"
           >
-            Don't have an account?
+            don't have an account?
           </Link>
         </div>
       </div>
@@ -236,7 +246,7 @@ const Hero = () => {
 
       <div
         className="w-thirty hidden lg:flex items-center justify-center 
-                 bg-gradient-to-br from-my-accent via-my-accent-tin to-my-accent-tone"
+                 bg-gradient-to-br from-accent via-accent-tin to-accent-tone"
       >
         <div
           className="w-3/4 2xl:w-3/5 
@@ -248,7 +258,7 @@ const Hero = () => {
             className="w-full h-20 bg-white rounded-lg shadow-lg
                      flex items-center justify-center
                      font-serif text-lg
-                     text-my-accent font-semibold"
+                     text-accent font-semibold"
           >
             Browse Products
           </Link>

@@ -3,10 +3,9 @@ import { LogisticsContainer } from "../../../../../../../../../shared/Components
 import { LogisticsTitle } from "../../../../../../../../../shared/Components/pages/Title";
 import PickUpTable from "./table/PickUpTable";
 import { useHistory } from "react-router-dom";
-import { batch, useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import axios from "../../../../../../../../../shared/caller";
 import {
-  loadForPickUpOrders,
   loadForPickUpProducts,
   resetToDefault,
   togglePageLoading,
@@ -22,12 +21,16 @@ const SellerPickUp = () => {
   // redux
   const dispatch = useDispatch();
 
+  // with me redux states
+  const reload = useSelector((s) => s.WITH_ME.reload);
+
   //#region API request to get for pick up orders
   useEffect(() => {
     async function requestForPickUpProducts() {
       await axios
         .get("/api/logistics/for-pick-up")
         .then((res) => {
+          console.log(res);
           if (res.status === 200) {
             batch(() => {
               dispatch(loadForPickUpProducts(res.data.forPickUpProducts));
@@ -60,7 +63,7 @@ const SellerPickUp = () => {
     }
 
     requestForPickUpProducts();
-  }, []);
+  }, [reload]);
   //#endregion API request
 
   // cleanup

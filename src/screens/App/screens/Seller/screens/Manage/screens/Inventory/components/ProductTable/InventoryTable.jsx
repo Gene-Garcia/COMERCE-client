@@ -15,7 +15,7 @@ function InventoryTable() {
   const isLoading = useSelector((state) => state.MANAGE_INVENTORY.isLoading);
 
   return (
-    <div className="min-w-rr1 bg-transparent">
+    <div className="min-w-[25rem] bg-transparent">
       <SpaciousTable>
         <Head grid="grid-cols-5">
           <Heading className="col-span-1">Image</Heading>
@@ -65,7 +65,7 @@ const ProductData = ({
 
       <Data className="col-span-2 break-words font-medium">{item}</Data>
 
-      <Data className="col-span-1 text-my-accent">{onHand}</Data>
+      <Data className="col-span-1 text-accent">{onHand}</Data>
 
       <Data className="col-span-1 text-gray-700">{inventory}</Data>
     </Row>

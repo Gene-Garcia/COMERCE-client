@@ -41,8 +41,8 @@ const toggleModal = (isOpened) => {
   return { type: packOrdersActionTypes.TOGGLE_MODAL, payload: isOpened };
 };
 
-const setWaybills = (orderData) => {
-  return { type: packOrdersActionTypes.SET_WAYBILLS, payload: orderData };
+const setWaybills = (waybillIds) => {
+  return { type: packOrdersActionTypes.SET_WAYBILLS, payload: waybillIds };
 };
 
 const filterOrders = (orderIds) => {
