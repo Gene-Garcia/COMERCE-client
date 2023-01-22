@@ -1,6 +1,6 @@
-exports.withDefaultNavigation = [];
+const withDefaultNavigation = [];
 
-exports.withoutDefaultNavigation = [
+const withoutDefaultNavigation = [
   "/login/user",
   "/sign-up/user",
   "/login/seller",
@@ -23,7 +23,7 @@ exports.withoutDefaultNavigation = [
   "/logistics/shipment/customer/delivery",
 ];
 
-exports.withSellerNavigation = [
+const withSellerNavigation = [
   "/seller",
   "/seller/manage/products",
   "/seller/manage/inventory",
@@ -33,14 +33,23 @@ exports.withSellerNavigation = [
   "/seller/orders/master",
   "/seller/settings/business",
 ];
-exports.withLogisticsNavigation = [
+const withLogisticsNavigation = [
   "/logistics/track/with-me",
   "/logistics/track/track-search",
   "/logistics/shipment/seller/pickup",
   "/logistics/shipment/customer/delivery",
 ];
 
-exports.withSidebarNavigation = [
-  ...this.withSellerNavigation,
-  ...this.withLogisticsNavigation,
+const withSidebarNavigation = [
+  ...withSellerNavigation,
+  ...withLogisticsNavigation,
 ];
+
+export {
+  withDefaultNavigation,
+  withSidebarNavigation,
+  withLogisticsNavigation,
+  withSellerNavigation,
+  withoutDefaultNavigation,
+  withDefaultNavigation,
+};
